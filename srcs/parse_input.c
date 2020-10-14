@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 12:04:04 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/14 17:56:44 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/14 18:08:00 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,15 @@ t_token	*validate_tokens(char **tokens) //logic here doesn't work. Need to token
 	j = 0;
 	while (tokens[i] != NULL)
 	{
-		while (tokens[i][j] != '\0')
-		{
-			if (tokens[i][j] == 34 || tokens[i][j] == 39)
-			{
-				token = create_token(tokens, i, j, 1);
-				add_token(&head, token);
-			}
-			j++;
-		}
+		// while (tokens[i][j] != '\0')
+		// {
+			// if (tokens[i][j] == 34 || tokens[i][j] == 39)
+			// {
+				// token = create_token(tokens, i, j, 1);
+				// add_token(&head, token);
+			// }
+			// j++;
+		// }
 		j = 0;
 		token = create_token(tokens, i, j, ft_strlen(tokens[i] + j));
 		add_token(&head, token);
