@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/14 11:19:17 by limartin      #+#    #+#                  #
-#    Updated: 2020/10/14 14:19:26 by limartin      ########   odam.nl          #
+#    Updated: 2020/10/14 16:56:04 by limartin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 SRC_PATH = ./srcs/
 
-INCL_PATH = ./incl/
+INCL_PATH = ./includes/
 
 LIBFT_PATH = ./libft/
 
@@ -26,14 +26,16 @@ CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 HEADER_FILES = $(INCL_PATH)
 
 #Source files mandatory part
-SRC = $(SRC_PATH)
+SRC = $(SRC_PATH)main.c \
+	$(SRC_PATH)parse_input.c
 
 #Source files bonus part
-SRC_B = $(SRC_PATH)
+SRC_B = # $(SRC_PATH) bonus_goes_here.c #TODO
 
 #Object files
 OBJ := ${SRC:%.c=%.o}
 
+#Bonus object files
 BOBJ := ${SRC_B:%.c=%.o}
 
 #Avoid relinking bonus
@@ -56,34 +58,36 @@ endif
 all: $(NAME)
 
 $(NAME): $(COMPILE_OBJECTS)
-	$(CC) -o $(NAME) $(COMPILE_OBJECTS) $(CFLAGS) -D $(OS_FLAG) -L$(LIBFT_PATH)
-	
+	@make -C $(LIBFT_PATH)
+	@$(CC) -o $(NAME) $(COMPILE_OBJECTS) $(CFLAGS) -D $(OS_FLAG) -L$(LIBFT_PATH) -lft
+	@echo "Minishell compiled"
 
-%.o: %.c $(HEADER_FILES) $(LIBFT)
-	$(CC) -o $@ -c $< $(CFLAGS) -O3 -I $(INCL_PATH) -I $(LIBFT_PATH) -D $(OS_FLAG)
-
-$(LIBFT):
- 	@make -C $(LIBFT)
+%.o: %.c $(HEADER_FILES)
+	@$(CC) -o $@ -c $< $(CFLAGS) -O3 -I $(INCL_PATH) -I $(LIBFT_PATH) -D $(OS_FLAG)
 
 bonus:
-	@ $(MAKE) WITH_BONUS=1 all
+	@$(MAKE) WITH_BONUS=1 all
+	@echo "...but done ✨fancy✨"
 
 clean:
-	@make clean -C $(LIBFT_PATH)
-	rm -f $(OBJ) $(BOBJ)
+	@make fclean -C $(LIBFT_PATH)
+	@rm -f $(OBJ) $(BOBJ)
+	@echo "Minishell object files cleaned"
 
 fclean: clean
-	@make fclean -C $(LIBFT_PATH)
-	rm -f $(NAME)
+	@rm -f $(NAME)
+	@echo "Minishell fully cleaned"
 
 re: fclean all
 
 linux:
-	@ $(MAKE) FOR_LINUX=1 all
+	@$(MAKE) FOR_LINUX=1 all
+	@echo "Compiled for Linux 🐧"
 
-linuxbonus:
+linux_bonus:
 	@ $(MAKE) WITH_BONUS=1 linux
+	@echo "...but done ✨fancy✨"
 
-linuxre: fclean linux
+linux_re: fclean linux
 
-.PHONY: all bonus clean fclean re linux linuxbonus linuxre 
+.PHONY: all bonus clean fclean re linux linux_bonus linux_re 
