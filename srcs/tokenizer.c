@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 11:38:56 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/15 12:04:20 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/15 17:37:47 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,16 @@ void	tokenize_string(char *tokens, t_token **head)
 	}
 }
 
-t_token *validate_tokens(char **tokens)
+//TODO: Add support for \ (escape character), 
+// >, >>, < (redirections)
+// | pipe
+// separators &&, ;
+// $ for env
+// $? separately?
+
+//TODO: Also try to detect ctrl-C, ctrl-D and ctrl-\ 
+
+t_token *validate_tokens(char **tokens) 
 {
 	int i;
 	t_token *head;
