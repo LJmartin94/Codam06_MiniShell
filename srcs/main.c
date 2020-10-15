@@ -6,12 +6,13 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/15 12:06:33 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/15 18:06:51 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "minishell.h"
+#include "parse.h"
+// #include "minishell.h"
 
 void	get_input(void)
 {

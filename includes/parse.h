@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/15 12:06:11 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/15 18:06:57 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_token	*get_tokens(const char *input);
 void	add_token(t_token **head, t_token *token);
 t_token	*create_token(char *tokens, int j, size_t len);
 void	free_matrix(char **tokens);
+void	parse_input(const char *input);
 
 
 #endif

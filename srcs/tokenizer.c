@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 11:38:56 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/15 17:37:47 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/15 18:11:04 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,19 @@ void	handle_special_char(t_token **head, char *tokens, int j, int k)
 		add_token(head, token);
 }
 
+void	handle_special_char2(t_token **head, char *tokens, int j, int k)
+{
+	t_token *token;
+
+	token = NULL;
+	token = create_token(tokens, k, (ft_strlen(tokens + k) - (ft_strlen(tokens) - j)));
+	if (token != NULL)
+		add_token(head, token);
+	token = create_token(tokens, j, 2);
+	if (token != NULL)
+		add_token(head, token);
+}
+
 void	tokenize_string(char *tokens, t_token **head)
 {
 	int j;
@@ -37,9 +50,15 @@ void	tokenize_string(char *tokens, t_token **head)
 	token = NULL;
 	while (tokens[j] != '\0')
 	{
-		if (tokens[j] == 34 || tokens[j] == 39)
+		if (tokens[j] == 34 || tokens[j] == 39 || tokens[j] == 92 || (tokens[j] == '>' && tokens[j + 1] != '>') || (tokens[j] == '&' && tokens[j + 1] != '&'))
 		{
 			handle_special_char(head, tokens, j, k);
+			k = j + 1;
+		}
+		if ((tokens[j] == '>' && tokens[j + 1] == '>') || (tokens[j] == '&' && tokens[j + 1] == '&'))
+		{
+			handle_special_char2(head, tokens, j, k);
+			j++;
 			k = j + 1;
 		}
 		if (tokens[j + 1] == '\0')
@@ -52,14 +71,14 @@ void	tokenize_string(char *tokens, t_token **head)
 	}
 }
 
-//TODO: Add support for \ (escape character), 
-// >, >>, < (redirections)
+//TODO: Add support for (escape character), 
+// >, >>, < (redirections) //TODO: >>> triggers invalid syntax error and entirely stops doing anything
 // | pipe
 // separators &&, ;
 // $ for env
 // $? separately?
 
-//TODO: Also try to detect ctrl-C, ctrl-D and ctrl-\ 
+//TODO: Also try to detect ctrl-C, ctrl-D and ctrl-(escape key) 
 
 t_token *validate_tokens(char **tokens) 
 {
