@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 12:04:04 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/15 18:04:50 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/16 15:04:43 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,5 @@ void	parse_input(const char *input)
 	t_token *tokens;
 
 	tokens = get_tokens(input);
-	// manage_fsm(tokens);
 	ft_printf("%s\n", input);
 }
