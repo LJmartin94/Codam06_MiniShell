@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   tokenizer_utils.c                                  :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
+/*   By: possaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 11:54:53 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/15 12:06:15 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/16 13:08:53 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	add_token(t_token **head, t_token *token)
 	cur->next = token;
 }
 
-t_token	*create_token(char *tokens, int j, size_t len)
+t_token	*create_token(char *tokens, int pos, size_t len)
 {
 	t_token *token;
 	char *token_str;
@@ -54,7 +54,7 @@ t_token	*create_token(char *tokens, int j, size_t len)
 	token = (t_token *)malloc(sizeof(t_token));
 	k = 0;
 	token_str = (char *)malloc(sizeof(char) * (len + 1));
-	ft_strlcpy(token_str, tokens + j, len + 1);
+	ft_strlcpy(token_str, tokens + pos, len + 1);
 	token->token = token_str;
 	token->next = NULL;
 	return (token);

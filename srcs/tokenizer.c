@@ -6,64 +6,62 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 11:38:56 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/15 18:11:04 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/16 14:53:32 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse.h"
 #include "libft.h"
+#include "parse.h"
+#include "token_table.h"
 
-void	handle_special_char(t_token **head, char *tokens, int j, int k)
+int		recognize_special_char(char *input, int j)
 {
-	t_token *token;
+	int i;
 
-	token = NULL;
-	token = create_token(tokens, k, (ft_strlen(tokens + k) - (ft_strlen(tokens) - j)));
-	if (token != NULL)
-		add_token(head, token);
-	token = create_token(tokens, j, 1);
-	if (token != NULL)
-		add_token(head, token);
+	i = 0;
+	while (i < token_table_size)
+	{
+		if (ft_strncmp(input + j, g_token_table[i].token, g_token_table[i].len) == 0)
+			return (g_token_table[i].len);
+		i++;
+	}
+	return (0);
 }
 
-void	handle_special_char2(t_token **head, char *tokens, int j, int k)
+void	separate_special_char(char *input, t_token **head, int *j, int *k)
 {
-	t_token *token;
+	int		len;
+	t_token	*token;
 
-	token = NULL;
-	token = create_token(tokens, k, (ft_strlen(tokens + k) - (ft_strlen(tokens) - j)));
-	if (token != NULL)
-		add_token(head, token);
-	token = create_token(tokens, j, 2);
-	if (token != NULL)
-		add_token(head, token);
+	len = recognize_special_char(input, *j);
+	if (len > 0)
+	{
+		token = create_token(input, *k, *j - *k);
+		if (token != NULL)
+			add_token(head, token);
+		token = create_token(input, *j, len);
+		if (token != NULL)
+			add_token(head, token);
+		*k = *j + len;
+		*j = *j + len - 1;
+	}
 }
 
-void	tokenize_string(char *tokens, t_token **head)
+void	tokenize_string(char *input, t_token **head)
 {
-	int j;
-	int k;
-	t_token *token;
+	int		j;
+	int		k;
+	t_token	*token;
 
 	j = 0;
 	k = 0;
 	token = NULL;
-	while (tokens[j] != '\0')
+	while (input[j] != '\0')
 	{
-		if (tokens[j] == 34 || tokens[j] == 39 || tokens[j] == 92 || (tokens[j] == '>' && tokens[j + 1] != '>') || (tokens[j] == '&' && tokens[j + 1] != '&'))
+		separate_special_char(input, head, &j, &k);
+		if (input[j + 1] == '\0')
 		{
-			handle_special_char(head, tokens, j, k);
-			k = j + 1;
-		}
-		if ((tokens[j] == '>' && tokens[j + 1] == '>') || (tokens[j] == '&' && tokens[j + 1] == '&'))
-		{
-			handle_special_char2(head, tokens, j, k);
-			j++;
-			k = j + 1;
-		}
-		if (tokens[j + 1] == '\0')
-		{
-			token = create_token(tokens, k, ft_strlen(tokens + k));
+			token = create_token(input, k, ft_strlen(input + k));
 			if (token != NULL)
 				add_token(head, token);
 		}
@@ -71,27 +69,18 @@ void	tokenize_string(char *tokens, t_token **head)
 	}
 }
 
-//TODO: Add support for (escape character), 
-// >, >>, < (redirections) //TODO: >>> triggers invalid syntax error and entirely stops doing anything
-// | pipe
-// separators &&, ;
-// $ for env
-// $? separately?
-
-//TODO: Also try to detect ctrl-C, ctrl-D and ctrl-(escape key) 
-
-t_token *validate_tokens(char **tokens) 
+t_token *validate_tokens(char **input) 
 {
-	int i;
-	t_token *head;
-	t_token *token;
+	int		i;
+	t_token	*head;
+	t_token	*token;
 
 	i = 0;
 	head = NULL;
 	token = NULL;
-	while (tokens[i] != NULL)
+	while (input[i] != NULL)
 	{
-		tokenize_string(tokens[i], &head);
+		tokenize_string(input[i], &head);
 		i++;
 	}
 	return (head);
@@ -101,6 +90,7 @@ void print_tokens(t_token **tokens) //
 {
 	t_token *cur;
 	cur = *tokens;
+	ft_printf("print tokens:\n");
 	while (cur != NULL)
 	{
 		ft_printf("%p, [%s]\n", cur, cur->token);
