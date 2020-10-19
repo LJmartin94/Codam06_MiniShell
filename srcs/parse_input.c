@@ -6,12 +6,11 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 12:04:04 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/16 15:04:43 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/19 15:27:43 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"//
-// #include "fsm.h"//
+#include "libft.h"
 #include "parse.h"
 
 void	parse_input(const char *input)

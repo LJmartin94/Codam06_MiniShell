@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   tokenizer_utils.c                                  :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: possaariko <jsaariko@student.codam.nl>         +#+                     */
+/*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 11:54:53 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/16 13:08:53 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/19 15:31:42 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	free_matrix(char **tokens)
 	tokens = NULL;
 }
 
-
 void	add_token(t_token **head, t_token *token)
 {
 	t_token *cur;
@@ -45,9 +44,9 @@ void	add_token(t_token **head, t_token *token)
 
 t_token	*create_token(char *tokens, int pos, size_t len)
 {
-	t_token *token;
-	char *token_str;
-	int k;
+	t_token	*token;
+	char	*token_str;
+	int		k;
 
 	if (len == 0)
 		return (NULL);
@@ -58,4 +57,17 @@ t_token	*create_token(char *tokens, int pos, size_t len)
 	token->token = token_str;
 	token->next = NULL;
 	return (token);
+}
+
+void	print_tokens(t_token **tokens)
+{
+	t_token	*cur;
+
+	cur = *tokens;
+	ft_printf("print tokens:\n");
+	while (cur != NULL)
+	{
+		ft_printf("%p, [%s]\n", cur, cur->token);
+		cur = cur->next;
+	}
 }
