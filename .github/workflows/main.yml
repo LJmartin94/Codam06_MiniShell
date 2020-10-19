@@ -28,5 +28,5 @@ jobs:
           bundle
       
       - name: Run norme
-        run: sh ~/work/testing_actions/testing_actions/.github/workflows/check-norme.sh
+        run: sh ~/work/Codam06_MiniShell/Codam06_MiniShell/.github/workflows/check-norme.sh
  
