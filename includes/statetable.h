@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 19:53:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/17 09:17:16 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/19 21:17:02 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 t_transition_obj const static g_shellstate_table[] =
 {
 	{sh_entry_state, state_padding, sh_entry_state},
+	{sh_entry_state, state_command, sh_entry_state},
 	{sh_entry_state, state_command, sh_command_state},
 	{sh_entry_state, state_error, sh_error_state}
 };

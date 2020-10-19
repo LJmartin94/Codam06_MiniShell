@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/19 20:43:37 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/19 21:26:09 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void					manage_fsm(t_token *tokens);
 
 typedef enum	s_comp_type
 {
-	type_separator,
 	type_command,
 	type_option,
-	type_arg
+	type_arg,
+	type_separator
 }				t_comp_type;
 
 typedef struct	s_icomp
@@ -62,13 +62,19 @@ int						ft_compconst(t_icomp *tonull);
 typedef enum	s_transition_code
 {
 	state_padding,
+	state_error,
 	state_command,
-	state_error
+	state_option,
+	state_arg,
+	state_separator
 }				t_transition_code;
 
 t_transition_code		sh_entry_state(t_token *this, t_icomp *icur);
-t_transition_code		sh_command_state(t_token *this, t_icomp *icur);
 t_transition_code		sh_error_state(t_token *this, t_icomp *icur);
+t_transition_code		sh_command_state(t_token *this, t_icomp *icur);
+t_transition_code		sh_option_state(t_token *this, t_icomp *icur);
+t_transition_code		sh_argument_state(t_token *this, t_icomp *icur);
+t_transition_code		sh_separator_state(t_token *this, t_icomp *icur);
 
 typedef struct	s_transition_obj
 {
