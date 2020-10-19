@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 11:38:56 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/16 14:53:32 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/19 15:55:08 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ int		recognize_special_char(char *input, int j)
 	int i;
 
 	i = 0;
-	while (i < token_table_size)
+	while (i < TOKEN_TABLE_SIZE)
 	{
-		if (ft_strncmp(input + j, g_token_table[i].token, g_token_table[i].len) == 0)
+		if (ft_strncmp(input + j,
+			g_token_table[i].token,
+			g_token_table[i].len) == 0)
 			return (g_token_table[i].len);
 		i++;
 	}
@@ -69,24 +71,10 @@ void	tokenize_string(char *input, t_token **head)
 	}
 }
 
-t_token *validate_tokens(char **input) 
+void	print_tokens(t_token **tokens)
 {
-	int		i;
-	t_token	*head;
+	t_token	*cur;
 
-	i = 0;
-	head = NULL;
-	while (input[i] != NULL)
-	{
-		tokenize_string(input[i], &head);
-		i++;
-	}
-	return (head);
-}
-
-void print_tokens(t_token **tokens) //
-{
-	t_token *cur;
 	cur = *tokens;
 	ft_printf("print tokens:\n");
 	while (cur != NULL)
@@ -98,8 +86,8 @@ void print_tokens(t_token **tokens) //
 
 t_token	*get_tokens(const char *input)
 {
-	char **split_input;
-	t_token *validated_tokens;
+	char	**split_input;
+	t_token	*validated_tokens;
 
 	split_input = ft_split(input, ' ');
 	validated_tokens = validate_tokens(split_input);
