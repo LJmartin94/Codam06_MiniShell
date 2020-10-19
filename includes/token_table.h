@@ -1,18 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
+/*   token_table.h                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/10/14 12:02:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/16 15:05:57 by jsaariko      ########   odam.nl         */
+/*   Created: 2020/10/16 12:31:08 by jsaariko      #+#    #+#                 */
+/*   Updated: 2020/10/16 14:48:37 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef TOKEN_TABLE_H
+# define TOKEN_TABLE_H
 
-void	parse_input(const char *input);
+typedef struct	s_special_token
+{
+	char	*token;
+	int		len;
+}				t_special_token;
+
+#define token_table_size 11
+
+static t_special_token const g_token_table[] =
+{
+	{"$?", 2},
+	{">>", 2},
+	{"&&", 2},
+	{"<", 1},
+	{">", 1},
+	{"|", 1},
+	{"\"", 1},
+	{"\'", 1},
+	{"$", 1},
+	{";", 1},
+	{"\\", 1}
+};
 
 #endif
