@@ -11,13 +11,14 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "minishell.h"
+#include "parse.h"
+// #include "minishell.h"
 
 void	get_input(void)
 {
 	char *buf;
 
-	write(1, "\U0001F950", 4);
+	write(1, "\U0001F40C", 4);
 	write(1, " ", 1);
 	get_next_line(1, &buf);
 	parse_input(buf);

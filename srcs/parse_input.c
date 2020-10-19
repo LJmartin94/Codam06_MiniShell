@@ -14,5 +14,8 @@
 
 void	parse_input(const char *input)
 {
+	t_token *tokens;
+
+	tokens = get_tokens(input);
 	ft_printf("%s\n", input);
 }
