@@ -73,11 +73,9 @@ t_token *validate_tokens(char **input)
 {
 	int		i;
 	t_token	*head;
-	t_token	*token;
 
 	i = 0;
 	head = NULL;
-	token = NULL;
 	while (input[i] != NULL)
 	{
 		tokenize_string(input[i], &head);
