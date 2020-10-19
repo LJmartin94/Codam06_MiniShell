@@ -6,20 +6,18 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/19 16:08:20 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/19 18:52:53 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "parse.h"
-// #include "minishell.h"
 
 int	get_input(void)
 {
 	char *buf;
 	int ret;
 
-	// ft_printf("sup? ");
 	ret = write(1, "\U0001F40C", 4);
 	ret = write(1, " ", 1);
 	get_next_line(1, &buf);

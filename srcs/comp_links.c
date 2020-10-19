@@ -1,36 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
+/*   comp_links.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/10/19 16:06:40 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/19 16:06:52 by limartin      ########   odam.nl         */
+/*   Created: 2020/10/19 18:03:33 by limartin      #+#    #+#                 */
+/*   Updated: 2020/10/19 18:52:23 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "parse.h"
 
-//we may not even need these
-typedef enum	s_composition_type
+int		ft_compconst(t_icomp *tonull)
 {
-	type_separator,
-	type_command,
-	type_option,
-	type_arg
-}				t_composition_type;
-
-typedef struct	s_icomp
-{
-	char			*sep;
-	char			*cmd;
-	char			*opt;
-	char			*arg;
-	struct s_icomp	*next;
-}				t_icomp;
-
-void	parse_input(const char *input);
-
-#endif
+	tonull->sep = NULL;
+	tonull->cmd = NULL;
+	tonull->opt = NULL;
+	tonull->arg = NULL;
+	tonull->next = NULL;
+	return (0);
+}

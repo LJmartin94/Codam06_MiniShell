@@ -6,24 +6,12 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 13:55:59 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/17 09:14:40 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/19 18:52:41 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
 #include "parse.h"
-#include "fsm.h"
 #include "statetable.h"
-
-int		ft_compconst(t_icomp *tonull)
-{
-	tonull->sep = NULL;
-	tonull->cmd = NULL;
-	tonull->opt = NULL;
-	tonull->arg = NULL;
-	tonull->next = NULL;
-	return (0);
-}
 
 void	manage_fsm(t_token *tokens)
 {

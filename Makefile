@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/14 11:19:17 by limartin      #+#    #+#                  #
-#    Updated: 2020/10/15 20:02:17 by limartin      ########   odam.nl          #
+#    Updated: 2020/10/19 18:23:23 by limartin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ SRC = $(SRC_PATH)main.c \
 	$(SRC_PATH)tokenizer.c \
 	$(SRC_PATH)tokenizer_utils.c \
 	$(SRC_PATH)entry_state.c \
-	$(SRC_PATH)fsm.c
+	$(SRC_PATH)fsm.c \
+	$(SRC_PATH)comp_links.c 
 
 #Source files bonus part
 SRC_B = # $(SRC_PATH) bonus_goes_here.c #TODO
