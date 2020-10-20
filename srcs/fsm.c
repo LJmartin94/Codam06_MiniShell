@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 13:55:59 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/19 18:52:41 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/20 16:34:28 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	manage_fsm(t_token *tokens)
 	ft_compconst(&ihead);
 	icur = &ihead;
 	current_state = &sh_entry_state;
-	while (this->next)
+	while (this)
 	{
 		id = current_state(this, icur);
 		i = 0;
