@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/19 18:15:53 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/20 15:17:22 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define PARSE_H
 
 # include <stdlib.h>
+
+// extern int sign;
 
 typedef struct		s_token
 {
