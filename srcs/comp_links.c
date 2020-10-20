@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 18:03:33 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/19 20:56:25 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/20 17:50:30 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,21 @@ int		ft_compconst(t_icomp *tonull)
 	tonull->arg = NULL;
 	tonull->next = NULL;
 	return (0);
+}
+
+void	ft_add_component(t_icomp **head, t_icomp *this)
+{
+	t_icomp *cur;
+
+	if (*head == NULL)
+	{
+		*head = this;
+		return ;
+	}
+	cur = *head;
+	while (cur->next != NULL)
+		cur = cur->next;
+	cur->next = this;
 }
 
 /*
@@ -38,19 +53,4 @@ int		ft_add_token_to_comp(t_token *token, char **field) //need to still check fo
 	if (*field == NULL)
 		xt_quit_in_parse(-1);
 	return (0);
-}
-
-void	ft_add_component(t_icomp **head, t_icomp *this)
-{
-	t_icomp *cur;
-
-	if (*head == NULL)
-	{
-		*head = this;
-		return ;
-	}
-	cur = *head;
-	while (cur->next != NULL)
-		cur = cur->next;
-	cur->next = this;
 }

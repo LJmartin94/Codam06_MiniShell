@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/20 16:57:51 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/20 18:57:02 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef struct	s_icomp
 }				t_icomp;
 
 int						ft_compconst(t_icomp *tonull);
+void					ft_add_component(t_icomp **head, t_icomp *this);
+int						ft_add_token_to_comp(t_token *token, char **field);
 
 /*
 ** FSM structs & functions
@@ -58,15 +60,17 @@ typedef enum	s_transition_code
 	command,
 	option,
 	arg,
-	separator
+	separator,
+	exit_state
 }				t_transition_code;
 
-t_transition_code		sh_entry_state(t_token **this, t_icomp *icur);
-t_transition_code		sh_error_state(t_token **this, t_icomp *icur);
-t_transition_code		sh_command_state(t_token **this, t_icomp *icur);
-t_transition_code		sh_option_state(t_token **this, t_icomp *icur);
-t_transition_code		sh_argument_state(t_token **this, t_icomp *icur);
-t_transition_code		sh_separator_state(t_token **this, t_icomp *icur);
+t_transition_code		sh_entry_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_error_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_command_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_option_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_argument_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_separator_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_exit_state(t_token **this, t_icomp **icur);
 
 t_transition_code 		recognise_token_state(t_token *this);
 
@@ -78,9 +82,9 @@ typedef struct	s_recognition_obj
 
 typedef struct	s_transition_obj
 {
-	t_transition_code	(*orig_state)(t_token **this, t_icomp *icur);
+	t_transition_code	(*orig_state)(t_token **this, t_icomp **icur);
 	t_transition_code	transition_code;
-	t_transition_code	(*next_state)(t_token **this, t_icomp *icur);
+	t_transition_code	(*next_state)(t_token **this, t_icomp **icur);
 }				t_transition_obj;
 
 /* 
