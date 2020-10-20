@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parse_input.c                                      :+:    :+:            */
+/*   error.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/10/14 12:04:04 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/20 11:47:52 by jsaariko      ########   odam.nl         */
+/*   Created: 2020/10/20 10:06:02 by jsaariko      #+#    #+#                 */
+/*   Updated: 2020/10/20 11:48:54 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "parse.h"
-#include "error.h"
+#ifndef ERROR_H
+# define ERROR_H
 
-void	parse_input(const char *input)
-{
-	t_token *tokens;
+# include <stdlib.h>
 
-	tokens = get_tokens(input);
-}
+# define C_INVALID_FILE 132
+# define E_INVALID_FILE "Invalid fd"
+
+void	error_exit_errno(void);
+void	error_exit_msg(const unsigned int e_code, const char *e_msg);
+void	*e_malloc(size_t size);
+void	e_write(int fd, const char *buf, size_t size);
+
+#endif

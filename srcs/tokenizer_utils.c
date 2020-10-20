@@ -6,12 +6,13 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 11:54:53 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/19 15:55:46 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/20 11:26:05 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 #include "libft.h"
+#include "error.h"
 
 void	free_matrix(char **tokens)
 {
@@ -50,26 +51,24 @@ t_token	*create_token(char *tokens, int pos, size_t len)
 
 	if (len == 0)
 		return (NULL);
-	token = (t_token *)malloc(sizeof(t_token));
+	token = (t_token *)e_malloc(sizeof(t_token));
 	k = 0;
-	token_str = (char *)malloc(sizeof(char) * (len + 1));
+	token_str = (char *)e_malloc(sizeof(char) * (len + 1));
 	ft_strlcpy(token_str, tokens + pos, len + 1);
 	token->token = token_str;
 	token->next = NULL;
 	return (token);
 }
 
-t_token	*validate_tokens(char **input)
+void	print_tokens(t_token **tokens)
 {
-	int		i;
-	t_token	*head;
+	t_token	*cur;
 
-	i = 0;
-	head = NULL;
-	while (input[i] != NULL)
+	cur = *tokens;
+	ft_printf("print tokens:\n");
+	while (cur != NULL)
 	{
-		tokenize_string(input[i], &head);
-		i++;
+		ft_printf("%p, [%s]\n", cur, cur->token);
+		cur = cur->next;
 	}
-	return (head);
 }

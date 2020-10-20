@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/14 11:19:17 by limartin      #+#    #+#                  #
-#    Updated: 2020/10/15 12:01:19 by jsaariko      ########   odam.nl          #
+#    Updated: 2020/10/20 11:26:33 by jsaariko      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ HEADER_FILES = $(INCL_PATH)
 SRC = $(SRC_PATH)main.c \
 	$(SRC_PATH)parse_input.c \
 	$(SRC_PATH)tokenizer.c \
-	$(SRC_PATH)tokenizer_utils.c 
+	$(SRC_PATH)tokenizer_utils.c \
+	$(SRC_PATH)error.c \
 
 #Source files bonus part
 SRC_B = # $(SRC_PATH) bonus_goes_here.c #TODO
