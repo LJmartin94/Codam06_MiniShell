@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 13:55:59 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/20 16:34:28 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/20 17:04:14 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	manage_fsm(t_token *tokens)
 	t_transition_code	id;
 	t_icomp				ihead;
 	t_icomp				*icur;
-	t_transition_code	(*current_state)(t_token *, t_icomp *);
+	t_transition_code	(*current_state)(t_token **, t_icomp *);
 	int					i;
 
 	this = tokens;
@@ -28,7 +28,7 @@ void	manage_fsm(t_token *tokens)
 	current_state = &sh_entry_state;
 	while (this)
 	{
-		id = current_state(this, icur);
+		id = current_state(&this, icur);
 		i = 0;
 		while (&g_shellstate_table[i])
 		{
@@ -40,6 +40,5 @@ void	manage_fsm(t_token *tokens)
 			}
 			i++;
 		}
-		this = this->next;
 	}
 }
