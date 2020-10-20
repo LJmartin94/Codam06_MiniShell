@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/20 11:44:32 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/20 14:31:37 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,6 @@ void					manage_fsm(t_token *tokens);
 ** Composition-block structs & functions
 */
 
-typedef enum	s_comp_type
-{
-	type_command,
-	type_option,
-	type_arg,
-	type_separator
-}				t_comp_type;
-
 typedef struct	s_icomp
 {
 	char				*sep;
@@ -61,13 +53,13 @@ int						ft_compconst(t_icomp *tonull);
 
 typedef enum	s_transition_code
 {
-	state_entry,
-	state_padding,
-	state_error,
-	state_command,
-	state_option,
-	state_arg,
-	state_separator
+	entry,
+	padding,
+	error,
+	command,
+	option,
+	arg,
+	separator
 }				t_transition_code;
 
 t_transition_code		sh_entry_state(t_token *this, t_icomp *icur);
@@ -76,6 +68,12 @@ t_transition_code		sh_command_state(t_token *this, t_icomp *icur);
 t_transition_code		sh_option_state(t_token *this, t_icomp *icur);
 t_transition_code		sh_argument_state(t_token *this, t_icomp *icur);
 t_transition_code		sh_separator_state(t_token *this, t_icomp *icur);
+
+typedef struct	s_recognition_obj
+{
+	char 				*to_compare;
+	t_transition_code	ret;
+}				t_recognition_obj;
 
 typedef struct	s_transition_obj
 {
