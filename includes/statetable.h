@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 19:53:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/20 15:04:17 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/20 15:56:49 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_entry_state, padding, sh_entry_state},
 	{sh_entry_state, error, sh_error_state},
 	{sh_entry_state, command, sh_command_state},
-	{sh_entry_state, option, sh_error_state},
-	{sh_entry_state, arg, sh_error_state},
+	{sh_entry_state, option, sh_command_state},
+	{sh_entry_state, arg, sh_command_state},
 	{sh_entry_state, separator, sh_error_state},
 	
 	{sh_command_state, padding, sh_command_state},
@@ -46,8 +46,8 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_separator_state, padding, sh_entry_state},
 	{sh_separator_state, error, sh_error_state},
 	{sh_separator_state, command, sh_entry_state},
-	{sh_separator_state, option, sh_error_state},
-	{sh_separator_state, arg, sh_error_state},
+	{sh_separator_state, option, sh_entry_state},
+	{sh_separator_state, arg, sh_entry_state},
 	{sh_separator_state, separator, sh_error_state},
 
 	{sh_error_state, padding, sh_error_state},
