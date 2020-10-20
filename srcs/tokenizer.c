@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 11:38:56 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/19 15:55:08 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/20 11:56:00 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	print_tokens(t_token **tokens)
 	}
 }
 
-t_token	*get_tokens(const char *input)
+t_token	*get_tokens(const char *input) //TODO: Don't split by whitespaces
 {
 	char	**split_input;
 	t_token	*validated_tokens;
