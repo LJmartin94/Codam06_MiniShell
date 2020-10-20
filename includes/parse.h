@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/20 14:31:37 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/20 14:59:23 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int						ft_compconst(t_icomp *tonull);
 
 typedef enum	s_transition_code
 {
-	entry,
 	padding,
 	error,
 	command,
