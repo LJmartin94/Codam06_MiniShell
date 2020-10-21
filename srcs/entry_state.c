@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 18:10:03 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/21 12:35:23 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/21 13:05:48 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_transition_code sh_option_state(t_token **this, t_icomp **icur)
 t_transition_code sh_separator_state(t_token **this, t_icomp **icur)
 {
 	t_transition_code	id;
-	t_icomp				new_block;
+	t_icomp				*new_block;
 
 	ft_add_token_to_comp((*this), &((*icur)->sep));
 	*this = (*this)->next;
@@ -95,8 +95,9 @@ t_transition_code sh_separator_state(t_token **this, t_icomp **icur)
 	printf("[%p] Head block:\nCMD: |%s|\nOPT: |%s|\nARG: |%s|\nSEP: |%s|\nPTR: |%p|\n", (*icur), (*icur)->cmd, (*icur)->opt, (*icur)->arg, (*icur)->sep, (*icur)->next);
 	if (id != exit_state)
 	{
-		ft_compconst(&new_block);
-		ft_add_component(icur, &new_block);
+		new_block = (t_icomp *)malloc(sizeof(t_icomp));
+		ft_compconst(new_block);
+		ft_add_component(icur, new_block);
 		printf("[%p] Linked head block:\nCMD: |%s|\nOPT: |%s|\nARG: |%s|\nSEP: |%s|\nPTR: |%p|\n", (*icur), (*icur)->cmd, (*icur)->opt, (*icur)->arg, (*icur)->sep, (*icur)->next);
 		*icur = (*icur)->next;
 		printf("[%p] icur block after move:\nCMD: |%s|\nOPT: |%s|\nARG: |%s|\nSEP: |%s|\nPTR: |%p|\n", (*icur), (*icur)->cmd, (*icur)->opt, (*icur)->arg, (*icur)->sep, (*icur)->next);

@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 13:55:59 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/21 12:29:20 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/21 13:02:55 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,12 @@ void	manage_fsm(t_token *tokens)
 	}
 	current_state(&this, &icur);
 	printf("Head at end of loop: [%p]\n Curr at end of loop: [%p]\n", &ihead, icur);
-	printf("Head->next [%p]\n", ihead.next);
+	icur = &ihead;
+	int j = 0;
+	while (icur)
+	{
+		printf("Block:	|%d|\nADR:	|%p|\nCMD:	|%s|\nOPT:	|%s|\nARG:	|%s|\nSEP:	|%s|\nNext [%p]\n", j, icur, icur->cmd, icur->opt, icur->arg, icur->sep, icur->next);
+		j++;
+		icur = icur->next;
+	}
 }
