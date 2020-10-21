@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/20 15:11:21 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/20 16:36:46 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/21 15:07:50 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include "libft.h"
 #include "recognise_transition_table.h"
 
-t_transition_code recognise_token_state(t_token *this)
+t_transition_code	recognise_token_state(t_token *this)
 {
-	int 				i;
+	int					i;
 	t_transition_code	id;
 
 	i = 0;

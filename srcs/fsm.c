@@ -6,31 +6,27 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 13:55:59 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/21 13:25:10 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/21 15:06:48 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 #include "statetable.h"
-#include <stdio.h> //remove
 
 void	manage_fsm(t_token *tokens)
 {
-	t_token 			*this;
 	t_transition_code	id;
 	t_icomp				ihead;
 	t_icomp				*icur;
 	t_transition_code	(*current_state)(t_token **, t_icomp **);
 	int					i;
 
-	this = tokens;
 	ft_compconst(&ihead);
 	icur = &ihead;
 	current_state = &sh_entry_state;
-	printf("Head at start of loop: [%p]\n Curr at start of loop: [%p]\n", &ihead, icur);
-	while (this)
+	while (tokens)
 	{
-		id = current_state(&this, &icur);
+		id = current_state(&tokens, &icur);
 		i = 0;
 		while (&g_shellstate_table[i])
 		{
@@ -43,12 +39,5 @@ void	manage_fsm(t_token *tokens)
 			i++;
 		}
 	}
-	current_state(&this, &icur);
-	printf("Head at end of loop: [%p]\n Curr at end of loop: [%p]\n", &ihead, icur);
-	icur = &ihead;
-	while (icur)
-	{
-		printf("Block:	|%d|\nADR:	|%p|\nCMD:	|%s|\nOPT:	|%s|\nARG:	|%s|\nSEP:	|%s|\nRGT: [%p]\nLFT: [%p]\n", icur->id, icur, icur->cmd, icur->opt, icur->arg, icur->sep, icur->right, icur->left);
-		icur = icur->right;
-	}
+	current_state(&tokens, &icur);
 }

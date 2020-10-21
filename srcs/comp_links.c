@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 18:03:33 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/21 14:09:06 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/21 15:00:25 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_add_component(t_icomp **head, t_icomp *this)
 ** one if it does not exist yet.
 */
 
-int		ft_add_token_to_comp(t_token *token, char **field) //need to still check for malloc fails in strdup etc
+int		ft_add_token_to_comp(t_token *token, char **field)
 {
 	if (*field == NULL)
 		*field = ft_strdup(token->token);
