@@ -6,11 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-<<<<<<< HEAD
 /*   Updated: 2020/10/21 15:33:42 by limartin      ########   odam.nl         */
-=======
-/*   Updated: 2020/10/19 15:52:09 by jsaariko      ########   odam.nl         */
->>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +15,6 @@
 
 # include <stdlib.h>
 
-<<<<<<< HEAD
 /*
 ** Tokeniser structs & functions
 */
@@ -101,18 +96,4 @@ typedef struct			s_transition_obj
 
 void					xt_quit_in_parse(int ret);
 
-=======
-typedef struct		s_token
-{
-	char			*token;
-	struct s_token	*next;
-}					t_token;
-
-t_token				*get_tokens(const char *input);
-void				add_token(t_token **head, t_token *token);
-t_token				*create_token(char *tokens, int j, size_t len);
-void				free_matrix(char **tokens);
-void				parse_input(const char *input);
-
->>>>>>> master
 #endif

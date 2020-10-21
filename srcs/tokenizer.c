@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 11:38:56 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/19 15:55:08 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/19 18:10:58 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,17 +71,19 @@ void	tokenize_string(char *input, t_token **head)
 	}
 }
 
-void	print_tokens(t_token **tokens)
+t_token	*validate_tokens(char **input)
 {
-	t_token	*cur;
+	int		i;
+	t_token	*head;
 
-	cur = *tokens;
-	ft_printf("print tokens:\n");
-	while (cur != NULL)
+	i = 0;
+	head = NULL;
+	while (input[i] != NULL)
 	{
-		ft_printf("%p, [%s]\n", cur, cur->token);
-		cur = cur->next;
+		tokenize_string(input[i], &head);
+		i++;
 	}
+	return (head);
 }
 
 t_token	*get_tokens(const char *input)
