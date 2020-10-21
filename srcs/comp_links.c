@@ -6,12 +6,13 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 18:03:33 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/21 15:00:25 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/21 18:27:32 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 #include "libft.h"
+#include "error.h"
 
 int		ft_compconst(t_icomp *tonull)
 {
@@ -56,6 +57,6 @@ int		ft_add_token_to_comp(t_token *token, char **field)
 	else
 		*field = ft_strjoin(*field, token->token);
 	if (*field == NULL)
-		xt_quit_in_parse(-1);
+		error_exit_msg(C_MALLOC_FAIL_LIBFT, E_MALLOC_FAIL_LIBFT);
 	return (0);
 }

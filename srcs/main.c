@@ -6,12 +6,13 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/21 14:58:46 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/21 18:26:46 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "parse.h"
+#include "error.h"
 #include <signal.h>
 
 int		get_input(void)
@@ -19,10 +20,15 @@ int		get_input(void)
 	char	*buf;
 	int		ret;
 
-	write(1, "\U0001F40C ", 6);
+	e_write(1, "\U0001F40C ", 6);
 	ret = get_next_line(STDIN_FILENO, &buf);
 	if (ret == 0)
+	{
+		e_write(STDIN_FILENO, "\n", 1);
 		exit(0);
+	}
+	if (ret < 0)
+		error_exit_msg(C_MALLOC_FAIL_LIBFT, E_MALLOC_FAIL_LIBFT);
 	parse_input(buf);
 	return (ret);
 }
@@ -35,8 +41,8 @@ void	sig_handler(int signo)
 {
 	if (signo == SIGINT)
 	{
-		write(1, "\n", 1);
-		write(1, "\U0001F40C ", 6);
+		e_write(1, "\n", 1);
+		e_write(1, "\U0001F40C ", 6);
 	}
 }
 

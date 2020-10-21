@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/14 11:19:17 by limartin      #+#    #+#                  #
-#    Updated: 2020/10/21 15:04:51 by limartin      ########   odam.nl          #
+#    Updated: 2020/10/21 17:04:54 by limartin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,11 +68,13 @@ all: $(NAME)
 
 $(NAME): $(COMPILE_OBJECTS)
 	@make -C $(LIBFT_PATH)
-	@$(CC) -o $(NAME) $(COMPILE_OBJECTS) $(CFLAGS) -D $(OS_FLAG) -L$(LIBFT_PATH) -lft
+	@$(CC) -o $(NAME) $(COMPILE_OBJECTS) $(CFLAGS) -D $(OS_FLAG) \
+	-L$(LIBFT_PATH) -lft
 	@echo "Minishell compiled"
 
 %.o: %.c $(HEADER_FILES)
-	@$(CC) -o $@ -c $< $(CFLAGS) -O3 -I $(INCL_PATH) -I $(LIBFT_PATH) -D $(OS_FLAG)
+	@$(CC) -o $@ -c $< $(CFLAGS) -O3 -I $(INCL_PATH) -I $(LIBFT_PATH) \
+	-D $(OS_FLAG)
 
 bonus:
 	@$(MAKE) WITH_BONUS=1 all
@@ -99,4 +101,4 @@ linux_bonus:
 
 linux_re: fclean linux
 
-.PHONY: all bonus clean fclean re linux linux_bonus linux_re 
+.PHONY: all bonus clean fclean re linux linux_bonus linux_re

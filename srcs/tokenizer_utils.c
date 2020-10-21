@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 11:54:53 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/20 11:26:05 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/21 16:59:10 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,4 @@ t_token	*create_token(char *tokens, int pos, size_t len)
 	token->token = token_str;
 	token->next = NULL;
 	return (token);
-}
-
-void	print_tokens(t_token **tokens)
-{
-	t_token	*cur;
-
-	cur = *tokens;
-	ft_printf("print tokens:\n");
-	while (cur != NULL)
-	{
-		ft_printf("%p, [%s]\n", cur, cur->token);
-		cur = cur->next;
-	}
 }

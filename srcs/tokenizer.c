@@ -6,13 +6,14 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 11:38:56 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/20 11:24:02 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/21 18:28:43 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "parse.h"
 #include "token_table.h"
+#include "error.h"
 
 int		recognize_special_char(char *input, int j)
 {
@@ -92,8 +93,9 @@ t_token	*get_tokens(const char *input)
 	t_token	*validated_tokens;
 
 	split_input = ft_split(input, ' ');
+	if (!split_input)
+		error_exit_msg(C_MALLOC_FAIL_LIBFT, E_MALLOC_FAIL_LIBFT);
 	validated_tokens = validate_tokens(split_input);
-	print_tokens(&validated_tokens);
 	free_matrix(split_input);
 	return (validated_tokens);
 }

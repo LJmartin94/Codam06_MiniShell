@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 18:10:03 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/21 14:57:35 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/21 17:21:40 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_transition_code	sh_separator_state(t_token **this, t_icomp **icur)
 		id = recognise_token_state(*this);
 	if (id != exit_state)
 	{
-		new_block = (t_icomp *)malloc(sizeof(t_icomp));
+		new_block = (t_icomp *)e_malloc(sizeof(t_icomp));
 		ft_compconst(new_block);
 		new_block->id = (*icur)->id + 1;
 		ft_add_component(icur, new_block);

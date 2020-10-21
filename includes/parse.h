@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/21 15:33:42 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/21 17:06:04 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void					add_token(t_token **head, t_token *token);
 t_token					*create_token(char *tokens, int j, size_t len);
 void					free_matrix(char **tokens);
 void					parse_input(const char *input);
-void					manage_fsm(t_token *tokens);
 
 /*
 ** Composition-block structs & functions
@@ -65,6 +64,8 @@ typedef	enum			e_transition_code
 	separator,
 	exit_state
 }						t_transition_code;
+
+void					manage_fsm(t_token *tokens);
 
 t_transition_code		sh_entry_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_error_state(t_token **this, t_icomp **icur);
