@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/20 09:58:37 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/20 11:49:17 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/21 16:29:16 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	error_exit_msg(const unsigned int e_code, const char *e_msg)
 
 	err_num = ft_itoa(e_code);
 	if (!err_num)
-		exit(errno)
+		exit(errno);
 	e_write(STDERR_FILENO, "Error\nMinishell(", 16);
 	e_write(STDERR_FILENO, err_num, ft_strlen(err_num));
 	e_write(STDERR_FILENO, "): ", 3);
