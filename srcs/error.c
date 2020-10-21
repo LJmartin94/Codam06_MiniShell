@@ -21,6 +21,8 @@ void	error_exit_msg(const unsigned int e_code, const char *e_msg)
 	char *err_num;
 
 	err_num = ft_itoa(e_code);
+	if (!err_num)
+		exit(errno)
 	e_write(STDERR_FILENO, "Error\nMinishell(", 16);
 	e_write(STDERR_FILENO, err_num, ft_strlen(err_num));
 	e_write(STDERR_FILENO, "): ", 3);
