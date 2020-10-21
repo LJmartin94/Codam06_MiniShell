@@ -6,12 +6,13 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 13:55:59 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/20 19:32:25 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/21 12:29:20 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 #include "statetable.h"
+#include <stdio.h> //remove
 
 void	manage_fsm(t_token *tokens)
 {
@@ -26,6 +27,7 @@ void	manage_fsm(t_token *tokens)
 	ft_compconst(&ihead);
 	icur = &ihead;
 	current_state = &sh_entry_state;
+	printf("Head at start of loop: [%p]\n Curr at start of loop: [%p]\n", &ihead, icur);
 	while (this)
 	{
 		id = current_state(&this, &icur);
@@ -42,4 +44,6 @@ void	manage_fsm(t_token *tokens)
 		}
 	}
 	current_state(&this, &icur);
+	printf("Head at end of loop: [%p]\n Curr at end of loop: [%p]\n", &ihead, icur);
+	printf("Head->next [%p]\n", ihead.next);
 }
