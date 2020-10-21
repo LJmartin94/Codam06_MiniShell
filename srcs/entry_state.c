@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 18:10:03 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/21 13:05:48 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/21 13:21:24 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,15 +92,16 @@ t_transition_code sh_separator_state(t_token **this, t_icomp **icur)
 	id = exit_state;
 	if ((*this) != NULL)
 		id = recognise_token_state(*this);
-	printf("[%p] Head block:\nCMD: |%s|\nOPT: |%s|\nARG: |%s|\nSEP: |%s|\nPTR: |%p|\n", (*icur), (*icur)->cmd, (*icur)->opt, (*icur)->arg, (*icur)->sep, (*icur)->next);
+	printf("[%p] Head block:\nCMD: |%s|\nOPT: |%s|\nARG: |%s|\nSEP: |%s|\nPTR: |%p|\n", (*icur), (*icur)->cmd, (*icur)->opt, (*icur)->arg, (*icur)->sep, (*icur)->right);
 	if (id != exit_state)
 	{
 		new_block = (t_icomp *)malloc(sizeof(t_icomp));
 		ft_compconst(new_block);
+		new_block->id = (*icur)->id + 1;
 		ft_add_component(icur, new_block);
-		printf("[%p] Linked head block:\nCMD: |%s|\nOPT: |%s|\nARG: |%s|\nSEP: |%s|\nPTR: |%p|\n", (*icur), (*icur)->cmd, (*icur)->opt, (*icur)->arg, (*icur)->sep, (*icur)->next);
-		*icur = (*icur)->next;
-		printf("[%p] icur block after move:\nCMD: |%s|\nOPT: |%s|\nARG: |%s|\nSEP: |%s|\nPTR: |%p|\n", (*icur), (*icur)->cmd, (*icur)->opt, (*icur)->arg, (*icur)->sep, (*icur)->next);
+		printf("[%p] Linked head block:\nCMD: |%s|\nOPT: |%s|\nARG: |%s|\nSEP: |%s|\nPTR: |%p|\n", (*icur), (*icur)->cmd, (*icur)->opt, (*icur)->arg, (*icur)->sep, (*icur)->right);
+		*icur = (*icur)->right;
+		printf("[%p] icur block after move:\nCMD: |%s|\nOPT: |%s|\nARG: |%s|\nSEP: |%s|\nPTR: |%p|\n", (*icur), (*icur)->cmd, (*icur)->opt, (*icur)->arg, (*icur)->sep, (*icur)->right);
 		//icur = &((*icur)->next);
 	}
 	if ((*this))
@@ -117,6 +118,5 @@ t_transition_code sh_exit_state(t_token **this, t_icomp **icur)
 	id = exit_state;
 	printf("In exit state: |%d|\n", id);
 	printf("[%p] Exit block:\nCMD: |%s|\nOPT: |%s|\nARG: |%s|\n", (*icur), (*icur)->cmd, (*icur)->opt, (*icur)->arg);
-	//printf("Comp block:\nCMD: |%s|\nOPT: |%s|\nARG: |%s|\nSEP: |%s|\n", (*icur)->cmd, (*icur)->opt, (*icur)->arg, (*icur)->sep);
 	return (id);
 }

@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/21 11:56:30 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/21 13:24:56 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ typedef struct	s_icomp
 	char				*cmd;
 	char				*opt;
 	char				*arg;
-	struct s_icomp		*next;
+	int					id;
+	struct s_icomp		*left;
+	struct s_icomp		*right;
 }				t_icomp;
 
 int						ft_compconst(t_icomp *tonull);

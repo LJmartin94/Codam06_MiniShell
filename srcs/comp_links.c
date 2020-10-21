@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 18:03:33 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/21 12:24:03 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/21 14:09:06 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,16 @@ int		ft_compconst(t_icomp *tonull)
 	tonull->cmd = NULL;
 	tonull->opt = NULL;
 	tonull->arg = NULL;
-	tonull->next = NULL;
+	tonull->id = 0;
+	tonull->right = NULL;
+	tonull->left = NULL;
 	return (0);
 }
 
 void	ft_add_component(t_icomp **head, t_icomp *this)
 {
 	t_icomp *cur;
+	t_icomp	*left;
 
 	if (*head == NULL)
 	{
@@ -33,9 +36,11 @@ void	ft_add_component(t_icomp **head, t_icomp *this)
 		return ;
 	}
 	cur = *head;
-	while (cur->next != NULL)
-		cur = cur->next;
-	cur->next = this;
+	left = cur;
+	while (cur->right != NULL)
+		cur = cur->right;
+	cur->right = this;
+	this->left = left;
 }
 
 /*
