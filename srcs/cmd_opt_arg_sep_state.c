@@ -6,11 +6,12 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 18:10:03 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/21 17:21:40 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/21 18:55:03 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
+#include "error.h"
 
 t_transition_code	sh_command_state(t_token **this, t_icomp **icur)
 {
