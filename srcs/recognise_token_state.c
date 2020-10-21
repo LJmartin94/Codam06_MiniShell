@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/20 15:11:21 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/21 15:07:50 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/21 15:35:52 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_transition_code	recognise_token_state(t_token *this)
 
 	i = 0;
 	id = arg;
-	while (i < recog_table_size)
+	while (i < RECOG_TABLE_SIZE)
 	{
 		if (ft_strncmp((g_tokenrecog_table[i]).to_compare, this->token, \
 		ft_strlen(this->token)) == 0)

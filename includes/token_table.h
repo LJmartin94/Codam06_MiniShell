@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/16 12:31:08 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/20 12:26:35 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/21 15:45:51 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ typedef struct	s_special_token
 	int		len;
 }				t_special_token;
 
-#define token_table_size 11
+# define TOKEN_TABLE_SIZE 11
 
 static t_special_token const g_token_table[] =
 {
