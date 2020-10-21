@@ -30,6 +30,7 @@ SRC = $(SRC_PATH)main.c \
 	$(SRC_PATH)parse_input.c \
 	$(SRC_PATH)tokenizer.c \
 	$(SRC_PATH)tokenizer_utils.c \
+	$(SRC_PATH)error.c \
 	$(SRC_PATH)fsm.c \
 	$(SRC_PATH)entry_error_exit_state.c \
 	$(SRC_PATH)cmd_opt_arg_sep_state.c \

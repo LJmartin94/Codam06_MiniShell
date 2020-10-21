@@ -1,39 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   token_table.h                                      :+:    :+:            */
+/*   error.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/10/16 12:31:08 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/21 16:27:08 by jsaariko      ########   odam.nl         */
+/*   Created: 2020/10/20 10:06:02 by jsaariko      #+#    #+#                 */
+/*   Updated: 2020/10/20 11:48:54 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKEN_TABLE_H
-# define TOKEN_TABLE_H
+#ifndef ERROR_H
+# define ERROR_H
 
-# define TOKEN_TABLE_SIZE 11
+# include <stdlib.h>
 
-typedef struct	s_special_token
-{
-	char		*token;
-	int			len;
-}				t_special_token;
+# define C_INVALID_FILE 132
+# define E_INVALID_FILE "Invalid fd"
 
-static t_special_token const g_token_table[] =
-{
-	{"$?", 2},
-	{">>", 2},
-	{"&&", 2},
-	{"<", 1},
-	{">", 1},
-	{"|", 1},
-	{"\"", 1},
-	{"\'", 1},
-	{"$", 1},
-	{";", 1},
-	{"\\", 1}
-};
+void	error_exit_errno(void);
+void	error_exit_msg(const unsigned int e_code, const char *e_msg);
+void	*e_malloc(size_t size);
+void	e_write(int fd, const char *buf, size_t size);
 
 #endif
