@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/21 10:51:30 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/21 14:58:46 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "parse.h"
 #include <signal.h>
 
-void	get_input(void)
+int		get_input(void)
 {
 	char	*buf;
 	int		ret;
@@ -22,11 +22,9 @@ void	get_input(void)
 	write(1, "\U0001F40C ", 6);
 	ret = get_next_line(STDIN_FILENO, &buf);
 	if (ret == 0)
-	{
-		ft_printf("\n");
 		exit(0);
-	}
 	parse_input(buf);
+	return (ret);
 }
 
 /*
