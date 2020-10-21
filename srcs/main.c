@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/21 10:43:51 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/21 10:51:30 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,24 @@ void	get_input(void)
 	parse_input(buf);
 }
 
-void sig_handler(int signo)
-{
-	//TODO: also make sure to kill any ongoing process
-	(void)signo;
-	write(1, "\n", 1);
-	write(1, "\U0001F40C ", 6);
-}
+/*
+** //TODO: also make sure to kill any ongoing process in sig_handler
+*/
 
-void other(int signo)
+void	sig_handler(int signo)
 {
-	if (signo == SIGQUIT)
-		ft_printf("lol\n");
+	if (signo == SIGINT)
+	{
+		write(1, "\n", 1);
+		write(1, "\U0001F40C ", 6);
+	}
 }
 
 int		main(void)
 {
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
-	while(1)
+	while (1)
 		get_input();
 	return (0);
 }
