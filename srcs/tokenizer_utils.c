@@ -6,27 +6,13 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 11:54:53 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/21 16:59:10 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/24 14:47:57 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 #include "libft.h"
 #include "error.h"
-
-void	free_matrix(char **tokens)
-{
-	int i;
-
-	i = 0;
-	while (tokens[i] != NULL)
-	{
-		free(tokens[i]);
-		i++;
-	}
-	free(tokens);
-	tokens = NULL;
-}
 
 void	add_token(t_token **head, t_token *token)
 {
@@ -43,7 +29,7 @@ void	add_token(t_token **head, t_token *token)
 	cur->next = token;
 }
 
-t_token	*create_token(char *tokens, int pos, size_t len)
+t_token	*create_token(const char *tokens, int pos, size_t len)
 {
 	t_token	*token;
 	char	*token_str;
