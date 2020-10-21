@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/14 11:19:17 by limartin      #+#    #+#                  #
-#    Updated: 2020/10/15 12:01:19 by jsaariko      ########   odam.nl          #
+#    Updated: 2020/10/21 15:04:51 by limartin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC_PATH = ./srcs/
 
 INCL_PATH = ./includes/
 
-LIBFT_PATH = ./libft/
+LIBFT_PATH = ./libft
 
 CC = gcc
 
@@ -29,7 +29,13 @@ HEADER_FILES = $(INCL_PATH)
 SRC = $(SRC_PATH)main.c \
 	$(SRC_PATH)parse_input.c \
 	$(SRC_PATH)tokenizer.c \
-	$(SRC_PATH)tokenizer_utils.c 
+	$(SRC_PATH)tokenizer_utils.c \
+	$(SRC_PATH)fsm.c \
+	$(SRC_PATH)entry_error_exit_state.c \
+	$(SRC_PATH)cmd_opt_arg_sep_state.c \
+	$(SRC_PATH)recognise_token_state.c \
+	$(SRC_PATH)comp_links.c \
+	$(SRC_PATH)free_and_exit.c
 
 #Source files bonus part
 SRC_B = # $(SRC_PATH) bonus_goes_here.c #TODO
