@@ -6,15 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-<<<<<<< HEAD
-<<<<<<< HEAD
-/*   Updated: 2020/10/24 13:33:57 by jsaariko      ########   odam.nl         */
-=======
-/*   Updated: 2020/10/24 13:06:45 by jsaariko      ########   odam.nl         */
->>>>>>> Compiles but crashes very hard when trying to access env's contents
-=======
-/*   Updated: 2020/10/24 13:08:33 by jsaariko      ########   odam.nl         */
->>>>>>> export works for the main part. Starting unset
+/*   Updated: 2020/10/24 13:40:42 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
