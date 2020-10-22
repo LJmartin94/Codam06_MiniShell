@@ -6,13 +6,14 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/21 18:26:46 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/22 14:10:36 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "parse.h"
 #include "error.h"
+#include "execute.h"
 #include <signal.h>
 
 int		get_input(void)
@@ -46,10 +47,15 @@ void	sig_handler(int signo)
 	}
 }
 
-int		main(void)
+int		main(int ac, char **av, char **envp)
 {
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
+	(void)ac;
+	(void)av;
+	// (void)envp;
+	t_env *env = convert_env(envp);
+	(void)env;
 	while (1)
 		get_input();
 	return (0);
