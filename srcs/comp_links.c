@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 18:03:33 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/21 18:27:32 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/22 22:33:05 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,25 @@ int		ft_add_token_to_comp(t_token *token, char **field)
 	if (*field == NULL)
 		error_exit_msg(C_MALLOC_FAIL_LIBFT, E_MALLOC_FAIL_LIBFT);
 	return (0);
+}
+
+void	free_components(t_icomp *head)
+{
+	t_icomp *tmp;
+
+	while (head->right)
+	{
+		tmp = head->right;
+		if (head->sep != NULL)
+			free(head->sep);
+		if (head->cmd != NULL)
+			free(head->cmd);
+		if (head->opt != NULL)
+			free(head->opt);
+		if (head->arg != NULL)
+			free(head->arg);
+		// if (head->left != NULL)
+		// 	free(head);
+		head = tmp;
+	}
 }

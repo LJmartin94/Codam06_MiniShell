@@ -6,14 +6,14 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 13:55:59 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/21 19:07:30 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/22 21:45:49 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 #include "statetable.h"
 
-void	manage_fsm(t_token *tokens)
+t_icomp	*manage_fsm(t_token *tokens)
 {
 	t_transition_code	id;
 	t_icomp				ihead;
@@ -40,4 +40,6 @@ void	manage_fsm(t_token *tokens)
 		}
 	}
 	current_state(&tokens, &icur);
+	icur = &ihead;
+	return (icur);
 }
