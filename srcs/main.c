@@ -6,7 +6,11 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
+<<<<<<< HEAD
 /*   Updated: 2020/10/24 13:41:32 by jsaariko      ########   odam.nl         */
+=======
+/*   Updated: 2020/10/22 17:27:00 by jsaariko      ########   odam.nl         */
+>>>>>>> Compiles but crashes very hard when trying to access env's contents
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +58,7 @@ void	sig_handler(int signo)
 int		main(int ac, char **av, char **envp)
 {
 	t_vector *env;
+<<<<<<< HEAD
 	t_icomp *cmd;
 
 	cmd = (t_icomp *)e_malloc(sizeof(t_icomp));
@@ -64,16 +69,22 @@ int		main(int ac, char **av, char **envp)
 	cmd->right = NULL;
 	cmd->opt = NULL;
 	cmd->sep = NULL;
+=======
+
+>>>>>>> Compiles but crashes very hard when trying to access env's contents
 	(void)av;
 	(void)ac;
 	env = convert_env(envp);
 	ft_env(env);
+<<<<<<< HEAD
 	// ft_export(env, cmd->arg);
 	// write(STDIN_FILENO, "\n\n", 2);
 	ft_unset(env, "P9K_TTY");
 	ft_env(env);
 	// ft_unset(env, cmd);
 	// ft_export(env, cmd);
+=======
+>>>>>>> Compiles but crashes very hard when trying to access env's contents
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)

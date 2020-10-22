@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 11:49:12 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/24 13:42:16 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/24 13:44:18 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,51 @@ t_env			*get_env_item(char *env_str)
 		item->value = ft_strdup(env_str + i + 1);
 	if (item->value == NULL)
 		error_exit_errno();
+	ft_dprintf(STDIN_FILENO, "%s %s\n", item->key, item->value);
 	return (item);
 }
 
-t_vector		*convert_env(char **envp)
+// void	write_key_val_pair(char *key, char *val)
+// {
+// 	ft_dprintf(STDIN_FILENO, "ASAAAAAAASSSS\n");
+// 	ft_dprintf(STDIN_FILENO, "lol\n");
+// 	ft_dprintf(STDIN_FILENO, "%p\n", key);
+// 	ft_dprintf(STDIN_FILENO, "%p\n", val);
+// 	// write(1, key, ft_strlen(key));
+// 	// write(1, "=", 1);
+// 	// write(1, val, ft_strlen(val));
+// }
+
+void write_key_val_pair(t_env *cur)
+{
+	(void)cur;
+	// ft_dprintf(STDIN_FILENO, "lolllllll\n");
+	// ft_dprintf(STDIN_FILENO, "%p\n", cur);
+	// ft_dprintf(STDIN_FILENO, "%s, %s\n", cur->key, cur->value);
+}
+
+int		ft_env(t_vector *env)
+{
+	size_t	i;
+	t_env	*cur;
+
+	i = 0;
+	cur = NULL;
+	// ft_dprintf(STDIN_FILENO, "%d\n", env->amt);
+	// ft_dprintf(STDIN_FILENO, "%d\n", i);
+	while (i < env->amt)
+	{
+		// ft_dprintf(STDIN_FILENO, "eyyyy: %p\n", cur);
+		cur = (t_env *)vector_get(env, i);
+		// ft_dprintf(STDIN_FILENO, "%p\n", cur->key);
+		// write_key_val_pair(cur->key, cur->value);
+		write_key_val_pair(cur);
+		i++;
+	}
+	return (0);//TODO: how can env fail and what is the return value
+}
+
+t_vector	*convert_env(char **envp)
 {
 	size_t		i;
 	size_t		count;
@@ -89,6 +130,7 @@ t_vector		*convert_env(char **envp)
 			return (NULL);
 		}
 		ret = vector_push(env, cur);
+		ft_dprintf(STDIN_FILENO, "%s %s\n", cur->key, cur->value);
 		if (!ret)
 			error_exit_errno();
 		i++;
