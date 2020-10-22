@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:22:25 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/22 16:31:32 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/22 18:05:34 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,10 @@ int			vector_push(t_vector *v, void *item)
 void 		*vector_get(t_vector *v, size_t index)
 {
     if (index >= 0 && index < v->amt)
-        return v->data[index];
-    return (NULL);
+	{
+		ft_dprintf(STDIN_FILENO, "%p\n", v->data[index]);
+		ft_dprintf(STDIN_FILENO, "%p\n", v->data[index]);
+        return (v->data[index]);
+	}
+	return (NULL);
 }

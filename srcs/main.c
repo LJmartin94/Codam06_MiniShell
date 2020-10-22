@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/22 16:48:48 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/22 17:27:00 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "parse.h"
 #include "error.h"
 #include <signal.h>
+#include "execute.h"
 
 int		get_input(void)
 {
@@ -48,7 +49,12 @@ void	sig_handler(int signo)
 
 int		main(int ac, char **av, char **envp)
 {
+	t_vector *env;
 
+	(void)av;
+	(void)ac;
+	env = convert_env(envp);
+	ft_env(env);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
