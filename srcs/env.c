@@ -6,14 +6,15 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 11:49:12 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/22 15:36:10 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/24 13:06:11 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+// #include "minishell.h"
 #include "libft.h"
 #include "error.h"
 #include "vector.h"
+#include "execute.h"
 
 t_env	*get_env_item(char *env_str)
 {
@@ -32,72 +33,51 @@ t_env	*get_env_item(char *env_str)
 	item->value = ft_strdup(env_str + i + 1);
 	if (item->value == NULL)
 		error_exit_errno();
+	ft_dprintf(STDIN_FILENO, "%s %s\n", item->key, item->value);
 	return (item);
 }
 
-int		vector_init(t_vector *v)
-{
-	if (v == NULL)
-		return (0);
-	v->item_size = 0;
-	v->amt = 0;
-	v->data = NULL;
-	return (1);
-}
-
-int		vector_resize(t_vector *v, size_t new_amt)
-{
-	void **data;
-
-	data = ft_realloc(v->data, new_amt * v->item_size);
-	if (data)
-	{
-		v->data = data;
-		return (1);
-	}
-	return (0);
-}
-
-int		vector_push(t_vector *v, void *item)
-{
-	// ft_dprintf(STDIN_FILENO, "lol %p, %d\n", v, sizeof(item));
-	// ft_dprintf(STDIN_FILENO, "%d\n", v->item_size);
-	if (v->item_size < 1)
-	{
-		// ft_dprintf(STDIN_FILENO, "here?????\n");
-		size_t size = sizeof(item);
-		// ft_dprintf(STDIN_FILENO, "size is: %d\n", size);
-		v->item_size = size;
-		// ft_dprintf(STDIN_FILENO, "passed to item_size: %d\n", v->item_size);
-	}
-	if (v == NULL || sizeof(item) != v->item_size)
-	{
-		// ft_dprintf(STDIN_FILENO, "or mabbe here?????\n");		
-		return (0);
-	}
-	// ft_dprintf(STDIN_FILENO, "here?\n");
-	vector_resize(v, v->amt + 1);
-	// ft_dprintf(STDIN_FILENO, "v->amt + 1 = %d\n", v->amt + 1);
-	v->data[v->amt] = item;
-	// ft_dprintf(STDIN_FILENO, "This one dies?\n");
-	v->amt++;
-	return (1);
-}
-// void vector_init(vector *v)
+// void	write_key_val_pair(char *key, char *val)
 // {
-    // v->capacity = VECTOR_INIT_CAPACITY;
-    // v->total = 0;
-    // v->items = malloc(sizeof(void *) * v->capacity);
+// 	ft_dprintf(STDIN_FILENO, "ASAAAAAAASSSS\n");
+// 	ft_dprintf(STDIN_FILENO, "lol\n");
+// 	ft_dprintf(STDIN_FILENO, "%p\n", key);
+// 	ft_dprintf(STDIN_FILENO, "%p\n", val);
+// 	// write(1, key, ft_strlen(key));
+// 	// write(1, "=", 1);
+// 	// write(1, val, ft_strlen(val));
 // }
 
-void 	*vector_get(t_vector *v, size_t index)
+void write_key_val_pair(t_env *cur)
 {
-    if (index >= 0 && index < v->amt)
-        return v->data[index];
-    return NULL;
+	(void)cur;
+	// ft_dprintf(STDIN_FILENO, "lolllllll\n");
+	// ft_dprintf(STDIN_FILENO, "%p\n", cur);
+	// ft_dprintf(STDIN_FILENO, "%s, %s\n", cur->key, cur->value);
 }
 
-t_env	*convert_env(char **envp)
+int		ft_env(t_vector *env)
+{
+	size_t	i;
+	t_env	*cur;
+
+	i = 0;
+	cur = NULL;
+	// ft_dprintf(STDIN_FILENO, "%d\n", env->amt);
+	// ft_dprintf(STDIN_FILENO, "%d\n", i);
+	while (i < env->amt)
+	{
+		// ft_dprintf(STDIN_FILENO, "eyyyy: %p\n", cur);
+		cur = (t_env *)vector_get(env, i);
+		// ft_dprintf(STDIN_FILENO, "%p\n", cur->key);
+		// write_key_val_pair(cur->key, cur->value);
+		write_key_val_pair(cur);
+		i++;
+	}
+	return (0);//TODO: how can env fail and what is the return value
+}
+
+t_vector	*convert_env(char **envp)
 {
 	size_t		i;
 	size_t		count;
@@ -120,9 +100,9 @@ t_env	*convert_env(char **envp)
 		ft_dprintf(STDIN_FILENO, "%s\n", envp[i]);
 		cur = get_env_item(envp[i]);
 		ret = vector_push(env, cur);
-		// ft_dprintf(STDIN_FILENO, "RET: %d\n\n", ret);
-		t_env *item = (t_env *)vector_get(env, i);
-		ft_dprintf(STDIN_FILENO, "%s=%s\n", item->key, item->value);
+		ft_dprintf(STDIN_FILENO, "%s %s\n", cur->key, cur->value);
+		if (!ret)
+			error_exit_errno();
 		free(cur);
 		i++;
 	}
