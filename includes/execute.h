@@ -6,12 +6,14 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/22 13:43:03 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/22 16:49:19 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTE_H
 # define EXECUTE_H
+
+# include "vector.h"
 
 typedef struct	s_env
 {
@@ -19,6 +21,6 @@ typedef struct	s_env
 	char *value;
 }				t_env;
 
-t_env *convert_env(char **envp);
+t_vector *convert_env(char **envp);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 11:49:12 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/22 15:36:10 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/22 16:32:20 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,96 +35,29 @@ t_env	*get_env_item(char *env_str)
 	return (item);
 }
 
-int		vector_init(t_vector *v)
-{
-	if (v == NULL)
-		return (0);
-	v->item_size = 0;
-	v->amt = 0;
-	v->data = NULL;
-	return (1);
-}
-
-int		vector_resize(t_vector *v, size_t new_amt)
-{
-	void **data;
-
-	data = ft_realloc(v->data, new_amt * v->item_size);
-	if (data)
-	{
-		v->data = data;
-		return (1);
-	}
-	return (0);
-}
-
-int		vector_push(t_vector *v, void *item)
-{
-	// ft_dprintf(STDIN_FILENO, "lol %p, %d\n", v, sizeof(item));
-	// ft_dprintf(STDIN_FILENO, "%d\n", v->item_size);
-	if (v->item_size < 1)
-	{
-		// ft_dprintf(STDIN_FILENO, "here?????\n");
-		size_t size = sizeof(item);
-		// ft_dprintf(STDIN_FILENO, "size is: %d\n", size);
-		v->item_size = size;
-		// ft_dprintf(STDIN_FILENO, "passed to item_size: %d\n", v->item_size);
-	}
-	if (v == NULL || sizeof(item) != v->item_size)
-	{
-		// ft_dprintf(STDIN_FILENO, "or mabbe here?????\n");		
-		return (0);
-	}
-	// ft_dprintf(STDIN_FILENO, "here?\n");
-	vector_resize(v, v->amt + 1);
-	// ft_dprintf(STDIN_FILENO, "v->amt + 1 = %d\n", v->amt + 1);
-	v->data[v->amt] = item;
-	// ft_dprintf(STDIN_FILENO, "This one dies?\n");
-	v->amt++;
-	return (1);
-}
-// void vector_init(vector *v)
-// {
-    // v->capacity = VECTOR_INIT_CAPACITY;
-    // v->total = 0;
-    // v->items = malloc(sizeof(void *) * v->capacity);
-// }
-
-void 	*vector_get(t_vector *v, size_t index)
-{
-    if (index >= 0 && index < v->amt)
-        return v->data[index];
-    return NULL;
-}
-
-t_env	*convert_env(char **envp)
+t_vector	*convert_env(char **envp)
 {
 	size_t		i;
 	size_t		count;
-	t_env	*cur;
-	int ret;
-	t_vector *env;
+	t_env		*cur;
+	t_vector 	*env;
+	int 		ret;
 
 	i = 0;
 	count = 0;
 	cur = NULL;
-	while(envp[count])
+	while (envp[count])
 		count++;
 	env = (t_vector *)e_malloc(sizeof(t_vector));
 	vector_init(env);
-	ft_dprintf(STDIN_FILENO, "%d, %d, %p\n", env->amt, env->item_size, env->data);
-	if (env->item_size == 0)
-		ft_dprintf(STDIN_FILENO, "zeroooo\n\n");
-	while(i < count)
+	while (i < count)
 	{
-		ft_dprintf(STDIN_FILENO, "%s\n", envp[i]);
 		cur = get_env_item(envp[i]);
 		ret = vector_push(env, cur);
-		// ft_dprintf(STDIN_FILENO, "RET: %d\n\n", ret);
-		t_env *item = (t_env *)vector_get(env, i);
-		ft_dprintf(STDIN_FILENO, "%s=%s\n", item->key, item->value);
+		if (!ret)
+			error_exit_errno();
 		free(cur);
 		i++;
 	}
-	return (NULL);
+	return (env);
 }

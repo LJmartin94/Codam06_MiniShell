@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/21 17:06:04 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/22 16:49:10 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSE_H
 
 # include <stdlib.h>
+# include "minishell.h"
 
 /*
 ** Tokeniser structs & functions
@@ -34,17 +35,6 @@ void					parse_input(const char *input);
 /*
 ** Composition-block structs & functions
 */
-
-typedef struct			s_icomp
-{
-	char				*sep;
-	char				*cmd;
-	char				*opt;
-	char				*arg;
-	int					id;
-	struct s_icomp		*left;
-	struct s_icomp		*right;
-}						t_icomp;
 
 int						ft_compconst(t_icomp *tonull);
 void					ft_add_component(t_icomp **head, t_icomp *this);
