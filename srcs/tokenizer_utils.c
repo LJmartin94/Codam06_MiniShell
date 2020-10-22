@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 11:54:53 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/21 16:59:10 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/22 13:53:13 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,20 @@ void	free_matrix(char **tokens)
 	}
 	free(tokens);
 	tokens = NULL;
+}
+
+void	free_tokens(t_token *head)
+{
+	t_token *tmp;
+
+	while (head)
+	{
+		tmp = head->next;
+		free(head->token);
+		head->token = NULL;
+		free(head);
+		head = tmp;
+	}
 }
 
 void	add_token(t_token **head, t_token *token)
