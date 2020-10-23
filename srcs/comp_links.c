@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 18:03:33 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/23 12:34:21 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/23 14:02:03 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,24 @@ void	free_components(t_icomp *head)
 {
 	t_icomp *tmp;
 
-	while (head->right)
+	while (head)
 	{
 		tmp = head->right;
 		if (head->sep != NULL)
 			free(head->sep);
+		head->sep = NULL;
 		if (head->cmd != NULL)
 			free(head->cmd);
+		head->cmd = NULL;
 		if (head->opt != NULL)
 			free(head->opt);
+		head->opt = NULL;
 		if (head->arg != NULL)
 			free(head->arg);
-		// if (head->left != NULL)
-		// 	free(head);
+		head->arg = NULL;
+		if (head->left != NULL)
+		 	free(head);
+		head = NULL;
 		head = tmp;
 	}
 }

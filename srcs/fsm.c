@@ -6,23 +6,21 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 13:55:59 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/22 21:45:49 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/23 13:28:41 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 #include "statetable.h"
 
-t_icomp	*manage_fsm(t_token *tokens)
+void	manage_fsm(t_token *tokens, t_icomp *head)
 {
 	t_transition_code	id;
-	t_icomp				ihead;
 	t_icomp				*icur;
 	t_transition_code	(*current_state)(t_token **, t_icomp **);
 	int					i;
 
-	ft_compconst(&ihead);
-	icur = &ihead;
+	icur = head;
 	current_state = &sh_entry_state;
 	while (tokens)
 	{
@@ -40,6 +38,4 @@ t_icomp	*manage_fsm(t_token *tokens)
 		}
 	}
 	current_state(&tokens, &icur);
-	icur = &ihead;
-	return (icur);
 }
