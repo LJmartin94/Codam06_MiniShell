@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 12:04:04 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/23 15:24:30 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/23 16:03:13 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "parse.h"
 #include "error.h"
 
-void	parse_input(const char *input, t_icomp	*comp_blocks)
+void	parse_input(const char *input, t_icomp *comp_blocks)
 {
 	t_token *tokens;
 

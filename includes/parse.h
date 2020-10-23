@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/23 15:24:40 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/23 16:04:55 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define PARSE_H
 
 # include <stdlib.h>
+
+/*
+** //TODO: Debug-only includes! Remove when no longer used.
+*/
+
+# include <stdio.h>
 
 /*
 ** Tokeniser structs & functions
@@ -100,10 +106,9 @@ void					parse_input(const char *input, t_icomp *comp_blocks);
 void					xt_quit_in_parse(int ret);
 
 /*
-** //TODO: Debug-only prototypes and includes! Remove when no longer used.
+** //TODO: Debug-only prototypes! Remove when no longer used.
 */
 
-#include <stdio.h>
 void					print_components(t_icomp *icur);
 void					print_tokens(t_token *tokens);
 
