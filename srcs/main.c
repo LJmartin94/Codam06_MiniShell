@@ -7,10 +7,14 @@
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*   Updated: 2020/10/24 13:33:57 by jsaariko      ########   odam.nl         */
 =======
 /*   Updated: 2020/10/24 13:06:45 by jsaariko      ########   odam.nl         */
 >>>>>>> Compiles but crashes very hard when trying to access env's contents
+=======
+/*   Updated: 2020/10/24 13:08:33 by jsaariko      ########   odam.nl         */
+>>>>>>> export works for the main part. Starting unset
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +63,26 @@ void	sig_handler(int signo)
 int		main(int ac, char **av, char **envp)
 {
 	t_vector *env;
+	t_icomp *cmd;
 
+	cmd = (t_icomp *)e_malloc(sizeof(t_icomp));
+	cmd->cmd = "export";
+	cmd->arg = "=item";
+	cmd->id = 1;
+	cmd->left = NULL;
+	cmd->right = NULL;
+	cmd->opt = NULL;
+	cmd->sep = NULL;
 	(void)av;
 	(void)ac;
 	env = convert_env(envp);
 	ft_env(env);
+	// ft_export(env, cmd->arg);
+	// write(STDIN_FILENO, "\n\n", 2);
+	ft_unset(env, "P9K_TTY");
+	ft_env(env);
+	// ft_unset(env, cmd);
+	// ft_export(env, cmd);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 	(void)ac;
