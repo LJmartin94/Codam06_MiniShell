@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/20 10:06:02 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/21 18:24:32 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/23 12:32:57 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 # define C_INVALID_FILE 132
 # define E_INVALID_FILE "Invalid fd"
-# define C_MALLOC_FAIL_LIBFT 133
-# define E_MALLOC_FAIL_LIBFT "A libft function failed to malloc"
+# define C_GNL_FAIL 133
+# define E_GNL_FAIL "GNL returned an invalid exit code"
 
 void	error_exit_errno(void);
 void	error_exit_msg(const unsigned int e_code, const char *e_msg);

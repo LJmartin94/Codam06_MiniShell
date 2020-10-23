@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 11:38:56 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/21 18:28:43 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/23 12:35:39 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_token	*get_tokens(const char *input)
 
 	split_input = ft_split(input, ' ');
 	if (!split_input)
-		error_exit_msg(C_MALLOC_FAIL_LIBFT, E_MALLOC_FAIL_LIBFT);
+		error_exit_errno();
 	validated_tokens = validate_tokens(split_input);
 	free_matrix(split_input);
 	return (validated_tokens);

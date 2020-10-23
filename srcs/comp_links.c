@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 18:03:33 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/22 22:33:05 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/23 12:34:21 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		ft_add_token_to_comp(t_token *token, char **field)
 	else
 		*field = ft_strjoin(*field, token->token);
 	if (*field == NULL)
-		error_exit_msg(C_MALLOC_FAIL_LIBFT, E_MALLOC_FAIL_LIBFT);
+		error_exit_errno();
 	return (0);
 }
 
