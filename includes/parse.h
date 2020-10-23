@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/22 22:29:21 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/23 15:24:40 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void					add_token(t_token **head, t_token *token);
 t_token					*create_token(char *tokens, int j, size_t len);
 void					free_matrix(char **tokens);
 void					free_tokens(t_token *head);
-void					parse_input(const char *input);
 
 /*
 ** Composition-block structs & functions
@@ -67,7 +66,7 @@ typedef	enum			e_transition_code
 	exit_state
 }						t_transition_code;
 
-t_icomp					*manage_fsm(t_token *tokens);
+void					manage_fsm(t_token *tokens, t_icomp *head);
 
 t_transition_code		sh_entry_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_error_state(t_token **this, t_icomp **icur);
@@ -97,6 +96,15 @@ typedef struct			s_transition_obj
 ** General parsing structs & functions
 */
 
+void					parse_input(const char *input, t_icomp *comp_blocks);
 void					xt_quit_in_parse(int ret);
+
+/*
+** //TODO: Debug-only prototypes and includes! Remove when no longer used.
+*/
+
+#include <stdio.h>
+void					print_components(t_icomp *icur);
+void					print_tokens(t_token *tokens);
 
 #endif
