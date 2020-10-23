@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/14 11:19:17 by limartin      #+#    #+#                  #
-#    Updated: 2020/10/22 16:24:34 by jsaariko      ########   odam.nl          #
+#    Updated: 2020/10/23 11:45:40 by jsaariko      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,6 @@ SRC = $(SRC_PATH)main.c \
 	$(SRC_PATH)comp_links.c \
 	$(SRC_PATH)free_and_exit.c \
 	$(SRC_PATH)env.c \
-	vector_utils.c #TODO: remove
 
 #Source files bonus part
 SRC_B = # $(SRC_PATH) bonus_goes_here.c #TODO
