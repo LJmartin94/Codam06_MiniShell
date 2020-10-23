@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/23 15:20:55 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/23 16:42:45 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int		get_input(void)
 	if (ret < 0)
 		error_exit_msg(C_GNL_FAIL, E_GNL_FAIL);
 	parse_input(buf, &comp_blocks);
-	print_components(&comp_blocks);
 	free(buf);
+	print_components(&comp_blocks);
 	free_components(&comp_blocks);
 	return (ret);
 }
