@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/21 18:26:46 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/23 12:33:24 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		get_input(void)
 		exit(0);
 	}
 	if (ret < 0)
-		error_exit_msg(C_MALLOC_FAIL_LIBFT, E_MALLOC_FAIL_LIBFT);
+		error_exit_msg(C_GNL_FAIL, E_GNL_FAIL);
 	parse_input(buf);
 	return (ret);
 }
