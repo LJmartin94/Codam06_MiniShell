@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   execute.h                                          :+:    :+:            */
+/*   execute.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/24 13:12:05 by jsaariko      ########   odam.nl         */
+/*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
+/*   Updated: 2020/10/23 12:57:06 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTE_H
-# define EXECUTE_H
+#include "execute.h"
+#include "parse.h"
+#include "libft.h"
 
-typedef struct	s_env
+void	execute(t_vector *env, t_icomp *cmd)
 {
-	char *key;
-	char *value;
-}				t_env;
+	int ret;
 
-t_vector		*convert_env(char **envp);
-int				ft_env(t_vector *env);
-int				ft_export(t_vector *env, char *cmd);
-int				ft_unset(t_vector *env, char *cmd);
-
-#endif
+	if (ft_strncmp(cmd->cmd, "env", 3) == 0)
+		ret = ft_env(env);
+}
