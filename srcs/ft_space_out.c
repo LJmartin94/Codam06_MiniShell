@@ -6,9 +6,12 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/23 16:43:32 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/23 18:55:26 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/24 16:05:24 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stdlib.h>
+#include <stdio.h>
 
 static	int	ft_is_pad(char const c)
 {
@@ -38,7 +41,7 @@ static	char	**ft_filler(char **res, char const *s, int str_num)
 		i++;
 		l++;
 	}
-	res[str_num] = NULL;
+	res[str_num + 1] = NULL;
 	return (res);
 }
 
@@ -61,6 +64,7 @@ static	char	**ft_allocator(char **res, char const *s, int str_num)
 		i++;
 		l++;
 	}
+	res[str_num] = (char *)malloc(sizeof(char) * (l + 1));
 	return (res);
 }
 
@@ -109,8 +113,17 @@ char			**ft_space_out(char const *s)
 
 int				main(int argc, char **argv)
 {
+	char	**tokens;
+	int		i;
+
+	i = 0;
 	if (argc != 2)
 		return (0);
-	ft_space_out(argv[1]);
+	tokens = ft_space_out(argv[1]);
+	while (tokens[i])
+	{
+		printf("Token %d) |%s|\n", i, tokens[i]);
+		i++;
+	}
 	return (0);
 }
