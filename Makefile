@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/14 11:19:17 by limartin      #+#    #+#                  #
-#    Updated: 2020/10/24 16:33:42 by limartin      ########   odam.nl          #
+#    Updated: 2020/10/24 20:12:58 by limartin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,6 @@ SRC = $(SRC_PATH)main.c \
 	$(SRC_PATH)parse_input.c \
 	$(SRC_PATH)tokenizer.c \
 	$(SRC_PATH)tokenizer_utils.c \
-	$(SRC_PATH)ft_space_out.c \
 	$(SRC_PATH)error.c \
 	$(SRC_PATH)fsm.c \
 	$(SRC_PATH)entry_error_exit_state.c \

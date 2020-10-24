@@ -6,31 +6,13 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 11:54:53 by jsaariko      #+#    #+#                 */
-<<<<<<< HEAD
-/*   Updated: 2020/10/24 19:43:26 by limartin      ########   odam.nl         */
-=======
-/*   Updated: 2020/10/24 16:41:58 by limartin      ########   odam.nl         */
->>>>>>> 27e774c5d14f12185c524fc33464efa4a053d2c0
+/*   Updated: 2020/10/24 20:10:39 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 #include "libft.h"
 #include "error.h"
-
-void	free_tokens(t_token *head)
-{
-	t_token *tmp;
-
-	while (head)
-	{
-		tmp = head->next;
-		free(head->token);
-		head->token = NULL;
-		free(head);
-		head = tmp;
-	}
-}
 
 void	free_tokens(t_token *head)
 {
