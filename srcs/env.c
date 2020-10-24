@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 11:49:12 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/24 13:55:28 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/24 14:01:20 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,13 +191,13 @@ int				ft_export(t_vector *env, char *cmd)
 	return (0);
 }
 
-static void		write_key_val_pair(char *key, char *value)
-{
-	write(STDIN_FILENO, key, ft_strlen(key));
-	write(STDIN_FILENO, "=", 1);
-	write(STDIN_FILENO, value, ft_strlen(value));
-	write(STDIN_FILENO, "\n", 1);
-}
+// static void		write_key_val_pair(char *key, char *value)
+// {
+// 	write(STDIN_FILENO, key, ft_strlen(key));
+// 	write(STDIN_FILENO, "=", 1);
+// 	write(STDIN_FILENO, value, ft_strlen(value));
+// 	write(STDIN_FILENO, "\n", 1);
+// }
 
 /*
 ** //TODO: how can env fail and what is the return value:
@@ -205,39 +205,39 @@ static void		write_key_val_pair(char *key, char *value)
 ** if env was not found
 */
 
-int				ft_env(t_vector *env)
-{
-	size_t	i;
-	t_env	*cur;
+// int				ft_env(t_vector *env)
+// {
+// 	size_t	i;
+// 	t_env	*cur;
 
-	i = 0;
-	cur = NULL;
-	while (i < env->amt)
-	{
-		cur = (t_env *)vector_get(env, i);
-		write_key_val_pair(cur->key, cur->value);
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	cur = NULL;
+// 	while (i < env->amt)
+// 	{
+// 		cur = (t_env *)vector_get(env, i);
+// 		write_key_val_pair(cur->key, cur->value);
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
-int compare(t_env *data, char *item)
-{
-	return (ft_strncmp(item, data->key, ft_strlen(data->key)));
-}
+// int compare(t_env *data, char *item)
+// {
+// 	return (ft_strncmp(item, data->key, ft_strlen(data->key)));
+// }
 
-int				vector_search(t_vector *v, int (*cmp)(), void *item)
-{
-	size_t i = 0;
-	while (i < v->amt)
-	{
-		// ft_dprintf(STDIN_FILENO, "%s\n", *(char **)(v->data[i]));
-		if (cmp(v->data[i], item) == 0)
-			return (i);
-		i++;
-	}
-	return (-1);
-}
+// int				vector_search(t_vector *v, int (*cmp)(), void *item)
+// {
+// 	size_t i = 0;
+// 	while (i < v->amt)
+// 	{
+// 		// ft_dprintf(STDIN_FILENO, "%s\n", *(char **)(v->data[i]));
+// 		if (cmp(v->data[i], item) == 0)
+// 			return (i);
+// 		i++;
+// 	}
+// 	return (-1);
+// }
 
 // int				vector_delete_free(t_vector *v, size_t index)
 // {
@@ -258,30 +258,30 @@ int				vector_search(t_vector *v, int (*cmp)(), void *item)
 // 	return (1);
 // }
 
-int				ft_unset(t_vector *env, char *cmd)
-{
-	int index = vector_search(env, compare, (void *)cmd);
-	ft_dprintf(STDIN_FILENO, "%d\n", index);
-	// vector_delete_free(env, (size_t)index);
-	return (0);
-}
+// int				ft_unset(t_vector *env, char *cmd)
+// {
+// 	int index = vector_search(env, compare, (void *)cmd);
+// 	ft_dprintf(STDIN_FILENO, "%d\n", index);
+// 	// vector_delete_free(env, (size_t)index);
+// 	return (0);
+// }
 
-int				ft_export(t_vector *env, char *cmd)
-{
-	t_env *item;
-	int ret;
+// int				ft_export(t_vector *env, char *cmd)
+// {
+// 	t_env *item;
+// 	int ret;
 
-	ret = validate_env(cmd);
-	if (ret == -1)
-	{
-		ft_dprintf(STDERR_FILENO, "Export: '%s': not a valid identifier", cmd); //turn into actual error msg that quits the thing
-		return (0);
-	}
-	item = get_env_item(cmd);
-	if (item == NULL)
-		return (0);
-	ret = vector_push(env, item);
-	if (!ret)
-		error_exit_errno();
-	return (0);
-}
+// 	ret = validate_env(cmd);
+// 	if (ret == -1)
+// 	{
+// 		ft_dprintf(STDERR_FILENO, "Export: '%s': not a valid identifier", cmd); //turn into actual error msg that quits the thing
+// 		return (0);
+// 	}
+// 	item = get_env_item(cmd);
+// 	if (item == NULL)
+// 		return (0);
+// 	ret = vector_push(env, item);
+// 	if (!ret)
+// 		error_exit_errno();
+// 	return (0);
+// }

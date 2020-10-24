@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/24 13:55:55 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/24 13:58:27 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ int		main(int ac, char **av, char **envp)
 	t_vector *env;
 	t_icomp *cmd;
 
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, SIG_IGN);
+	
 	cmd = (t_icomp *)e_malloc(sizeof(t_icomp));
 	cmd->cmd = "export";
 	cmd->arg = "=item";
@@ -75,12 +78,10 @@ int		main(int ac, char **av, char **envp)
 	ft_env(env);
 	// ft_unset(env, cmd);
 	// ft_export(env, cmd);
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, SIG_IGN);
 	(void)ac;
 	(void)av;
 	// (void)envp;
-	t_env *env = convert_env(envp);
+	// t_env *env = convert_env(envp);
 	(void)env;
 	while (1)
 		get_input();
