@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 11:38:56 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/24 14:51:56 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/24 15:05:10 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,5 @@ t_token	*get_tokens(const char *input)
 
 	validated_tokens = NULL;
 	tokenize_string(input, &validated_tokens);
-	print_tokens(&validated_tokens);
 	return (validated_tokens);
 }
