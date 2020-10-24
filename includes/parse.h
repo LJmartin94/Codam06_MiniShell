@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/24 20:09:18 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/24 20:52:31 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ t_transition_code		sh_exit_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_command_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_option_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_argument_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_pad_argument_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_separator_state(t_token **this, t_icomp **icur);
 
 t_transition_code		recognise_token_state(t_token *this);
