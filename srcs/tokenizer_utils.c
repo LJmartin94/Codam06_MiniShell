@@ -6,27 +6,13 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 11:54:53 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/24 19:36:16 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/24 19:43:26 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 #include "libft.h"
 #include "error.h"
-
-void	free_matrix(char **tokens)
-{
-	int i;
-
-	i = 0;
-	while (tokens[i] != NULL)
-	{
-		free(tokens[i]);
-		i++;
-	}
-	free(tokens);
-	tokens = NULL;
-}
 
 void	free_tokens(t_token *head)
 {

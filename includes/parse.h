@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/24 19:35:52 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/24 19:53:17 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ typedef struct			s_token
 t_token					*get_tokens(const char *input);
 void					add_token(t_token **head, t_token *token);
 t_token					*create_token(const char *tokens, int j, size_t len);
-void					free_matrix(char **tokens);
 void					free_tokens(t_token *head);
 
 /*
