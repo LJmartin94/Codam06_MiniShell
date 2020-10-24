@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 18:10:03 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/21 18:55:03 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/24 18:57:49 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ t_transition_code	sh_command_state(t_token **this, t_icomp **icur)
 
 	ft_add_token_to_comp((*this), &((*icur)->cmd));
 	*this = (*this)->next;
+	while (recognise_token_state(*this) == padding && *this)
+		*this = (*this)->next;
 	id = exit_state;
 	if ((*this) != NULL)
 		id = recognise_token_state(*this);
@@ -31,6 +33,8 @@ t_transition_code	sh_option_state(t_token **this, t_icomp **icur)
 
 	ft_add_token_to_comp((*this), &((*icur)->opt));
 	*this = (*this)->next;
+	while (recognise_token_state(*this) == padding && *this)
+		*this = (*this)->next;
 	id = exit_state;
 	if ((*this) != NULL)
 		id = recognise_token_state(*this);
@@ -43,6 +47,8 @@ t_transition_code	sh_argument_state(t_token **this, t_icomp **icur)
 
 	ft_add_token_to_comp((*this), &((*icur)->arg));
 	*this = (*this)->next;
+	while (recognise_token_state(*this) == padding && *this)
+		*this = (*this)->next;
 	id = exit_state;
 	if ((*this) != NULL)
 		id = recognise_token_state(*this);
@@ -56,6 +62,8 @@ t_transition_code	sh_separator_state(t_token **this, t_icomp **icur)
 
 	ft_add_token_to_comp((*this), &((*icur)->sep));
 	*this = (*this)->next;
+	while (recognise_token_state(*this) == padding && *this)
+		*this = (*this)->next;
 	id = exit_state;
 	if ((*this) != NULL)
 		id = recognise_token_state(*this);

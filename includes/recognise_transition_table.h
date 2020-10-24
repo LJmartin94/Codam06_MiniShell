@@ -6,14 +6,14 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/20 12:26:08 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/21 15:36:18 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/24 18:00:11 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RECOGNISE_TRANSITION_TABLE_H
 # define RECOGNISE_TRANSITION_TABLE_H
 
-# define RECOG_TABLE_SIZE 19
+# define RECOG_TABLE_SIZE 21
 
 static t_recognition_obj const	g_tokenrecog_table[] =
 {
@@ -35,7 +35,9 @@ static t_recognition_obj const	g_tokenrecog_table[] =
 	{"$", separator},
 	{";", separator},
 	{"\\", separator},
-	{"-n", option}
+	{"-n", option},
+	{" ", padding},
+	{"	", padding}
 };
 
 #endif

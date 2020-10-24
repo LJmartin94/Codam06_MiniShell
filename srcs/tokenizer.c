@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 11:38:56 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/23 12:35:39 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/24 16:25:47 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ t_token	*get_tokens(const char *input)
 	char	**split_input;
 	t_token	*validated_tokens;
 
-	split_input = ft_split(input, ' ');
+	split_input = ft_space_out(input);
 	if (!split_input)
 		error_exit_errno();
 	validated_tokens = validate_tokens(split_input);
