@@ -6,14 +6,13 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/23 16:43:32 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/24 16:05:24 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/24 16:33:05 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
+#include "error.h"
 
-static	int	ft_is_pad(char const c)
+static	int	ft_is_pad(const char c)
 {
 	if (c == ' ' || c == '\n' || c == '\r' || \
 		c == '\t' || c == '\f' || c == '\v')
@@ -21,7 +20,7 @@ static	int	ft_is_pad(char const c)
 	return (0);
 }
 
-static	char	**ft_filler(char **res, char const *s, int str_num)
+static	char	**ft_filler(char **res, const char *s, int str_num)
 {
 	int i;
 	int l;
@@ -45,7 +44,7 @@ static	char	**ft_filler(char **res, char const *s, int str_num)
 	return (res);
 }
 
-static	char	**ft_allocator(char **res, char const *s, int str_num)
+static	char	**ft_allocator(char **res, const char *s, int str_num)
 {
 	int i;
 	int l;
@@ -57,18 +56,18 @@ static	char	**ft_allocator(char **res, char const *s, int str_num)
 	{
 		if (i > 0 && (ft_is_pad(s[i]) != ft_is_pad(s[i - 1])))
 		{
-			res[str_num] = (char *)malloc(sizeof(char) * (l + 1));
+			res[str_num] = (char *)e_malloc(sizeof(char) * (l + 1));
 			str_num++;
 			l = 0;
 		}
 		i++;
 		l++;
 	}
-	res[str_num] = (char *)malloc(sizeof(char) * (l + 1));
+	res[str_num] = (char *)e_malloc(sizeof(char) * (l + 1));
 	return (res);
 }
 
-static	int	ft_strcounter(char const *s)
+static	int	ft_strcounter(const char *s)
 {
 	int i;
 	int res;
@@ -95,7 +94,7 @@ static	int	ft_strcounter(char const *s)
 	return (res);
 }
 
-char			**ft_space_out(char const *s)
+char			**ft_space_out(const char *s)
 {
 	char	**res;
 	int		str_num;
@@ -103,7 +102,7 @@ char			**ft_space_out(char const *s)
 	if (!s)
 		return (NULL);
 	str_num = ft_strcounter(s);
-	res = (char **)malloc(sizeof(char *) * (str_num + 1));
+	res = (char **)e_malloc(sizeof(char *) * (str_num + 1));
 	if (res == NULL)
 		return (NULL);
 	res = ft_allocator(res, s, str_num);
@@ -111,19 +110,19 @@ char			**ft_space_out(char const *s)
 	return (res);
 }
 
-int				main(int argc, char **argv)
-{
-	char	**tokens;
-	int		i;
+// int				main(int argc, char **argv)
+// {
+// 	char	**tokens;
+// 	int		i;
 
-	i = 0;
-	if (argc != 2)
-		return (0);
-	tokens = ft_space_out(argv[1]);
-	while (tokens[i])
-	{
-		printf("Token %d) |%s|\n", i, tokens[i]);
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	if (argc != 2)
+// 		return (0);
+// 	tokens = ft_space_out(argv[1]);
+// 	while (tokens[i])
+// 	{
+// 		printf("Token %d) |%s|\n", i, tokens[i]);
+// 		i++;
+// 	}
+// 	return (0);
+// }
