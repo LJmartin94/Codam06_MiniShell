@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 19:53:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/25 11:31:15 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/25 12:04:29 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_option_state, separator, sh_separator_state},
 	{sh_option_state, exit_state, sh_exit_state},
 
-	{sh_argument_state, padding, sh_pad_argument_state},
+	{sh_argument_state, padding, sh_argument_pad_state},
 	{sh_argument_state, error, sh_error_state},
 	{sh_argument_state, command, sh_argument_state},
 	{sh_argument_state, option, sh_argument_state},
@@ -47,13 +47,13 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_argument_state, separator, sh_separator_state},
 	{sh_argument_state, exit_state, sh_exit_state},
 
-	{sh_pad_argument_state, padding, sh_pad_argument_state},
-	{sh_pad_argument_state, error, sh_error_state},
-	{sh_pad_argument_state, command, sh_argument_state},
-	{sh_pad_argument_state, option, sh_argument_state},
-	{sh_pad_argument_state, arg, sh_argument_state},
-	{sh_pad_argument_state, separator, sh_separator_state},
-	{sh_pad_argument_state, exit_state, sh_exit_state},
+	{sh_argument_pad_state, padding, sh_argument_pad_state},
+	{sh_argument_pad_state, error, sh_error_state},
+	{sh_argument_pad_state, command, sh_argument_state},
+	{sh_argument_pad_state, option, sh_argument_state},
+	{sh_argument_pad_state, arg, sh_argument_state},
+	{sh_argument_pad_state, separator, sh_separator_state},
+	{sh_argument_pad_state, exit_state, sh_exit_state},
 
 	{sh_separator_state, padding, sh_entry_state},
 	{sh_separator_state, error, sh_error_state},
