@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/25 14:06:49 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/25 17:38:09 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,19 @@ t_transition_code		sh_dq_exit_argument_state(t_token **this, t_icomp **icur);
 
 t_transition_code		recognise_token_state(t_token *this);
 
+int						validate_option_flags(t_icomp **icur);
+
 typedef struct			s_recognition_obj
 {
 	char				*to_compare;
 	t_transition_code	ret;
 }						t_recognition_obj;
+
+typedef struct			s_flag_validation_obj
+{
+	char				*cmd;
+	char				flag;
+}						t_flag_validation_obj;
 
 typedef struct			s_transition_obj
 {

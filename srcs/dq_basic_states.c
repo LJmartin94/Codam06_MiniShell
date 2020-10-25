@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 18:10:03 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/25 13:27:00 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/25 17:12:05 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_transition_code	sh_dq_option_state(t_token **this, t_icomp **icur)
 
 	if (recognise_token_state(*this) == dq && *this)
 		*this = (*this)->next;
-	ft_add_token_to_comp((*this), &((*icur)->opt));
+	ft_add_token_to_comp((*this), &((*icur)->arg));
 	*this = (*this)->next;
 	id = exit_state;
 	if ((*this) != NULL)
