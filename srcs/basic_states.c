@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cmd_opt_arg_sep_state.c                            :+:    :+:            */
+/*   basic_states.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 18:10:03 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/25 11:27:40 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/25 12:44:44 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_transition_code	sh_argument_state(t_token **this, t_icomp **icur)
 	return (id);
 }
 
-t_transition_code	sh_pad_argument_state(t_token **this, t_icomp **icur)
+t_transition_code	sh_argument_pad_state(t_token **this, t_icomp **icur)
 {
 	t_transition_code	id;
 	t_token				*tmp;

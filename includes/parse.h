@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/25 12:03:49 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/25 12:16:39 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ typedef	enum			e_transition_code
 	option,
 	arg,
 	separator,
+	dq,
+	sq,
 	exit_state
 }						t_transition_code;
 
