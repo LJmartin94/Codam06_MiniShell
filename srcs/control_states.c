@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 18:10:03 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/25 12:44:23 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/25 13:49:42 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ t_transition_code	sh_entry_state(t_token **this, t_icomp **icur)
 	(void)icur;
 	while (recognise_token_state(*this) == padding && *this)
 		*this = (*this)->next;
-	id = recognise_token_state(*this);
+	id = exit_state;
+	if ((*this) != NULL)
+		id = recognise_token_state(*this);
 	return (id);
 }
 
