@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 18:10:03 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/25 14:06:07 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/25 14:22:44 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ t_transition_code	sh_dq_exit_command_state(t_token **this, t_icomp **icur)
 {
 	t_transition_code	id;
 
+	(void)icur;
 	if (recognise_token_state(*this) == dq && *this)
+		*this = (*this)->next;
+	while (recognise_token_state(*this) == padding && *this)
 		*this = (*this)->next;
 	id = exit_state;
 	if ((*this) != NULL)
@@ -29,7 +32,10 @@ t_transition_code	sh_dq_exit_option_state(t_token **this, t_icomp **icur)
 {
 	t_transition_code	id;
 
+	(void)icur;
 	if (recognise_token_state(*this) == dq && *this)
+		*this = (*this)->next;
+	while (recognise_token_state(*this) == padding && *this)
 		*this = (*this)->next;
 	id = exit_state;
 	if ((*this) != NULL)
@@ -41,7 +47,10 @@ t_transition_code	sh_dq_exit_argument_state(t_token **this, t_icomp **icur)
 {
 	t_transition_code	id;
 
+	(void)icur;
 	if (recognise_token_state(*this) == dq && *this)
+		*this = (*this)->next;
+	while (recognise_token_state(*this) == padding && *this)
 		*this = (*this)->next;
 	id = exit_state;
 	if ((*this) != NULL)

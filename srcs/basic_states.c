@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 18:10:03 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/25 12:44:44 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/25 15:14:07 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_transition_code	sh_argument_pad_state(t_token **this, t_icomp **icur)
 	id = exit_state;
 	if ((*this) != NULL)
 		id = recognise_token_state(*this);
-	if (id == arg)
+	if (id != padding && id != separator)
 		ft_add_token_to_comp((tmp), &((*icur)->arg));
 	return (id);
 }
