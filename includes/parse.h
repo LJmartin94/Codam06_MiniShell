@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/26 11:31:46 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/26 11:39:54 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void					free_tokens(t_token *head);
 int						ft_compconst(t_icomp *tonull);
 void					ft_add_component(t_icomp **head, t_icomp *this);
 int						ft_add_token_to_comp(t_token *token, char **field);
-void					free_components(t_icomp *head);
 
 /*
 ** FSM structs & functions
@@ -92,14 +91,12 @@ typedef struct			s_transition_obj
 ** General parsing structs & functions
 */
 
-void					parse_input(const char *input, t_icomp *comp_blocks);
 void					xt_quit_in_parse(int ret);
 
 /*
 ** //TODO: Debug-only prototypes! Remove when no longer used.
 */
 
-void					print_components(t_icomp *icur);
 void					print_tokens(t_token *tokens);
 
 #endif

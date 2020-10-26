@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/14 11:19:17 by limartin      #+#    #+#                  #
-#    Updated: 2020/10/24 13:54:33 by jsaariko      ########   odam.nl          #
+#    Updated: 2020/10/26 11:49:21 by jsaariko      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRC = $(SRC_PATH)main.c \
 	$(SRC_PATH)comp_links.c \
 	$(SRC_PATH)free_and_exit.c \
 	$(SRC_PATH)env.c \
+	$(SRC_PATH)execute.c \
 
 #Source files bonus part
 SRC_B = # $(SRC_PATH) bonus_goes_here.c #TODO

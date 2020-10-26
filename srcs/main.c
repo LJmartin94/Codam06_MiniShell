@@ -6,18 +6,17 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/26 11:31:20 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/26 16:36:42 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
 #include "error.h"
-#include "execute.h"
+#include <stdio.h>//
 #include <signal.h>
-#include "execute.h"
 
-int		get_input(void)
+int		get_input(t_vector *env)
 {
 	char	*buf;
 	int		ret;
@@ -34,7 +33,8 @@ int		get_input(void)
 		error_exit_msg(C_GNL_FAIL, E_GNL_FAIL);
 	parse_input(buf, &comp_blocks);
 	free(buf);
-	print_components(&comp_blocks);
+	// print_components(&comp_blocks);
+	execute(env, comp_blocks);
 	free_components(&comp_blocks);
 	return (ret);
 }
@@ -55,36 +55,14 @@ void	sig_handler(int signo)
 int		main(int ac, char **av, char **envp)
 {
 	t_vector *env;
-	t_icomp *cmd;
 
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
-	
-	cmd = (t_icomp *)e_malloc(sizeof(t_icomp));
-	cmd->cmd = "export";
-	cmd->arg = "=item";
-	cmd->id = 1;
-	cmd->left = NULL;
-	cmd->right = NULL;
-	cmd->opt = NULL;
-	cmd->sep = NULL;
-	(void)av;
-	(void)ac;
 	env = convert_env(envp);
-	ft_env(env);
-	// ft_export(env, cmd->arg);
-	// write(STDIN_FILENO, "\n\n", 2);
-	ft_unset(env, "P9K_TTY");
-	ft_env(env);
-	// ft_unset(env, cmd);
-	// ft_export(env, cmd);
 	(void)ac;
 	(void)av;
-	// (void)envp;
-	// t_env *env = convert_env(envp);
-	(void)env;
 	while (1)
-		get_input();
+		get_input(env);
 	return (0);
 }
 
