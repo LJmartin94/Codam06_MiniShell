@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 11:54:53 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/23 15:22:38 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/26 11:13:17 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	add_token(t_token **head, t_token *token)
 	cur->next = token;
 }
 
-t_token	*create_token(char *tokens, int pos, size_t len)
+t_token	*create_token(const char *tokens, int pos, size_t len)
 {
 	t_token	*token;
 	char	*token_str;

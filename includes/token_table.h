@@ -6,14 +6,14 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/24 13:10:12 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/26 11:14:05 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKEN_TABLE_H
 # define TOKEN_TABLE_H
 
-# define TOKEN_TABLE_SIZE 11
+# define TOKEN_TABLE_SIZE 13
 
 typedef struct	s_special_token
 {
@@ -33,7 +33,9 @@ static t_special_token const g_token_table[] =
 	{"\'", 1},
 	{"$", 1},
 	{";", 1},
-	{"\\", 1}
+	{"\\", 1},
+	{" ", 1},
+	{"	", 1}
 };
 
 #endif

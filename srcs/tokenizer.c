@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 11:38:56 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/24 14:59:42 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/26 11:13:43 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "token_table.h"
 #include "error.h"
 
-int		recognize_special_char(char *input, int j)
+int		recognize_special_char(const char *input, int j)
 {
 	int i;
 
@@ -31,7 +31,7 @@ int		recognize_special_char(char *input, int j)
 	return (0);
 }
 
-void	separate_special_char(char *input, t_token **head, int *j, int *k)
+void	separate_special_char(const char *input, t_token **head, int *j, int *k)
 {
 	int		len;
 	t_token	*token;
@@ -50,7 +50,7 @@ void	separate_special_char(char *input, t_token **head, int *j, int *k)
 	}
 }
 
-void	tokenize_string(char *input, t_token **head)
+void	tokenize_string(const char *input, t_token **head)
 {
 	int		j;
 	int		k;
@@ -72,30 +72,11 @@ void	tokenize_string(char *input, t_token **head)
 	}
 }
 
-t_token	*validate_tokens(char **input)
-{
-	int		i;
-	t_token	*head;
-
-	i = 0;
-	head = NULL;
-	while (input[i] != NULL)
-	{
-		tokenize_string(input[i], &head);
-		i++;
-	}
-	return (head);
-}
-
 t_token	*get_tokens(const char *input)
 {
-	char	**split_input;
 	t_token	*validated_tokens;
 
-	split_input = ft_split(input, ' ');
-	if (!split_input)
-		error_exit_errno();
-	validated_tokens = validate_tokens(split_input);
-	// free_matrix(split_input);
+	validated_tokens = NULL;
+	tokenize_string(input, &validated_tokens);
 	return (validated_tokens);
 }
