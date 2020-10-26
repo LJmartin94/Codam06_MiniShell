@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/26 11:14:22 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/26 11:31:46 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSE_H
 
 # include <stdlib.h>
+# include "minishell.h"
 
 /*
 ** //TODO: Debug-only includes! Remove when no longer used.
@@ -38,19 +39,8 @@ void					free_matrix(char **tokens);
 void					free_tokens(t_token *head);
 
 /*
-** Composition-block structs & functions
+** Composition-block functions
 */
-
-typedef struct			s_icomp
-{
-	char				*sep;
-	char				*cmd;
-	char				*opt;
-	char				*arg;
-	int					id;
-	struct s_icomp		*left;
-	struct s_icomp		*right;
-}						t_icomp;
 
 int						ft_compconst(t_icomp *tonull);
 void					ft_add_component(t_icomp **head, t_icomp *this);
