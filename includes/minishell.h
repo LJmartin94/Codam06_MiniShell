@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 11:18:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/26 11:48:48 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/27 09:36:51 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,14 @@ typedef struct			s_icomp
 */
 
 void					parse_input(const char *input, t_icomp *comp_blocks);
-
-
-
 void					print_components(t_icomp *icur);
 void					free_components(t_icomp *head);
-
 
 /*
 ** Execute
 */
 
 void					execute(t_vector *env, t_icomp cmd);
-
-
-t_vector		*convert_env(char **envp);
-
-
+t_vector				*convert_env(char **envp);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/14 11:19:17 by limartin      #+#    #+#                  #
-#    Updated: 2020/10/26 11:49:21 by jsaariko      ########   odam.nl          #
+#    Updated: 2020/10/27 10:43:45 by jsaariko      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,14 +31,18 @@ SRC = $(SRC_PATH)main.c \
 	$(SRC_PATH)tokenizer.c \
 	$(SRC_PATH)tokenizer_utils.c \
 	$(SRC_PATH)error.c \
+	$(SRC_PATH)invalid.c \
 	$(SRC_PATH)fsm.c \
 	$(SRC_PATH)entry_error_exit_state.c \
 	$(SRC_PATH)cmd_opt_arg_sep_state.c \
 	$(SRC_PATH)recognise_token_state.c \
 	$(SRC_PATH)comp_links.c \
 	$(SRC_PATH)free_and_exit.c \
-	$(SRC_PATH)env.c \
 	$(SRC_PATH)execute.c \
+	$(SRC_PATH)env.c \
+	$(SRC_PATH)export.c \
+	$(SRC_PATH)unset.c \
+	$(SRC_PATH)echo.c \
 
 #Source files bonus part
 SRC_B = # $(SRC_PATH) bonus_goes_here.c #TODO
