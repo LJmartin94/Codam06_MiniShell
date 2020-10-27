@@ -6,54 +6,37 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/26 17:03:10 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/27 10:51:35 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
-#include "parse.h"
-#include "libft.h"
 
+/*
+** TODO: Build command validators in functions
+*/
 
+typedef int(*cmd)(t_vector *, t_icomp);
 
-//get_command() <- check which command was ran and pass argument to said command
-
-void	get_command(t_vector *env, t_icomp cmd)
+cmd		get_command(t_icomp comp)
 {
-	if (ft_strncmp(cmd.cmd, "env", 4) == 0) // TODO: Make sure cmd.cmd is not envd and accepted
-		ft_env(env);
-	if (ft_strncmp(cmd.cmd, "unset", 6) == 0)
-		ft_unset(env, cmd.arg);
-	if (ft_strncmp(cmd.cmd, "export", 7) == 0)
-		ft_export(env, cmd.arg);
+	if (ft_strncmp(comp.cmd, "env", 4) == 0)
+		return (ft_env);
+	if (ft_strncmp(comp.cmd, "unset", 6) == 0)
+		return (ft_unset);
+	if (ft_strncmp(comp.cmd, "export", 7) == 0)
+		return (ft_export);
+	if (ft_strncmp(comp.cmd, "echo", 5) == 0)
+		return (ft_echo);
+	return (NULL);
 }
 
-void	execute(t_vector *env, t_icomp cmd) //Rotate through the commands
+void	execute(t_vector *env, t_icomp comp)
 {
-	get_command(env, cmd);
-	// t_icomp *tmp = &cmd;
+	cmd f;
 
-	// while (cmd != NULL)
-	// {
-		// get_command(env, tmp);
-		// tmp = (*tmp).right;
-	// }
-	// int ret;
-
-	// (void)cmd;
-	// ft_env(env);
-	// ft_dprintf(STDIN_FILENO, "\n\nbreaks here???????\n\n");
-	// ft_export(env, cmd->arg);
-	// write(STDIN_FILENO, "\n\n", 2);
-	// ft_dprintf(STDIN_FILENO, "\n");
-	// ft_export(env, "lol=lol");
-	// ft_dprintf(STDIN_FILENO, "\n");
-	// ft_unset(env, "P9K_TTY");
-	// ft_env(env);
-	// ft_unset(env, cmd);
-	// ft_export(env, cmd);
-
-
-	// if (ft_strncmp(cmd.cmd, "env", 3) == 0)
-		// ret = ft_env(env);
+	f = get_command(comp);
+	if (f == NULL)
+		invalid_cmd(comp);
+	f(env, comp);
 }

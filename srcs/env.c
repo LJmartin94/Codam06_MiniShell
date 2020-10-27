@@ -6,38 +6,18 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 11:49:12 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/26 17:07:28 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/27 10:19:27 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "error.h"
 #include "execute.h"
-#include "parse.h" //
-
-static int				validate_env(char *env_str)
-{
-	int i;
-
-	i = 0;
-	if (env_str[i] == '=')
-		return (-1);
-	while (env_str[i] != '\0')
-	{
-		if (env_str[i] == '=')
-			break ;
-		i++;
-	}
-	if (env_str[i + 1] == '\0')
-		return(0);
-	return (1);
-}
 
 /*
 ** //TODO: if strlcpy fails?
 */
 
-t_env			*get_env_item(char *env_str)
+t_env	*get_env_item(char *env_str)
 {
 	t_env	*item;
 	int		i;
@@ -111,57 +91,35 @@ static void		write_key_val_pair(char *key, char *value)
 ** if env was not found
 */
 
-int				ft_env(t_vector *env)
+static int		validate_cmd_env(t_icomp cmd)
+{
+	// ft_dprintf(STDIN_FILENO, "\tcmd:\t%s\n\
+	// arg:\t%s\n\
+	// id:\t%d\n\
+	// opt:\t%s\n\
+	// sep:\t%s\n", cmd.cmd, cmd.arg, cmd.id, cmd.opt, cmd.sep);
+	if (cmd.arg != NULL || cmd.opt != NULL)
+		return (0);
+	return (1);
+}
+
+int				ft_env(t_vector *env, t_icomp cmd)
 {
 	size_t	i;
 	t_env	*cur;
 
 	i = 0;
 	cur = NULL;
+	if (validate_cmd_env(cmd) == 0)
+	{
+		invalid_cmd(cmd);
+		return(0); //TODO: What's the return code for invalid env command? I think it's still 0
+	}
 	while (i < env->amt)
 	{
 		cur = (t_env *)vector_get(env, i);
 		write_key_val_pair(cur->key, cur->value);
 		i++;
 	}
-	return (0);
-}
-
-int compare(t_env *data, char *item)
-{
-	return (ft_strncmp(item, data->key, ft_strlen(data->key)));
-}
-
-int				ft_unset(t_vector *env, char *cmd)
-{
-	int index;
-
-	if (cmd == NULL)
-		return (0); //TODO: return on fail?
-	index = vector_search(env, compare, (void *)cmd);
-	if (index == -1)
-		return (0); //fail
-	free(env->data[index]);
-	vector_delete(env, (size_t)index);
-	return (0);
-}
-
-int				ft_export(t_vector *env, char *cmd)
-{
-	t_env *item;
-	int ret;
-
-	ret = validate_env(cmd);
-	if (ret == -1)
-	{
-		ft_dprintf(STDERR_FILENO, "Export: '%s': not a valid identifier", cmd); //turn into actual error msg that quits the thing
-		return (0);
-	}
-	item = get_env_item(cmd);
-	if (item == NULL)
-		return (0);
-	ret = vector_push(env, item);
-	if (!ret)
-		error_exit_errno();
 	return (0);
 }
