@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/27 09:37:00 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/27 15:01:51 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		get_input(t_vector *env)
 
 	e_write(1, "\U0001F40C ", 6);
 	ret = get_next_line(STDIN_FILENO, &buf);
-	if (ret == 0)
+	if (ret == 0) //TODO: Make sure to also finish up child processes?
 	{
 		e_write(STDIN_FILENO, "\n", 1);
 		exit(0);
@@ -46,6 +46,8 @@ void	sig_handler(int signo)
 {
 	if (signo == SIGINT)
 	{
+		// TODO: Send signals to child processes 
+		// while(g_pid[i] < g_pid_amt){ kill(g_pid[i], SIGINT) ??? } <- maybe make this a vector
 		e_write(1, "\n", 1);
 		e_write(1, "\U0001F40C ", 6);
 	}

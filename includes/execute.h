@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/27 12:36:15 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/27 16:48:10 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 # include "minishell.h"
 
 /*
-** TODO: Needed:
+** //TODO: Needed:
 ** global return
-** global pwd (works even when unset)
-** global list of pid
+** global pwd (works even when unset) <- probably not, can always just do getchw()
+** global list of pid, a vector, t_vector g_pid; g_pid.size = sizeof(int) g_pid.amt = ?...
 */
 
 typedef struct	s_env
