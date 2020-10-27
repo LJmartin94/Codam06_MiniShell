@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/27 12:27:22 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/27 12:33:43 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ void	execute(t_vector *env, t_icomp comp)
 	cmd f;
 
 	f = get_command(comp);
+	ft_dprintf(STDIN_FILENO, "%p\n", f);
 	if (f == NULL)
 		invalid_cmd(comp);
-	f(env, comp);
+	else
+		f(env, comp);
 }
