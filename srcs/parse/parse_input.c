@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 12:04:04 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/28 15:18:41 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/28 15:26:12 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	parse_input(const char *input, t_icomp *comp_blocks)
 	tokens = get_tokens(input);
 	ft_compconst(comp_blocks);
 	manage_fsm(tokens, comp_blocks);
-	// print_tokens(tokens);
+	print_tokens(tokens);
 	free_tokens(tokens);
 }
 

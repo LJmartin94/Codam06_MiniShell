@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/28 15:14:40 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/28 15:53:24 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@
 ** TODO: Build command validators in functions
 */
 
-typedef int(*cmd)(t_icomp *);
-
-cmd		get_command(t_icomp *comp)
+t_cmd	get_command(t_icomp *comp)
 {
 	if (comp->cmd == NULL)
 		return (NULL);
@@ -31,7 +29,7 @@ cmd		get_command(t_icomp *comp)
 
 void	execute(t_icomp *comp)
 {
-	cmd f;
+	t_cmd f;
 
 	f = get_command(comp);
 	if (f != NULL)
