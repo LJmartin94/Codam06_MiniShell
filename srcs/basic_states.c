@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 18:10:03 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/25 18:59:11 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/28 12:16:48 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,3 @@ t_transition_code	sh_separator_state(t_token **this, t_icomp **icur)
 	}
 	return (id);
 }
-
-
-//echo -n words with lots of spaces inbetween                to                show                     theyre                  arguments etc                          && echo -n test

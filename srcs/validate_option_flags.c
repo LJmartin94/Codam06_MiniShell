@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/25 17:19:17 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/25 19:07:31 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/28 12:16:10 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ int		validate_option_flags(t_icomp **icur)
 		i++;
 	}
 	if (ret)
-		ft_approve_option(icur); //yet to be written
+		ft_approve_option(icur);
 	return (ret);
 }
