@@ -6,14 +6,14 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 18:10:03 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/25 17:12:05 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/28 11:28:41 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 #include "error.h"
 
-t_transition_code	sh_dq_command_state(t_token **this, t_icomp **icur)
+t_transition_code	sh_dq_cmd_state(t_token **this, t_icomp **icur)
 {
 	t_transition_code	id;
 
@@ -41,7 +41,7 @@ t_transition_code	sh_dq_option_state(t_token **this, t_icomp **icur)
 	return (id);
 }
 
-t_transition_code	sh_dq_argument_state(t_token **this, t_icomp **icur)
+t_transition_code	sh_dq_arg_state(t_token **this, t_icomp **icur)
 {
 	t_transition_code	id;
 

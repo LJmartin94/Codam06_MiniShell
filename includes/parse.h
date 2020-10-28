@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/25 17:38:09 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/28 11:31:02 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,21 @@ t_transition_code		sh_argument_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_argument_pad_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_separator_state(t_token **this, t_icomp **icur);
 
-t_transition_code		sh_dq_command_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_dq_cmd_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_dq_option_state(t_token **this, t_icomp **icur);
-t_transition_code		sh_dq_argument_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_dq_arg_state(t_token **this, t_icomp **icur);
 
-t_transition_code		sh_dq_exit_command_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_dq_exit_cmd_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_dq_exit_option_state(t_token **this, t_icomp **icur);
-t_transition_code		sh_dq_exit_argument_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_dq_exit_arg_state(t_token **this, t_icomp **icur);
+
+t_transition_code		sh_sq_cmd_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_sq_option_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_sq_arg_state(t_token **this, t_icomp **icur);
+
+t_transition_code		sh_sq_exit_cmd_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_sq_exit_option_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_sq_exit_arg_state(t_token **this, t_icomp **icur);
 
 t_transition_code		recognise_token_state(t_token *this);
 
