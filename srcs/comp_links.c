@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 18:03:33 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/28 15:09:32 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/28 15:25:59 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "error.h"
 
-static char	*empty_string_alloc(void)
+char	*empty_string_alloc(void)
 {
 	char *ret;
 
@@ -23,7 +23,7 @@ static char	*empty_string_alloc(void)
 	return (ret);
 }
 
-int			ft_compconst(t_icomp *tonull)
+int		ft_compconst(t_icomp *tonull)
 {
 	tonull->sep = empty_string_alloc();
 	tonull->cmd = empty_string_alloc();
@@ -35,7 +35,7 @@ int			ft_compconst(t_icomp *tonull)
 	return (0);
 }
 
-void		ft_add_component(t_icomp **head, t_icomp *this)
+void	ft_add_component(t_icomp **head, t_icomp *this)
 {
 	t_icomp *cur;
 	t_icomp	*left;
@@ -59,7 +59,7 @@ void		ft_add_component(t_icomp **head, t_icomp *this)
 ** one if it does not exist yet.
 */
 
-int			ft_add_token_to_comp(t_token *token, char **field)
+int		ft_add_token_to_comp(t_token *token, char **field)
 {
 	char *new_val;
 
@@ -71,7 +71,7 @@ int			ft_add_token_to_comp(t_token *token, char **field)
 	return (0);
 }
 
-void		free_components(t_icomp *head)
+void	free_components(t_icomp *head)
 {
 	t_icomp *tmp;
 
