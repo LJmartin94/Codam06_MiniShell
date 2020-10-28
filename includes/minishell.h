@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 11:18:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/28 14:29:38 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/28 17:32:02 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define MINISHELL_H
 
 # include "libft.h" //TODO: How to include this
+
+/*
+** //TODO: Debug-only includes! Remove when no longer used.
+*/
+
+# include <stdio.h>
 
 /*
 ** Structure for parsed commands
@@ -35,15 +41,26 @@ typedef struct			s_icomp
 */
 
 void					parse_input(const char *input, t_icomp *comp_blocks);
-void					print_components(t_icomp *icur);
-void					free_components(t_icomp *head);
 
 /*
 ** Execute
 */
 
-void					execute(t_vector *env, t_icomp cmd);
 t_vector				*envp_to_env(char **envp);
 char					**env_to_envp(t_vector *envp);
+void					execute(t_icomp *comp);
+
+/*
+** Function that frees all component blocks after use
+*/
+
+void					free_components(t_icomp *head);
+
+/*
+** //TODO: Debug-only prototypes! Remove when no longer used.
+*/
+
+void					print_components(t_icomp *icur);
+>>>>>>> execute
 
 #endif

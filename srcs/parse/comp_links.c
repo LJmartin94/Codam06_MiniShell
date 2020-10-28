@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 18:03:33 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/23 16:03:35 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/28 15:25:59 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,21 @@
 #include "libft.h"
 #include "error.h"
 
+char	*empty_string_alloc(void)
+{
+	char *ret;
+
+	ret = e_malloc(1);
+	ret[0] = '\0';
+	return (ret);
+}
+
 int		ft_compconst(t_icomp *tonull)
 {
-	tonull->sep = NULL;
-	tonull->cmd = NULL;
-	tonull->opt = NULL;
-	tonull->arg = NULL;
+	tonull->sep = empty_string_alloc();
+	tonull->cmd = empty_string_alloc();
+	tonull->opt = empty_string_alloc();
+	tonull->arg = empty_string_alloc();
 	tonull->id = 0;
 	tonull->right = NULL;
 	tonull->left = NULL;
@@ -52,12 +61,13 @@ void	ft_add_component(t_icomp **head, t_icomp *this)
 
 int		ft_add_token_to_comp(t_token *token, char **field)
 {
-	if (*field == NULL)
-		*field = ft_strdup(token->token);
-	else
-		*field = ft_strjoin(*field, token->token);
-	if (*field == NULL)
+	char *new_val;
+
+	new_val = ft_strjoin(*field, token->token);
+	if (new_val == NULL)
 		error_exit_errno();
+	free(*field);
+	*field = new_val;
 	return (0);
 }
 

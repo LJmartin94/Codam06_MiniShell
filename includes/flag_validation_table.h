@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   invalid.c                                          :+:    :+:            */
+/*   flag_validation_table.h                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
+/*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/10/27 10:09:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/28 17:33:20 by jsaariko      ########   odam.nl         */
+/*   Created: 2020/10/20 12:26:08 by limartin      #+#    #+#                 */
+/*   Updated: 2020/10/25 17:41:45 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "error.h"
-#include "minishell.h"
-#include "libft.h"
+#ifndef FLAG_VALIDATION_TABLE_H
+# define FLAG_VALIDATION_TABLE_H
 
-/*
-** //TODO: stop program?
-*/
+# define FLAG_TABLE_SIZE 1
 
-void	invalid_cmd(t_icomp *cmd)
+static t_flag_validation_obj const	g_flagvalid_table[] =
 {
-	ft_dprintf(STDERR_FILENO, "Invalid command: '%s %s %s'\n",
-	cmd->cmd, cmd->opt, cmd->arg);
-}
+	{"echo", 'n'}
+};
+
+#endif
