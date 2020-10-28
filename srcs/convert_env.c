@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/28 11:19:34 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/28 14:26:40 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/28 18:28:56 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ t_vector		*envp_to_env(char **envp)
 			return (NULL);
 		}
 		ret = vector_push(env, cur);
-		
 		if (!ret)
 			error_exit_errno();
 		i++;

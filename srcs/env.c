@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 11:49:12 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/28 14:28:30 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/28 18:29:27 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,21 @@ static void		write_key_val_pair(char *key, char *value)
 ** if env was not found
 */
 
-static int		validate_cmd_env(t_icomp cmd)
+static int		validate_cmd_env(t_icomp *cmd)
 {
 	// ft_dprintf(STDIN_FILENO, "\tcmd:\t%s\n\
 	// arg:\t%s\n\
 	// id:\t%d\n\
 	// opt:\t%s\n\
 	// sep:\t%s\n", cmd.cmd, cmd.arg, cmd.id, cmd.opt, cmd.sep);
-	if (cmd.arg != NULL || cmd.opt != NULL)
-		return (0);
+	// if (cmd->arg[0] != '\0' || cmd->opt[0] != '\0')
+		// return (0);
+	// return (1);
+	(void)cmd;
 	return (1);
 }
 
-int				ft_env(t_vector *env, t_icomp cmd)
+int				ft_env(t_vector *env, t_icomp *cmd)
 {
 	size_t	i;
 	t_env	*cur;
@@ -58,7 +60,7 @@ int				ft_env(t_vector *env, t_icomp cmd)
 	while (i < env->amt)
 	{
 		cur = (t_env *)vector_get(env, i);
-		write_key_val_pair(cur->key, cur->value);
+			write_key_val_pair(cur->key, cur->value);
 		i++;
 	}
 	return (0);

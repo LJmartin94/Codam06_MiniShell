@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 11:18:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/28 17:32:02 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/28 17:38:24 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void					parse_input(const char *input, t_icomp *comp_blocks);
 
 t_vector				*envp_to_env(char **envp);
 char					**env_to_envp(t_vector *envp);
-void					execute(t_icomp *comp);
+void					execute(t_vector *env, t_icomp *comp);
 
 /*
 ** Function that frees all component blocks after use
@@ -61,6 +61,5 @@ void					free_components(t_icomp *head);
 */
 
 void					print_components(t_icomp *icur);
->>>>>>> execute
 
 #endif

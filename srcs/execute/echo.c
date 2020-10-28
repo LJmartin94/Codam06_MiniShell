@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 10:38:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/28 16:16:48 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/28 17:44:59 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ int	validate_cmd_echo(t_icomp *cmd)
 	return (1);
 }
 
-int	ft_echo(t_icomp *cmd)
+int	ft_echo(t_vector *env, t_icomp *cmd)
 {
+	(void)env;
 	if (validate_cmd_echo(cmd) == 1)
 	{
 		invalid_cmd(cmd);
