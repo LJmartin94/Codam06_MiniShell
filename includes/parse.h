@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/28 14:16:15 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/28 14:44:51 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void					free_tokens(t_token *head);
 int						ft_compconst(t_icomp *tonull);
 void					ft_add_component(t_icomp **head, t_icomp *this);
 int						ft_add_token_to_comp(t_token *token, char **field);
-void					free_components(t_icomp *head);
 
 /*
 ** FSM structs & functions
