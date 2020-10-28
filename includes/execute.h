@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/28 14:58:12 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/28 15:14:25 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 # define EXECUTE_H
 
 # include "minishell.h"
-# include "libft.h" // TODO: where to store this??
 
 /*
-** TODO: Needed:
+** // TODO: Needed:
 ** global return
 ** global pwd (works even when unset)
 ** global list of pid
