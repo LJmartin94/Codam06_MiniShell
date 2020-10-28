@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/28 11:31:02 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/28 14:16:15 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,6 @@
 
 # include <stdlib.h>
 # include "minishell.h"
-
-/*
-** //TODO: Debug-only includes! Remove when no longer used.
-*/
-
-# include <stdio.h>
 
 /*
 ** Tokeniser structs & functions
@@ -118,14 +112,12 @@ typedef struct			s_transition_obj
 ** General parsing structs & functions
 */
 
-void					parse_input(const char *input, t_icomp *comp_blocks);
 void					xt_quit_in_parse(int ret);
 
 /*
 ** //TODO: Debug-only prototypes! Remove when no longer used.
 */
 
-void					print_components(t_icomp *icur);
 void					print_tokens(t_token *tokens);
 
 #endif
