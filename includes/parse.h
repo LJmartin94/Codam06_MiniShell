@@ -39,7 +39,6 @@ char					*empty_string_alloc(void);
 int						ft_compconst(t_icomp *tonull);
 void					ft_add_component(t_icomp **head, t_icomp *this);
 int						ft_add_token_to_comp(t_token *token, char **field);
-void					free_components(t_icomp *head);
 
 /*
 ** FSM structs & functions
