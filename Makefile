@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/14 11:19:17 by limartin      #+#    #+#                  #
-#    Updated: 2020/10/21 17:04:54 by limartin      ########   odam.nl          #
+#    Updated: 2020/10/28 11:29:21 by lindsay       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,9 +32,14 @@ SRC = $(SRC_PATH)main.c \
 	$(SRC_PATH)tokenizer_utils.c \
 	$(SRC_PATH)error.c \
 	$(SRC_PATH)fsm.c \
-	$(SRC_PATH)entry_error_exit_state.c \
-	$(SRC_PATH)cmd_opt_arg_sep_state.c \
+	$(SRC_PATH)control_states.c \
+	$(SRC_PATH)basic_states.c \
+	$(SRC_PATH)dq_basic_states.c \
+	$(SRC_PATH)dq_exit_basic_states.c \
+	$(SRC_PATH)sq_basic_states.c \
+	$(SRC_PATH)sq_exit_basic_states.c \
 	$(SRC_PATH)recognise_token_state.c \
+	$(SRC_PATH)validate_option_flags.c \
 	$(SRC_PATH)comp_links.c \
 	$(SRC_PATH)free_and_exit.c
 
