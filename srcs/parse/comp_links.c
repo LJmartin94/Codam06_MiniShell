@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 18:03:33 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/28 15:25:59 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/28 17:28:56 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,14 @@ int		ft_add_token_to_comp(t_token *token, char **field)
 {
 	char *new_val;
 
+	if (ft_strlen(*field) > 0)
+	{
+		new_val = ft_strjoin(*field, " ");
+		if (new_val == NULL)
+			error_exit_errno();
+		free(*field);
+		*field = new_val;
+	}
 	new_val = ft_strjoin(*field, token->token);
 	if (new_val == NULL)
 		error_exit_errno();

@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/28 15:27:33 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/28 20:05:51 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct			s_recognition_obj
 typedef struct			s_flag_validation_obj
 {
 	char				*cmd;
-	char				flag;
+	char				*flag;
 }						t_flag_validation_obj;
 
 typedef struct			s_transition_obj

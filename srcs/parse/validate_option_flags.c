@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/25 17:19:17 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/28 15:32:15 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/28 20:33:55 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 #include "error.h"
 
 #include <stdio.h>
+
+void	sanitise_option_field(t_icomp **icur)
+{
+	(void)icur;
+}
 
 int		ft_approve_option(t_icomp **icur)
 {
@@ -29,6 +34,40 @@ int		ft_approve_option(t_icomp **icur)
 	free((*icur)->arg);
 	(*icur)->arg = empty_string_alloc();
 	return (0);
+}
+
+static int	single_char_flag(t_icomp **icur, int i, int j)
+{
+	size_t	cmd_len;
+
+	cmd_len = ft_strlen((*icur)->cmd);
+	if (cmd_len != ft_strlen(g_flagvalid_table[j].cmd))
+		return (0);
+	if (ft_strncmp(g_flagvalid_table[j].cmd, (*icur)->cmd, cmd_len))
+		return (0);
+	if (g_flagvalid_table[j].flag[0] != (*icur)->arg[i])
+		return (0);
+	return (1);
+}
+
+static int	multi_char_flag(t_icomp **icur, int j)
+{
+	size_t	cmd_len;
+	size_t	opt_len;
+
+	cmd_len = ft_strlen((*icur)->cmd);
+	opt_len = ft_strlen((*icur)->arg);
+	if (opt_len < 4)
+		return (0);
+	if (cmd_len != ft_strlen(g_flagvalid_table[j].cmd))
+		return (0);
+	if (ft_strncmp(g_flagvalid_table[j].cmd, (*icur)->cmd, cmd_len))
+		return (0);
+	if ((*icur)->arg[1] != '-')
+		return (0);
+	if (ft_strncmp(g_flagvalid_table[j].flag, (*icur)->arg + 2, opt_len))
+		return (0);
+	return (1);
 }
 
 int		validate_option_flags(t_icomp **icur)
@@ -47,9 +86,8 @@ int		validate_option_flags(t_icomp **icur)
 		j = 0;
 		while (j < FLAG_TABLE_SIZE)
 		{
-			if (ret == 1 || (g_flagvalid_table[j].flag == (*icur)->arg[i] && !\
-					ft_strncmp(g_flagvalid_table[j].cmd, (*icur)->cmd, \
-					ft_strlen((*icur)->cmd))))
+			if (ret == 1 || single_char_flag(icur, i, j) || \
+			multi_char_flag(icur, j))
 				ret = 1;
 			j++;
 		}
