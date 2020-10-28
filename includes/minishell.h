@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 11:18:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/28 15:05:46 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/28 15:22:56 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,7 @@ void					parse_input(const char *input, t_icomp *comp_blocks);
 ** Function that runs shell
 */
 
-
 void					execute(t_icomp *comp);
-
 
 /*
 ** Function that frees all component blocks after use

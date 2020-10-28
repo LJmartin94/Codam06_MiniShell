@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/28 15:18:35 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/28 15:29:29 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "minishell.h"
 #include "error.h"
 #include <signal.h>
-
-//TODO: Vector_resize and vector_get compilation issues for linux
 
 int		get_input(void)
 {
@@ -35,7 +33,7 @@ int		get_input(void)
 	parse_input(buf, &comp_blocks);
 	free(buf);
 	execute(&comp_blocks);
-	// print_components(&comp_blocks);
+	print_components(&comp_blocks);
 	free_components(&comp_blocks);
 	return (ret);
 }
