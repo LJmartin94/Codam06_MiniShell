@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 11:49:12 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/27 10:19:27 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/28 14:28:30 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,66 +16,6 @@
 /*
 ** //TODO: if strlcpy fails?
 */
-
-t_env	*get_env_item(char *env_str)
-{
-	t_env	*item;
-	int		i;
-	int		shlvl;
-	int		ret;
-
-	item = (t_env *)e_malloc(sizeof(t_env));
-	i = 0;
-	while(env_str[i] != '=')
-		i++;
-	item->key = (char *)e_malloc(sizeof(char) * (i + 1));
-	ret = ft_strlcpy(item->key, env_str, i + 1); //TODO: or if there's nothing behind =   ??
-	if (ret == -1)
-		ft_dprintf(STDERR_FILENO, "rip ft_strlcpy in get_env_item");
-	if (ft_strncmp(item->key, "SHLVL", 5) == 0)
-	{
-		shlvl = ft_atoi(env_str + i + 1);
-		shlvl++;
-		item->value = ft_itoa(shlvl);
-	}
-	else
-		item->value = ft_strdup(env_str + i + 1);
-	if (item->value == NULL)
-		error_exit_errno();
-	return (item);
-}
-
-t_vector		*convert_env(char **envp)
-{
-	size_t		i;
-	size_t		count;
-	t_env		*cur;
-	t_vector	*env;
-	int			ret;
-
-	i = 0;
-	count = 0;
-	cur = NULL;
-	while (envp[count])
-		count++;
-	env = (t_vector *)e_malloc(sizeof(t_vector));
-	vector_init(env);
-	while (i < count)
-	{
-		cur = get_env_item(envp[i]);
-		if (cur == NULL)
-		{
-			ft_dprintf(STDERR_FILENO, "ENV ITEM RETURNS NULL WHERE IT SHOULDN'T\n");
-			return (NULL);
-		}
-		ret = vector_push(env, cur);
-		
-		if (!ret)
-			error_exit_errno();
-		i++;
-	}
-	return (env);
-}
 
 static void		write_key_val_pair(char *key, char *value)
 {

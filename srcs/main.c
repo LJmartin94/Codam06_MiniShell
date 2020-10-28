@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/27 09:37:00 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/28 14:29:06 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		main(int ac, char **av, char **envp)
 
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
-	env = convert_env(envp);
+	env = envp_to_env(envp);
 	(void)ac;
 	(void)av;
 	while (1)

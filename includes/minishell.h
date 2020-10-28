@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 11:18:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/27 09:36:51 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/28 14:29:38 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void					free_components(t_icomp *head);
 */
 
 void					execute(t_vector *env, t_icomp cmd);
-t_vector				*convert_env(char **envp);
+t_vector				*envp_to_env(char **envp);
+char					**env_to_envp(t_vector *envp);
 
 #endif

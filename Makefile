@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/14 11:19:17 by limartin      #+#    #+#                  #
-#    Updated: 2020/10/27 10:43:45 by jsaariko      ########   odam.nl          #
+#    Updated: 2020/10/28 14:29:55 by jsaariko      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRC = $(SRC_PATH)main.c \
 	$(SRC_PATH)free_and_exit.c \
 	$(SRC_PATH)execute.c \
 	$(SRC_PATH)env.c \
+	$(SRC_PATH)convert_env.c \
 	$(SRC_PATH)export.c \
 	$(SRC_PATH)unset.c \
 	$(SRC_PATH)echo.c \
