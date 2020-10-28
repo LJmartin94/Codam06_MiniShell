@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/14 11:19:17 by limartin      #+#    #+#                  #
-#    Updated: 2020/10/27 12:36:28 by jsaariko      ########   odam.nl          #
+#    Updated: 2020/10/28 11:52:08 by jsaariko      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ LIBFT_PATH = ./libft
 CC = gcc
 
 #TODO remove sanitise flag when submitting
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+# CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror
 
 HEADER_FILES = $(INCL_PATH)
 
@@ -39,6 +40,7 @@ SRC = $(SRC_PATH)main.c \
 	$(SRC_PATH)comp_links.c \
 	$(SRC_PATH)free_and_exit.c \
 	$(SRC_PATH)execute.c \
+	$(SRC_PATH)convert_env.c \
 	$(SRC_PATH)env.c \
 	$(SRC_PATH)export.c \
 	$(SRC_PATH)unset.c \

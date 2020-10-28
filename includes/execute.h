@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/27 16:48:10 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/28 12:19:07 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,16 @@ int				ft_cd(t_vector *env, t_icomp cmd);
 int				ft_exit(t_vector *env, t_icomp cmd);
 t_env			*get_env_item(char *env_str);
 void			invalid_cmd(t_icomp cmd);
+
+/*
+** Utils
+*/
+
+int				free_env(t_vector *env);
+int				free_envp(char **envp);
+
+char **env_to_envp(t_vector *env);
+// char **envp_to_env(t_vector *env);
 
 
 #endif

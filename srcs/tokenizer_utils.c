@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 11:54:53 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/26 11:13:17 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/28 11:58:16 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,3 +59,4 @@ t_token	*create_token(const char *tokens, int pos, size_t len)
 	token->next = NULL;
 	return (token);
 }
+

@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/27 15:01:51 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/28 14:22:21 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "error.h"
 #include <stdio.h>//
 #include <signal.h>
+#include "execute.h"//
 
 int		get_input(t_vector *env)
 {
@@ -32,8 +33,8 @@ int		get_input(t_vector *env)
 		error_exit_msg(C_GNL_FAIL, E_GNL_FAIL);
 	parse_input(buf, &comp_blocks);
 	free(buf);
-	// print_components(&comp_blocks);
 	execute(env, comp_blocks);
+	// print_components(&comp_blocks);
 	free_components(&comp_blocks);
 	return (ret);
 }
@@ -46,7 +47,7 @@ void	sig_handler(int signo)
 {
 	if (signo == SIGINT)
 	{
-		// TODO: Send signals to child processes 
+		// TODO: Send signals to child processes
 		// while(g_pid[i] < g_pid_amt){ kill(g_pid[i], SIGINT) ??? } <- maybe make this a vector
 		e_write(1, "\n", 1);
 		e_write(1, "\U0001F40C ", 6);
@@ -59,7 +60,7 @@ int		main(int ac, char **av, char **envp)
 
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
-	env = convert_env(envp);
+	env = envp_to_env(envp);
 	(void)ac;
 	(void)av;
 	while (1)
