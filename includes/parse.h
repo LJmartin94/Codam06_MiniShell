@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/26 11:20:59 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/28 11:31:02 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 
 # include <stdlib.h>
 # include "minishell.h"
+
+/*
+** //TODO: Debug-only includes! Remove when no longer used.
+*/
+
+# include <stdio.h>
 
 /*
 ** Tokeniser structs & functions
@@ -29,7 +35,7 @@ typedef struct			s_token
 t_token					*get_tokens(const char *input);
 void					add_token(t_token **head, t_token *token);
 t_token					*create_token(const char *tokens, int j, size_t len);
-void					free_matrix(char **tokens);
+void					free_tokens(t_token *head);
 
 /*
 ** Composition-block functions
@@ -38,6 +44,7 @@ void					free_matrix(char **tokens);
 int						ft_compconst(t_icomp *tonull);
 void					ft_add_component(t_icomp **head, t_icomp *this);
 int						ft_add_token_to_comp(t_token *token, char **field);
+void					free_components(t_icomp *head);
 
 /*
 ** FSM structs & functions
@@ -51,10 +58,12 @@ typedef	enum			e_transition_code
 	option,
 	arg,
 	separator,
+	dq,
+	sq,
 	exit_state
 }						t_transition_code;
 
-void					manage_fsm(t_token *tokens);
+void					manage_fsm(t_token *tokens, t_icomp *head);
 
 t_transition_code		sh_entry_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_error_state(t_token **this, t_icomp **icur);
@@ -63,15 +72,40 @@ t_transition_code		sh_exit_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_command_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_option_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_argument_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_argument_pad_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_separator_state(t_token **this, t_icomp **icur);
 
+t_transition_code		sh_dq_cmd_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_dq_option_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_dq_arg_state(t_token **this, t_icomp **icur);
+
+t_transition_code		sh_dq_exit_cmd_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_dq_exit_option_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_dq_exit_arg_state(t_token **this, t_icomp **icur);
+
+t_transition_code		sh_sq_cmd_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_sq_option_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_sq_arg_state(t_token **this, t_icomp **icur);
+
+t_transition_code		sh_sq_exit_cmd_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_sq_exit_option_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_sq_exit_arg_state(t_token **this, t_icomp **icur);
+
 t_transition_code		recognise_token_state(t_token *this);
+
+int						validate_option_flags(t_icomp **icur);
 
 typedef struct			s_recognition_obj
 {
 	char				*to_compare;
 	t_transition_code	ret;
 }						t_recognition_obj;
+
+typedef struct			s_flag_validation_obj
+{
+	char				*cmd;
+	char				flag;
+}						t_flag_validation_obj;
 
 typedef struct			s_transition_obj
 {
@@ -84,6 +118,14 @@ typedef struct			s_transition_obj
 ** General parsing structs & functions
 */
 
+void					parse_input(const char *input, t_icomp *comp_blocks);
 void					xt_quit_in_parse(int ret);
+
+/*
+** //TODO: Debug-only prototypes! Remove when no longer used.
+*/
+
+void					print_components(t_icomp *icur);
+void					print_tokens(t_token *tokens);
 
 #endif
