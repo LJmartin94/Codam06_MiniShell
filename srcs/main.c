@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/21 18:26:46 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/24 17:43:45 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int		get_input(void)
 {
 	char	*buf;
 	int		ret;
+	t_icomp comp_blocks;
 
 	e_write(1, "\U0001F40C ", 6);
 	ret = get_next_line(STDIN_FILENO, &buf);
@@ -28,8 +29,11 @@ int		get_input(void)
 		exit(0);
 	}
 	if (ret < 0)
-		error_exit_msg(C_MALLOC_FAIL_LIBFT, E_MALLOC_FAIL_LIBFT);
-	parse_input(buf);
+		error_exit_msg(C_GNL_FAIL, E_GNL_FAIL);
+	parse_input(buf, &comp_blocks);
+	free(buf);
+	print_components(&comp_blocks);
+	free_components(&comp_blocks);
 	return (ret);
 }
 
@@ -53,4 +57,19 @@ int		main(void)
 	while (1)
 		get_input();
 	return (0);
+}
+
+/*
+** //TODO: remove function print_components if no longer debugging
+*/
+
+void	print_components(t_icomp *icur)
+{
+	while (icur)
+	{
+		printf("Block:	|%d|\nLFT: [%p]\nADR:	|%p|\nCMD:	|%s|\nOPT:	|%s|\n\
+ARG:	|%s|\nSEP:	|%s|\nRGT: [%p]\n", icur->id, icur->left, icur, \
+		icur->cmd, icur->opt, icur->arg, icur->sep, icur->right);
+		icur = icur->right;
+	}
 }
