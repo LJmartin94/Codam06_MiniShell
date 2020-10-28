@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 18:03:33 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/25 17:10:04 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/28 15:09:32 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,28 @@
 #include "libft.h"
 #include "error.h"
 
-int		ft_compconst(t_icomp *tonull)
+static char	*empty_string_alloc(void)
 {
-	tonull->sep = NULL;
-	tonull->cmd = NULL;
-	tonull->opt = NULL;
-	tonull->arg = NULL;
+	char *ret;
+
+	ret = e_malloc(1);
+	ret[0] = '\0';
+	return (ret);
+}
+
+int			ft_compconst(t_icomp *tonull)
+{
+	tonull->sep = empty_string_alloc();
+	tonull->cmd = empty_string_alloc();
+	tonull->opt = empty_string_alloc();
+	tonull->arg = empty_string_alloc();
 	tonull->id = 0;
 	tonull->right = NULL;
 	tonull->left = NULL;
 	return (0);
 }
 
-void	ft_add_component(t_icomp **head, t_icomp *this)
+void		ft_add_component(t_icomp **head, t_icomp *this)
 {
 	t_icomp *cur;
 	t_icomp	*left;
@@ -50,18 +59,19 @@ void	ft_add_component(t_icomp **head, t_icomp *this)
 ** one if it does not exist yet.
 */
 
-int		ft_add_token_to_comp(t_token *token, char **field)
+int			ft_add_token_to_comp(t_token *token, char **field)
 {
-	if (*field == NULL)
-		*field = ft_strdup(token->token);
-	else
-		*field = ft_strjoin(*field, token->token);
-	if (*field == NULL)
+	char *new_val;
+
+	new_val = ft_strjoin(*field, token->token);
+	if (new_val == NULL)
 		error_exit_errno();
+	free(*field);
+	*field = new_val;
 	return (0);
 }
 
-void	free_components(t_icomp *head)
+void		free_components(t_icomp *head)
 {
 	t_icomp *tmp;
 
