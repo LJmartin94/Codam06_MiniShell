@@ -6,13 +6,17 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/14 11:19:17 by limartin      #+#    #+#                  #
-#    Updated: 2020/10/28 11:29:21 by lindsay       ########   odam.nl          #
+#    Updated: 2020/10/28 14:52:26 by jsaariko      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 SRC_PATH = ./srcs/
+
+PARSE_PATH = parse/
+
+EX_PATH = execute/
 
 INCL_PATH = ./includes/
 
@@ -27,21 +31,24 @@ HEADER_FILES = $(INCL_PATH)
 
 #Source files mandatory part
 SRC = $(SRC_PATH)main.c \
-	$(SRC_PATH)parse_input.c \
-	$(SRC_PATH)tokenizer.c \
-	$(SRC_PATH)tokenizer_utils.c \
 	$(SRC_PATH)error.c \
-	$(SRC_PATH)fsm.c \
-	$(SRC_PATH)control_states.c \
-	$(SRC_PATH)basic_states.c \
-	$(SRC_PATH)dq_basic_states.c \
-	$(SRC_PATH)dq_exit_basic_states.c \
-	$(SRC_PATH)sq_basic_states.c \
-	$(SRC_PATH)sq_exit_basic_states.c \
-	$(SRC_PATH)recognise_token_state.c \
-	$(SRC_PATH)validate_option_flags.c \
-	$(SRC_PATH)comp_links.c \
-	$(SRC_PATH)free_and_exit.c
+	$(SRC_PATH)invalid.c \
+	$(SRC_PATH)$(PARSE_PATH)parse_input.c \
+	$(SRC_PATH)$(PARSE_PATH)tokenizer.c \
+	$(SRC_PATH)$(PARSE_PATH)tokenizer_utils.c \
+	$(SRC_PATH)$(PARSE_PATH)fsm.c \
+	$(SRC_PATH)$(PARSE_PATH)control_states.c \
+	$(SRC_PATH)$(PARSE_PATH)basic_states.c \
+	$(SRC_PATH)$(PARSE_PATH)dq_basic_states.c \
+	$(SRC_PATH)$(PARSE_PATH)dq_exit_basic_states.c \
+	$(SRC_PATH)$(PARSE_PATH)sq_basic_states.c \
+	$(SRC_PATH)$(PARSE_PATH)sq_exit_basic_states.c \
+	$(SRC_PATH)$(PARSE_PATH)recognise_token_state.c \
+	$(SRC_PATH)$(PARSE_PATH)validate_option_flags.c \
+	$(SRC_PATH)$(PARSE_PATH)comp_links.c \
+	$(SRC_PATH)$(PARSE_PATH)free_and_exit.c \
+	$(SRC_PATH)$(EX_PATH)execute.c \
+	$(SRC_PATH)$(EX_PATH)echo.c \
 
 #Source files bonus part
 SRC_B = # $(SRC_PATH) bonus_goes_here.c #TODO
