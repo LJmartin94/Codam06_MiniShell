@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/25 17:19:17 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/28 20:33:55 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/29 12:51:18 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 
 #include <stdio.h>
 
-void	sanitise_option_field(t_icomp **icur)
+void		sanitise_option_field(t_icomp **icur)
 {
 	(void)icur;
 }
 
-int		ft_approve_option(t_icomp **icur)
+int			ft_approve_option(t_icomp **icur)
 {
 	char *new_val;
 
@@ -70,7 +70,7 @@ static int	multi_char_flag(t_icomp **icur, int j)
 	return (1);
 }
 
-int		validate_option_flags(t_icomp **icur)
+int			validate_option_flags(t_icomp **icur)
 {
 	int i;
 	int j;

@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 18:10:03 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/29 12:35:43 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/29 12:50:05 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,6 @@ t_transition_code	sh_option_state(t_token **this, t_icomp **icur)
 	if ((*this) != NULL)
 		id = recognise_token_state(*this);
 	if (id == option && valid == 0)
-		id = arg;
-	return (id);
-}
-
-t_transition_code	sh_option_sanitise_state(t_token **this, t_icomp **icur)
-{
-	t_transition_code	id;
-
-	//sanitisation
-	(void)icur;
-	id = exit_state;
-	if ((*this) != NULL)
-		id = recognise_token_state(*this);
-	if (id == option)
 		id = arg;
 	return (id);
 }
