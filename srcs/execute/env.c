@@ -15,10 +15,10 @@
 
 static void		write_key_val_pair(char *key, char *value)
 {
-	write(STDIN_FILENO, key, ft_strlen(key));
-	write(STDIN_FILENO, "=", 1);
-	write(STDIN_FILENO, value, ft_strlen(value));
-	write(STDIN_FILENO, "\n", 1);
+	e_write(STDIN_FILENO, key, ft_strlen(key));
+	e_write(STDIN_FILENO, "=", 1);
+	e_write(STDIN_FILENO, value, ft_strlen(value));
+	e_write(STDIN_FILENO, "\n", 1);
 }
 
 /*
