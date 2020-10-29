@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/14 11:19:17 by limartin      #+#    #+#                  #
-#    Updated: 2020/10/28 14:52:26 by jsaariko      ########   odam.nl          #
+#    Updated: 2020/10/29 13:37:54 by jsaariko      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ LIBFT_PATH = ./libft
 CC = gcc
 
 #TODO remove sanitise flag when submitting
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror
+# CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 
 HEADER_FILES = $(INCL_PATH)
 
@@ -49,6 +50,11 @@ SRC = $(SRC_PATH)main.c \
 	$(SRC_PATH)$(PARSE_PATH)free_and_exit.c \
 	$(SRC_PATH)$(EX_PATH)execute.c \
 	$(SRC_PATH)$(EX_PATH)echo.c \
+	$(SRC_PATH)$(EX_PATH)env.c \
+	$(SRC_PATH)$(EX_PATH)env_utils.c \
+	$(SRC_PATH)$(EX_PATH)env_free.c \
+	$(SRC_PATH)$(EX_PATH)export.c \
+	$(SRC_PATH)$(EX_PATH)unset.c \
 
 #Source files bonus part
 SRC_B = # $(SRC_PATH) bonus_goes_here.c #TODO

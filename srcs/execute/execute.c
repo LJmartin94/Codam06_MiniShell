@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/28 15:53:24 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/28 18:30:11 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,30 @@
 
 t_cmd	get_command(t_icomp *comp)
 {
-	if (comp->cmd == NULL)
-		return (NULL);
 	if (ft_strncmp(comp->cmd, "echo", 5) == 0)
 		return (ft_echo);
-	invalid_cmd(comp);
+	if (ft_strncmp(comp->cmd, "env", 4) == 0)
+		return (ft_env);
+	if (ft_strncmp(comp->cmd, "unset", 6) == 0)
+		return (ft_unset);
+	if (ft_strncmp(comp->cmd, "export", 7) == 0)
+		return (ft_export);
 	return (NULL);
 }
 
-void	execute(t_icomp *comp)
+void	execute(t_vector *env, t_icomp *comp)
 {
-	t_cmd f;
+	t_cmd	f;
+	t_icomp	*tmp;
 
-	f = get_command(comp);
-	if (f != NULL)
-		f(comp);
+	tmp = comp;
+	while (tmp != NULL)
+	{
+		f = get_command(tmp);
+		if (f == NULL)
+			invalid_cmd(tmp);
+		else
+			f(env, tmp);
+		tmp = tmp->right;
+	}
 }

@@ -6,16 +6,16 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/28 16:16:06 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/29 14:08:10 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
 #include "error.h"
+#include <stdio.h>
 #include <signal.h>
 
-int		get_input(void)
+int		get_input(t_vector *env)
 {
 	char	*buf;
 	int		ret;
@@ -32,8 +32,7 @@ int		get_input(void)
 		error_exit_msg(C_GNL_FAIL, E_GNL_FAIL);
 	parse_input(buf, &comp_blocks);
 	free(buf);
-	execute(&comp_blocks);
-	print_components(&comp_blocks);
+	execute(env, &comp_blocks);
 	free_components(&comp_blocks);
 	return (ret);
 }
@@ -51,12 +50,17 @@ void	sig_handler(int signo)
 	}
 }
 
-int		main(void)
+int		main(int ac, char **av, char **envp)
 {
+	t_vector *env;
+
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
+	env = envp_to_env(envp);
+	(void)ac;
+	(void)av;
 	while (1)
-		get_input();
+		get_input(env);
 	return (0);
 }
 
