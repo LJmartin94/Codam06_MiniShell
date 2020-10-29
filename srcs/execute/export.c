@@ -6,32 +6,12 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:39:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/29 10:39:35 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/29 12:53:05 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "error.h"
-
-static int	validate_env(char *env_str)
-{
-	int i;
-
-	i = 0;
-	if (ft_isalpha(env_str[i]) == 0)
-		return (-1);
-	// while (env_str[i] != '\0')
-	// {
-		// if (env_str[i] == '=')
-			// break ;
-		// i++;
-	// }
-	// if (env_str[i] == '\0')
-		// return(0);
-	// if (env_str[i] == '=' && env_str[i + 1] == '\0') //exports
-		// return(1);
-	return (1);
-}
 
 /*
 ** //TODO: When not supplying arguments to export, dont use the env command
@@ -45,7 +25,7 @@ static int	print_env(t_vector *env)
 
 	i = 0;
 	cur = NULL;
-	while(i < env->amt)
+	while (i < env->amt)
 	{
 		cur = (t_env *)vector_get(env, i);
 		write(STDIN_FILENO, "declare -x ", 11);
@@ -64,26 +44,48 @@ static int	print_env(t_vector *env)
 
 int			ft_export(t_vector *env, t_icomp *cmd)
 {
-	t_env *item;
-	int ret;
+	t_env	*item;
+	int		ret;
+	int		env_i;	
+	t_env *edit;
 
+	env_i = 0;
 	if ((ft_strncmp(cmd->arg, "", 1)) == 0)
 	{
 		print_env(env);
 		return (0);
 	}
-	ret = validate_env(cmd->arg);
-	if (ret == -1)
+	if (!ft_isalpha(cmd->arg[0]))
 	{
-		ft_dprintf(STDERR_FILENO, "export: '%s': not a valid identifier\n", cmd->arg);
+		ft_dprintf(STDERR_FILENO, "export: '%s': not a valid identifier\n",
+			cmd->arg);
 		return (1);
 	}
-	
-	if (ret == 0)
-		return (0);
 	item = get_env_item(cmd->arg);
-	ret = vector_push(env, item);
-	if (!ret)
-		error_exit_errno();
+	env_i = vector_search(env, compare_key, item->key);
+	if (env_i != -1)
+	{
+		edit = vector_get(env, env_i);
+		if (item->value != NULL)
+		{
+			free(edit->value);
+			edit->value = item->value;
+			free(item->key);
+			free(item);
+		}
+		else
+		{
+			free(item->key);
+			free(item->value);
+			free(item);
+		}
+		
+	}
+	else
+	{
+		ret = vector_push(env, item);
+		if (!ret)
+			error_exit_errno();
+	}
 	return (0);
 }

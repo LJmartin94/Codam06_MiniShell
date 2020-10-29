@@ -6,16 +6,12 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 11:49:12 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/29 11:30:51 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/29 12:17:03 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "error.h"
 #include "execute.h"
-
-/*
-** //TODO: if strlcpy fails?
-*/
 
 static void		write_key_val_pair(char *key, char *value)
 {
@@ -29,19 +25,14 @@ static void		write_key_val_pair(char *key, char *value)
 ** //TODO: how can env fail and what is the return value:
 ** returns >0 if error occurs, 126 if env is not able to be used 127
 ** if env was not found
+** illegal option returns 1
+** bad file returns 127
 */
 
 static int		validate_cmd_env(t_icomp *cmd)
 {
-	// ft_dprintf(STDIN_FILENO, "\tcmd:\t%s\n\
-	// arg:\t%s\n\
-	// id:\t%d\n\
-	// opt:\t%s\n\
-	// sep:\t%s\n", cmd.cmd, cmd.arg, cmd.id, cmd.opt, cmd.sep);
-	// if (cmd->arg[0] != '\0' || cmd->opt[0] != '\0')
-		// return (0);
-	// return (1);
-	(void)cmd;
+	if (ft_strncmp(cmd->arg, "", 1) != 0 || ft_strncmp(cmd->opt, "", 1) != 0)
+		return (0);
 	return (1);
 }
 
@@ -55,7 +46,7 @@ int				ft_env(t_vector *env, t_icomp *cmd)
 	if (validate_cmd_env(cmd) == 0)
 	{
 		invalid_cmd(cmd);
-		return(0); //TODO: What's the return code for invalid env command? I think it's still 0
+		return (127);
 	}
 	while (i < env->amt)
 	{

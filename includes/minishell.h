@@ -6,14 +6,14 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 11:18:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/28 17:38:24 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/29 12:21:50 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "libft.h" //TODO: How to include this
+# include "libft.h"
 
 /*
 ** //TODO: Debug-only includes! Remove when no longer used.
