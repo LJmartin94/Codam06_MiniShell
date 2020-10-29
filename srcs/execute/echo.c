@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 10:38:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/28 17:44:59 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/29 14:05:08 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,10 @@
 #include "error.h"
 #include "libft.h"
 
-int	validate_cmd_echo(t_icomp *cmd)
+int	ft_echo(t_icomp *cmd)
 {
-	if (cmd->opt != '\0' || ft_strncmp(cmd->opt, "-n", 3) != 0)
-		return (0);
-	return (1);
-}
-
-int	ft_echo(t_vector *env, t_icomp *cmd)
-{
-	(void)env;
-	if (validate_cmd_echo(cmd) == 1)
-	{
-		invalid_cmd(cmd);
-		return (0);
-	}
 	e_write(STDIN_FILENO, cmd->arg, ft_strlen(cmd->arg));
-	if (ft_strncmp(cmd->opt, "-n", 3) != 0)
+	if (ft_strnstr(cmd->opt, "-n", ft_strlen(cmd->opt)) == NULL)
 		e_write(STDIN_FILENO, "\n", 1);
 	return (0);
 }
