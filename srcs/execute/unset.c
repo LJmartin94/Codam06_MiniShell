@@ -27,7 +27,7 @@ int	ft_unset(t_vector *env, t_icomp *cmd)
 	int		index;
 	t_env	*cur;
 
-	if (cmd->arg == NULL)
+	if (ft_strncmp(cmd->arg, "", 1) == 0)
 		return (0);
 	index = vector_search(env, compare_key, (void *)cmd->arg);
 	if (index == -1)
