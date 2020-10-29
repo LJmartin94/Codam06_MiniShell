@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/29 14:02:50 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/29 18:18:41 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int				compare_key(t_env *data, char *item);
 
 t_env			*get_env_item(char *env_str);
 void			free_env_item(t_env *item);
-void			free_environment(t_vector *env);
+void			free_env(t_vector *env);
 void			free_envp(char **envp);
 
 void			invalid_cmd(t_icomp *cmd);

@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:39:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/29 13:58:29 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/29 18:19:23 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,15 @@ static void	edit_env(t_vector *env, t_env *item, int pos)
 			free(edit->value);
 			edit->value = item->value;
 			free(item->key);
+			item->key = NULL;
 			free(item);
+			item = NULL;
 		}
 		else
+		{
 			free_env_item(item);
+			item = NULL;
+		}
 	}
 	else
 	{
