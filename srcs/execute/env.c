@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 11:49:12 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/28 18:29:27 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/29 10:37:44 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int				ft_env(t_vector *env, t_icomp *cmd)
 	while (i < env->amt)
 	{
 		cur = (t_env *)vector_get(env, i);
+		// ft_dprintf(STDIN_FILENO, "cur->value [%s]\n", cur->value);
+		if (cur->value != NULL)
 			write_key_val_pair(cur->key, cur->value);
 		i++;
 	}

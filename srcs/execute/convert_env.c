@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/28 11:19:34 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/29 09:26:12 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/29 10:40:09 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,21 @@ t_env	*get_env_item(char *env_str)
 {
 	t_env	*item;
 	int		i;
-	int		shlvl;
 
 	item = (t_env *)e_malloc(sizeof(t_env));
 	i = 0;
-	while(env_str[i] != '=')
+	while(env_str[i] != '\0') //if there is a =, allocate str, else it's null
 		i++;
 	item->key = (char *)e_malloc(sizeof(char) * (i + 1));
 	ft_strlcpy(item->key, env_str, i + 1); //TODO: or if there's nothing behind =   ??
-	if (ft_strncmp(item->key, "SHLVL", 6) == 0) //TODO: ???
-	{
-		shlvl = ft_atoi(env_str + i + 1);
-		shlvl++;
-		item->value = ft_itoa(shlvl);
-	}
+	if (env_str[i] != '=')
+		item->value = NULL;
 	else
+	{
 		item->value = ft_strdup(env_str + i + 1);
-	if (item->value == NULL)
-		error_exit_errno();
+			if (item->value == NULL)
+				error_exit_errno();
+	}
 	return (item);
 }
 
