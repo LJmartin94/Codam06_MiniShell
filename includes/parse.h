@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/28 15:27:33 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/29 12:35:05 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ t_transition_code		sh_exit_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_command_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_option_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_argument_state(t_token **this, t_icomp **icur);
-t_transition_code		sh_argument_pad_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_separator_state(t_token **this, t_icomp **icur);
 
 t_transition_code		sh_dq_cmd_state(t_token **this, t_icomp **icur);
@@ -98,7 +97,7 @@ typedef struct			s_recognition_obj
 typedef struct			s_flag_validation_obj
 {
 	char				*cmd;
-	char				flag;
+	char				*flag;
 }						t_flag_validation_obj;
 
 typedef struct			s_transition_obj
