@@ -6,13 +6,12 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/28 11:19:34 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/29 13:34:30 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/29 13:51:00 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "error.h"
-
 
 t_env		*get_env_item(char *env_str)
 {

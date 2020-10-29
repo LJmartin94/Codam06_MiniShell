@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:39:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/29 12:53:05 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/29 13:58:29 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,36 @@ static int	print_env(t_vector *env)
 	return (0);
 }
 
+static void	edit_env(t_vector *env, t_env *item, int pos)
+{
+	t_env	*edit;
+
+	if (pos != -1)
+	{
+		edit = vector_get(env, pos);
+		if (item->value != NULL)
+		{
+			free(edit->value);
+			edit->value = item->value;
+			free(item->key);
+			free(item);
+		}
+		else
+			free_env_item(item);
+	}
+	else
+	{
+		if (vector_push(env, item) == 0)
+			error_exit_errno();
+	}
+}
+
 int			ft_export(t_vector *env, t_icomp *cmd)
 {
 	t_env	*item;
-	int		ret;
-	int		env_i;	
-	t_env *edit;
+	int		pos;
 
-	env_i = 0;
+	pos = 0;
 	if ((ft_strncmp(cmd->arg, "", 1)) == 0)
 	{
 		print_env(env);
@@ -62,30 +84,7 @@ int			ft_export(t_vector *env, t_icomp *cmd)
 		return (1);
 	}
 	item = get_env_item(cmd->arg);
-	env_i = vector_search(env, compare_key, item->key);
-	if (env_i != -1)
-	{
-		edit = vector_get(env, env_i);
-		if (item->value != NULL)
-		{
-			free(edit->value);
-			edit->value = item->value;
-			free(item->key);
-			free(item);
-		}
-		else
-		{
-			free(item->key);
-			free(item->value);
-			free(item);
-		}
-		
-	}
-	else
-	{
-		ret = vector_push(env, item);
-		if (!ret)
-			error_exit_errno();
-	}
+	pos = vector_search(env, compare_key, item->key);
+	edit_env(env, item, pos);
 	return (0);
 }

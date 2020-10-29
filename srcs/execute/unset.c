@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:38:22 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/29 13:48:58 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/29 14:00:55 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,16 @@ int	compare_key(t_env *data, char *item)
 
 int	ft_unset(t_vector *env, t_icomp *cmd)
 {
-	int index;
+	int		index;
+	t_env	*cur;
 
 	if (cmd->arg == NULL)
 		return (0);
 	index = vector_search(env, compare_key, (void *)cmd->arg);
 	if (index == -1)
 		return (0);
-	t_env *thingy = vector_get(env, index);
-	free_env_item(thingy);
+	cur = vector_get(env, index);
+	free_env_item(cur);
 	vector_delete(env, index);
 	return (0);
 }
