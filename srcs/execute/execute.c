@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/29 17:32:33 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/29 18:49:29 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	**build_argv(t_icomp *comp)
 char	*readdir_test(t_vector *env, t_icomp *comp)
 {
 	t_env *item = vector_get(env, vector_search(env, compare_key, "PATH"));
-	ft_dprintf(STDIN_FILENO, "%s\n", item->value);
+	// ft_dprintf(STDIN_FILENO, "%s\n", item->value);
 	char **split = ft_split(item->value, ':');
 	int i;
 	i = 0;
@@ -70,30 +70,29 @@ char	*readdir_test(t_vector *env, t_icomp *comp)
 	found = NULL;
 	while(split[i] != NULL)
 	{
-		ft_dprintf(STDIN_FILENO, "path part %d: %s\n", i, split[i]);
+		// ft_dprintf(STDIN_FILENO, "path part %d: %s\n", i, split[i]);
 		i++;
 	}
-	ft_dprintf(STDIN_FILENO, "DONE\n");
+	// ft_dprintf(STDIN_FILENO, "DONE\n");
 	DIR *dir;
-	// struct dirent *dp;
 	int j = 0;
 	while(split[j] != NULL)
 	{
-		dir = opendir(split[i]);
-		// dp = readdir(dir);
+		dir = opendir(split[j]);
+		if (dir == NULL)
+			break ;
 		struct dirent *entry;
+		entry = readdir(dir);
 		while ((entry = readdir(dir)) != NULL)
 		{
-			if (ft_strncmp(entry->d_name, comp->cmd, ft_strlen(comp->cmd) + 1))
+			if (ft_strncmp(entry->d_name, comp->cmd, ft_strlen(comp->cmd) + 1) == 0)
 			{
-				found = ft_strdup(entry->d_name);
+				found = ft_strjoin(split[j], "/");
 				closedir(dir); //TODO: free all the shit
 				return (found);
 			}
 		}
-		int dir_ret = closedir(dir);
-		
-		ft_dprintf(STDIN_FILENO, "dir_ret: %d\n", dir_ret);
+		closedir(dir);
 		j++;
 	}
 	return (NULL);
@@ -110,8 +109,6 @@ void	exec_command(t_vector *env, t_icomp *comp)
 	if (dir == NULL)
 		invalid_cmd(comp);
 	char *command = ft_strjoin(dir, comp->cmd);
-	ft_dprintf(STDIN_FILENO, "command: %s\n", command);	
-
 	pid = fork();
 	if (pid != 0) //if in parent process
 	{
