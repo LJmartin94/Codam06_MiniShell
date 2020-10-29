@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:39:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/29 09:39:32 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/29 09:51:34 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,12 @@ static int	validate_env(char *env_str)
 	return (1);
 }
 
-int			ft_export(t_vector *env, t_icomp *cmd) //TODO: Export with nothing as param prints all items with declare -x in front?
+/*
+** //TODO: Export with nothing as param prints all items with declare -x in front?
+** export returns one if NAME is invalid
+*/
+
+int			ft_export(t_vector *env, t_icomp *cmd)
 {
 	t_env *item;
 	int ret;
@@ -42,13 +47,11 @@ int			ft_export(t_vector *env, t_icomp *cmd) //TODO: Export with nothing as para
 	if (ret == -1)
 	{
 		ft_dprintf(STDERR_FILENO, "export: '%s': not a valid identifier\n", cmd->arg);
-		return (0);
+		return (1);
 	}
 	if (ret == 0)
 		return (0);
 	item = get_env_item(cmd->arg);
-	if (item == NULL)
-		return (0);
 	ret = vector_push(env, item);
 	if (!ret)
 		error_exit_errno();
