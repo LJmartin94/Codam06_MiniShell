@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_env_item.c                                     :+:    :+:            */
+/*   env_free.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/29 10:59:48 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/29 11:30:10 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/29 13:37:09 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,38 @@
 #include "error.h"
 #include "libft.h"
 
-t_env		*get_env_item(char *env_str)
+void			free_env_item(t_env *env)
 {
-	t_env	*item;
-	int		i;
+	free(env->key);
+	free(env->value);
+	free(env);
+}
 
-	item = (t_env *)e_malloc(sizeof(t_env));
+void			free_environment(t_vector *env)
+{
+	size_t	i;
+	t_env	*cur;
+
 	i = 0;
-	while (env_str[i] != '\0' && env_str[i] != '=')
-		i++;
-	item->key = (char *)e_malloc(sizeof(char) * (i + 1));
-	ft_strlcpy(item->key, env_str, i + 1);
-	if (env_str[i] != '=')
-		item->value = NULL;
-	else
+	while (i < env->amt)
 	{
-		item->value = ft_strdup(env_str + i + 1);
-		if (item->value == NULL)
-			error_exit_errno();
+		cur = vector_get(env, i);
+		free_env_item(cur);
+		i++;
 	}
-	return (item);
+	free(env->data);
+	free(env);
+}
+
+void			free_envp(char **envp)
+{
+	int i;
+
+	i = 0;
+	while (envp[i] != NULL)
+	{
+		free(envp[i]);
+		i++;
+	}
+	free(envp);
 }

@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:38:22 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/29 12:29:20 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/29 13:48:58 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	ft_unset(t_vector *env, t_icomp *cmd)
 	index = vector_search(env, compare_key, (void *)cmd->arg);
 	if (index == -1)
 		return (0);
-	free(env->data[index]);
-	vector_delete(env, (size_t)index);
+	t_env *thingy = vector_get(env, index);
+	free_env_item(thingy);
+	vector_delete(env, index);
 	return (0);
 }

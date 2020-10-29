@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/29 12:30:00 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/29 13:38:38 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ int				ft_unset(t_vector *env, t_icomp *cmd);
 int				ft_echo(t_vector *env, t_icomp *cmd);
 t_env			*get_env_item(char *env_str);
 void			invalid_cmd(t_icomp *cmd);
-int	compare_key(t_env *data, char *item);
+int				compare_key(t_env *data, char *item);
+void 			free_env_item(t_env *item);
+void 			free_environment(t_vector *env);
+void 			free_envp(char **envp);
 
 
 #endif

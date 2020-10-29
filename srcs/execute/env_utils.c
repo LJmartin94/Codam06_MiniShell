@@ -6,12 +6,35 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/28 11:19:34 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/29 10:59:46 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/29 13:34:30 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "error.h"
+
+
+t_env		*get_env_item(char *env_str)
+{
+	t_env	*item;
+	int		i;
+
+	item = (t_env *)e_malloc(sizeof(t_env));
+	i = 0;
+	while (env_str[i] != '\0' && env_str[i] != '=')
+		i++;
+	item->key = (char *)e_malloc(sizeof(char) * (i + 1));
+	ft_strlcpy(item->key, env_str, i + 1);
+	if (env_str[i] != '=')
+		item->value = NULL;
+	else
+	{
+		item->value = ft_strdup(env_str + i + 1);
+		if (item->value == NULL)
+			error_exit_errno();
+	}
+	return (item);
+}
 
 t_vector	*envp_to_env(char **envp)
 {
@@ -37,39 +60,6 @@ t_vector	*envp_to_env(char **envp)
 		i++;
 	}
 	return (env);
-}
-
-int			free_env(t_vector *env)
-{
-	size_t	i;
-	t_env	*cur;
-
-	i = 0;
-	while (i < env->amt)
-	{
-		cur = vector_get(env, i);
-		free(cur->key);
-		free(cur->value);
-		free(cur);
-		i++;
-	}
-	free(env->data);
-	free(env);
-	return (0);
-}
-
-int			free_envp(char **envp)
-{
-	int i;
-
-	i = 0;
-	while (envp[i] != NULL)
-	{
-		free(envp[i]);
-		i++;
-	}
-	free(envp);
-	return (0);
 }
 
 static char	*create_envp_str(t_env *cur)
