@@ -28,15 +28,15 @@ static int	print_env(t_vector *env)
 	while (i < env->amt)
 	{
 		cur = (t_env *)vector_get(env, i);
-		write(STDIN_FILENO, "declare -x ", 11);
-		write(STDIN_FILENO, cur->key, ft_strlen(cur->key));
+		e_write(STDIN_FILENO, "declare -x ", 11);
+		e_write(STDIN_FILENO, cur->key, ft_strlen(cur->key));
 		if (cur->value != NULL)
 		{
-			write(STDIN_FILENO, "=\"", 2);
-			write(STDIN_FILENO, cur->value, ft_strlen(cur->value));
-			write(STDIN_FILENO, "\"", 1);
+			e_write(STDIN_FILENO, "=\"", 2);
+			e_write(STDIN_FILENO, cur->value, ft_strlen(cur->value));
+			e_write(STDIN_FILENO, "\"", 1);
 		}
-		write(STDIN_FILENO, "\n", 1);
+		e_write(STDIN_FILENO, "\n", 1);
 		i++;
 	}
 	return (0);
