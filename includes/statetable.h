@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 19:53:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/28 11:53:15 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/29 12:36:29 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_option_state, separator, sh_separator_state},
 	{sh_option_state, exit_state, sh_exit_state},
 
-	{sh_argument_state, padding, sh_argument_pad_state},
+	{sh_argument_state, padding, sh_argument_state},
 	{sh_argument_state, error, sh_error_state},
 	{sh_argument_state, dq, sh_dq_arg_state},
 	{sh_argument_state, sq, sh_sq_arg_state},
@@ -54,16 +54,6 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_argument_state, arg, sh_argument_state},
 	{sh_argument_state, separator, sh_separator_state},
 	{sh_argument_state, exit_state, sh_exit_state},
-
-	{sh_argument_pad_state, padding, sh_argument_pad_state},
-	{sh_argument_pad_state, error, sh_error_state},
-	{sh_argument_pad_state, dq, sh_dq_arg_state},
-	{sh_argument_pad_state, sq, sh_sq_arg_state},
-	{sh_argument_pad_state, command, sh_argument_state},
-	{sh_argument_pad_state, option, sh_argument_state},
-	{sh_argument_pad_state, arg, sh_argument_state},
-	{sh_argument_pad_state, separator, sh_separator_state},
-	{sh_argument_pad_state, exit_state, sh_exit_state},
 
 	{sh_separator_state, padding, sh_entry_state},
 	{sh_separator_state, error, sh_error_state},
@@ -125,7 +115,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_dq_exit_option_state, separator, sh_separator_state},
 	{sh_dq_exit_option_state, exit_state, sh_exit_state},
 
-	{sh_dq_exit_arg_state, padding, sh_argument_pad_state},
+	{sh_dq_exit_arg_state, padding, sh_argument_state},
 	{sh_dq_exit_arg_state, error, sh_error_state},
 	{sh_dq_exit_arg_state, dq, sh_dq_arg_state},
 	{sh_dq_exit_arg_state, sq, sh_sq_arg_state},
@@ -185,7 +175,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_sq_exit_option_state, separator, sh_separator_state},
 	{sh_sq_exit_option_state, exit_state, sh_exit_state},
 
-	{sh_sq_exit_arg_state, padding, sh_argument_pad_state},
+	{sh_sq_exit_arg_state, padding, sh_argument_state},
 	{sh_sq_exit_arg_state, error, sh_error_state},
 	{sh_sq_exit_arg_state, dq, sh_dq_arg_state},
 	{sh_sq_exit_arg_state, sq, sh_sq_arg_state},
