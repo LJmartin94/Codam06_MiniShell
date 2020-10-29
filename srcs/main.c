@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/29 12:19:12 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/29 14:08:10 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int		get_input(t_vector *env)
 	parse_input(buf, &comp_blocks);
 	free(buf);
 	execute(env, &comp_blocks);
-	// print_components(&comp_blocks);
 	free_components(&comp_blocks);
 	return (ret);
 }
