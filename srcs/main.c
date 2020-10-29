@@ -6,13 +6,12 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/29 14:08:10 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/29 19:26:23 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "error.h"
-#include <stdio.h>
 #include <signal.h>
 
 int		get_input(t_vector *env)
