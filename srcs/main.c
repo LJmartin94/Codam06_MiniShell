@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/30 12:41:20 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/30 17:03:50 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,14 @@
 #include "error.h"
 #include <signal.h>
 
-int		write_kvp(int fd, t_env *kvp)
-{
-	// t_env	*kvp;
-
-	// kvp = (t_env *)data_type;
-	e_write(fd, kvp->key, ft_strlen(kvp->key));
-	e_write(fd, "=", 1);
-	e_write(fd, kvp->value, ft_strlen(kvp->value));
-	e_write(fd, "\n", 1);
-	return (0);
-}
+// int		write_kvp(int fd, t_env *kvp)
+// {
+// 	e_write(fd, kvp->key, ft_strlen(kvp->key));
+// 	e_write(fd, "=", 1);
+// 	e_write(fd, kvp->value, ft_strlen(kvp->value));
+// 	e_write(fd, "\n", 1);
+// 	return (0);
+// }
 
 int		get_input(t_vector *env)
 {
@@ -44,7 +41,7 @@ int		get_input(t_vector *env)
 	parse_input(buf, &comp_blocks);
 	free(buf);
 	execute(env, &comp_blocks);
-	vector_debug(STDIN_FILENO, env, &write_kvp);
+	// vector_debug(STDIN_FILENO, env, &write_kvp);
 	free_components(&comp_blocks);
 	return (ret);
 }

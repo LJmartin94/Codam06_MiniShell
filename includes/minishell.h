@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 11:18:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/30 12:33:47 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/30 17:02:15 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,7 @@ void					free_components(t_icomp *head);
 /*
 ** //TODO: Debug-only prototypes! Remove when no longer used.
 */
-#include "error.h"
-#include "execute.h"
 
 void					print_components(t_icomp *icur);
-int						vector_print(int fd, t_vector *v, int (*print)());
-int						vector_debug(int fd, t_vector *v, int (*print)());
 
 #endif
