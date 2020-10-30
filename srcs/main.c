@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/30 11:47:56 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/30 12:41:20 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 #include "error.h"
 #include <signal.h>
 
-int		write_kvp(void *data_type)
+int		write_kvp(int fd, t_env *kvp)
 {
-	t_env	*kvp;
+	// t_env	*kvp;
 
-	kvp = (t_env *)data_type;
-	e_write(STDIN_FILENO, kvp->key, ft_strlen(kvp->key));
-	e_write(STDIN_FILENO, "=", 1);
-	e_write(STDIN_FILENO, kvp->value, ft_strlen(kvp->value));
-	e_write(STDIN_FILENO, "\n", 1);
+	// kvp = (t_env *)data_type;
+	e_write(fd, kvp->key, ft_strlen(kvp->key));
+	e_write(fd, "=", 1);
+	e_write(fd, kvp->value, ft_strlen(kvp->value));
+	e_write(fd, "\n", 1);
 	return (0);
 }
 

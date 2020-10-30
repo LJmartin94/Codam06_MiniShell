@@ -6,13 +6,13 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/29 20:54:03 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/30 11:49:00 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/10/30 12:40:25 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		vector_print(int fd, t_vector *v, int (*print)(void *data_type))
+int		vector_print(int fd, t_vector *v, int (*print)())
 {
 	size_t	i;
 	int		ret;
@@ -21,14 +21,15 @@ int		vector_print(int fd, t_vector *v, int (*print)(void *data_type))
 	ret = 0;
 	while (i < v->amt && ret > -1)
 	{
-		print(v->data[i]);
+		if (ret > -1)
+			print(fd, v->data[i]);
 		ret = (ret > -1) ? write(fd, "\n", 0) : ret;
 		i++;
 	}
 	return (ret);
 }
 
-int		vector_debug(int fd, t_vector *v, int (*print)(void *data_type))
+int		vector_debug(int fd, t_vector *v, int (*print)())
 {
 	int ret;
 
