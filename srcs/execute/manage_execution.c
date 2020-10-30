@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/30 16:08:31 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/30 17:12:37 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,42 +96,50 @@ void	handle_redirections(t_icomp *comp)
 // TODO: If &&, stop executing everything linked by && once prev one failed
 // TODO: If ;, failure doesn't affect others
 // TODO: If |, at failure of first command, second half doesn't execute. Also do the whole pipe thing
+void run_command(t_cmd f, t_vector *env, t_icomp *comp)
+{
+	handle_redirections(comp); //TODO: This dup does not seem to work with a normal function. Do i have to pipe it anyway?
+	if (f != NULL)
+	{
+		f(env, comp);
+		exit(0);
+	}
+	else
+	{
+		char *dir= readdir_test(env, comp);
+		if (dir == NULL)
+		{
+			invalid_cmd(comp);
+			exit(0);
+		}
+		char **envp;
+		char **argv;
+		char *command = ft_strjoin(dir, comp->cmd);
+		envp = env_to_envp(env);
+		free_environment(env);
+		argv = build_argv(comp);
+		execve(command, argv,  envp);
+		exit(0);
+	}
+}
+
 
 void	exec_command(t_vector *env, t_icomp *comp)
 {
 	int		pid;
-	char	**envp;
-	char	**argv;
 	t_cmd	f;
+	// int		g_pid[4];
 
-	f = NULL;
 	f = get_command(comp);
-	if (f != NULL)
+	pid = fork();
+	if (pid != 0) //if in parent process
 	{
-		f(env, comp);
-		return ;
-	}
-	char *dir= readdir_test(env, comp);
-	if (dir == NULL)
-	{
-		invalid_cmd(comp);
-		return ;
+		wait(&pid);
+
 	}
 	else
 	{
-		char *command = ft_strjoin(dir, comp->cmd);
-		pid = fork();
-		if (pid != 0) //if in parent process
-			wait(&pid);
-		else
-		{
-			handle_redirections(comp);
-			envp = env_to_envp(env);
-			free_environment(env);
-			argv = build_argv(comp);
-			execve(command, argv,  envp);
-			exit(0);
-		}
+		run_command(f, env, comp);
 	}
 }
 
