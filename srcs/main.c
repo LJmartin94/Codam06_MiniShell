@@ -6,13 +6,25 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/29 22:24:17 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/30 11:47:56 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "error.h"
 #include <signal.h>
+
+int		write_kvp(void *data_type)
+{
+	t_env	*kvp;
+
+	kvp = (t_env *)data_type;
+	e_write(STDIN_FILENO, kvp->key, ft_strlen(kvp->key));
+	e_write(STDIN_FILENO, "=", 1);
+	e_write(STDIN_FILENO, kvp->value, ft_strlen(kvp->value));
+	e_write(STDIN_FILENO, "\n", 1);
+	return (0);
+}
 
 int		get_input(t_vector *env)
 {
@@ -32,7 +44,7 @@ int		get_input(t_vector *env)
 	parse_input(buf, &comp_blocks);
 	free(buf);
 	execute(env, &comp_blocks);
-	vector_debug(STDIN_FILENO, env);
+	vector_debug(STDIN_FILENO, env, &write_kvp);
 	free_components(&comp_blocks);
 	return (ret);
 }

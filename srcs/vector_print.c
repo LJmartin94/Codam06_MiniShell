@@ -6,33 +6,29 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/29 20:54:03 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/29 22:38:58 by limartin      ########   odam.nl         */
+/*   Updated: 2020/10/30 11:49:00 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-int		vector_print(int fd, t_vector *v)
+int		vector_print(int fd, t_vector *v, int (*print)(void *data_type))
 {
 	size_t	i;
 	int		ret;
-	//char	*buf;
 
 	i = 0;
 	ret = 0;
 	while (i < v->amt && ret > -1)
 	{
-		// buf = v->data[i];
-		// ret = (ret > -1) ? write(fd, buf, v->item_size) : ret;
-		printf("%p\n", (v->data[i]));
+		print(v->data[i]);
 		ret = (ret > -1) ? write(fd, "\n", 0) : ret;
 		i++;
 	}
 	return (ret);
 }
 
-int		vector_debug(int fd, t_vector *v)
+int		vector_debug(int fd, t_vector *v, int (*print)(void *data_type))
 {
 	int ret;
 
@@ -44,6 +40,6 @@ int		vector_debug(int fd, t_vector *v)
 	ft_putnbr_fd((v->amt * v->item_size), fd);
 	ret = (ret > -1) ? write(fd, "\n", 1) : ret;
 	if (ret > -1)
-		ret = vector_print(fd, v);
+		ret = vector_print(fd, v, print);
 	return (ret);
 }
