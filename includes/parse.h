@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/29 14:05:31 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/01 22:14:13 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef	enum			e_transition_code
 	option,
 	arg,
 	separator,
+	backslash,
 	dq,
 	sq,
 	exit_state
