@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 11:32:10 by limartin      #+#    #+#                 */
-/*   Updated: 2020/10/31 16:24:27 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/01 22:07:17 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,3 +42,9 @@ int			ft_pwd(t_vector *env, t_icomp *cmp)
 
 //./Users/limartin/Desktop/some/where/highly/specific/that/will/result/in/really/quite/a/long/path/name/if/one/was/hypothetically/to/test/whether/pwd/(/print/working/directory/)/was/working/for/the/purposes/of/ironing/out/edge/cases/in/mini/shell/
 // /\/:/\n/000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000/untitled folder/cd/".."/ok it works I guess...
+
+/*
+** TODO: 
+** Check if pwd commands still works normally in bash after PWD is unset from env
+** Rework error reporting, probably shouldnt even exit the shell.
+*/
