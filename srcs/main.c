@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/29 19:26:23 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/02 12:30:23 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		get_input(t_vector *env)
 	ret = get_next_line(STDIN_FILENO, &buf);
 	if (ret == 0)
 	{
-		e_write(STDIN_FILENO, "\n", 1);
+		e_write(STDOUT_FILENO, "\n", 1);
 		exit(0);
 	}
 	if (ret < 0)
