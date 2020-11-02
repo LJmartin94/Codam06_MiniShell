@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/02 12:48:02 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/02 13:33:32 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,15 @@ void	handle_redirections(t_icomp *comp)
 		fd = open(comp->right->cmd, O_WRONLY|O_CREAT|O_APPEND, 0666);
 	else if (ft_strncmp(comp->sep, ">", 2) == 0)
 		fd = open(comp->right->cmd, O_WRONLY|O_CREAT|O_TRUNC, 0666);
+	else if (ft_strncmp(comp->sep, "<", 3) == 0)	
+	{
+		fd = open(comp->right->cmd, O_RDONLY, 0666);
+		dup2(fd, STDIN_FILENO);
+		close(fd);
+		return ;
+	}
 	else
-		return ;		
+		return ;
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 }
