@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:39:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/29 13:58:29 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/02 12:25:46 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ static int	print_env(t_vector *env)
 	while (i < env->amt)
 	{
 		cur = (t_env *)vector_get(env, i);
-		write(STDIN_FILENO, "declare -x ", 11);
-		write(STDIN_FILENO, cur->key, ft_strlen(cur->key));
+		write(STDOUT_FILENO, "declare -x ", 11);
+		write(STDOUT_FILENO, cur->key, ft_strlen(cur->key));
 		if (cur->value != NULL)
 		{
-			write(STDIN_FILENO, "=\"", 2);
-			write(STDIN_FILENO, cur->value, ft_strlen(cur->value));
-			write(STDIN_FILENO, "\"", 1);
+			write(STDOUT_FILENO, "=\"", 2);
+			write(STDOUT_FILENO, cur->value, ft_strlen(cur->value));
+			write(STDOUT_FILENO, "\"", 1);
 		}
-		write(STDIN_FILENO, "\n", 1);
+		write(STDOUT_FILENO, "\n", 1);
 		i++;
 	}
 	return (0);
