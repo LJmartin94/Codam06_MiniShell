@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/28 16:16:06 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/02 12:22:40 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		get_input(void)
 	ret = get_next_line(STDIN_FILENO, &buf);
 	if (ret == 0)
 	{
-		e_write(STDIN_FILENO, "\n", 1);
+		e_write(STDOUT_FILENO, "\n", 1);
 		exit(0);
 	}
 	if (ret < 0)
