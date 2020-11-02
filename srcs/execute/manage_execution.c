@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/30 17:12:37 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/02 12:48:02 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	handle_redirections(t_icomp *comp)
 		fd = open(comp->right->cmd, O_WRONLY|O_CREAT|O_TRUNC, 0666);
 	else
 		return ;		
-	dup2(fd, 1);
+	dup2(fd, STDOUT_FILENO);
 	close(fd);
 }
 
@@ -100,10 +100,7 @@ void run_command(t_cmd f, t_vector *env, t_icomp *comp)
 {
 	handle_redirections(comp); //TODO: This dup does not seem to work with a normal function. Do i have to pipe it anyway?
 	if (f != NULL)
-	{
 		f(env, comp);
-		exit(0);
-	}
 	else
 	{
 		char *dir= readdir_test(env, comp);
@@ -119,8 +116,8 @@ void run_command(t_cmd f, t_vector *env, t_icomp *comp)
 		free_environment(env);
 		argv = build_argv(comp);
 		execve(command, argv,  envp);
-		exit(0);
 	}
+	exit(0);
 }
 
 
