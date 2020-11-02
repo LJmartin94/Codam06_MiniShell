@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/02 13:33:32 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/02 13:37:45 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,11 @@ void	handle_redirections(t_icomp *comp)
 	else if (ft_strncmp(comp->sep, "<", 3) == 0)	
 	{
 		fd = open(comp->right->cmd, O_RDONLY, 0666);
+		if (fd == -1)
+		{
+			ft_dprintf(STDERR_FILENO, "oops, no such file\n"); //TODO: change error handling
+			exit(0);
+		}
 		dup2(fd, STDIN_FILENO);
 		close(fd);
 		return ;
@@ -99,9 +104,9 @@ void	handle_redirections(t_icomp *comp)
 	close(fd);
 }
 
-// TODO: Redirections >, >> and <
+// TODO: Redirections >, >> and < DONEISH?
 // TODO: If &&, stop executing everything linked by && once prev one failed
-// TODO: If ;, failure doesn't affect others
+// TODO: If ;, failure doesn't affect others DONEISH?
 // TODO: If |, at failure of first command, second half doesn't execute. Also do the whole pipe thing
 void run_command(t_cmd f, t_vector *env, t_icomp *comp)
 {
