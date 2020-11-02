@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/02 13:37:45 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/02 16:59:18 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,25 +132,19 @@ void run_command(t_cmd f, t_vector *env, t_icomp *comp)
 	exit(0);
 }
 
-
 void	exec_command(t_vector *env, t_icomp *comp)
 {
-	int		pid;
+	int		pid; //TODO: ??
 	t_cmd	f;
-	// int		g_pid[4];
 
 	f = get_command(comp);
 	pid = fork();
 	if (pid != 0) //if in parent process
-	{
 		wait(&pid);
-
-	}
 	else
-	{
 		run_command(f, env, comp);
-	}
 }
+
 
 
 //Built-in commands are contained within the shell itself. When the name of a built-in command is used as the first word of a simple command, the shell executes the command directly, without creating a new process. Built-in commands are necessary to implement functionality impossible or inconvenient to obtain with separate utilities.
@@ -171,4 +165,16 @@ rm file ; echo "123" > file | echo "abcdefg" > file
 rm file ; echo "123" > file | echo "abcdefg" > file
 > cat file
 abcdefg
+*/
+
+
+/*
+** > env -i bash
+bash-3.2$ env
+PWD=/Users/jules/projects/codam/minishell
+SHLVL=1
+_=/usr/bin/env
+
+//TODO: ls doesn't have to work if path is not set from the start. Also if path is unset during testing, it doesn't have to find path
+//TODO: what is the _ env variable
 */

@@ -6,12 +6,13 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/30 16:08:25 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/02 14:14:58 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "libft.h"
+#include "error.h"
 
 
 /*
@@ -36,6 +37,7 @@ void	execute(t_vector *env, t_icomp *comp)
 	t_icomp	*tmp;
 	int i;
 
+	// g_pid_list = (t_vector *)e_malloc(sizeof(t_vector));
 	i = 0;
 	tmp = comp;
 	while (tmp != NULL)

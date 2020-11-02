@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/30 16:09:53 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/02 14:01:06 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 ** global pwd (works even when unset)
 ** global list of pid
 */
+
+t_vector *g_pid_list;
 
 typedef struct	s_env
 {
