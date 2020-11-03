@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/02 15:21:02 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/03 11:51:10 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,7 @@ ARG:	|%s|\nSEP:	|%s|\nRGT: [%p]\n", icur->id, icur->left, icur, \
 //TODO: Discuss whether I should fork the whole project, so i could just exit that process on sigint
 //TODO: Discuss why things are automatically killed, do i need to explicitly kill every process individually? As things already seem to be getting killed
 //TODO: Discuss whether I need redirections to be parsed differently
+//TODO: Discuss JUST REALIZED && is a bonus lol
 //TODO: Discuss whether builtins should run in their own forks
+//TODO: Discuss: Parse should fail if executable ends in a pipe
 //TODO: Discuss: Parser adds strange amounts of whitespace between quotes: echo "aaa;aa | a'a aaa a aaaaaa >> aaa'a" 'aaaaa > aa || aaaaaa >> aa;'

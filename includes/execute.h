@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/02 14:01:06 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/03 11:47:34 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void			free_env_item(t_env *item);
 void			free_environment(t_vector *env);
 void			free_envp(char **envp);
 
-void			exec_command(t_vector *env, t_icomp *cmd);
+int				exec_command(t_vector *env, t_icomp *cmd, int stdin);
 t_cmd			get_command(t_icomp *comp);
 
 

@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/02 16:59:18 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/03 11:52:16 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ char	**build_argv(t_icomp *comp)
 		j++;
 	}
 	argv[j] = NULL;
-	//free matrix
+	//TODO: free matrix (do i need to?? It'll exit regardless)
 	return (argv);
 }
 
-char	*readdir_test(t_vector *env, t_icomp *comp)
+char	*readdir_test(t_vector *env, t_icomp *comp) // TODO: Try to do this with stat
 {
 	t_env *item = vector_get(env, vector_search(env, compare_key, "PATH"));
 	char **split = ft_split(item->value, ':');
@@ -77,8 +77,7 @@ char	*readdir_test(t_vector *env, t_icomp *comp)
 	(void)comp;
 }
 
-
-void	handle_redirections(t_icomp *comp)
+void	handle_redirections(t_icomp *comp, int p_fd[2])
 {
 	int fd;
 
@@ -98,19 +97,22 @@ void	handle_redirections(t_icomp *comp)
 		close(fd);
 		return ;
 	}
+	else if (ft_strncmp(comp->sep, "|", 2) == 0)
+	{
+		dup2(p_fd[1], STDOUT_FILENO);
+		close(p_fd[0]);
+		close(p_fd[1]);
+		return;
+	}
 	else
 		return ;
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 }
 
-// TODO: Redirections >, >> and < DONEISH?
-// TODO: If &&, stop executing everything linked by && once prev one failed
-// TODO: If ;, failure doesn't affect others DONEISH?
-// TODO: If |, at failure of first command, second half doesn't execute. Also do the whole pipe thing
-void run_command(t_cmd f, t_vector *env, t_icomp *comp)
+void run_command(t_cmd f, t_vector *env, t_icomp *comp, int fd[2])
 {
-	handle_redirections(comp); //TODO: This dup does not seem to work with a normal function. Do i have to pipe it anyway?
+	handle_redirections(comp, fd);
 	if (f != NULL)
 		f(env, comp);
 	else
@@ -132,17 +134,34 @@ void run_command(t_cmd f, t_vector *env, t_icomp *comp)
 	exit(0);
 }
 
-void	exec_command(t_vector *env, t_icomp *comp)
+int exec_command(t_vector *env, t_icomp *comp, int stdin)
 {
 	int		pid; //TODO: ??
 	t_cmd	f;
+	int		fd[2];
 
+	fd[0] = -1;
+	fd[1] = -1;
+	if (pipe(fd) == -1) //TODO: change this
+		error_exit_errno();
+	(void)stdin;
 	f = get_command(comp);
 	pid = fork();
-	if (pid != 0) //if in parent process
+	if (pid == 0)
+	{
+		if (stdin != -1)
+		{
+			dup2(stdin, STDIN_FILENO);
+			close(stdin);
+		}
+		run_command(f, env, comp, fd);
+	}
+	else 
+	{
 		wait(&pid);
-	else
-		run_command(f, env, comp);
+		close(fd[1]);
+	}
+	return (fd[0]);
 }
 
 

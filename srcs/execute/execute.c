@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/02 14:14:58 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/03 11:47:30 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,15 @@ t_cmd	get_command(t_icomp *comp)
 void	execute(t_vector *env, t_icomp *comp)
 {
 	t_icomp	*tmp;
+	int 	stdin;
 	int i;
 
-	// g_pid_list = (t_vector *)e_malloc(sizeof(t_vector));
 	i = 0;
 	tmp = comp;
+	stdin = -1;
 	while (tmp != NULL)
 	{
-		exec_command(env, tmp);
+		stdin = exec_command(env, tmp, stdin);
 		tmp = tmp->right;
 		i++;
 	}
