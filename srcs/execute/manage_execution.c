@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/03 11:52:16 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/03 12:12:22 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,20 +94,20 @@ void	handle_redirections(t_icomp *comp, int p_fd[2])
 			exit(0);
 		}
 		dup2(fd, STDIN_FILENO);
-		close(fd);
+		e_close(fd);
 		return ;
 	}
 	else if (ft_strncmp(comp->sep, "|", 2) == 0)
 	{
 		dup2(p_fd[1], STDOUT_FILENO);
-		close(p_fd[0]);
-		close(p_fd[1]);
+		e_close(p_fd[0]);
+		e_close(p_fd[1]);
 		return;
 	}
 	else
 		return ;
 	dup2(fd, STDOUT_FILENO);
-	close(fd);
+	e_close(fd);
 }
 
 void run_command(t_cmd f, t_vector *env, t_icomp *comp, int fd[2])
@@ -152,14 +152,15 @@ int exec_command(t_vector *env, t_icomp *comp, int stdin)
 		if (stdin != -1)
 		{
 			dup2(stdin, STDIN_FILENO);
-			close(stdin);
+			e_close(stdin); //TODO: Should i check return value for e_close?
 		}
-		run_command(f, env, comp, fd);
+		run_command(f, env, comp, fd); //TODO: if prev is invalid command, don't do second part
 	}
 	else 
 	{
 		wait(&pid);
-		close(fd[1]);
+		e_close(stdin);
+		e_close(fd[1]);
 	}
 	return (fd[0]);
 }
@@ -197,3 +198,5 @@ _=/usr/bin/env
 //TODO: ls doesn't have to work if path is not set from the start. Also if path is unset during testing, it doesn't have to find path
 //TODO: what is the _ env variable
 */
+
+//TODO: Shell doesn't handle closing infinite processes
