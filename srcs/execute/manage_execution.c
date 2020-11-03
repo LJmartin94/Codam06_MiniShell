@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/03 12:12:22 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/03 15:54:34 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,16 @@ void run_command(t_cmd f, t_vector *env, t_icomp *comp, int fd[2])
 	exit(0);
 }
 
+int	cmp_pid(int *pid1, int *pid2)
+{
+	return (*pid1 - *pid2);
+}
+
+int pid_print_aa(int fd, int *pid)
+{
+	return (ft_dprintf(fd, "pid: %d\n", *pid));
+}
+
 int exec_command(t_vector *env, t_icomp *comp, int stdin)
 {
 	int		pid; //TODO: ??
@@ -158,8 +168,26 @@ int exec_command(t_vector *env, t_icomp *comp, int stdin)
 	}
 	else 
 	{
-		wait(&pid);
-		e_close(stdin);
+		// ft_dprintf(STDOUT_FILENO, "starting pid: %d\n", pid);
+		// if (ft_strncmp(comp->sep, "|", 1) != 0)
+		// {
+			ft_dprintf(STDOUT_FILENO, "this happens: [%s]\n", comp->cmd);
+			// wait(&pid);
+			// close(stdin);
+		// }	
+		// else
+		// {
+			int *pid_malloc = (int *)e_malloc(sizeof(int)); //TODO: try to close here, wait for some time, if not closed yet, save value and continue
+			*pid_malloc = pid;
+			vector_push(&g_pid_list, pid_malloc);
+
+		// }
+		// vector_debug(STDOUT_FILENO, &g_pid_list, pid_print_aa);
+		// ft_dprintf(STDOUT_FILENO, "pid: %d\n", pid);
+		// ft_dprintf(STDOUT_FILENO, "wait: %d\n", wait(&pid)); //TODO: Inf program never gets past this wait
+		// vector_delete(&g_pid_list, vector_search(&g_pid_list, cmp_pid, &pid));
+			// ft_dprintf(STDOUT_FILENO, "lol\n");
+		e_close(stdin); //TODO: I should close this (stdin from previous process) when the the current process has terminated
 		e_close(fd[1]);
 	}
 	return (fd[0]);
@@ -200,3 +228,8 @@ _=/usr/bin/env
 */
 
 //TODO: Shell doesn't handle closing infinite processes
+
+//TODO: fd leaks????spooky
+
+
+// $> base64 /dev/urandom | head -c 1000 | rev | cat -e | cut -d 'x' -f 1,3,5 >> /tmp/toto.txt; cat /tmp/toto.txt; rm /tmp/toto.txt

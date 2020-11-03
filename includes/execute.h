@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/03 11:47:34 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/03 14:48:16 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 ** global list of pid
 */
 
-t_vector *g_pid_list;
+t_vector g_pid_list;
 
 typedef struct	s_env
 {
