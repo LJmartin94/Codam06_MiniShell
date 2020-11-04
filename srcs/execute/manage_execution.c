@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/03 15:54:34 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/04 14:36:35 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include "error.h"
+
+
+#include <sys/types.h>//
+#include <sys/stat.h>//
+
 
 char	**build_argv(t_icomp *comp)
 {
@@ -38,43 +43,6 @@ char	**build_argv(t_icomp *comp)
 	argv[j] = NULL;
 	//TODO: free matrix (do i need to?? It'll exit regardless)
 	return (argv);
-}
-
-char	*readdir_test(t_vector *env, t_icomp *comp) // TODO: Try to do this with stat
-{
-	t_env *item = vector_get(env, vector_search(env, compare_key, "PATH"));
-	char **split = ft_split(item->value, ':');
-	int i;
-	i = 0;
-	char *found;
-	found = NULL;
-	while(split[i] != NULL)
-	{
-		i++;
-	}
-	DIR *dir;
-	int j = 0;
-	while(split[j] != NULL)
-	{
-		dir = opendir(split[j]);
-		if (dir == NULL)
-			break ;
-		struct dirent *entry;
-		entry = readdir(dir);
-		while ((entry = readdir(dir)) != NULL)
-		{
-			if (ft_strncmp(entry->d_name, comp->cmd, ft_strlen(comp->cmd) + 1) == 0)
-			{
-				found = ft_strjoin(split[j], "/");
-				closedir(dir); //TODO: free all the shit
-				return (found);
-			}
-		}
-		closedir(dir);
-		j++;
-	}
-	return (NULL);
-	(void)comp;
 }
 
 void	handle_redirections(t_icomp *comp, int p_fd[2])
@@ -110,26 +78,72 @@ void	handle_redirections(t_icomp *comp, int p_fd[2])
 	e_close(fd);
 }
 
+void free_matrix(char **matrix)
+{
+	size_t i;
+
+	i = 0;
+	if (matrix == NULL)
+		return ;
+	while (matrix[i] != NULL)
+	{
+		free(matrix[i]);
+		matrix[i] = NULL;
+		i++;
+	}
+	free(matrix);
+}
+
+char *find_dir(t_vector *env, t_icomp *comp)
+{
+	t_env *path;
+	char **paths;
+	size_t i;
+	struct stat stat_struct;
+
+	path = vector_get(env, vector_search(env, compare_key, "PATH"));
+	paths = ft_split(path->value, ':');
+	i = 0;
+	while(paths[i] != NULL)
+	{
+		char *tmp = ft_strjoin(paths[i], "/");
+		char *final = ft_strjoin(tmp, comp->cmd);
+		free(tmp);
+		if (stat(final, &stat_struct) == 0)
+		{
+			free_matrix(paths);
+			paths = NULL;
+			return (final);
+		}
+		free(final);
+		i++;
+	}
+	free_matrix(paths);
+	paths = NULL;
+	return (NULL);
+}
+
 void run_command(t_cmd f, t_vector *env, t_icomp *comp, int fd[2])
 {
+	char *path;
+	char **envp;
+	char **argv;
+
 	handle_redirections(comp, fd);
 	if (f != NULL)
 		f(env, comp);
 	else
 	{
-		char *dir= readdir_test(env, comp);
-		if (dir == NULL)
+		path = find_dir(env, comp);
+		if (path == NULL)
 		{
 			invalid_cmd(comp);
 			exit(0);
 		}
-		char **envp;
-		char **argv;
-		char *command = ft_strjoin(dir, comp->cmd);
 		envp = env_to_envp(env);
 		free_environment(env);
 		argv = build_argv(comp);
-		execve(command, argv,  envp);
+		execve(path, argv,  envp);
 	}
 	exit(0);
 }
@@ -144,6 +158,40 @@ int pid_print_aa(int fd, int *pid)
 	return (ft_dprintf(fd, "pid: %d\n", *pid));
 }
 
+void parent_process(t_icomp *comp, int pid, int fd[2], int stdin)
+{
+	int *pid_malloc;
+	int *pid_item;
+
+	pid_malloc = (int *)e_malloc(sizeof(int)); //TODO: try to close here, wait for some time, if not closed yet, save value and continue
+	*pid_malloc = pid;
+	vector_push(&g_pid_list, pid_malloc);
+	if (stdin != -1)// if there is piped input. //TODO: Test if this works with pipe but fd = -1
+	{
+		int item_index = vector_search(&g_pid_list, cmp_pid, pid_malloc);
+		e_close(stdin); //TODO: I should close this (stdin from previous process) when the the current process has terminated
+		if (item_index > 0)
+		{
+			pid_item = vector_get(&g_pid_list, item_index - 1);
+			wait(pid_item);
+			free(pid_item);
+			vector_delete(&g_pid_list, item_index - 1);
+		}
+		else
+		{
+			ft_dprintf(STDOUT_FILENO, "Something's wrong with pids and pipes\n");
+		}
+	}
+	if (ft_strncmp(comp->sep, "|", 2) != 0)
+	{
+		wait(&pid);
+		int index = vector_search(&g_pid_list, cmp_pid, pid_malloc);
+		vector_delete(&g_pid_list, index);
+		free(pid_malloc);
+	}
+	e_close(fd[1]);
+}
+
 int exec_command(t_vector *env, t_icomp *comp, int stdin)
 {
 	int		pid; //TODO: ??
@@ -152,9 +200,11 @@ int exec_command(t_vector *env, t_icomp *comp, int stdin)
 
 	fd[0] = -1;
 	fd[1] = -1;
-	if (pipe(fd) == -1) //TODO: change this
-		error_exit_errno();
-	(void)stdin;
+	if (ft_strncmp(comp->sep, "|", 2) == 0)
+	{
+		if (pipe(fd) == -1) //TODO: change this
+			error_exit_errno();
+	}
 	f = get_command(comp);
 	pid = fork();
 	if (pid == 0)
@@ -167,29 +217,7 @@ int exec_command(t_vector *env, t_icomp *comp, int stdin)
 		run_command(f, env, comp, fd); //TODO: if prev is invalid command, don't do second part
 	}
 	else 
-	{
-		// ft_dprintf(STDOUT_FILENO, "starting pid: %d\n", pid);
-		// if (ft_strncmp(comp->sep, "|", 1) != 0)
-		// {
-			ft_dprintf(STDOUT_FILENO, "this happens: [%s]\n", comp->cmd);
-			// wait(&pid);
-			// close(stdin);
-		// }	
-		// else
-		// {
-			int *pid_malloc = (int *)e_malloc(sizeof(int)); //TODO: try to close here, wait for some time, if not closed yet, save value and continue
-			*pid_malloc = pid;
-			vector_push(&g_pid_list, pid_malloc);
-
-		// }
-		// vector_debug(STDOUT_FILENO, &g_pid_list, pid_print_aa);
-		// ft_dprintf(STDOUT_FILENO, "pid: %d\n", pid);
-		// ft_dprintf(STDOUT_FILENO, "wait: %d\n", wait(&pid)); //TODO: Inf program never gets past this wait
-		// vector_delete(&g_pid_list, vector_search(&g_pid_list, cmp_pid, &pid));
-			// ft_dprintf(STDOUT_FILENO, "lol\n");
-		e_close(stdin); //TODO: I should close this (stdin from previous process) when the the current process has terminated
-		e_close(fd[1]);
-	}
+		parent_process(comp, pid, fd, stdin);
 	return (fd[0]);
 }
 
@@ -233,3 +261,6 @@ _=/usr/bin/env
 
 
 // $> base64 /dev/urandom | head -c 1000 | rev | cat -e | cut -d 'x' -f 1,3,5 >> /tmp/toto.txt; cat /tmp/toto.txt; rm /tmp/toto.txt
+// $> base64 < /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e s/1/Yes/g -e s/0/No/g; ps a | grep 'base64' | grep -v 'grep' <- this doesn't work due to parsing
+
+//In what order should things execute? Redirections occur before command finishes, other commands wait for previosu commands to finish, pipes don't wait for previous commands to finish
