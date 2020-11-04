@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/04 10:47:26 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/04 15:16:33 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_cmd	get_command(t_icomp *comp)
 }
 
 
-void	wait_for_processes()
+void	wait_for_processes() //TODO: Do i need this??
 {
 	int *this_one;
 	while(g_pid_list.amt > 0)//TODO: I'll probably never need this
@@ -42,7 +42,6 @@ void	wait_for_processes()
 		wait(this_one);
 		free(this_one);
 		vector_delete(&g_pid_list, 0);
-		// ft_dprintf(STDOUT_FILENO, "\n\n");
 	}
 }
 

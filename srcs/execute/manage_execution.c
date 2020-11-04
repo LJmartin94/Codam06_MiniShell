@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/04 14:36:35 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/04 16:29:08 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,21 @@
 #include <sys/types.h>//
 #include <sys/stat.h>//
 
+void free_matrix(char **matrix)
+{
+	size_t i;
+
+	i = 0;
+	if (matrix == NULL)
+		return ;
+	while (matrix[i] != NULL)
+	{
+		free(matrix[i]);
+		matrix[i] = NULL;
+		i++;
+	}
+	free(matrix);
+}
 
 char	**build_argv(t_icomp *comp)
 {
@@ -41,7 +56,8 @@ char	**build_argv(t_icomp *comp)
 		j++;
 	}
 	argv[j] = NULL;
-	//TODO: free matrix (do i need to?? It'll exit regardless)
+	free(try);
+	try = NULL;
 	return (argv);
 }
 
@@ -78,23 +94,8 @@ void	handle_redirections(t_icomp *comp, int p_fd[2])
 	e_close(fd);
 }
 
-void free_matrix(char **matrix)
-{
-	size_t i;
 
-	i = 0;
-	if (matrix == NULL)
-		return ;
-	while (matrix[i] != NULL)
-	{
-		free(matrix[i]);
-		matrix[i] = NULL;
-		i++;
-	}
-	free(matrix);
-}
-
-char *find_dir(t_vector *env, t_icomp *comp)
+char *find_path(t_vector *env, t_icomp *comp)
 {
 	t_env *path;
 	char **paths;
@@ -134,7 +135,7 @@ void run_command(t_cmd f, t_vector *env, t_icomp *comp, int fd[2])
 		f(env, comp);
 	else
 	{
-		path = find_dir(env, comp);
+		path = find_path(env, comp);
 		if (path == NULL)
 		{
 			invalid_cmd(comp);
@@ -169,11 +170,13 @@ void parent_process(t_icomp *comp, int pid, int fd[2], int stdin)
 	if (stdin != -1)// if there is piped input. //TODO: Test if this works with pipe but fd = -1
 	{
 		int item_index = vector_search(&g_pid_list, cmp_pid, pid_malloc);
+		ft_dprintf(STDOUT_FILENO, "stdin fd is still open from last process: %d\n", stdin);
 		e_close(stdin); //TODO: I should close this (stdin from previous process) when the the current process has terminated
-		if (item_index > 0)
+		if (item_index > 0) //TODO: Leaks echo aa | something.txt
 		{
+			ft_dprintf(STDOUT_FILENO, "lol\n");
 			pid_item = vector_get(&g_pid_list, item_index - 1);
-			wait(pid_item);
+			wait(pid_item);//TODO: Make sure this is killed even when doing ctrl-c
 			free(pid_item);
 			vector_delete(&g_pid_list, item_index - 1);
 		}
@@ -184,10 +187,10 @@ void parent_process(t_icomp *comp, int pid, int fd[2], int stdin)
 	}
 	if (ft_strncmp(comp->sep, "|", 2) != 0)
 	{
-		wait(&pid);
+		wait(pid_malloc);
 		int index = vector_search(&g_pid_list, cmp_pid, pid_malloc);
-		vector_delete(&g_pid_list, index);
 		free(pid_malloc);
+		vector_delete(&g_pid_list, index);
 	}
 	e_close(fd[1]);
 }
