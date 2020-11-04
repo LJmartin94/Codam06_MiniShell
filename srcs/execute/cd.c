@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 13:26:26 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/01 22:05:41 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/04 16:13:50 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@ t_env	*find_env_kvp(t_vector *env, const char *key)
 {
 	size_t	i;
 	t_env	*ret;
+
 	i = 0;
 	while (i < env->amt)
 	{
 		ret = (t_env *)vector_get(env, i);
 		if (ft_strncmp(ret->key, key, ft_strlen(ret->key)) == 0 && \
-			ft_strncmp(ret->key, key, ft_strlen(key)) == 0 )
-			break;
+			ft_strncmp(ret->key, key, ft_strlen(key)) == 0)
+			break ;
 		ret = NULL;
 		i++;
 	}
@@ -38,7 +39,7 @@ static int	validate_cmd_cd(t_icomp *cmp)
 	return (1);
 }
 
-static int 	go_relative(t_vector *env, t_icomp *cmp)
+static int	go_relative(t_vector *env, t_icomp *cmp)
 {
 	int dir;
 
@@ -71,6 +72,7 @@ static int	go_home(t_vector *env)
 	char	*path;
 	t_env	*home;
 
+	path = "";
 	home = find_env_kvp(env, "HOME");
 	if (home != NULL)
 		path = home->value;
@@ -99,6 +101,7 @@ int			ft_cd(t_vector *env, t_icomp *cmp)
 	int		dir;
 
 	(void)env;
+	dir = 0;
 	if (validate_cmd_cd(cmp) == 0)
 	{
 		invalid_cmd(cmp);
@@ -114,7 +117,7 @@ int			ft_cd(t_vector *env, t_icomp *cmp)
 	// cwd = getcwd(cwd, 0);
 	// if (cwd == NULL)
 	// 	error_exit_errno();
-	return (0);
+	return (dir);
 }
 
 // cd /Users/limartin/Desktop/some/where/highly/specific/that/will/result/in/really/quite/a/long/path/name/if/one/was/hypothetically/to/test/whether/pwd/\(/print/working/directory/\)/was/working/for/the/purposes/of/ironing/out/edge/cases/in/mini/shell/\ /\\/:/\\n/000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000/untitled\ folder/cd/\"..\"/ok\ it\ works\ I\ guess...
