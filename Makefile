@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/14 11:19:17 by limartin      #+#    #+#                  #
-#    Updated: 2020/10/31 16:22:32 by limartin      ########   odam.nl          #
+#    Updated: 2020/11/05 21:56:19 by limartin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRC = $(SRC_PATH)main.c \
 	$(SRC_PATH)$(PARSE_PATH)dq_exit_basic_states.c \
 	$(SRC_PATH)$(PARSE_PATH)sq_basic_states.c \
 	$(SRC_PATH)$(PARSE_PATH)sq_exit_basic_states.c \
+	$(SRC_PATH)$(PARSE_PATH)bs_basic_states.c \
 	$(SRC_PATH)$(PARSE_PATH)recognise_token_state.c \
 	$(SRC_PATH)$(PARSE_PATH)validate_option_flags.c \
 	$(SRC_PATH)$(PARSE_PATH)comp_links.c \
