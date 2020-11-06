@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/06 14:21:52 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/06 14:30:27 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ void	parent_process(t_icomp *comp, int pid, int fd[2], int stdin)
 	// ft_dprintf(STDOUT_FILENO, "process command: %s\n", comp->cmd);
 	// vector_debug(STDOUT_FILENO, &g_pid_list, pid_print);
 	// ft_dprintf(STDOUT_FILENO, "\n");
-
-	if (stdin != -1 && ft_strncmp(comp->sep, "|", 2) != 0) //close previous fd and kill previous process
+	//TODO: Rn so many processes are left uncleared
+	if (stdin != -1) //close previous fd and kill previous process
 	{
 		e_close(stdin); //TODO: Wonder if this will work with two infinite processes
 		item_index = vector_search(&g_pid_list, cmp_pid, pid_malloc);
@@ -78,7 +78,7 @@ void	parent_process(t_icomp *comp, int pid, int fd[2], int stdin)
 		else
 			ft_dprintf(STDOUT_FILENO, "Something's wrong with pids and pipes\n");
 	}
-	else if (ft_strncmp(comp->sep, "|", 2) != 0)//wait for current process to finish if not piping into next cmd
+	if (ft_strncmp(comp->sep, "|", 2) != 0)//wait for current process to finish if not piping into next cmd
 	{
 		item_index = vector_search(&g_pid_list, cmp_pid, pid_malloc);
 		if (item_index >= 0)
