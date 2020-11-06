@@ -8,19 +8,21 @@ VALID:
 
 "e"'c'"h"'o' '-'"n" te's't
 
+"e"'c'"h"'o' "-"'n' '-'"n" "-"'n' te's't
+
 "e"'c'"h"'o' \-"n" te's't
 
 echo -n -nnnnnnnnnnnn -n -n '-n' "-n" test
 
 "e"\c"h"'o' \-"n" te's't
 
-echo "this is a dq: \""
+echo "this is a dq: \""x
 
-echo 'this is empty: '''
+echo 'this is empty: '''x
 
-echo 'this is a backslash: \'''
+echo 'this is a backslash: \'''x
 
-echo 'this is dq-sq: "'"'"
+echo 'this is dq-sq: "'"'"x
 
 echo "-n" test
 
@@ -29,6 +31,10 @@ echo "-n" "-n" test
 echo       -n               test
 
                   echo -n test
+
+echo three " " spaces
+
+echo one" "space
 
 
 INVALID:
