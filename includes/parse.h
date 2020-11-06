@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/05 19:10:14 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/06 14:09:33 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ typedef	enum			e_transition_code
 {
 	padding,
 	error,
-	command,
-	option,
+	cmd,
+	opt,
 	arg,
 	separator,
 	backslash,
@@ -64,29 +64,33 @@ t_transition_code		sh_entry_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_error_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_exit_state(t_token **this, t_icomp **icur);
 
-t_transition_code		sh_command_state(t_token **this, t_icomp **icur);
-t_transition_code		sh_option_state(t_token **this, t_icomp **icur);
-t_transition_code		sh_argument_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_cmd_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_opt_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_arg_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_separator_state(t_token **this, t_icomp **icur);
 
+t_transition_code		sh_cmd_pad_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_opt_pad_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_arg_pad_state(t_token **this, t_icomp **icur);
+
 t_transition_code		sh_dq_cmd_state(t_token **this, t_icomp **icur);
-t_transition_code		sh_dq_option_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_dq_opt_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_dq_arg_state(t_token **this, t_icomp **icur);
 
 t_transition_code		sh_dq_exit_cmd_state(t_token **this, t_icomp **icur);
-t_transition_code		sh_dq_exit_option_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_dq_exit_opt_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_dq_exit_arg_state(t_token **this, t_icomp **icur);
 
 t_transition_code		sh_sq_cmd_state(t_token **this, t_icomp **icur);
-t_transition_code		sh_sq_option_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_sq_opt_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_sq_arg_state(t_token **this, t_icomp **icur);
 
 t_transition_code		sh_sq_exit_cmd_state(t_token **this, t_icomp **icur);
-t_transition_code		sh_sq_exit_option_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_sq_exit_opt_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_sq_exit_arg_state(t_token **this, t_icomp **icur);
 
 t_transition_code		sh_bs_cmd_state(t_token **this, t_icomp **icur);
-t_transition_code		sh_bs_option_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_bs_opt_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_bs_arg_state(t_token **this, t_icomp **icur);
 
 t_transition_code		recognise_token_state(t_token *this);
