@@ -1,0 +1,50 @@
+
+
+
+//Built-in commands are contained within the shell itself. When the name of a built-in command is used as the first word of a simple command, the shell executes the command directly, without creating a new process. Built-in commands are necessary to implement functionality impossible or inconvenient to obtain with separate utilities.
+
+
+
+//TODO: Tests:
+/*
+while true; do rm file ; echo "123" > file | echo "abcdefg" > file ; cat file ; echo ------; sleep 1; done
+
+rm file ; echo "123" > file | echo "abcdefg" > file
+> cat file
+123
+efg
+rm file ; echo "123" > file | echo "abcdefg" > file
+> cat file
+123
+rm file ; echo "123" > file | echo "abcdefg" > file
+> cat file
+abcdefg
+*/
+
+
+/*
+** > env -i bash
+bash-3.2$ env
+PWD=/Users/jules/projects/codam/minishell
+SHLVL=1
+_=/usr/bin/env
+
+//TODO: ls doesn't have to work if path is not set from the start. Also if path is unset during testing, it doesn't have to find path
+//TODO: what is the _ env variable
+*/
+
+//TODO: Shell doesn't handle closing infinite processes
+
+//TODO: fd leaks????spooky
+
+
+// $> base64 /dev/urandom | head -c 1000 | rev | cat -e | cut -d 'x' -f 1,3,5 >> /tmp/toto.txt; cat /tmp/toto.txt; rm /tmp/toto.txt
+// $> base64 < /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e s/1/Yes/g -e s/0/No/g; ps a | grep 'base64' | grep -v 'grep' <- this doesn't work due to parsing
+
+//In what order should things execute? Redirections occur before command finishes, other commands wait for previosu commands to finish, pipes don't wait for previous commands to finish
+
+
+
+
+yes | head -n 5 | tail -n 5 | grep -c y > file.txt ; cat file.txt ; rm file.txt
+THIS SOMETIMES PRINTS 5, SOMETIMES 0 and SOMETIMES NOTHING

@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/03 14:48:16 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/06 11:24:52 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,22 @@ t_cmd			get_command(t_icomp *comp);
 
 
 void			invalid_cmd(t_icomp *cmd);
+
+
+
+void	handle_redirections(t_icomp *comp, int p_fd[2]);
+char	**build_argv(t_icomp *comp);
+char *find_path(t_vector *env, t_icomp *comp);
+
+
+
+
+
+
+//TODO: REMOVE
+
+int pid_print(int fd, int *pid);
+int	cmp_pid(int *pid1, int *pid2);
+void free_matrix(char **matrix);
 
 #endif

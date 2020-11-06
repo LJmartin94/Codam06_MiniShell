@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/04 15:16:08 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/06 11:20:10 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 #include <signal.h>
 #include "execute.h"//TODO: remove when movign sig handler
 
+//TODO: deleting tabs/arrowkeys
 int		get_input(t_vector *env)
 {
 	char	*buf;
 	int		ret;
 	t_icomp comp_blocks;
 
-	// e_write(STDOUT_FILENO, "start of input", 14);
 	e_write(STDOUT_FILENO, "\U0001F40C ", 6);
 	ret = get_next_line(STDIN_FILENO, &buf);
 	if (ret == 0)
@@ -42,11 +42,6 @@ int		get_input(t_vector *env)
 /*
 ** //TODO: also make sure to kill any ongoing process in sig_handler
 */
-
-int pid_print(int fd, int *pid)
-{
-	return (ft_dprintf(fd, "pid: %d\n", *pid));
-}
 
 void	handle_sigint(int signo)
 {

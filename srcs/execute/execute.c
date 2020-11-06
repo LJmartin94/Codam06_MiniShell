@@ -6,14 +6,13 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/04 15:16:33 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/06 14:15:25 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "libft.h"
 #include "error.h"
-
 
 /*
 ** TODO: Build command validators in functions
@@ -31,7 +30,6 @@ t_cmd	get_command(t_icomp *comp)
 		return (ft_export);
 	return (NULL);
 }
-
 
 void	wait_for_processes() //TODO: Do i need this??
 {
@@ -61,4 +59,6 @@ void	execute(t_vector *env, t_icomp *comp)
 		tmp = tmp->right;
 		i++;
 	}
+	// vector_debug(STDOUT_FILENO, &g_pid_list, pid_print);
+	free(g_pid_list.data);//TODO: make sure there's nothing left here still
 }
