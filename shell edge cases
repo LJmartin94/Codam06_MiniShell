@@ -1,0 +1,70 @@
+VALID:
+
+\e\c\h\o \-\n \t\e\s\t
+
+"e""c""h""o" "-""n" "t""e""s""t"
+
+'e''c''h''o' '-''n' 't''e''s''t'
+
+"e"'c'"h"'o' '-'"n" te's't
+
+"e"'c'"h"'o' \-"n" te's't
+
+echo -n -nnnnnnnnnnnn -n -n '-n' "-n" test
+
+"e"\c"h"'o' \-"n" te's't
+
+echo "this is a dq: \""
+
+echo 'this is empty: '''
+
+echo 'this is a backslash: \'''
+
+echo 'this is dq-sq: "'"'"
+
+echo "-n" test
+
+echo "-n" "-n" test
+
+echo       -n               test
+
+                  echo -n test
+
+
+INVALID:
+
+\e\c\h\o\ \-\n \t\e\s\t
+
+\e\c\h\o \-\n\ \t\e\s\t
+
+"e""c"'h''o'' '-n test
+
+"e"'c'"h"'o' '-' "n" te's't
+
+echo -n -nnnnnnnnnnnn -n -n '-n' "-n" -nnnnnnnnnd test
+
+echo -n-n-n-n-n-n test
+
+echo --n test
+
+echo "-n -n" test
+
+echo "-n""-n" test
+
+echo" "-n test
+
+echo -n" "test
+
+"echo " -n test
+
+echo "-n " test
+
+"echo "-n test
+
+echo "-n "test
+
+ech o -n test
+
+ech -n test
+
+echoo -n test
