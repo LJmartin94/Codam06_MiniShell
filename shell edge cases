@@ -14,13 +14,13 @@ VALID:
 
 echo -n -nnnnnnnnnnnn -n -n '-n' "-n" test
 
-"e"\c"h"'o' \-"n" te's't WRONG
+"e"\c"h"'o' \-"n" te's't
 
-echo "this is a dq: \""x
+echo "this is a dq: \""x //WRONG
 
-echo 'this is empty: '''x
+echo 'this is empty: '''x //WRONG
 
-echo 'this is a backslash: \'''x
+echo 'this is a backslash: \'''x //WRONG
 
 echo 'this is dq-sq: "'"'"x
 
@@ -44,9 +44,11 @@ echo       -n               test
 
                   echo -n test
 
-echo three " " spaces
+echo three " " spaces //WRONG
 
 echo one" "space
+
+echo five      " "    " "        spaces
 
 pw\d;echo -n test
 
@@ -58,7 +60,7 @@ INVALID:
 
 "e""c"'h''o'' '-n test
 
-"e"'c'"h"'o' '-' "n" te's't
+"e"'c'"h"'o' '-' "n" te's't //WRONG
 
 echo -n -nnnnnnnnnnnn -n -n '-n' "-n" -nnnnnnnnnd test
 
