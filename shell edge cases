@@ -14,7 +14,7 @@ VALID:
 
 echo -n -nnnnnnnnnnnn -n -n '-n' "-n" test
 
-"e"\c"h"'o' \-"n" te's't
+"e"\c"h"'o' \-"n" te's't WRONG
 
 echo "this is a dq: \""x
 
@@ -26,6 +26,18 @@ echo 'this is dq-sq: "'"'"x
 
 echo "-n" test
 
+echo "-"n test
+
+echo '-'n test
+
+echo \-n test
+
+echo -"n" test
+
+echo -'n' test
+
+echo -\n test
+
 echo "-n" "-n" test
 
 echo       -n               test
@@ -36,6 +48,7 @@ echo three " " spaces
 
 echo one" "space
 
+pw\d;echo -n test
 
 INVALID:
 
@@ -74,3 +87,5 @@ ech o -n test
 ech -n test
 
 echoo -n test
+
+ech\o-n test
