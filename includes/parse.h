@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/08 16:37:11 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/08 21:13:55 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,16 @@ void					free_tokens(t_token *head);
 ** Composition-block functions
 */
 
-char					*empty_string_alloc(void);
 int						ft_compconst(t_icomp *tonull);
 void					ft_add_component(t_icomp **head, t_icomp *this);
 int						ft_add_token_to_comp(t_token *token, char **field);
+
+/*
+** Redirection-block functions
+*/
+
+int						ft_redirconst(t_redir *tonull);
+void					ft_add_redir(t_redir **head, t_redir *this);
 
 /*
 ** FSM structs & functions

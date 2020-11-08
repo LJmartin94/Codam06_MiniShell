@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 11:18:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/08 18:56:28 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/08 21:13:07 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void					execute(t_vector *env, t_icomp *comp);
 */
 
 void					free_components(t_icomp *head);
+void					free_redirs(t_redir *head);
 
 /*
 ** //TODO: Debug-only prototypes! Remove when no longer used.
