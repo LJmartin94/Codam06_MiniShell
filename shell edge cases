@@ -16,13 +16,13 @@ echo -n -nnnnnnnnnnnn -n -n '-n' "-n" test
 
 "e"\c"h"'o' \-"n" te's't
 
-echo "this is a dq: \""x //WRONG
+echo -n "this is a dq: \"";echo -n \| //WRONG
 
-echo 'this is empty: '''x //WRONG
+echo -n 'this is empty:''';echo -n \|
 
-echo 'this is a backslash: \'''x //WRONG
+echo -n 'this is a backslash: \''';echo -n \|
 
-echo 'this is dq-sq: "'"'"x
+echo -n 'this is dq-sq: "'"'";echo -n \|
 
 echo "-n" test
 
