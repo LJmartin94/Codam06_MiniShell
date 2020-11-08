@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 11:32:10 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/01 22:07:17 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/08 18:05:48 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int			ft_pwd(t_vector *env, t_icomp *cmp)
 	buf = getcwd(buf, 0);
 	if (buf == NULL)
 		error_exit_errno();
-	e_write(STDIN_FILENO, buf, ft_strlen(buf));
-	e_write(STDIN_FILENO, "\n", 1);
+	e_write(STDOUT_FILENO, buf, ft_strlen(buf));
+	e_write(STDOUT_FILENO, "\n", 1);
 	return (0);
 }
 

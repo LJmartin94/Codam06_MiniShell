@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 13:26:26 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/04 16:13:50 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/08 18:03:15 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ static int	go_absolute(t_vector *env, t_icomp *cmp)
 	dir = chdir(path);
 	if (dir == -1)
 	{
-		e_write(STDIN_FILENO, "Could not access ", 17);
-		e_write(STDIN_FILENO, path, ft_strlen(path));
-		e_write(STDIN_FILENO, "\n", 1);
+		e_write(STDOUT_FILENO, "Could not access ", 17);
+		e_write(STDOUT_FILENO, path, ft_strlen(path));
+		e_write(STDOUT_FILENO, "\n", 1);
 	}
 	return (dir);
 }

@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/05 21:58:02 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/08 18:07:26 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		get_input(t_vector *env)
 	ret = get_next_line(STDIN_FILENO, &buf);
 	if (ret == 0)
 	{
-		e_write(STDIN_FILENO, "\n", 1);
+		e_write(STDOUT_FILENO, "\n", 1);
 		exit(0);
 	}
 	if (ret < 0)
@@ -42,7 +42,7 @@ int		get_input(t_vector *env)
 	free(buf);
 	print_components(&comp_blocks);
 	execute(env, &comp_blocks);
-	// vector_debug(STDIN_FILENO, env, &write_kvp);
+	// vector_debug(STDERR_FILENO, env, &write_kvp);
 	free_components(&comp_blocks);
 	return (ret);
 }
