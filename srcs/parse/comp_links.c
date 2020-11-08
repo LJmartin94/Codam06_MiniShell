@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 18:03:33 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/08 13:53:25 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/08 18:58:43 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int		ft_compconst(t_icomp *tonull)
 	tonull->opt = empty_string_alloc();
 	tonull->arg = empty_string_alloc();
 	tonull->id = 0;
+	tonull->rdhead = NULL;
 	tonull->right = NULL;
 	tonull->left = NULL;
 	return (0);

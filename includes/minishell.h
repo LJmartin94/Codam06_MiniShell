@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 11:18:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/30 17:02:15 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/08 18:56:28 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,14 @@
 ** Structure for parsed commands
 */
 
+typedef struct 			s_redir
+{
+	char				*type;
+	char				*file;
+	struct s_redir		*left;
+	struct s_redir		*right;
+}						t_redir;
+
 typedef struct			s_icomp
 {
 	char				*sep;
@@ -32,6 +40,7 @@ typedef struct			s_icomp
 	char				*opt;
 	char				*arg;
 	int					id;
+	struct t_redir		*rdhead;
 	struct s_icomp		*left;
 	struct s_icomp		*right;
 }						t_icomp;
