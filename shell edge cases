@@ -16,13 +16,17 @@ echo -n -nnnnnnnnnnnn -n -n '-n' "-n" test
 
 "e"\c"h"'o' \-"n" te's't
 
-echo -n "this is a dq: \"";echo -n \| //WRONG
+echo -n "this is a dq: \"";echo -n \|
 
 echo -n 'this is empty:''';echo -n \|
 
 echo -n 'this is a backslash: \''';echo -n \|
 
 echo -n 'this is dq-sq: "'"'";echo -n \|
+
+echo -n 'single quote: '\'''; echo -n \|
+
+echo -n three backslashes \\\\\\;echo -n \|
 
 echo "-n" test
 
@@ -51,6 +55,10 @@ echo one" "space
 echo five      " "    " "        spaces
 
 pw\d;echo -n test
+
+
+
+
 
 INVALID:
 
@@ -103,3 +111,15 @@ echo \- n test
 echo "-" n test
 
 echo '-' n test
+
+echo this is multiline but shouldnt segfault: \
+
+echo this is multiline but shouldnt segfault: "
+
+echo this is multiline but shouldnt segfault: '
+
+echo this is multiline but shouldnt segfault: "\
+
+echo this is multiline but shouldnt segfault: "'
+
+echo this is multiline but shouldnt segfault: '\

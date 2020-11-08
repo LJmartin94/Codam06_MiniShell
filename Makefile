@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/14 11:19:17 by limartin      #+#    #+#                  #
-#    Updated: 2020/11/06 14:05:37 by lindsay       ########   odam.nl          #
+#    Updated: 2020/11/08 16:44:07 by limartin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRC = $(SRC_PATH)main.c \
 	$(SRC_PATH)$(PARSE_PATH)basic_states.c \
 	$(SRC_PATH)$(PARSE_PATH)basic_pad_states.c \
 	$(SRC_PATH)$(PARSE_PATH)dq_basic_states.c \
+	$(SRC_PATH)$(PARSE_PATH)dq_bs_basic_states.c \
 	$(SRC_PATH)$(PARSE_PATH)dq_exit_basic_states.c \
 	$(SRC_PATH)$(PARSE_PATH)sq_basic_states.c \
 	$(SRC_PATH)$(PARSE_PATH)sq_exit_basic_states.c \

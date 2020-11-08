@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   dq_basic_states.c                                  :+:    :+:            */
+/*   dq_bs_basic_states.c                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/10/15 18:10:03 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/08 16:25:16 by limartin      ########   odam.nl         */
+/*   Created: 2020/11/08 16:22:46 by limartin      #+#    #+#                 */
+/*   Updated: 2020/11/08 17:04:45 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
-#include "error.h"
 
-t_transition_code	sh_dq_cmd_state(t_token **this, t_icomp **icur)
+t_transition_code	sh_dq_bs_cmd_state(t_token **this, t_icomp **icur)
 {
 	t_transition_code	id;
 
-	if (recognise_token_state(*this) == dq && *this)
+	if (recognise_token_state(*this) == backslash && *this)
 		*this = (*this)->next;
-	if (recognise_token_state(*this) != backslash && \
-	recognise_token_state(*this) != dq && *this)
+	if ((*this) != NULL)
 	{
 		ft_add_token_to_comp((*this), &((*icur)->cmd));
 		*this = (*this)->next;
@@ -31,14 +29,13 @@ t_transition_code	sh_dq_cmd_state(t_token **this, t_icomp **icur)
 	return (id);
 }
 
-t_transition_code	sh_dq_opt_state(t_token **this, t_icomp **icur)
+t_transition_code	sh_dq_bs_opt_state(t_token **this, t_icomp **icur)
 {
 	t_transition_code	id;
 
-	if (recognise_token_state(*this) == dq && *this)
+	if (recognise_token_state(*this) == backslash && *this)
 		*this = (*this)->next;
-	if (recognise_token_state(*this) != backslash && \
-	recognise_token_state(*this) != dq && *this)
+	if ((*this) != NULL)
 	{
 		ft_add_token_to_comp((*this), &((*icur)->arg));
 		*this = (*this)->next;
@@ -49,14 +46,13 @@ t_transition_code	sh_dq_opt_state(t_token **this, t_icomp **icur)
 	return (id);
 }
 
-t_transition_code	sh_dq_arg_state(t_token **this, t_icomp **icur)
+t_transition_code	sh_dq_bs_arg_state(t_token **this, t_icomp **icur)
 {
 	t_transition_code	id;
 
-	if (recognise_token_state(*this) == dq && *this)
+	if (recognise_token_state(*this) == backslash && *this)
 		*this = (*this)->next;
-	if (recognise_token_state(*this) != backslash && \
-	recognise_token_state(*this) != dq && *this)
+	if ((*this) != NULL)
 	{
 		ft_add_token_to_comp((*this), &((*icur)->arg));
 		*this = (*this)->next;

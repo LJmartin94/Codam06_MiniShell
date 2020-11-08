@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 19:53:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/07 18:49:41 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/08 16:48:18 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_dq_cmd_state, error, sh_error_state},
 	{sh_dq_cmd_state, dq, sh_dq_exit_cmd_state},
 	{sh_dq_cmd_state, sq, sh_dq_cmd_state},
-	{sh_dq_cmd_state, backslash, sh_dq_cmd_state}, //dq requires separate backslash state
+	{sh_dq_cmd_state, backslash, sh_dq_bs_cmd_state},
 	{sh_dq_cmd_state, cmd, sh_dq_cmd_state},
 	{sh_dq_cmd_state, opt, sh_dq_cmd_state},
 	{sh_dq_cmd_state, arg, sh_dq_cmd_state},
@@ -118,7 +118,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_dq_opt_state, error, sh_error_state},
 	{sh_dq_opt_state, dq, sh_dq_exit_opt_state},
 	{sh_dq_opt_state, sq, sh_dq_opt_state},
-	{sh_dq_opt_state, backslash, sh_dq_opt_state}, //dq requires separate backslash state
+	{sh_dq_opt_state, backslash, sh_dq_bs_opt_state},
 	{sh_dq_opt_state, cmd, sh_dq_opt_state},
 	{sh_dq_opt_state, opt, sh_dq_opt_state},
 	{sh_dq_opt_state, arg, sh_dq_opt_state},
@@ -129,12 +129,45 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_dq_arg_state, error, sh_error_state},
 	{sh_dq_arg_state, dq, sh_dq_exit_arg_state},
 	{sh_dq_arg_state, sq, sh_dq_arg_state},
-	{sh_dq_arg_state, backslash, sh_dq_arg_state}, //dq requires separate backslash state
+	{sh_dq_arg_state, backslash, sh_dq_bs_arg_state},
 	{sh_dq_arg_state, cmd, sh_dq_arg_state},
 	{sh_dq_arg_state, opt, sh_dq_arg_state},
 	{sh_dq_arg_state, arg, sh_dq_arg_state},
 	{sh_dq_arg_state, separator, sh_dq_arg_state},
 	{sh_dq_arg_state, exit_state, sh_exit_state},
+
+	{sh_dq_bs_cmd_state, padding, sh_dq_cmd_state},
+	{sh_dq_bs_cmd_state, error, sh_error_state},
+	{sh_dq_bs_cmd_state, dq, sh_dq_exit_cmd_state},
+	{sh_dq_bs_cmd_state, sq, sh_dq_cmd_state},
+	{sh_dq_bs_cmd_state, backslash, sh_dq_bs_cmd_state},
+	{sh_dq_bs_cmd_state, cmd, sh_dq_cmd_state},
+	{sh_dq_bs_cmd_state, opt, sh_dq_cmd_state},
+	{sh_dq_bs_cmd_state, arg, sh_dq_cmd_state},
+	{sh_dq_bs_cmd_state, separator, sh_dq_cmd_state},
+	{sh_dq_bs_cmd_state, exit_state, sh_exit_state},
+
+	{sh_dq_bs_opt_state, padding, sh_dq_opt_state},
+	{sh_dq_bs_opt_state, error, sh_error_state},
+	{sh_dq_bs_opt_state, dq, sh_dq_exit_opt_state},
+	{sh_dq_bs_opt_state, sq, sh_dq_opt_state},
+	{sh_dq_bs_opt_state, backslash, sh_dq_bs_opt_state},
+	{sh_dq_bs_opt_state, cmd, sh_dq_opt_state},
+	{sh_dq_bs_opt_state, opt, sh_dq_opt_state},
+	{sh_dq_bs_opt_state, arg, sh_dq_opt_state},
+	{sh_dq_bs_opt_state, separator, sh_dq_opt_state},
+	{sh_dq_bs_opt_state, exit_state, sh_exit_state},
+
+	{sh_dq_bs_arg_state, padding, sh_dq_arg_state},
+	{sh_dq_bs_arg_state, error, sh_error_state},
+	{sh_dq_bs_arg_state, dq, sh_dq_exit_arg_state},
+	{sh_dq_bs_arg_state, sq, sh_dq_arg_state},
+	{sh_dq_bs_arg_state, backslash, sh_dq_bs_arg_state},
+	{sh_dq_bs_arg_state, cmd, sh_dq_arg_state},
+	{sh_dq_bs_arg_state, opt, sh_dq_arg_state},
+	{sh_dq_bs_arg_state, arg, sh_dq_arg_state},
+	{sh_dq_bs_arg_state, separator, sh_dq_arg_state},
+	{sh_dq_bs_arg_state, exit_state, sh_exit_state},
 
 	{sh_dq_exit_cmd_state, padding, sh_cmd_pad_state},
 	{sh_dq_exit_cmd_state, error, sh_error_state},
