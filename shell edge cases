@@ -44,7 +44,7 @@ echo       -n               test
 
                   echo -n test
 
-echo three " " spaces //WRONG
+echo three " " spaces
 
 echo one" "space
 
@@ -60,7 +60,7 @@ INVALID:
 
 "e""c"'h''o'' '-n test
 
-"e"'c'"h"'o' '-' "n" te's't //WRONG
+"e"'c'"h"'o' '-' "n" te's't
 
 echo -n -nnnnnnnnnnnn -n -n '-n' "-n" -nnnnnnnnnd test
 
@@ -91,3 +91,15 @@ ech -n test
 echoo -n test
 
 ech\o-n test
+
+echo - \n test
+
+echo - "n" test
+
+echo - 'n' test
+
+echo \- n test
+
+echo "-" n test
+
+echo '-' n test

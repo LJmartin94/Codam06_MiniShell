@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/25 17:19:17 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/07 19:00:11 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/08 13:54:53 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "libft.h"
 #include "flag_validation_table.h"
 #include "error.h"
-
-#include <stdio.h>
 
 void		sanitise_option_field(t_icomp **icur)
 {
