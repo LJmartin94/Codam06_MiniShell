@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 13:26:26 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/08 18:03:15 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/08 18:12:13 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,12 @@ static int	go_home(t_vector *env)
 		if (path != NULL)
 			dir = chdir(path);
 		if (dir != -1)
-			e_write(STDIN_FILENO, "HOME not properly set, using USER\n", 34);
+			e_write(STDOUT_FILENO, "HOME not properly set, using USER\n", 34);
 		if (dir != -1 && path != NULL)
 			free(path);
 	}
 	if (dir == -1)
-		e_write(STDIN_FILENO, "HOME not properly set, staying put\n", 35);
+		e_write(STDOUT_FILENO, "HOME not properly set, staying put\n", 35);
 	return (dir);
 }
 
