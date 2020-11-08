@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 18:03:33 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/08 18:58:43 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/08 19:36:38 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,15 @@
 #include "libft.h"
 #include "error.h"
 
-char	*empty_string_alloc(void)
-{
-	char *ret;
-
-	ret = e_malloc(1);
-	ret[0] = '\0';
-	return (ret);
-}
-
 int		ft_compconst(t_icomp *tonull)
 {
-	tonull->sep = empty_string_alloc();
-	tonull->cmd = empty_string_alloc();
-	tonull->opt = empty_string_alloc();
-	tonull->arg = empty_string_alloc();
+	tonull->sep = ft_strdup("");
+	tonull->cmd = ft_strdup("");
+	tonull->opt = ft_strdup("");
+	tonull->arg = ft_strdup("");
+	if (tonull->sep == NULL || tonull->cmd == NULL || \
+	tonull->opt == NULL || tonull->arg == NULL)
+		error_exit_errno();
 	tonull->id = 0;
 	tonull->rdhead = NULL;
 	tonull->right = NULL;
