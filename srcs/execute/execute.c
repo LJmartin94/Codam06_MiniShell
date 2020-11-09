@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/06 14:15:25 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/09 12:08:59 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,34 +31,21 @@ t_cmd	get_command(t_icomp *comp)
 	return (NULL);
 }
 
-void	wait_for_processes() //TODO: Do i need this??
-{
-	int *this_one;
-	while(g_pid_list.amt > 0)//TODO: I'll probably never need this
-	{
-		this_one = vector_get(&g_pid_list, 0); //should make sure to wait for processes to finish in the right order, but also have processes remain open until not used anymore
-		wait(this_one);
-		free(this_one);
-		vector_delete(&g_pid_list, 0);
-	}
-}
-
 void	execute(t_vector *env, t_icomp *comp)
 {
 	t_icomp	*tmp;
-	int 	stdin;
-	int i;
+	int		stdin;
 
 	vector_init(&g_pid_list);
-	i = 0;
 	tmp = comp;
 	stdin = -1;
 	while (tmp != NULL)
 	{
 		stdin = exec_command(env, tmp, stdin);
 		tmp = tmp->right;
-		i++;
 	}
-	// vector_debug(STDOUT_FILENO, &g_pid_list, pid_print);
-	free(g_pid_list.data);//TODO: make sure there's nothing left here still
+	if (g_pid_list.amt == 0)
+		free(g_pid_list.data);
+	else
+		ft_dprintf(STDOUT_FILENO, "something wrong with pid_list\n");
 }
