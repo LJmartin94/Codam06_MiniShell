@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/29 18:18:41 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/09 11:40:20 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,19 @@
 ** global list of pid
 */
 
+t_vector g_pid_list;
+
 typedef struct	s_env
 {
 	char *key;
 	char *value;
 }				t_env;
+
+typedef struct	s_process
+{
+	int	fd;
+	int pid;
+}				t_process;
 
 typedef	int		(*t_cmd)(t_vector *, t_icomp *);
 
@@ -42,6 +50,27 @@ void			free_env_item(t_env *item);
 void			free_env(t_vector *env);
 void			free_envp(char **envp);
 
+int				exec_command(t_vector *env, t_icomp *cmd, int stdin);
+t_cmd			get_command(t_icomp *comp);
+
+
 void			invalid_cmd(t_icomp *cmd);
+
+
+
+void	handle_redirections(t_icomp *comp, int p_fd[2]);
+char	**build_argv(t_icomp *comp);
+char *find_path(t_vector *env, t_icomp *comp);
+
+
+
+
+
+
+//TODO: REMOVE
+
+int pid_print(int fd, t_process *pid);
+int	cmp_pid(int *pid1, int *pid2);
+void free_matrix(char **matrix);
 
 #endif

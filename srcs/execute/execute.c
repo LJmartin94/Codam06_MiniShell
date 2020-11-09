@@ -6,12 +6,13 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/28 18:30:11 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/06 14:15:25 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "libft.h"
+#include "error.h"
 
 /*
 ** TODO: Build command validators in functions
@@ -30,19 +31,34 @@ t_cmd	get_command(t_icomp *comp)
 	return (NULL);
 }
 
+void	wait_for_processes() //TODO: Do i need this??
+{
+	int *this_one;
+	while(g_pid_list.amt > 0)//TODO: I'll probably never need this
+	{
+		this_one = vector_get(&g_pid_list, 0); //should make sure to wait for processes to finish in the right order, but also have processes remain open until not used anymore
+		wait(this_one);
+		free(this_one);
+		vector_delete(&g_pid_list, 0);
+	}
+}
+
 void	execute(t_vector *env, t_icomp *comp)
 {
-	t_cmd	f;
 	t_icomp	*tmp;
+	int 	stdin;
+	int i;
 
+	vector_init(&g_pid_list);
+	i = 0;
 	tmp = comp;
+	stdin = -1;
 	while (tmp != NULL)
 	{
-		f = get_command(tmp);
-		if (f == NULL)
-			invalid_cmd(tmp);
-		else
-			f(env, tmp);
+		stdin = exec_command(env, tmp, stdin);
 		tmp = tmp->right;
+		i++;
 	}
+	// vector_debug(STDOUT_FILENO, &g_pid_list, pid_print);
+	free(g_pid_list.data);//TODO: make sure there's nothing left here still
 }

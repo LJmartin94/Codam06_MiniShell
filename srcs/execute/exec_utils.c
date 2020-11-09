@@ -1,25 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   invalid.c                                          :+:    :+:            */
+/*   exec_utils.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/10/27 10:09:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/30 13:52:02 by jsaariko      ########   odam.nl         */
+/*   Created: 2020/11/06 10:41:34 by jsaariko      #+#    #+#                 */
+/*   Updated: 2020/11/06 15:07:47 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "error.h"
-#include "minishell.h"
+//TODO: murder?
+
 #include "libft.h"
+#include "execute.h"
 
-/*
-** //TODO: stop program?
-*/
-
-void	invalid_cmd(t_icomp *cmd)
+int pid_print(int fd, t_process *prc)//
 {
-	ft_dprintf(STDERR_FILENO, "Invalid command: '%s %s %s'\n",
-	cmd->cmd, cmd->opt, cmd->arg);
+	return (ft_dprintf(fd, "pid: %d, fd: %d\n", prc->pid, prc->fd));
+}
+
+int	cmp_pid(int *pid1, int *pid2)
+{
+	return (*pid1 - *pid2);
+}
+
+void free_matrix(char **matrix)
+{
+	size_t i;
+
+	i = 0;
+	if (matrix == NULL)
+		return ;
+	while (matrix[i] != NULL)
+	{
+		free(matrix[i]);
+		matrix[i] = NULL;
+		i++;
+	}
+	free(matrix);
 }
