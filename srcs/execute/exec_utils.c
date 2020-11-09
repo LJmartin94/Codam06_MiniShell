@@ -6,17 +6,18 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:41:34 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/06 10:44:01 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/06 15:07:47 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 //TODO: murder?
 
 #include "libft.h"
+#include "execute.h"
 
-int pid_print(int fd, int *pid)//
+int pid_print(int fd, t_process *prc)//
 {
-	return (ft_dprintf(fd, "pid: %d\n", *pid));
+	return (ft_dprintf(fd, "pid: %d, fd: %d\n", prc->pid, prc->fd));
 }
 
 int	cmp_pid(int *pid1, int *pid2)

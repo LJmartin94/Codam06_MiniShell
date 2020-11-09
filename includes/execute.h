@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/06 11:24:52 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/06 15:08:10 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ typedef struct	s_env
 	char *key;
 	char *value;
 }				t_env;
+
+typedef struct	s_process
+{
+	int	fd;
+	int pid;
+}				t_process;
 
 typedef	int		(*t_cmd)(t_vector *, t_icomp *);
 
@@ -63,7 +69,7 @@ char *find_path(t_vector *env, t_icomp *comp);
 
 //TODO: REMOVE
 
-int pid_print(int fd, int *pid);
+int pid_print(int fd, t_process *pid);
 int	cmp_pid(int *pid1, int *pid2);
 void free_matrix(char **matrix);
 
