@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/09 12:22:42 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/09 13:36:42 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int		get_input(t_vector *env)
 		error_exit_msg(C_GNL_FAIL, E_GNL_FAIL);
 	parse_input(buf, &comp_blocks);
 	free(buf);
+	print_components(&comp_blocks);
 	execute(env, &comp_blocks);
 	free_components(&comp_blocks);
 	return (ret);
@@ -62,7 +63,7 @@ void	print_components(t_icomp *icur)
 	while (icur)
 	{
 		printf("Block:	|%d|\nLFT: [%p]\nADR:	|%p|\nCMD:	|%s|\nOPT:	|%s|\n\
-ARG:	|%s|\nSEP:	|%s|\nRGT: [%p]\n", icur->id, icur->left, icur, \
+ARG:	|%s|\nSEP:	|%s|\nRGT: [%p]\n\n", icur->id, icur->left, icur, \
 		icur->cmd, icur->opt, icur->arg, icur->sep, icur->right);
 		icur = icur->right;
 	}
@@ -70,3 +71,8 @@ ARG:	|%s|\nSEP:	|%s|\nRGT: [%p]\n", icur->id, icur->left, icur, \
 
 //TODO: Discuss why things are automatically killed, do i need to explicitly kill every process individually? As things already seem to be getting killed
 //TODO: Discuss: Parse should fail if executable ends in a pipe
+//TODO: Discuss how to parse $. Examples:
+// echo whazzup $USER lol -> whazzup jules lol
+// echo "whazzup $USER lol" -> whazzup jules lol
+// echo "whazzup $USE lol" -> whazzup  lol <-- (two spaces in the middle)
+// echo 'whazzup $USER lol' -> whazzup $USER lol

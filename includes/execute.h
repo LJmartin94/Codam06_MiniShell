@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/09 12:39:40 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/09 13:43:10 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@ typedef struct	s_process
 	int	fd;
 	int pid;
 }				t_process;
+
+/*
+** Store return value
+*/
+
+int g_ret_val;
 
 /*
 ** Builtin prototypes
