@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/14 11:19:17 by limartin      #+#    #+#                  #
-#    Updated: 2020/11/06 10:45:48 by jsaariko      ########   odam.nl          #
+#    Updated: 2020/11/09 12:17:48 by jsaariko      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ SRC = $(SRC_PATH)main.c \
 	$(SRC_PATH)$(PARSE_PATH)validate_option_flags.c \
 	$(SRC_PATH)$(PARSE_PATH)comp_links.c \
 	$(SRC_PATH)$(PARSE_PATH)free_and_exit.c \
+	$(SRC_PATH)$(EX_PATH)signals.c \
 	$(SRC_PATH)$(EX_PATH)execute.c \
 	$(SRC_PATH)$(EX_PATH)manage_execution.c \
 	$(SRC_PATH)$(EX_PATH)build_exec.c \

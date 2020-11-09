@@ -1,44 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   exec_utils.c                                       :+:    :+:            */
+/*   signals.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/11/06 10:41:34 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/09 11:44:30 by jsaariko      ########   odam.nl         */
+/*   Created: 2020/11/09 12:14:43 by jsaariko      #+#    #+#                 */
+/*   Updated: 2020/11/09 12:22:06 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "execute.h"
+#include "error.h"
 
 /*
-** //TODO: remove unused print functions
+** //TODO: also make sure to kill any ongoing process in sig_handler
 */
 
-int		pid_print(int fd, t_process *prc)
+void	handle_sigint(int signo)
 {
-	return (ft_dprintf(fd, "pid: %d, fd: %d\n", prc->pid, prc->fd));
-}
-
-int		cmp_pid(int *pid1, int *pid2)
-{
-	return (*pid1 - *pid2);
-}
-
-void	free_matrix(char **matrix)
-{
-	size_t i;
-
-	i = 0;
-	if (matrix == NULL)
-		return ;
-	while (matrix[i] != NULL)
+	if (signo == SIGINT)
 	{
-		free(matrix[i]);
-		matrix[i] = NULL;
-		i++;
+		e_write(STDOUT_FILENO, "\n", 1);
+		if (g_pid_list.amt == 0)
+		{
+			e_write(STDOUT_FILENO, "\U0001F40C ", 6);
+		}
 	}
-	free(matrix);
+}
+
+/*
+** //TODO: add number to quit?
+*/
+
+void	handle_sigquit(int signo)
+{
+	if (signo == SIGQUIT)
+	{
+		if (g_pid_list.amt != 0)
+			e_write(STDOUT_FILENO, "Quit: \n", 7);
+	}
 }

@@ -6,14 +6,14 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:38:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/06 11:38:40 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/09 11:42:16 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "error.h"
-#include <sys/types.h>//
-#include <sys/stat.h>//
+#include <sys/types.h>
+#include <sys/stat.h>
 
 char		**build_argv(t_icomp *comp)
 {
