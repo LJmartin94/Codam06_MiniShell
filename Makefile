@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/14 11:19:17 by limartin      #+#    #+#                  #
-#    Updated: 2020/11/09 12:17:48 by jsaariko      ########   odam.nl          #
+#    Updated: 2020/11/10 09:57:13 by jsaariko      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ SRC = $(SRC_PATH)main.c \
 	$(SRC_PATH)$(EX_PATH)redirect.c \
 	$(SRC_PATH)$(EX_PATH)exec_utils.c \
 	$(SRC_PATH)$(EX_PATH)echo.c \
+	$(SRC_PATH)$(EX_PATH)exit.c \
 	$(SRC_PATH)$(EX_PATH)env.c \
 	$(SRC_PATH)$(EX_PATH)env_utils.c \
 	$(SRC_PATH)$(EX_PATH)env_free.c \

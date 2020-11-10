@@ -56,3 +56,7 @@ THIS SOMETIMES PRINTS 5, SOMETIMES 0 and SOMETIMES NOTHING
 cat /dev/urandom | head -c10 (should stop, if it is hanging, something is wrong. could be fd's that you didn't close properly, could be incorrect implementation of pipes)
 sleep 42 | sleep 1 (if you pgrep sleep after a second, it should only give 1 pid as output. or check with htop/top/ps)
 cat | grep 42 (should output any line you enter that contains 42, right after you submit it. if it only outputs the lines containing 42 after you ctrl+d, your processes are not running at the same time.)
+
+
+
+exit | echo

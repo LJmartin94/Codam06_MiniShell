@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/09 11:52:11 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/10 10:37:58 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	run_command(t_cmd f, t_vector *env, t_icomp *comp)
 	char **argv;
 
 	if (f != NULL)
-		f(env, comp);
+		f(env, comp, STDOUT_FILENO);
 	else
 	{
 		path = find_path(env, comp);
@@ -83,6 +83,35 @@ void	parent_process(t_icomp *comp, int pid, int fd[2], int stdin)
 	}
 }
 
+#include "fcntl.h"//
+//I dont think any of these accept <, but they still run it and cry if it's not a valid file
+int		redirect_builtin(t_icomp *comp)
+{
+	int fd;
+
+	fd = STDOUT_FILENO;
+	if (ft_strncmp(comp->sep, ">>", 3) == 0) //creates if doesn't exist, appends
+		fd = open(comp->right->cmd, O_WRONLY | O_CREAT | O_APPEND, 0666);
+	else if (ft_strncmp(comp->sep, ">", 2) == 0)
+		fd = open(comp->right->cmd, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	else if (ft_strncmp(comp->sep, "<", 2) == 0)//returns where to read from
+	{
+		fd = open(comp->right->cmd, O_RDONLY, 0666);
+		if (fd == -1)
+			ft_dprintf(STDERR_FILENO, "oops, no such file");//solidify error checking
+		close(fd);
+		fd = STDOUT_FILENO; //write to
+	}
+	return (fd);
+}
+
+void	exec_builtin(t_cmd f,t_vector *env, t_icomp *comp)
+{
+	//handle builtin redirections
+	int fd = redirect_builtin(comp);
+	f(env, comp, fd); //TODO: store return value in g_ret_val ????
+}
+
 int		exec_command(t_vector *env, t_icomp *comp, int stdin)
 {
 	t_cmd	f;
@@ -97,13 +126,21 @@ int		exec_command(t_vector *env, t_icomp *comp, int stdin)
 			error_exit_errno();
 	}
 	f = get_command(comp);
-	pid = fork();
-	if (pid == 0)
-	{
-		handle_redirections(comp, fd, stdin);
-		run_command(f, env, comp);
-	}
+	if (f != NULL && ft_strncmp(comp->sep, "|", 2) != 0 && stdin == -1)
+		exec_builtin(f, env, comp);
 	else
-		parent_process(comp, pid, fd, stdin);
+	{
+		pid = fork();
+		if (pid == 0)
+		{
+			handle_redirections(comp, fd, stdin);
+			run_command(f, env, comp);
+		}
+		else
+			parent_process(comp, pid, fd, stdin);
+	}
 	return (fd[0]);
 }
+
+
+//builtins aren't redirected in a fork, but within the commands

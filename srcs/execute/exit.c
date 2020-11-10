@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   echo.c                                             :+:    :+:            */
+/*   exit.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/10/27 10:38:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/10 10:16:54 by jsaariko      ########   odam.nl         */
+/*   Created: 2020/11/09 14:28:00 by jsaariko      #+#    #+#                 */
+/*   Updated: 2020/11/10 10:31:29 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
-#include "error.h"
-#include "libft.h"
 
-int	ft_echo(t_vector *env, t_icomp *cmd, int fd)
+int	ft_exit(t_vector *env, t_icomp *cmd, int fd)
 {
+	// int ret;
+
 	(void)env;
-	e_write(fd, cmd->arg, ft_strlen(cmd->arg));
-	if (ft_strnstr(cmd->opt, "-n", ft_strlen(cmd->opt)) == NULL)
-		e_write(fd, "\n", 1);
-	return (0);
+	(void)cmd;
+	(void)fd;
+	// if (cmd->arg)//TODO: if not numeric
+	// {
+		// ft_dprintf(STDOUT_FILENO, "");
+		// ret = 255;
+	// }
+	// if (ft_strncmp(cmd->arg, "", 1))
+		// ret = g_ret_val;
+	// else
+	// ret = ft_atoi(cmd->arg);
+	exit(0);
 }

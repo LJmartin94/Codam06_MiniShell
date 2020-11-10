@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:39:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/02 12:25:46 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/10 10:16:02 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** export returns one if NAME is invalid
 */
 
-static int	print_env(t_vector *env)
+static int	print_env(t_vector *env, int fd)
 {
 	size_t	i;
 	t_env	*cur;
@@ -28,15 +28,15 @@ static int	print_env(t_vector *env)
 	while (i < env->amt)
 	{
 		cur = (t_env *)vector_get(env, i);
-		write(STDOUT_FILENO, "declare -x ", 11);
-		write(STDOUT_FILENO, cur->key, ft_strlen(cur->key));
+		write(fd, "declare -x ", 11);
+		write(fd, cur->key, ft_strlen(cur->key));
 		if (cur->value != NULL)
 		{
-			write(STDOUT_FILENO, "=\"", 2);
-			write(STDOUT_FILENO, cur->value, ft_strlen(cur->value));
-			write(STDOUT_FILENO, "\"", 1);
+			write(fd, "=\"", 2);
+			write(fd, cur->value, ft_strlen(cur->value));
+			write(fd, "\"", 1);
 		}
-		write(STDOUT_FILENO, "\n", 1);
+		write(fd, "\n", 1);
 		i++;
 	}
 	return (0);
@@ -66,7 +66,7 @@ static void	edit_env(t_vector *env, t_env *item, int pos)
 	}
 }
 
-int			ft_export(t_vector *env, t_icomp *cmd)
+int			ft_export(t_vector *env, t_icomp *cmd, int fd)
 {
 	t_env	*item;
 	int		pos;
@@ -74,7 +74,7 @@ int			ft_export(t_vector *env, t_icomp *cmd)
 	pos = 0;
 	if ((ft_strncmp(cmd->arg, "", 1)) == 0)
 	{
-		print_env(env);
+		print_env(env, fd);
 		return (0);
 	}
 	if (!ft_isalpha(cmd->arg[0]))

@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:38:22 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/29 14:00:55 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/10 10:17:07 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@ int	compare_key(t_env *data, char *item)
 ** exist, but I can't make it happen
 */
 
-int	ft_unset(t_vector *env, t_icomp *cmd)
+int	ft_unset(t_vector *env, t_icomp *cmd, int fd)
 {
 	int		index;
 	t_env	*cur;
 
+	(void)fd;
 	if (cmd->arg == NULL)
 		return (0);
 	index = vector_search(env, compare_key, (void *)cmd->arg);

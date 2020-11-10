@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/09 12:08:59 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/10 10:00:45 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_cmd	get_command(t_icomp *comp)
 {
 	if (ft_strncmp(comp->cmd, "echo", 5) == 0)
 		return (ft_echo);
+	if (ft_strncmp(comp->cmd, "exit", 5) == 0)
+		return (ft_exit);
 	if (ft_strncmp(comp->cmd, "env", 4) == 0)
 		return (ft_env);
 	if (ft_strncmp(comp->cmd, "unset", 6) == 0)

@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/09 12:28:43 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/10 10:14:57 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,13 @@ typedef struct	s_process
 ** Builtin prototypes
 */
 
-typedef	int		(*t_cmd)(t_vector *, t_icomp *);
+typedef	int		(*t_cmd)(t_vector *, t_icomp *, int);
 
-int				ft_echo(t_vector *env, t_icomp *cmd);
-int				ft_env(t_vector *env, t_icomp *cmd);
-int				ft_export(t_vector *env, t_icomp *cmd);
-int				ft_unset(t_vector *env, t_icomp *cmd);
+int				ft_echo(t_vector *env, t_icomp *cmd, int fd);
+int				ft_exit(t_vector *env, t_icomp *cmd, int fd);
+int				ft_env(t_vector *env, t_icomp *cmd, int fd);
+int				ft_export(t_vector *env, t_icomp *cmd, int fd);
+int				ft_unset(t_vector *env, t_icomp *cmd, int fd);
 
 /*
 ** Env utils
