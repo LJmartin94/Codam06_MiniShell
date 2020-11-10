@@ -6,13 +6,17 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 14:28:00 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/10 10:31:29 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/10 10:54:30 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 
-int	ft_exit(t_vector *env, t_icomp *cmd, int fd)
+//TODO: If numeric param provided, exits with said param
+//TODO: If not, exits with exit code of last command (g_ret_val)
+//TODO: what if non numeric param provided? errors, still exits, but what exit value?
+
+int	ft_exit(t_vector *env, t_icomp *cmd, int fd) 
 {
 	// int ret;
 

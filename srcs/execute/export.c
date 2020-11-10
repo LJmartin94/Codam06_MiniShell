@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:39:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/10 10:16:02 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/10 12:45:03 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,12 @@ static void	edit_env(t_vector *env, t_env *item, int pos)
 			error_exit_errno();
 	}
 }
+
+// TODO: export returns an exit status of 0 unless an invalid
+// option is encountered, one of the names is not a valid shell variable name
+// can export multiple variables at once
+// export "lol lol" <- returns 1, not a valid identifier
+// split by whitespaces. If there are whitespaces between quotes, s no good
 
 int			ft_export(t_vector *env, t_icomp *cmd, int fd)
 {

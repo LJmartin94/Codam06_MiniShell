@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/10 10:14:57 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/10 11:40:38 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ char			**build_argv(t_icomp *comp);
 */
 
 void			invalid_cmd(t_icomp *cmd);
+void			cmd_error(t_icomp *cmd, char *msg, int fd);
 
 /*
 ** Execute utils, mainly for testing purposes

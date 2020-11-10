@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/10 10:37:58 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/10 10:44:24 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ int		redirect_builtin(t_icomp *comp)
 		fd = open(comp->right->cmd, O_RDONLY, 0666);
 		if (fd == -1)
 			ft_dprintf(STDERR_FILENO, "oops, no such file");//solidify error checking
-		close(fd);
+		else
+			close(fd);
 		fd = STDOUT_FILENO; //write to
 	}
 	return (fd);

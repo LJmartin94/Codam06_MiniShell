@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/09 12:22:42 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/10 12:46:37 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,3 +70,6 @@ ARG:	|%s|\nSEP:	|%s|\nRGT: [%p]\n", icur->id, icur->left, icur, \
 
 //TODO: Discuss why things are automatically killed, do i need to explicitly kill every process individually? As things already seem to be getting killed
 //TODO: Discuss: Parse should fail if executable ends in a pipe
+//TODO: Discuss: parser should separate separate arguments into an array of arguments
+//TODO: shouldnt be parsed as separator $?
+//TODO: shouldnt be parsed as separator $
