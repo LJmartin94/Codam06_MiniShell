@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 14:28:00 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/10 10:54:30 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/11 15:10:04 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,21 @@
 
 int	ft_exit(t_vector *env, t_icomp *cmd, int fd) 
 {
-	// int ret;
-
 	(void)env;
-	(void)cmd;
 	(void)fd;
-	// if (cmd->arg)//TODO: if not numeric
-	// {
-		// ft_dprintf(STDOUT_FILENO, "");
-		// ret = 255;
-	// }
-	// if (ft_strncmp(cmd->arg, "", 1))
-		// ret = g_ret_val;
-	// else
-	// ret = ft_atoi(cmd->arg);
-	exit(0);
+	size_t i;
+	i = 0;
+	// int ret; //TODO: Maybe unsigned char?
+	// if (cmd->arg[0] == '\0')
+		// exit(g_ret_val);
+	while (cmd->arg[i] != '\0')
+	{
+		if (!ft_isdigit(cmd->arg[i]))
+		{
+			cmd_error(cmd, "numeric argument required", STDERR_FILENO);
+			exit(255);
+		}
+		i++;
+	}
+	exit(ft_atoi(cmd->arg));
 }

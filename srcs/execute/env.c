@@ -6,19 +6,19 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 11:49:12 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/02 12:25:33 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/11 12:35:42 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "error.h"
 #include "execute.h"
 
-static void		write_key_val_pair(char *key, char *value)
+static void		write_key_val_pair(char *key, char *value, int fd)
 {
-	write(STDOUT_FILENO, key, ft_strlen(key));
-	write(STDOUT_FILENO, "=", 1);
-	write(STDOUT_FILENO, value, ft_strlen(value));
-	write(STDOUT_FILENO, "\n", 1);
+	write(fd, key, ft_strlen(key));
+	write(fd, "=", 1);
+	write(fd, value, ft_strlen(value));
+	write(fd, "\n", 1);
 }
 
 /*
@@ -36,7 +36,7 @@ static int		validate_cmd_env(t_icomp *cmd)
 	return (1);
 }
 
-int				ft_env(t_vector *env, t_icomp *cmd)
+int				ft_env(t_vector *env, t_icomp *cmd, int fd)
 {
 	size_t	i;
 	t_env	*cur;
@@ -52,7 +52,7 @@ int				ft_env(t_vector *env, t_icomp *cmd)
 	{
 		cur = (t_env *)vector_get(env, i);
 		if (cur->value != NULL)
-			write_key_val_pair(cur->key, cur->value);
+			write_key_val_pair(cur->key, cur->value, fd);
 		i++;
 	}
 	return (0);
