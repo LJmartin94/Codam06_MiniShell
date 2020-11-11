@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 13:26:26 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/08 18:21:49 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/11 15:47:30 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,27 @@ static int	validate_cmd_cd(t_icomp *cmp)
 
 static int	go_relative(t_vector *env, t_icomp *cmp)
 {
-	int dir;
+	int		dir;
+	char	*cwd;
+	char	*path;
 
-	dir = 0;
 	(void)env;
-	(void)cmp;
+	cwd = NULL;
+	cwd = getcwd(cwd, 0);
+	if (cwd == NULL)
+		error_exit_errno();
+	path = ft_strjoin(cwd, "/");
+	if (path != NULL)
+		path = ft_strjoin(path, cmp->arg);
+	if (path == NULL)
+		error_exit_errno();
+	dir = chdir(path);
+	if (dir == -1)
+	{
+		e_write(STDERR_FILENO, "Could not access ", 17);
+		e_write(STDERR_FILENO, path, ft_strlen(path));
+		e_write(STDERR_FILENO, "\n", 1);
+	}
 	return (dir);
 }
 
@@ -97,7 +113,6 @@ static int	go_home(t_vector *env)
 
 int			ft_cd(t_vector *env, t_icomp *cmp)
 {
-	//char	*cwd;
 	int		dir;
 
 	(void)env;
@@ -113,17 +128,16 @@ int			ft_cd(t_vector *env, t_icomp *cmp)
 		dir = go_absolute(env, cmp);
 	else
 		dir = go_relative(env, cmp);
-	// cwd = NULL;
-	// cwd = getcwd(cwd, 0);
-	// if (cwd == NULL)
-	// 	error_exit_errno();
 	return (dir);
 }
 
 // cd /Users/limartin/Desktop/some/where/highly/specific/that/will/result/in/really/quite/a/long/path/name/if/one/was/hypothetically/to/test/whether/pwd/\(/print/working/directory/\)/was/working/for/the/purposes/of/ironing/out/edge/cases/in/mini/shell/\ /\\/:/\\n/000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000/untitled\ folder/cd/\"..\"/ok\ it\ works\ I\ guess...
 
+// cd /home/lindsay/Desktop/ghMinishell/some/where/highly/specific/that/will/result/in/really/quite/a/long/path/name/if/one/was/hypothetically/to/test/whether/pwd/\(/print/working/directory/\)/was/working/for/the/purposes/of/ironing/out/edge/cases/in/mini/shell/\ /\\/:/\\n/000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000/untitled\ folder/cd/\"..\"/ok\ it\ works\ I\ guess...
+
 /*
 ** TODO
-** Also set PWD and OLDPWD in env. (OLDPWD is updated even if the same as PWD, so upon succesful directory change command)
-** check .. and . work etc
+** Also set PWD and OLDPWD in env. '
+** (OLDPWD is updated even if the same as PWD, so upon succesful directory change command)
+** Check return values are correct for pwd and cd?
 */
