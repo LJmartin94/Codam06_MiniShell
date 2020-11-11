@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/10 10:44:24 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/11 15:21:36 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	run_command(t_cmd f, t_vector *env, t_icomp *comp)
 			exit(0);
 		}
 		envp = env_to_envp(env);
-		free_environment(env);
+		free_env(env);
 		argv = build_argv(comp);
 		execve(path, argv, envp);
 	}
@@ -45,12 +45,15 @@ void	run_command(t_cmd f, t_vector *env, t_icomp *comp)
 void	finish_process(int index)
 {
 	t_process *pid_item;
+	int wstatus;
 
 	pid_item = vector_get(&g_pid_list, index);
 	if (pid_item == NULL)
 		return ;
 	e_close(pid_item->fd);
-	waitpid(pid_item->pid, NULL, 0);
+	waitpid(pid_item->pid, &wstatus, 0);
+	g_ret_val = WEXITSTATUS(wstatus);
+	// ft_dprintf(STDOUT_FILENO, "ret val: %d\n", g_ret_val);
 	free(pid_item);
 	vector_delete(&g_pid_list, index);
 }

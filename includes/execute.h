@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/10 11:40:38 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/11 15:19:55 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ typedef struct	s_process
 }				t_process;
 
 /*
+** Store return value
+*/
+
+int g_ret_val;
+
+/*
 ** Builtin prototypes
 */
 
@@ -56,7 +62,7 @@ int				ft_unset(t_vector *env, t_icomp *cmd, int fd);
 int				compare_key(t_env *data, char *item);
 t_env			*get_env_item(char *env_str);
 void			free_env_item(t_env *item);
-void			free_environment(t_vector *env);
+void			free_env(t_vector *env);
 void			free_envp(char **envp);
 
 /*

@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/28 11:19:34 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/29 13:51:00 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/29 18:11:30 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,15 @@ t_env		*get_env_item(char *env_str)
 t_vector	*envp_to_env(char **envp)
 {
 	size_t		i;
-	size_t		count;
 	t_env		*cur;
 	t_vector	*env;
 	int			ret;
 
 	i = 0;
-	count = 0;
 	cur = NULL;
-	while (envp[count])
-		count++;
 	env = (t_vector *)e_malloc(sizeof(t_vector));
 	vector_init(env);
-	while (i < count)
+	while (envp[i] != NULL)
 	{
 		cur = get_env_item(envp[i]);
 		ret = vector_push(env, cur);
