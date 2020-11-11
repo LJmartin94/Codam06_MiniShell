@@ -6,31 +6,13 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 13:26:26 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/11 15:47:30 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/11 16:02:32 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "error.h"
 #include "libft.h"
-
-t_env	*find_env_kvp(t_vector *env, const char *key)
-{
-	size_t	i;
-	t_env	*ret;
-
-	i = 0;
-	while (i < env->amt)
-	{
-		ret = (t_env *)vector_get(env, i);
-		if (ft_strncmp(ret->key, key, ft_strlen(ret->key)) == 0 && \
-			ft_strncmp(ret->key, key, ft_strlen(key)) == 0)
-			break ;
-		ret = NULL;
-		i++;
-	}
-	return (ret);
-}
 
 static int	validate_cmd_cd(t_icomp *cmp)
 {
@@ -86,26 +68,17 @@ static int	go_home(t_vector *env)
 {
 	int		dir;
 	char	*path;
+	int		index;
 	t_env	*home;
 
 	path = "";
-	home = find_env_kvp(env, "HOME");
+	home = NULL;
+	index = vector_search(env, compare_key, (void *)"HOME");
+	if (index >= 0)
+		home = vector_get(env, index);
 	if (home != NULL)
 		path = home->value;
 	dir = chdir(path);
-	if (dir == -1)
-	{
-		path = NULL;
-		home = find_env_kvp(env, "USER");
-		if (home != NULL)
-			path = ft_strjoin("/Users/", home->value);
-		if (path != NULL)
-			dir = chdir(path);
-		if (dir != -1)
-			e_write(STDERR_FILENO, "HOME not properly set, using USER\n", 34);
-		if (dir != -1 && path != NULL)
-			free(path);
-	}
 	if (dir == -1)
 		e_write(STDERR_FILENO, "HOME not properly set, staying put\n", 35);
 	return (dir);
