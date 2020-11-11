@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/11 15:21:36 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/11 16:42:59 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,31 +58,63 @@ void	finish_process(int index)
 	vector_delete(&g_pid_list, index);
 }
 
-void	parent_process(t_icomp *comp, int pid, int fd[2], int stdin)
+void	parent_process(t_icomp *comp, int pid, int fd[2], int stdin) //TODO: still doesn't always kill processess properly
 {
-	t_process	*pid_malloc;
-	int			item_index;
+	// t_process	*pid_malloc;
+	// int			item_index;
 
+	// e_close(fd[1]);
+	// pid_malloc = (t_process *)e_malloc(sizeof(t_process));
+	// pid_malloc->pid = pid;
+	// pid_malloc->fd = fd[0];
+	// vector_push(&g_pid_list, pid_malloc);
+	// if (ft_strncmp(comp->sep, "|", 2) != 0)
+	// {
+	// 	if (stdin == -1)
+	// 	{
+	// 		item_index = vector_search(&g_pid_list, cmp_pid, pid_malloc);
+	// 		while (g_pid_list.amt > 0)
+	// 			finish_process(0);
+	// 		// if (item_index >= 0)
+	// 			// finish_process(item_index);
+	// 		// else
+	// 			// ft_dprintf(STDOUT_FILENO, "fuck, g_pid_list is fucked\n");
+	// 	}
+	// 	else
+	// 	{
+	// 		while (g_pid_list.amt > 0)
+	// 			finish_process(0);
+	// 	}
+	// }
+
+		//parent process doesn't need to write? 
 	e_close(fd[1]);
+	t_process *pid_malloc;
+	int item_index;
+
+
 	pid_malloc = (t_process *)e_malloc(sizeof(t_process));
 	pid_malloc->pid = pid;
+	//parent process needs to store read end of pipe
 	pid_malloc->fd = fd[0];
 	vector_push(&g_pid_list, pid_malloc);
-	if (ft_strncmp(comp->sep, "|", 2) != 0)
+	//TODO: Rn so many processes are left uncleared
+	
+
+	if (stdin != -1 && ft_strncmp(comp->sep, "|", 2) != 0)// if there's stdin, but no following pipe
 	{
-		if (stdin == -1)
+		while (g_pid_list.amt > 0)
 		{
-			item_index = vector_search(&g_pid_list, cmp_pid, pid_malloc);
-			if (item_index >= 0)
-				finish_process(item_index);
-			else
-				ft_dprintf(STDOUT_FILENO, "fuck, g_pid_list is fucked\n");
+			finish_process(0); //TODO: Should I finish all processes from before, or is it possible to have some background process still running
 		}
+	}
+	else if (stdin == -1 && ft_strncmp(comp->sep, "|", 2) != 0) //if there isn't stdin nor pipe, current process should just die
+	{
+		item_index = vector_search(&g_pid_list, cmp_pid, pid_malloc);
+		if (item_index >= 0)
+			finish_process(item_index);
 		else
-		{
-			while (g_pid_list.amt > 0)
-				finish_process(0);
-		}
+			ft_dprintf(STDOUT_FILENO, "fuck, g_pid_list is fucked\n");
 	}
 }
 

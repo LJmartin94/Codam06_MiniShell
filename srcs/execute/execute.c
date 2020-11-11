@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/11 15:33:38 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/11 15:55:37 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,5 @@ void	execute(t_vector *env, t_icomp *comp)
 	if (g_pid_list.amt == 0)
 		free(g_pid_list.data);
 	else
-		ft_dprintf(STDOUT_FILENO, "something wrong with pid_list\n");
+		ft_dprintf(STDOUT_FILENO, "something wrong with pid_list\n");//TODO: confirm and kill
 }

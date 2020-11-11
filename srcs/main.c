@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/11 15:50:14 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/11 16:13:58 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ int		get_input(t_vector *env)
 /*
 ** //TODO Change what to do with ac, av??
 */
+int			g_ret_val; //TODO: move
 
 int		main(int ac, char **av, char **envp)
 {
 	t_vector	*env;
-	int			g_ret_val;
 
 	g_ret_val = 0; //TODO: fixes issue but won't compile on linux?
 	signal(SIGINT, handle_sigint);
