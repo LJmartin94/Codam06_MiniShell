@@ -6,13 +6,18 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 11:32:10 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/08 18:05:48 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/11 16:14:12 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "error.h"
 #include "libft.h"
+
+/*
+** TODO:
+** Rework error reporting, probably shouldnt even exit the shell.
+*/
 
 static int	validate_cmd_pwd(t_icomp *cmp)
 {
@@ -39,12 +44,3 @@ int			ft_pwd(t_vector *env, t_icomp *cmp)
 	e_write(STDOUT_FILENO, "\n", 1);
 	return (0);
 }
-
-//./Users/limartin/Desktop/some/where/highly/specific/that/will/result/in/really/quite/a/long/path/name/if/one/was/hypothetically/to/test/whether/pwd/(/print/working/directory/)/was/working/for/the/purposes/of/ironing/out/edge/cases/in/mini/shell/
-// /\/:/\n/000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000/untitled folder/cd/".."/ok it works I guess...
-
-/*
-** TODO: 
-** Check if pwd commands still works normally in bash after PWD is unset from env
-** Rework error reporting, probably shouldnt even exit the shell.
-*/

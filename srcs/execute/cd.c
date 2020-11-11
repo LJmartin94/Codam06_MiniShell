@@ -6,13 +6,22 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 13:26:26 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/11 16:02:32 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/11 16:25:09 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "error.h"
 #include "libft.h"
+
+/*
+** TODO
+** Also set PWD and OLDPWD in env. '
+** (OLDPWD is updated even if the same as PWD,
+** so upon succesful directory change command)
+** Check return values are correct for pwd and cd?
+** Test with deleted directories, permission denied dirs.
+*/
 
 static int	validate_cmd_cd(t_icomp *cmp)
 {
@@ -103,14 +112,3 @@ int			ft_cd(t_vector *env, t_icomp *cmp)
 		dir = go_relative(env, cmp);
 	return (dir);
 }
-
-// cd /Users/limartin/Desktop/some/where/highly/specific/that/will/result/in/really/quite/a/long/path/name/if/one/was/hypothetically/to/test/whether/pwd/\(/print/working/directory/\)/was/working/for/the/purposes/of/ironing/out/edge/cases/in/mini/shell/\ /\\/:/\\n/000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000/untitled\ folder/cd/\"..\"/ok\ it\ works\ I\ guess...
-
-// cd /home/lindsay/Desktop/ghMinishell/some/where/highly/specific/that/will/result/in/really/quite/a/long/path/name/if/one/was/hypothetically/to/test/whether/pwd/\(/print/working/directory/\)/was/working/for/the/purposes/of/ironing/out/edge/cases/in/mini/shell/\ /\\/:/\\n/000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000/untitled\ folder/cd/\"..\"/ok\ it\ works\ I\ guess...
-
-/*
-** TODO
-** Also set PWD and OLDPWD in env. '
-** (OLDPWD is updated even if the same as PWD, so upon succesful directory change command)
-** Check return values are correct for pwd and cd?
-*/

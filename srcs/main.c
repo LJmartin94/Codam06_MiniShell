@@ -6,22 +6,13 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/08 18:07:26 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/11 16:26:53 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "error.h"
 #include <signal.h>
-
-// int		write_kvp(int fd, t_env *kvp)
-// {
-// 	e_write(fd, kvp->key, ft_strlen(kvp->key));
-// 	e_write(fd, "=", 1);
-// 	e_write(fd, kvp->value, ft_strlen(kvp->value));
-// 	e_write(fd, "\n", 1);
-// 	return (0);
-// }
 
 int		get_input(t_vector *env)
 {
@@ -42,7 +33,6 @@ int		get_input(t_vector *env)
 	free(buf);
 	print_components(&comp_blocks);
 	execute(env, &comp_blocks);
-	// vector_debug(STDERR_FILENO, env, &write_kvp);
 	free_components(&comp_blocks);
 	return (ret);
 }
