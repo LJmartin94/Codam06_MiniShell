@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/11 15:19:55 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/11 15:45:51 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ typedef struct	s_process
 }				t_process;
 
 /*
-** Store return value
+** get global return value
 */
 
-int g_ret_val;
+extern int g_ret_val;
 
 /*
 ** Builtin prototypes

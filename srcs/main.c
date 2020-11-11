@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/11 15:22:36 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/11 15:50:14 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		get_input(t_vector *env)
 		error_exit_msg(C_GNL_FAIL, E_GNL_FAIL);
 	parse_input(buf, &comp_blocks);
 	free(buf);
-	print_components(&comp_blocks);
+	// print_components(&comp_blocks);
 	execute(env, &comp_blocks);
 	free_components(&comp_blocks);
 	return (ret);
@@ -42,8 +42,10 @@ int		get_input(t_vector *env)
 
 int		main(int ac, char **av, char **envp)
 {
-	t_vector *env;
+	t_vector	*env;
+	int			g_ret_val;
 
+	g_ret_val = 0; //TODO: fixes issue but won't compile on linux?
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, handle_sigquit);
 	env = envp_to_env(envp);
