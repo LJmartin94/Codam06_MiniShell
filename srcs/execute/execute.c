@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/12 18:24:22 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/12 18:35:40 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ char *env_replace(char *orig, char *pos, t_env *replace)
 
 	str.len = ft_strlen(orig);
 	str.string = ft_strdup(orig);
-	if (replace == NULL)
-		string_splice(&str, pos - orig, 1, "");
+	if (replace->value[0] == '\0')
+		string_splice(&str, pos - orig, ft_strlen(replace->key) + 2, replace->value);
 	else
 		string_splice(&str, pos - orig, ft_strlen(replace->key) + 1, replace->value);
 	new = str.string;
