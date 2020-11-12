@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/14 11:19:17 by limartin      #+#    #+#                  #
-#    Updated: 2020/11/10 09:57:13 by jsaariko      ########   odam.nl          #
+#    Updated: 2020/11/12 13:55:36 by jsaariko      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,10 +40,13 @@ SRC = $(SRC_PATH)main.c \
 	$(SRC_PATH)$(PARSE_PATH)fsm.c \
 	$(SRC_PATH)$(PARSE_PATH)control_states.c \
 	$(SRC_PATH)$(PARSE_PATH)basic_states.c \
+	$(SRC_PATH)$(PARSE_PATH)basic_pad_states.c \
 	$(SRC_PATH)$(PARSE_PATH)dq_basic_states.c \
+	$(SRC_PATH)$(PARSE_PATH)dq_bs_basic_states.c \
 	$(SRC_PATH)$(PARSE_PATH)dq_exit_basic_states.c \
 	$(SRC_PATH)$(PARSE_PATH)sq_basic_states.c \
 	$(SRC_PATH)$(PARSE_PATH)sq_exit_basic_states.c \
+	$(SRC_PATH)$(PARSE_PATH)bs_basic_states.c \
 	$(SRC_PATH)$(PARSE_PATH)recognise_token_state.c \
 	$(SRC_PATH)$(PARSE_PATH)validate_option_flags.c \
 	$(SRC_PATH)$(PARSE_PATH)comp_links.c \
@@ -61,6 +64,8 @@ SRC = $(SRC_PATH)main.c \
 	$(SRC_PATH)$(EX_PATH)env_free.c \
 	$(SRC_PATH)$(EX_PATH)export.c \
 	$(SRC_PATH)$(EX_PATH)unset.c \
+	$(SRC_PATH)$(EX_PATH)pwd.c \
+	$(SRC_PATH)$(EX_PATH)cd.c \
 
 #Source files bonus part
 SRC_B = # $(SRC_PATH) bonus_goes_here.c #TODO

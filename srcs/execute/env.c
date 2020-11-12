@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 11:49:12 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/11 15:19:48 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/12 13:58:11 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 static void		write_key_val_pair(char *key, char *value, int fd)
 {
-	write(fd, key, ft_strlen(key));
-	write(fd, "=", 1);
-	write(fd, value, ft_strlen(value));
-	write(fd, "\n", 1);
+	e_write(fd, key, ft_strlen(key));
+	e_write(fd, "=", 1);
+	e_write(fd, value, ft_strlen(value));
+	e_write(fd, "\n", 1);
 }
 
 /*

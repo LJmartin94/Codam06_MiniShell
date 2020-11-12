@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/11 15:55:37 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/12 13:58:37 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ t_cmd	get_command(t_icomp *comp)
 		return (ft_unset);
 	if (ft_strncmp(comp->cmd, "export", 7) == 0)
 		return (ft_export);
+	if (ft_strncmp(comp->cmd, "pwd", 4) == 0)
+		return (ft_pwd);
+	if (ft_strncmp(comp->cmd, "cd", 4) == 0)
+		return (ft_cd);
 	return (NULL);
 }
 
