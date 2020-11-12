@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/08 21:13:55 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/12 19:13:06 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ typedef	enum			e_transition_code
 	opt,
 	arg,
 	separator,
+	redir_out,
+	redir_in,
 	backslash,
 	dq,
 	sq,

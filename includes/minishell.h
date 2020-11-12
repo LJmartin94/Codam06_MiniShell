@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 11:18:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/11 16:30:47 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/12 19:14:32 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@
 
 typedef struct			s_redir
 {
-	char				*type;
+	char				*type_in;
+	char				*type_out;
 	char				*file;
 	struct s_redir		*left;
 	struct s_redir		*right;
