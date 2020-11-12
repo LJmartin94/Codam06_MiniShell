@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/12 19:44:01 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/12 21:14:46 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int						ft_add_token_to_comp(t_token *token, char **field);
 */
 
 int						ft_argconst(t_arg *tonull);
+void					ft_add_arg(t_arg **head, t_arg *this);
 
 /*
 ** Redirection-block functions

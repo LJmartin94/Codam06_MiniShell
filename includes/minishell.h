@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 11:18:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/12 19:28:26 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/12 21:13:00 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ typedef struct			s_arg
 	char				*type;
 	char				*value;
 	char				*pad;
-	struct s_redir		*left;
-	struct s_redir		*right;
+	struct s_arg		*left;
+	struct s_arg		*right;
 }						t_arg;
 
 typedef struct			s_redir
@@ -77,6 +77,7 @@ void					execute(t_vector *env, t_icomp *comp);
 
 void					free_components(t_icomp *head);
 void					free_redirs(t_redir *head);
+void					free_args(t_arg *head);
 
 /*
 ** //TODO: Debug-only prototypes! Remove when no longer used.
