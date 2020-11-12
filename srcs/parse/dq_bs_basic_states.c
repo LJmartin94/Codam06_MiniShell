@@ -1,51 +1,62 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   sq_exit_basic_states.c                             :+:    :+:            */
+/*   dq_bs_basic_states.c                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/10/15 18:10:03 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/06 14:57:47 by lindsay       ########   odam.nl         */
+/*   Created: 2020/11/08 16:22:46 by limartin      #+#    #+#                 */
+/*   Updated: 2020/11/11 16:25:48 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
-#include "error.h"
 
-t_transition_code	sh_sq_exit_cmd_state(t_token **this, t_icomp **icur)
+t_transition_code	sh_dq_bs_cmd_state(t_token **this, t_icomp **icur)
 {
 	t_transition_code	id;
 
-	(void)icur;
-	if (recognise_token_state(*this) == sq && *this)
+	if (recognise_token_state(*this) == backslash && *this)
 		*this = (*this)->next;
+	if ((*this) != NULL)
+	{
+		ft_add_token_to_comp((*this), &((*icur)->cmd));
+		*this = (*this)->next;
+	}
 	id = exit_state;
 	if ((*this) != NULL)
 		id = recognise_token_state(*this);
 	return (id);
 }
 
-t_transition_code	sh_sq_exit_opt_state(t_token **this, t_icomp **icur)
+t_transition_code	sh_dq_bs_opt_state(t_token **this, t_icomp **icur)
 {
 	t_transition_code	id;
 
-	(void)icur;
-	if (recognise_token_state(*this) == sq && *this)
+	if (recognise_token_state(*this) == backslash && *this)
 		*this = (*this)->next;
+	if ((*this) != NULL)
+	{
+		ft_add_token_to_comp((*this), &((*icur)->arg));
+		*this = (*this)->next;
+	}
 	id = exit_state;
 	if ((*this) != NULL)
 		id = recognise_token_state(*this);
 	return (id);
 }
 
-t_transition_code	sh_sq_exit_arg_state(t_token **this, t_icomp **icur)
+t_transition_code	sh_dq_bs_arg_state(t_token **this, t_icomp **icur)
 {
 	t_transition_code	id;
 
-	(void)icur;
-	if (recognise_token_state(*this) == sq && *this)
+	if (recognise_token_state(*this) == backslash && *this)
 		*this = (*this)->next;
+	if ((*this) != NULL)
+	{
+		ft_add_token_to_comp((*this), &((*icur)->arg));
+		*this = (*this)->next;
+	}
 	id = exit_state;
 	if ((*this) != NULL)
 		id = recognise_token_state(*this);

@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/02 12:30:23 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/11 16:26:53 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int		get_input(t_vector *env)
 		error_exit_msg(C_GNL_FAIL, E_GNL_FAIL);
 	parse_input(buf, &comp_blocks);
 	free(buf);
+	print_components(&comp_blocks);
 	execute(env, &comp_blocks);
 	free_components(&comp_blocks);
 	return (ret);

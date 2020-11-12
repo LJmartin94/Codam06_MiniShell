@@ -6,12 +6,12 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 10:09:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/29 09:37:21 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/10/31 11:43:40 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "error.h"
-#include "minishell.h"
+#include "execute.h"
 #include "libft.h"
 
 /*
