@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/11 16:42:59 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/12 13:51:56 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,36 +58,10 @@ void	finish_process(int index)
 	vector_delete(&g_pid_list, index);
 }
 
+
+//TODO: sometimes infinite processes still close too early
 void	parent_process(t_icomp *comp, int pid, int fd[2], int stdin) //TODO: still doesn't always kill processess properly
 {
-	// t_process	*pid_malloc;
-	// int			item_index;
-
-	// e_close(fd[1]);
-	// pid_malloc = (t_process *)e_malloc(sizeof(t_process));
-	// pid_malloc->pid = pid;
-	// pid_malloc->fd = fd[0];
-	// vector_push(&g_pid_list, pid_malloc);
-	// if (ft_strncmp(comp->sep, "|", 2) != 0)
-	// {
-	// 	if (stdin == -1)
-	// 	{
-	// 		item_index = vector_search(&g_pid_list, cmp_pid, pid_malloc);
-	// 		while (g_pid_list.amt > 0)
-	// 			finish_process(0);
-	// 		// if (item_index >= 0)
-	// 			// finish_process(item_index);
-	// 		// else
-	// 			// ft_dprintf(STDOUT_FILENO, "fuck, g_pid_list is fucked\n");
-	// 	}
-	// 	else
-	// 	{
-	// 		while (g_pid_list.amt > 0)
-	// 			finish_process(0);
-	// 	}
-	// }
-
-		//parent process doesn't need to write? 
 	e_close(fd[1]);
 	t_process *pid_malloc;
 	int item_index;
