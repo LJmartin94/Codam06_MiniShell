@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 13:26:26 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/11 16:25:09 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/12 14:01:28 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,11 @@ static int	go_home(t_vector *env)
 	return (dir);
 }
 
-int			ft_cd(t_vector *env, t_icomp *cmp)
+int			ft_cd(t_vector *env, t_icomp *cmp, int fd)
 {
 	int		dir;
 
+	(void)fd;
 	(void)env;
 	dir = 0;
 	if (validate_cmd_cd(cmp) == 0)
