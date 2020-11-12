@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/12 19:13:06 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/12 19:44:01 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ void					free_tokens(t_token *head);
 int						ft_compconst(t_icomp *tonull);
 void					ft_add_component(t_icomp **head, t_icomp *this);
 int						ft_add_token_to_comp(t_token *token, char **field);
+
+/*
+** Argument-list functions
+*/
+
+int						ft_argconst(t_arg *tonull);
 
 /*
 ** Redirection-block functions
