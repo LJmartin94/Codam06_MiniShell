@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/11 16:26:53 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/12 21:38:00 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ void	print_components(t_icomp *icur)
 	while (icur)
 	{
 		printf("Block:	|%d|\nLFT: [%p]\nADR:	|%p|\nCMD:	|%s|\nOPT:	|%s|\n\
-ARG:	|%s|\nSEP:	|%s|\nRGT: [%p]\n", icur->id, icur->left, icur, \
-		icur->cmd, icur->opt, icur->arg, icur->sep, icur->right);
+ARG:	|N/A|\nSEP:	|%s|\nRGT: [%p]\n", icur->id, icur->left, icur, \
+		icur->cmd, icur->opt, icur->sep, icur->right);
 		icur = icur->right;
 	}
 }

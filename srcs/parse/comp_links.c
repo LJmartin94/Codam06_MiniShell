@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 18:03:33 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/12 21:01:46 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/12 21:35:27 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int		ft_compconst(t_icomp *tonull)
 	tonull->sep = ft_strdup("");
 	tonull->cmd = ft_strdup("");
 	tonull->opt = ft_strdup("");
-	tonull->arg = ft_strdup("");
 	if (tonull->sep == NULL || tonull->cmd == NULL || \
-	tonull->opt == NULL || tonull->arg == NULL)
+	tonull->opt == NULL)
 		error_exit_errno();
+	tonull->arg = (t_arg *)e_malloc(sizeof(t_arg));
 	tonull->id = 0;
 	tonull->rdhead = NULL;
 	tonull->right = NULL;

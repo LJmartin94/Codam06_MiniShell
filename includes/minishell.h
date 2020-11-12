@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 11:18:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/12 21:13:00 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/12 21:56:04 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,8 @@ typedef struct			s_icomp
 	char				*sep;
 	char				*cmd;
 	char				*opt;
-	char				*arg;
-	//struct t_arg		*arg;
-	struct t_redir		*rdhead;
+	t_arg				*arg;
+	t_redir				*rdhead;
 	struct s_icomp		*left;
 	struct s_icomp		*right;
 }						t_icomp;
