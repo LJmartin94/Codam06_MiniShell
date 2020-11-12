@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 13:26:26 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/11 16:25:09 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/12 14:57:14 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 ** so upon succesful directory change command)
 ** Check return values are correct for pwd and cd?
 ** Test with deleted directories, permission denied dirs.
+** Fix Memleaks
 */
 
 static int	validate_cmd_cd(t_icomp *cmp)

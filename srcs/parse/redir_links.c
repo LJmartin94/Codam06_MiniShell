@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/08 19:42:11 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/11 16:29:35 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/12 15:48:32 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@
 
 int		ft_redirconst(t_redir *tonull)
 {
-	tonull->type = ft_strdup("");
+	tonull->type_in = ft_strdup("");
+	tonull->type_out = ft_strdup("");
 	tonull->file = ft_strdup("");
-	if (tonull->type == NULL || tonull->file == NULL)
+	if (tonull->type_in == NULL || tonull->type_out == NULL \
+	|| tonull->file == NULL)
 		error_exit_errno();
 	tonull->left = NULL;
 	tonull->right = NULL;
@@ -58,9 +60,12 @@ void	free_redirs(t_redir *head)
 	while (head)
 	{
 		tmp = head->right;
-		if (head->type != NULL)
-			free(head->type);
-		head->type = NULL;
+		if (head->type_in != NULL)
+			free(head->type_in);
+		head->type_in = NULL;
+		if (head->type_out != NULL)
+			free(head->type_out);
+		head->type_out = NULL;
 		if (head->file != NULL)
 			free(head->file);
 		head->file = NULL;
