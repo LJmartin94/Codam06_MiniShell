@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/11 15:55:37 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/12 10:33:51 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,19 @@ static void expand(t_vector *env, t_icomp *comp)
 void	execute(t_vector *env, t_icomp *comp)
 {
 	t_icomp	*tmp;
-	int		stdin;
+	// int		stdin;
+	t_process *process;
 
 	vector_init(&g_pid_list);
 	tmp = comp;
-	stdin = -1;
+	// stdin = -1;
+	process = NULL;
 	while (tmp != NULL)
 	{
 		if (ft_strncmp(tmp->sep, "$", 1) == 0)
 			expand(env, tmp);
-		stdin = exec_command(env, tmp, stdin);
+		process = exec_command(env, tmp, process);
+		// exec_command(env, tmp);
 		tmp = tmp->right;
 	}
 	if (g_pid_list.amt == 0)

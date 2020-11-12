@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:39:47 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/09 12:06:11 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/12 10:54:36 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 ** //TODO: change error handling
 */
 
-static void	redirect_pipes(t_icomp *comp, int p_fd[2], int stdin)
+static void	redirect_pipes(t_icomp *comp, int p_fd[2], t_process *process)
 {
-	if (stdin != -1)
+	if (process != NULL && process->fd != -1)
 	{
-		dup2(stdin, STDIN_FILENO);
-		e_close(stdin);
+		dup2(process->fd, STDIN_FILENO);
+		e_close(process->fd);
 	}
 	if (ft_strncmp(comp->sep, "|", 2) == 0)
 	{
@@ -34,11 +34,11 @@ static void	redirect_pipes(t_icomp *comp, int p_fd[2], int stdin)
 	}
 }
 
-void		handle_redirections(t_icomp *comp, int p_fd[2], int stdin)
+void		handle_redirections(t_icomp *comp, int p_fd[2], t_process *process)
 {
 	int fd;
 
-	redirect_pipes(comp, p_fd, stdin);
+	redirect_pipes(comp, p_fd, process);
 	if (ft_strncmp(comp->sep, ">>", 3) == 0)
 		fd = open(comp->right->cmd, O_WRONLY | O_CREAT | O_APPEND, 0666);
 	else if (ft_strncmp(comp->sep, ">", 2) == 0)

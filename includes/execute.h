@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/11 15:45:51 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/12 10:37:18 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ void			free_envp(char **envp);
 */
 
 t_cmd			get_command(t_icomp *comp);
-int				exec_command(t_vector *env, t_icomp *cmd, int stdin);
+t_process		*exec_command(t_vector *env, t_icomp *cmd, t_process *process);
 
-void			handle_redirections(t_icomp *comp, int p_fd[2], int stdin);
+void			handle_redirections(t_icomp *comp, int p_fd[2], t_process *process);
 char			*find_path(t_vector *env, t_icomp *comp);
 char			**build_argv(t_icomp *comp);
 
