@@ -6,13 +6,14 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/12 13:58:37 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/12 18:24:22 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "libft.h"
 #include "error.h"
+#include "t_string.h"
 
 /*
 ** TODO: Build command validators in functions
@@ -43,30 +44,80 @@ t_cmd	get_command(t_icomp *comp)
 ** //TODO: Parsing needs to change for this to work
 */
 
+char *env_replace(char *orig, char *pos, t_env *replace)
+{
+	char *new;
+	t_string str;
+
+	str.len = ft_strlen(orig);
+	str.string = ft_strdup(orig);
+	if (replace == NULL)
+		string_splice(&str, pos - orig, 1, "");
+	else
+		string_splice(&str, pos - orig, ft_strlen(replace->key) + 1, replace->value);
+	new = str.string;
+	return (new);
+}
+
+t_env *expand_value(t_vector *env, char *pos)
+{
+	(void)env;
+	int len;
+	char *key;
+	len = ft_strchrset(pos, " ");
+	if (len > 0)
+	{
+		key = (char *)e_malloc(sizeof(char) * len + 1); //TODO: or not + 1?
+		key = ft_memcpy(key, pos, sizeof(char) * len);
+	}
+	else
+		key = ft_strdup(pos);
+	int index = vector_search(env, compare_key, key);
+	t_env *item = vector_get(env, index);
+	if (item == NULL)
+	{
+		item = (t_env *)e_malloc(sizeof(t_env));
+		item->key = key;//TODO: in some cases add a space
+		item->value = ft_strdup("");
+	}
+	return (item);
+}
+
 static void expand(t_vector *env, t_icomp *comp)
 {
-	int index;
 	char *final;
 
 	final = NULL;
-	if (ft_strncmp(comp->sep, "$", 2) == 0)
+	// char *pos;
+	size_t i = 0;
+	while (comp->arg[i] != '\0')
 	{
-		index = vector_search(env, compare_key, comp->right->cmd);
-		if (index == -1)
+		if (comp->arg[i] == '$')
 		{
-			return ;
+			if (comp->arg[i + 1] == '?')
+			{
+				t_string lol;
+				lol.string = ft_strdup(comp->arg);
+				lol.len = ft_strlen(comp->arg);
+
+				string_splice(&lol, i, 2, ft_itoa(g_ret_val));
+				free(comp->arg);
+				comp->arg = lol.string;
+			}
+			else
+			{
+				t_env *replace;
+				replace = expand_value(env, comp->arg + i + 1);
+				final = env_replace(comp->arg, comp->arg + i, replace);
+				// ft_dprintf(STDOUT_FILENO, "final: %s\n", final);
+				free(comp->arg);
+				comp->arg = final;
+			}
+			// free(comp->arg);
+			// comp->arg = final;
 		}
-		t_env *item = (t_env *)vector_get(env, index);
-		final = ft_strjoin(comp->arg, item->value);
+		i++;
 	}
-	if (ft_strncmp(comp->sep, "$?", 2) == 0)
-	{
-		char *num = ft_itoa(g_ret_val);
-		final = ft_strjoin(comp->arg, num);
-		free(num);
-	}
-	free(comp->arg);
-	comp->arg = final;
 }
 
 void	execute(t_vector *env, t_icomp *comp)
@@ -79,8 +130,7 @@ void	execute(t_vector *env, t_icomp *comp)
 	stdin = -1;
 	while (tmp != NULL)
 	{
-		if (ft_strncmp(tmp->sep, "$", 1) == 0)
-			expand(env, tmp);
+		expand(env, tmp);
 		stdin = exec_command(env, tmp, stdin);
 		tmp = tmp->right;
 	}
