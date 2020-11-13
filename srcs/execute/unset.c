@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:38:22 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/11 15:28:51 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/13 13:55:30 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	compare_key(t_env *data, char *item)
 ** exist, but I can't make it happen
 ** The exit status is true unless a name is readonly.
 ** // can unset multiple variables at once
-** 
 */
 
 int	ft_unset(t_vector *env, t_icomp *cmd, int fd)

@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:39:47 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/09 12:06:11 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/13 13:54:00 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,29 @@ void		handle_redirections(t_icomp *comp, int p_fd[2], int stdin)
 		return ;
 	dup2(fd, STDOUT_FILENO);
 	e_close(fd);
+}
+
+/*
+** //TODO: Solidify error checking
+*/
+
+int			redirect_builtin(t_icomp *comp)
+{
+	int fd;
+
+	fd = STDOUT_FILENO;
+	if (ft_strncmp(comp->sep, ">>", 3) == 0)
+		fd = open(comp->right->cmd, O_WRONLY | O_CREAT | O_APPEND, 0666);
+	else if (ft_strncmp(comp->sep, ">", 2) == 0)
+		fd = open(comp->right->cmd, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	else if (ft_strncmp(comp->sep, "<", 2) == 0)
+	{
+		fd = open(comp->right->cmd, O_RDONLY, 0666);
+		if (fd == -1)
+			ft_dprintf(STDERR_FILENO, "oops, no such file");
+		else
+			close(fd);
+		fd = STDOUT_FILENO;
+	}
+	return (fd);
 }
