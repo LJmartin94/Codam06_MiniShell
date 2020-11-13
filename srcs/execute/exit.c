@@ -6,16 +6,16 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 14:28:00 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/13 13:59:27 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/13 14:01:14 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 
-int	ft_exit(t_vector *env, t_icomp *cmd, int fd) 
+int	ft_exit(t_vector *env, t_icomp *cmd, int fd)
 {
 	size_t	i;
-	
+
 	i = 0;
 	if (cmd->arg[i] == '\0')
 		exit(g_ret_val);

@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/13 13:11:43 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/13 14:09:29 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ char			*find_path(t_vector *env, t_icomp *comp);
 char			**build_argv(t_icomp *comp);
 
 void			expand_env(t_vector *env, t_icomp *comp);
-
 
 /*
 ** //TODO: Error handling (change this)?

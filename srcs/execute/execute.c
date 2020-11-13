@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/13 12:52:22 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/13 14:04:16 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 /*
 ** TODO: Build command validators in functions
 */
-
-// $? is the most recent foreground pipeline exit status.
 
 t_cmd	get_command(t_icomp *comp)
 {
@@ -39,6 +37,10 @@ t_cmd	get_command(t_icomp *comp)
 	return (NULL);
 }
 
+/*
+** //TODO: confirm that pid is handled correctly and kill pid_list
+*/
+
 void	execute(t_vector *env, t_icomp *comp)
 {
 	t_icomp	*tmp;
@@ -56,5 +58,5 @@ void	execute(t_vector *env, t_icomp *comp)
 	if (g_pid_list.amt == 0)
 		free(g_pid_list.data);
 	else
-		ft_dprintf(STDOUT_FILENO, "something wrong with pid_list\n");//TODO: confirm and kill
+		ft_dprintf(STDOUT_FILENO, "something wrong with pid_list\n");
 }

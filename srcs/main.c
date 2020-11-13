@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/12 13:53:56 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/13 14:42:56 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,16 @@ int		get_input(t_vector *env)
 }
 
 /*
-** //TODO Change what to do with ac, av??
+**  //TODO: move
 */
-int			g_ret_val; //TODO: move
+
+int		g_ret_val;
 
 int		main(int ac, char **av, char **envp)
 {
 	t_vector	*env;
 
-	g_ret_val = 0; //TODO: fixes issue but won't compile on linux?
+	g_ret_val = 0;
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, handle_sigquit);
 	env = envp_to_env(envp);
@@ -69,14 +70,3 @@ ARG:	|%s|\nSEP:	|%s|\nRGT: [%p]\n\n", icur->id, icur->left, icur, \
 		icur = icur->right;
 	}
 }
-
-//TODO: Discuss why things are automatically killed, do i need to explicitly kill every process individually? As things already seem to be getting killed
-//TODO: Discuss: Parse should fail if executable ends in a pipe
-//TODO: Discuss: parser should separate separate arguments into an array of arguments
-//TODO: shouldnt be parsed as separator $?
-//TODO: shouldnt be parsed as separator $
-//TODO: Discuss how to parse $. Examples:
-// echo whazzup $USER lol -> whazzup jules lol
-// echo "whazzup $USER lol" -> whazzup jules lol
-// echo "whazzup $USE lol" -> whazzup  lol <-- (two spaces in the middle)
-// echo 'whazzup $USER lol' -> whazzup $USER lol
