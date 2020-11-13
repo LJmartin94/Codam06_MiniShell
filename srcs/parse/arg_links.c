@@ -6,11 +6,12 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/12 19:20:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/12 21:10:36 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/13 09:28:01 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
+#include "error.h"
 
 // typedef struct			s_arg
 // {

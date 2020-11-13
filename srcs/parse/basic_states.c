@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 18:10:03 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/12 22:12:15 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/13 08:52:35 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,8 @@ t_transition_code	sh_cmd_state(t_token **this, t_icomp **icur)
 t_transition_code	sh_opt_state(t_token **this, t_icomp **icur)
 {
 	t_transition_code	id;
-	//t_arg				*last;
 
-	// last = (*icur)->arg;
-	// while (last->right != NULL)
-	// 	last = last->right;
 	ft_add_token_to_comp((*this), &(((*icur)->arg)->value));
-	//ft_add_token_to_comp((*this), &((*icur)->arg));
 	*this = (*this)->next;
 	id = exit_state;
 	if ((*this) != NULL)

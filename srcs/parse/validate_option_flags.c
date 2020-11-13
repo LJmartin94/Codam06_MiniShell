@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/25 17:19:17 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/11 14:58:16 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/13 09:27:05 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int			ft_approve_option(t_icomp **icur)
 {
 	char *new_val;
 
-	new_val = ft_strjoin((*icur)->opt, (*icur)->arg);
+	new_val = ft_strjoin((*icur)->opt, ((*icur)->arg)->value);
 	if (new_val == NULL)
 		error_exit_errno();
 	free((*icur)->opt);
 	(*icur)->opt = new_val;
-	free((*icur)->arg);
-	(*icur)->arg = ft_strdup("");
-	if ((*icur)->arg == NULL)
+	free(((*icur)->arg)->value);
+	((*icur)->arg)->value = ft_strdup("");
+	if (((*icur)->arg)->value == NULL)
 		error_exit_errno();
 	return (0);
 }
@@ -40,7 +40,7 @@ static int	single_char_flag(t_icomp **icur, int i, int j)
 		return (0);
 	if (ft_strncmp(g_flagvalid_table[j].cmd, (*icur)->cmd, cmd_len))
 		return (0);
-	if (g_flagvalid_table[j].flag[0] != (*icur)->arg[i])
+	if (g_flagvalid_table[j].flag[0] != ((*icur)->arg)->value[i])
 		return (0);
 	return (1);
 }
@@ -51,16 +51,17 @@ static int	multi_char_flag(t_icomp **icur, int j)
 	size_t	opt_len;
 
 	cmd_len = ft_strlen((*icur)->cmd);
-	opt_len = ft_strlen((*icur)->arg);
+	opt_len = ft_strlen(((*icur)->arg)->value);
 	if (opt_len < 4)
 		return (0);
 	if (cmd_len != ft_strlen(g_flagvalid_table[j].cmd))
 		return (0);
 	if (ft_strncmp(g_flagvalid_table[j].cmd, (*icur)->cmd, cmd_len))
 		return (0);
-	if ((*icur)->arg[1] != '-')
+	if (((*icur)->arg)->value[1] != '-')
 		return (0);
-	if (ft_strncmp(g_flagvalid_table[j].flag, (*icur)->arg + 2, opt_len))
+	if (ft_strncmp(g_flagvalid_table[j].flag, ((*icur)->arg)->value + 2, \
+	opt_len))
 		return (0);
 	return (1);
 }
@@ -71,11 +72,11 @@ int			validate_option_flags(t_icomp **icur)
 	int j;
 	int ret;
 
-	if (ft_strlen((*icur)->arg) < 2)
+	if (ft_strlen(((*icur)->arg)->value) < 2)
 		return (0);
 	i = 1;
 	ret = 1;
-	while ((*icur)->arg[i] != '\0' && ret)
+	while (((*icur)->arg)->value[i] != '\0' && ret)
 	{
 		ret = 0;
 		j = 0;
