@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/12 21:38:00 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/13 11:10:18 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,30 @@ int		main(int ac, char **av, char **envp)
 
 void	print_components(t_icomp *icur)
 {
+	t_arg *to_print;
+
 	while (icur)
 	{
 		printf("Block:	|%d|\nLFT: [%p]\nADR:	|%p|\nCMD:	|%s|\nOPT:	|%s|\n\
-ARG:	|N/A|\nSEP:	|%s|\nRGT: [%p]\n", icur->id, icur->left, icur, \
+ARG:	|L/L|\nSEP:	|%s|\nRGT: [%p]\n", icur->id, icur->left, icur, \
 		icur->cmd, icur->opt, icur->sep, icur->right);
+		to_print = icur->arg;
+		while (to_print != NULL)
+		{
+			printf("	Arg-block:	|%d|\n	Arg-LFT:	[%p]\n\
+	Arg-ADR:	|%p|\n	Arg-STATE:	|%s|\n	Arg-VAL:	|%s|\n\
+	Arg-PAD:	|%s|\n	Arg-RGT:	[%p]\n", to_print->id, to_print->left, \
+	to_print, to_print->type, to_print->value, to_print->pad, to_print->right);
+			to_print = icur->arg->right;
+		}
+		printf("Arg-string: |");
+		to_print = icur->arg;
+		while (to_print != NULL)
+		{
+			printf("%s%s", to_print->value, to_print->pad);
+			to_print = icur->arg->right;
+		}
+		printf("|\n");
 		icur = icur->right;
 	}
 }

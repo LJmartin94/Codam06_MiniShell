@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 18:03:33 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/12 21:35:27 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/13 11:01:03 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int		ft_compconst(t_icomp *tonull)
 	tonull->opt == NULL)
 		error_exit_errno();
 	tonull->arg = (t_arg *)e_malloc(sizeof(t_arg));
+	ft_argconst(tonull->arg);
 	tonull->id = 0;
 	tonull->rdhead = NULL;
 	tonull->right = NULL;
