@@ -6,14 +6,13 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/12 18:35:40 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/13 12:22:42 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "libft.h"
 #include "error.h"
-#include "t_string.h"
 
 /*
 ** TODO: Build command validators in functions
@@ -35,7 +34,7 @@ t_cmd	get_command(t_icomp *comp)
 		return (ft_export);
 	if (ft_strncmp(comp->cmd, "pwd", 4) == 0)
 		return (ft_pwd);
-	if (ft_strncmp(comp->cmd, "cd", 4) == 0)
+	if (ft_strncmp(comp->cmd, "cd", 3) == 0)
 		return (ft_cd);
 	return (NULL);
 }
@@ -44,18 +43,17 @@ t_cmd	get_command(t_icomp *comp)
 ** //TODO: Parsing needs to change for this to work
 */
 
+
+//TODO: Discuss, do we need to do _?
 char *env_replace(char *orig, char *pos, t_env *replace)
 {
 	char *new;
-	t_string str;
 
-	str.len = ft_strlen(orig);
-	str.string = ft_strdup(orig);
+	// ft_dprintf(STDOUT_FILENO, "orig: %s\n pos - orig: %d\nft_strlen(replace->key + 2: %d\n replace->value: %s\n\n", orig, pos - orig, ft_strlen(replace->key) + 2, replace->value);
 	if (replace->value[0] == '\0')
-		string_splice(&str, pos - orig, ft_strlen(replace->key) + 2, replace->value);
+		new = ft_strsplice(orig, pos - orig, ft_strlen(replace->key) + 2, replace->value);
 	else
-		string_splice(&str, pos - orig, ft_strlen(replace->key) + 1, replace->value);
-	new = str.string;
+		new = ft_strsplice(orig, pos - orig, ft_strlen(replace->key) + 1, replace->value);
 	return (new);
 }
 
@@ -88,7 +86,6 @@ static void expand(t_vector *env, t_icomp *comp)
 	char *final;
 
 	final = NULL;
-	// char *pos;
 	size_t i = 0;
 	while (comp->arg[i] != '\0')
 	{
@@ -96,27 +93,24 @@ static void expand(t_vector *env, t_icomp *comp)
 		{
 			if (comp->arg[i + 1] == '?')
 			{
-				t_string lol;
-				lol.string = ft_strdup(comp->arg);
-				lol.len = ft_strlen(comp->arg);
-
-				string_splice(&lol, i, 2, ft_itoa(g_ret_val));
+				char *lol;
+				lol = ft_strsplice(comp->arg, i, 2, ft_itoa(g_ret_val));
 				free(comp->arg);
-				comp->arg = lol.string;
+				comp->arg = lol;
+				i += 2;
 			}
 			else
 			{
 				t_env *replace;
 				replace = expand_value(env, comp->arg + i + 1);
 				final = env_replace(comp->arg, comp->arg + i, replace);
-				// ft_dprintf(STDOUT_FILENO, "final: %s\n", final);
 				free(comp->arg);
 				comp->arg = final;
+				i = i - (ft_strlen(replace->key) + 1) + ft_strlen(replace->value);
 			}
-			// free(comp->arg);
-			// comp->arg = final;
 		}
-		i++;
+		else
+			i++;
 	}
 }
 
