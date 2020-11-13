@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/13 11:10:18 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/13 13:19:51 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,14 @@ ARG:	|L/L|\nSEP:	|%s|\nRGT: [%p]\n", icur->id, icur->left, icur, \
 	Arg-ADR:	|%p|\n	Arg-STATE:	|%s|\n	Arg-VAL:	|%s|\n\
 	Arg-PAD:	|%s|\n	Arg-RGT:	[%p]\n", to_print->id, to_print->left, \
 	to_print, to_print->type, to_print->value, to_print->pad, to_print->right);
-			to_print = icur->arg->right;
+			to_print = to_print->right;
 		}
 		printf("Arg-string: |");
 		to_print = icur->arg;
 		while (to_print != NULL)
 		{
 			printf("%s%s", to_print->value, to_print->pad);
-			to_print = icur->arg->right;
+			to_print = to_print->right;
 		}
 		printf("|\n");
 		icur = icur->right;

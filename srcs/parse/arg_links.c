@@ -6,22 +6,12 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/12 19:20:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/13 09:28:01 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/13 13:50:44 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 #include "error.h"
-
-// typedef struct			s_arg
-// {
-// 	int					id;
-// 	char				*type;
-// 	char				*value;
-// 	char				*pad;
-// 	struct s_redir		*left;
-// 	struct s_redir		*right;
-// }						t_arg;
 
 int		ft_argconst(t_arg *tonull)
 {
@@ -41,6 +31,7 @@ void	ft_add_arg(t_arg **head, t_arg *this)
 {
 	t_arg	*cur;
 	t_arg	*left;
+	int		id;
 
 	if (*head == NULL)
 	{
@@ -49,8 +40,13 @@ void	ft_add_arg(t_arg **head, t_arg *this)
 	}
 	cur = *head;
 	left = cur;
+	id = 1;
 	while (cur->right != NULL)
+	{
 		cur = cur->right;
+		id++;
+	}
+	this->id = id;
 	cur->right = this;
 	this->left = left;
 }

@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 18:10:03 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/13 08:52:35 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/13 13:47:48 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,14 @@ t_transition_code	sh_arg_state(t_token **this, t_icomp **icur)
 {
 	t_transition_code	id;
 	t_arg				*last;
+	t_arg				*new;
 
+	if (ft_strlen(((*icur)->arg)->value) > 0)
+	{
+		new = (t_arg *)e_malloc(sizeof(t_arg));
+		ft_argconst(new);
+		ft_add_arg(&(*icur)->arg, new);
+	}
 	last = (*icur)->arg;
 	while (last->right != NULL)
 		last = last->right;
