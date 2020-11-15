@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 13:30:27 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/11/13 13:23:56 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/15 21:59:13 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ t_transition_code	sh_opt_pad_state(t_token **this, t_icomp **icur)
 		id = recognise_token_state(*this);
 	if (id == opt && valid == 0)
 		id = arg;
+	else if (id == dq && valid == 0)
+		id = dqarg;
+	else if (id == sq && valid == 0)
+		id = sqarg;
+	else if (id == backslash && valid == 0)
+		id = bsarg;
 	//TODO: Fix how padding should be handled (now that arg is no longer single string)
 	if ((id != padding && id != error && id != separator && id != exit_state) \
 	&& ft_strlen(((*icur)->arg)->value) > 0)

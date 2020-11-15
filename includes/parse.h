@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/12 21:14:46 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/15 22:02:53 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ typedef	enum			e_transition_code
 	backslash,
 	dq,
 	sq,
+	bsarg,
+	dqarg,
+	sqarg,
 	exit_state
 }						t_transition_code;
 

@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 19:53:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/11 16:31:30 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/15 22:02:22 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_cmd_pad_state, separator, sh_separator_state},
 	{sh_cmd_pad_state, exit_state, sh_exit_state},
 
+//this
 	{sh_opt_state, padding, sh_opt_pad_state},
 	{sh_opt_state, error, sh_error_state},
 	{sh_opt_state, dq, sh_dq_opt_state},
@@ -59,11 +60,15 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_opt_state, separator, sh_separator_state},
 	{sh_opt_state, exit_state, sh_exit_state},
 
+//this
 	{sh_opt_pad_state, padding, sh_opt_pad_state},
 	{sh_opt_pad_state, error, sh_error_state},
 	{sh_opt_pad_state, dq, sh_dq_opt_state},
 	{sh_opt_pad_state, sq, sh_sq_opt_state},
 	{sh_opt_pad_state, backslash, sh_bs_opt_state},
+	{sh_opt_pad_state, dqarg, sh_dq_arg_state},
+	{sh_opt_pad_state, sqarg, sh_sq_arg_state},
+	{sh_opt_pad_state, bsarg, sh_bs_arg_state},
 	{sh_opt_pad_state, cmd, sh_arg_state},
 	{sh_opt_pad_state, opt, sh_opt_state},
 	{sh_opt_pad_state, arg, sh_arg_state},
@@ -114,6 +119,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_dq_cmd_state, separator, sh_dq_cmd_state},
 	{sh_dq_cmd_state, exit_state, sh_exit_state},
 
+//this
 	{sh_dq_opt_state, padding, sh_dq_opt_state},
 	{sh_dq_opt_state, error, sh_error_state},
 	{sh_dq_opt_state, dq, sh_dq_exit_opt_state},
@@ -147,6 +153,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_dq_bs_cmd_state, separator, sh_dq_cmd_state},
 	{sh_dq_bs_cmd_state, exit_state, sh_exit_state},
 
+//this
 	{sh_dq_bs_opt_state, padding, sh_dq_opt_state},
 	{sh_dq_bs_opt_state, error, sh_error_state},
 	{sh_dq_bs_opt_state, dq, sh_dq_exit_opt_state},
@@ -180,6 +187,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_dq_exit_cmd_state, separator, sh_separator_state},
 	{sh_dq_exit_cmd_state, exit_state, sh_exit_state},
 
+//this
 	{sh_dq_exit_opt_state, padding, sh_opt_pad_state},
 	{sh_dq_exit_opt_state, error, sh_error_state},
 	{sh_dq_exit_opt_state, dq, sh_dq_opt_state},
@@ -213,6 +221,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_sq_cmd_state, separator, sh_sq_cmd_state},
 	{sh_sq_cmd_state, exit_state, sh_exit_state},
 
+//this
 	{sh_sq_opt_state, padding, sh_sq_opt_state},
 	{sh_sq_opt_state, error, sh_error_state},
 	{sh_sq_opt_state, dq, sh_sq_opt_state},
@@ -246,6 +255,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_sq_exit_cmd_state, separator, sh_separator_state},
 	{sh_sq_exit_cmd_state, exit_state, sh_exit_state},
 
+//this
 	{sh_sq_exit_opt_state, padding, sh_opt_pad_state},
 	{sh_sq_exit_opt_state, error, sh_error_state},
 	{sh_sq_exit_opt_state, dq, sh_dq_opt_state},
@@ -279,6 +289,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_bs_cmd_state, separator, sh_separator_state},
 	{sh_bs_cmd_state, exit_state, sh_exit_state},
 
+//this
 	{sh_bs_opt_state, padding, sh_opt_pad_state},
 	{sh_bs_opt_state, error, sh_error_state},
 	{sh_bs_opt_state, dq, sh_dq_opt_state},
