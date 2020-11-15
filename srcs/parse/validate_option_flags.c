@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/25 17:19:17 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/13 09:27:05 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/15 20:58:44 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int			ft_approve_option(t_icomp **icur)
 	(*icur)->opt = new_val;
 	free(((*icur)->arg)->value);
 	((*icur)->arg)->value = ft_strdup("");
+	free(((*icur)->arg)->pad);
+	((*icur)->arg)->pad = ft_strdup("");
 	if (((*icur)->arg)->value == NULL)
 		error_exit_errno();
 	return (0);

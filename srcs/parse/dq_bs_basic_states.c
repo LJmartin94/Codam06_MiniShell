@@ -6,11 +6,12 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/08 16:22:46 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/14 16:47:57 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/15 21:13:40 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
+#include "error.h"
 
 t_transition_code	sh_dq_bs_cmd_state(t_token **this, t_icomp **icur)
 {
@@ -69,7 +70,7 @@ t_transition_code	sh_dq_bs_arg_state(t_token **this, t_icomp **icur)
 	t_arg				*last;
 
 	if (recognise_token_state(*this) == backslash && *this)
-		sh_bs_arg_link_state(this, icur);
+		sh_dq_bs_arg_link_state(this, icur);
 	last = (*icur)->arg;
 	while (last->right != NULL)
 		last = last->right;
