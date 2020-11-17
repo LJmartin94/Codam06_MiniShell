@@ -60,3 +60,6 @@ cat | grep 42 (should output any line you enter that contains 42, right after yo
 
 
 exit | echo
+
+
+export ls="ls    -la" ; $ls

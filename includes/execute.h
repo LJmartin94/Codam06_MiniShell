@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/13 14:09:29 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/17 11:52:59 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ int				redirect_builtin(t_icomp *comp);
 char			*find_path(t_vector *env, t_icomp *comp);
 char			**build_argv(t_icomp *comp);
 
-void			expand_env(t_vector *env, t_icomp *comp);
+void			expand_env_arg(t_vector *env, t_icomp *comp);
+void			expand_env(t_vector *env, char **str);
 
 /*
 ** //TODO: Error handling (change this)?

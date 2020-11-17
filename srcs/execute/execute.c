@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/13 14:04:16 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/17 14:13:51 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	execute(t_vector *env, t_icomp *comp)
 	stdin = -1;
 	while (tmp != NULL)
 	{
-		expand_env(env, tmp);
+		// expand_env_arg(env, tmp);
 		stdin = exec_command(env, tmp, stdin);
 		tmp = tmp->right;
 	}
