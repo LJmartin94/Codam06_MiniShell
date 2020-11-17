@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:38:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/09 11:42:16 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/17 16:38:25 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char		**build_argv(t_icomp *comp)
 	try = ft_split(comp->arg, ' ');
 	while (try[i] != NULL)
 		i++;
-	argv = (char **)e_malloc(i + 1);
+	argv = (char **)e_malloc(sizeof(char *) * (i + 2));
 	argv[j] = comp->cmd;
 	j++;
 	i = 0;

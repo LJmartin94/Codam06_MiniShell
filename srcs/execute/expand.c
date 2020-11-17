@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/13 12:51:50 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/17 14:06:46 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/17 15:46:24 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ static t_env	*expand_find(t_vector *env, char *pos)
 		item->value = ft_strdup("");
 	}
 	else
-	{
 		free(key);
-	}
 	return (item);
 }
 

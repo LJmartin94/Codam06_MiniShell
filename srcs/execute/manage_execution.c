@@ -6,14 +6,14 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/13 13:51:58 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/17 16:51:42 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "error.h"
 
-void			run_command(t_cmd f, t_vector *env, t_icomp *comp)
+void			run_command(t_cmd f, t_vector *env, t_icomp *comp)//TODO: export ls="ls -la ; ls" <- will pring permission denied. Waiting for parsing
 {
 	char *path;
 	char **envp;
@@ -32,7 +32,8 @@ void			run_command(t_cmd f, t_vector *env, t_icomp *comp)
 		envp = env_to_envp(env);
 		free_env(env);
 		argv = build_argv(comp);
-		execve(path, argv, envp);
+		if (execve(path, argv, envp) == -1)
+			error_exit_errno();
 	}
 	exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/17 15:15:12 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/17 15:34:04 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,29 @@
 #include "error.h"
 #include "execute.h"
 
-char		**split_unless_quote(char const *s, char c);
+void	run_shell(t_vector *env, char *buf)
+{
+	char	**split;
+	t_icomp	comp_blocks;
+	size_t	i;
+
+	split = split_unless_quote(buf, ';');
+	i = 0;
+	while(split[i] != NULL)
+	{
+		expand_env(env, &(split[i]));
+		parse_input(split[i], &comp_blocks);
+		i++;
+		execute(env, &comp_blocks);
+		free_components(&comp_blocks);
+	}
+	free_matrix(split);
+}
 
 int		get_input(t_vector *env)
 {
 	char	*buf;
 	int		ret;
-	t_icomp comp_blocks;
 
 	e_write(STDOUT_FILENO, "\U0001F40C ", 6);
 	ret = get_next_line(STDIN_FILENO, &buf);
@@ -31,21 +47,8 @@ int		get_input(t_vector *env)
 	}
 	if (ret < 0)
 		error_exit_msg(C_GNL_FAIL, E_GNL_FAIL);
-	char **split = split_unless_quote(buf, ';');
-	// char **split = ft_split(buf, ';');
-	size_t i;
-	i = 0;
-	while(split[i] != NULL)
-	{
-		// ft_dprintf(STDOUT_FILENO, "[%s]\n", split[i]);
-		expand_env(env, &(split[i]));
-		parse_input(split[i], &comp_blocks);
-		i++;
-		execute(env, &comp_blocks);
-		free_components(&comp_blocks);
-	}
+	run_shell(env, buf);
 	free(buf);
-	free_matrix(split);
 	return (ret);
 }
 
