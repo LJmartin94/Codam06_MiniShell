@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/08 16:22:46 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/15 21:13:40 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/18 15:14:14 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,6 @@ t_transition_code	sh_dq_bs_cmd_state(t_token **this, t_icomp **icur)
 	return (id);
 }
 
-t_transition_code	sh_dq_bs_opt_state(t_token **this, t_icomp **icur)
-{
-	t_transition_code	id;
-
-	if (recognise_token_state(*this) == backslash && *this)
-		*this = (*this)->next;
-	if ((*this) != NULL)
-	{
-		ft_add_token_to_comp((*this), &(((*icur)->arg)->value));
-		*this = (*this)->next;
-	}
-	id = exit_state;
-	if ((*this) != NULL)
-		id = recognise_token_state(*this);
-	return (id);
-}
-
 static void			sh_dq_bs_arg_link_state(t_token **this, t_icomp **icur)
 {
 	t_arg	*new;
@@ -56,12 +39,36 @@ static void			sh_dq_bs_arg_link_state(t_token **this, t_icomp **icur)
 		new = (t_arg *)e_malloc(sizeof(t_arg));
 		ft_argconst(new);
 		ft_add_arg(&(*icur)->arg, new);
-		free(new->type);
-		new->type = ft_strdup("\"\\");
-		if (new->type == NULL)
-			error_exit_errno();
 	}
+	new = (*icur)->arg;
+	while (new->right != NULL)
+		new = new->right;
+	free(new->type);
+	new->type = ft_strdup("\"\\");
+	if (new->type == NULL)
+		error_exit_errno();
 	*this = (*this)->next;
+}
+
+t_transition_code	sh_dq_bs_opt_state(t_token **this, t_icomp **icur)
+{
+	t_transition_code	id;
+	t_arg				*last;
+
+	if (recognise_token_state(*this) == backslash && *this)
+		sh_dq_bs_arg_link_state(this, icur);
+	last = (*icur)->arg;
+	while (last->right != NULL)
+		last = last->right;
+	if ((*this) != NULL)
+	{
+		ft_add_token_to_comp((*this), &((last)->value));
+		*this = (*this)->next;
+	}
+	id = exit_state;
+	if ((*this) != NULL)
+		id = recognise_token_state(*this);
+	return (id);
 }
 
 t_transition_code	sh_dq_bs_arg_state(t_token **this, t_icomp **icur)
