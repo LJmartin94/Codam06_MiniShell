@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/25 17:19:17 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/18 16:26:23 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/18 18:07:37 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "flag_validation_table.h"
 #include "error.h"
 
-int			ft_approve_option(t_icomp **icur)
+int			old_ft_approve_option(t_icomp **icur)
 {
 	char *new_val;
 
@@ -33,6 +33,40 @@ int			ft_approve_option(t_icomp **icur)
 	if (((*icur)->arg)->value == NULL || ((*icur)->arg)->pad == NULL || \
 	((*icur)->arg)->type == NULL)
 		error_exit_errno();
+	return (0);
+}
+
+int			ft_approve_option(t_icomp **icur)
+{
+	char	*new_val;
+	int		no_pad;
+	t_arg	*link;
+
+	link = (*icur)->arg;
+	while (1)
+	{
+		new_val = ft_strjoin((*icur)->opt, (link)->value);
+		if (new_val == NULL)
+			error_exit_errno();
+		free((*icur)->opt);
+		(*icur)->opt = new_val;
+		free((link)->value);
+		(link)->value = ft_strdup("");
+		no_pad = 0;
+		if (link->pad[0] == '\0')
+			no_pad = 1;
+		free((link)->pad);
+		(link)->pad = ft_strdup("");
+		free((link)->type);
+		(link)->type = ft_strdup("");
+		if ((link)->value == NULL || (link)->pad == NULL || \
+		(link)->type == NULL)
+			error_exit_errno();
+		if (no_pad && link->right != NULL)
+			link = link->right;
+		else
+			break ;
+	}
 	return (0);
 }
 
@@ -71,11 +105,11 @@ static int	multi_char_flag(t_icomp **icur, int j)
 	return (1);
 }
 
-int			validate_option_flags(t_icomp **icur)
+int			old_validate_option_flags(t_icomp **icur)
 {
-	int i;
-	int j;
-	int ret;
+	int		i;
+	int		j;
+	int		ret;
 
 	if (ft_strlen(((*icur)->arg)->value) < 2)
 		return (0);
@@ -95,6 +129,43 @@ int			validate_option_flags(t_icomp **icur)
 		i++;
 	}
 	if (ret)
+		ft_approve_option(icur);
+	return (ret);
+}
+
+int			validate_option_flags(t_icomp **icur)
+{
+	int		i;
+	int		j;
+	int		ret;
+	t_arg	*link;
+
+	i = 1;
+	ret = 1;
+	link = (*icur)->arg;
+	while (1)
+	{
+		while (((*icur)->arg)->value[i] != '\0' && ret)
+		{
+			ret = 0;
+			j = 0;
+			while (j < FLAG_TABLE_SIZE)
+			{
+				if (ret == 1 || single_char_flag(icur, i, j) || \
+				multi_char_flag(icur, j))
+					ret = 1;
+				j++;
+			}
+			i++;
+		}
+		if (link->pad[0] == '\0' && link->right != NULL)
+			link = link->right;
+		else
+			break ;
+	}
+	if (ret == 0 && link->pad[0] != '\0')
+		ret = -1;
+	if (ret == 1)
 		ft_approve_option(icur);
 	return (ret);
 }
