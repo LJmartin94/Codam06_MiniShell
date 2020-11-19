@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 13:30:27 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/11/18 16:22:56 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/19 13:57:06 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_transition_code			sh_opt_pad_state(t_token **this, t_icomp **icur)
 	id = exit_state;
 	if ((*this) != NULL)
 		id = recognise_token_state(*this);
-	if (valid == 0)
+	if (valid == -1)
 		id = demote_option_state(id);
 	//TODO: Fix how padding should be handled (now that arg is no longer single string)
 	last = (*icur)->arg;

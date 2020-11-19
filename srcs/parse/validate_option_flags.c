@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/25 17:19:17 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/18 18:07:37 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/19 14:25:42 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "flag_validation_table.h"
 #include "error.h"
 
-int			old_ft_approve_option(t_icomp **icur)
+int			older_ft_approve_option(t_icomp **icur)
 {
 	char *new_val;
 
@@ -36,7 +36,7 @@ int			old_ft_approve_option(t_icomp **icur)
 	return (0);
 }
 
-int			ft_approve_option(t_icomp **icur)
+int			old_ft_approve_option(t_icomp **icur)
 {
 	char	*new_val;
 	int		no_pad;
@@ -67,6 +67,37 @@ int			ft_approve_option(t_icomp **icur)
 		else
 			break ;
 	}
+	return (0);
+}
+
+int			ft_approve_option(t_icomp **icur)
+{
+	char	*new_val;
+	t_arg	*opt_link;
+	t_arg	*arg_link;
+
+	opt_link = (*icur)->arg;
+	while (1)
+	{
+		new_val = ft_strjoin((*icur)->opt, (opt_link)->value);
+		if (new_val == NULL)
+			error_exit_errno();
+		free((*icur)->opt);
+		(*icur)->opt = new_val;
+		if (opt_link->pad[0] == '\0' && opt_link->right != NULL)
+			opt_link = opt_link->right;
+		else
+			break ;
+	}
+	arg_link = opt_link->right;
+	if (arg_link == NULL)
+	{
+		arg_link = (t_arg *)e_malloc(sizeof(t_arg));
+		ft_argconst(arg_link);
+	}
+	opt_link->right = NULL;
+	free_args((*icur)->arg);
+	(*icur)->arg = arg_link;
 	return (0);
 }
 
@@ -143,6 +174,7 @@ int			validate_option_flags(t_icomp **icur)
 	i = 1;
 	ret = 1;
 	link = (*icur)->arg;
+	//check if first char of first link value is -
 	while (1)
 	{
 		while (((*icur)->arg)->value[i] != '\0' && ret)
@@ -163,9 +195,18 @@ int			validate_option_flags(t_icomp **icur)
 		else
 			break ;
 	}
-	if (ret == 0 && link->pad[0] != '\0')
+	
+	// if (ret == 0 && link->pad[0] != '\0')
+	// 	ret = -1;
+	// if (ret == 1)
+	// 	ft_approve_option(icur);
+	
+	if (ret == 1 && link->pad[0] != '\0')
+		ret = 0;
+	else if (ret == 0) 
 		ret = -1;
-	if (ret == 1)
+	else if (ret == 1)
 		ft_approve_option(icur);
+	printf("ret == %d\n", ret);
 	return (ret);
 }
