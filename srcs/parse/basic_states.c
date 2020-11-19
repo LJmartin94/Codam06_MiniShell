@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 18:10:03 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/18 14:15:58 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/19 15:51:02 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_transition_code	sh_opt_state(t_token **this, t_icomp **icur)
 	t_transition_code	id;
 	t_arg				*last;
 	t_arg				*new;
+	int					valid;
 
 	if (ft_strlen(((*icur)->arg)->value) > 0)
 	{
@@ -42,9 +43,12 @@ t_transition_code	sh_opt_state(t_token **this, t_icomp **icur)
 		last = last->right;
 	ft_add_token_to_comp((*this), &(((*icur)->arg)->value));
 	*this = (*this)->next;
+	valid = validate_option_flags(icur);
 	id = exit_state;
 	if ((*this) != NULL)
 		id = recognise_token_state(*this);
+	if (valid == -1)
+		id = demote_option_state(id);
 	return (id);
 }
 
