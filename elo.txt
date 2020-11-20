@@ -1,5 +1,11 @@
 VALID:
 
+e"c"ho -n test
+
+e'c'ho -n test
+
+e\cho -n test
+
 \e\c\h\o \-\n \t\e\s\t
 
 "e""c""h""o" "-""n" "t""e""s""t"
@@ -68,7 +74,7 @@ INVALID:
 
 "e""c"'h''o'' '-n test
 
-"e"'c'"h"'o' '-' "n" te's't WRONG
+"e"'c'"h"'o' '-' "n" te's't
 
 echo 'n' test
 
@@ -127,6 +133,10 @@ echo this is multiline but shouldnt segfault: "
 echo this is multiline but shouldnt segfault: '
 
 echo this is multiline but shouldnt segfault: "\
+
+echo this is multiline but shouldnt segfault: "\"
+
+echo this isnt multiline and shouldnt segfault: '\'
 
 echo this is multiline but shouldnt segfault: "'
 
