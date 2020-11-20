@@ -84,6 +84,8 @@ echo - n test
 
 echo '-''d' test
 
+echo "-"d test
+
 echo -n -nnnnnnnnnnnn -n -n '-n' "-n" -nnnnnnnnnd test
 
 echo -n-n-n-n-n-n test

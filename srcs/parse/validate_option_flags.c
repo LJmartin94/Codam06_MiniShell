@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/25 17:19:17 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/19 18:11:41 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/20 17:03:03 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static int	single_char_flag(t_icomp **icur, int i, int j)
 		return (0);
 	if (ft_strncmp(g_flagvalid_table[j].cmd, (*icur)->cmd, cmd_len))
 		return (0);
+	fprintf(stderr, "j == %d, i == %d\n", j, i);
 	if (g_flagvalid_table[j].flag[0] != (last)->value[i])
 		return (0);
 	return (1);
@@ -124,15 +125,20 @@ int			validate_option_flags(t_icomp **icur)
 	ret = 1;
 	link = (*icur)->arg;
 	//check if first char of first link value is -
+	if (link->value[0] == '\0')
+		return (0);
 	if ((*icur)->arg->value[0] == '-')
 		i++;
 	else
 		ret = 0;
 	while (ret)
 	{
+		print_components((*icur));
+		printf("value of i == %d\n", i);
 		if (link != (*icur)->arg)
 			i = 0;
-		while (((*icur)->arg)->value[i] != '\0' && ret)
+		printf("value of i == %d\n", i);
+		while ((link)->value[i] != '\0' && ret)
 		{
 			ret = 0;
 			j = 0;
@@ -143,7 +149,6 @@ int			validate_option_flags(t_icomp **icur)
 					ret = 1;
 				j++;
 			}
-			printf("ret in loop == %d\n", ret);
 			i++;
 		}
 		if (link->pad[0] == '\0' && link->right != NULL)
@@ -153,7 +158,7 @@ int			validate_option_flags(t_icomp **icur)
 	}
 	ret--;
 	i = (link != (*icur)->arg || ft_strlen ((link)->value) >= 2) ? 1 : 0;
-	printf("link == %s\n", link->value);
+	printf("link == |%s|\n", link->value);
 	printf("pad == |%s|\n", link->pad);
 	printf("retb4 == %d\n", ret);
 	if (ret == 0 && i)
