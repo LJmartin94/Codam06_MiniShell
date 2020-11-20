@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/25 17:19:17 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/20 17:03:03 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/20 17:19:00 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ static int	single_char_flag(t_icomp **icur, int i, int j)
 		return (0);
 	if (ft_strncmp(g_flagvalid_table[j].cmd, (*icur)->cmd, cmd_len))
 		return (0);
-	fprintf(stderr, "j == %d, i == %d\n", j, i);
 	if (g_flagvalid_table[j].flag[0] != (last)->value[i])
 		return (0);
 	return (1);
@@ -133,11 +132,8 @@ int			validate_option_flags(t_icomp **icur)
 		ret = 0;
 	while (ret)
 	{
-		print_components((*icur));
-		printf("value of i == %d\n", i);
 		if (link != (*icur)->arg)
 			i = 0;
-		printf("value of i == %d\n", i);
 		while ((link)->value[i] != '\0' && ret)
 		{
 			ret = 0;

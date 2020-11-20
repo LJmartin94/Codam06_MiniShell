@@ -70,7 +70,7 @@ INVALID:
 
 \e\c\h\o\ \-\n \t\e\s\t
 
-\e\c\h\o \-\n\ \t\e\s\t
+\e\c\h\o \-\n\ \t\e\s\t WRONG
 
 "e""c"'h''o'' '-n test
 
@@ -94,11 +94,11 @@ echo --n test
 
 echo "-n -n" test
 
-echo "-n""-n" test
+echo "-n""-n" test WRONG
 
 echo" "-n test
 
-echo -n" "test
+echo -n" "test WRONG
 
 "echo " -n test
 
@@ -115,6 +115,8 @@ ech -n test
 echoo -n test
 
 ech\o-n test
+
+echo\-n test
 
 echo - \n test
 
