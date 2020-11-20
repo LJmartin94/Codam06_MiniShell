@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 19:53:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/15 22:02:22 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/20 15:48:33 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_opt_state, dq, sh_dq_opt_state},
 	{sh_opt_state, sq, sh_sq_opt_state},
 	{sh_opt_state, backslash, sh_bs_opt_state},
+	{sh_opt_state, dqarg, sh_dq_arg_state},
+	{sh_opt_state, sqarg, sh_sq_arg_state},
+	{sh_opt_state, bsarg, sh_bs_arg_state},
 	{sh_opt_state, cmd, sh_opt_state},
 	{sh_opt_state, opt, sh_opt_state},
 	{sh_opt_state, arg, sh_opt_state},
@@ -159,6 +162,9 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_dq_bs_opt_state, dq, sh_dq_exit_opt_state},
 	{sh_dq_bs_opt_state, sq, sh_dq_opt_state},
 	{sh_dq_bs_opt_state, backslash, sh_dq_bs_opt_state},
+	{sh_dq_bs_opt_state, dqarg, sh_dq_exit_arg_state},
+	{sh_dq_bs_opt_state, sqarg, sh_dq_arg_state},
+	{sh_dq_bs_opt_state, bsarg, sh_dq_bs_arg_state},
 	{sh_dq_bs_opt_state, cmd, sh_dq_opt_state},
 	{sh_dq_bs_opt_state, opt, sh_dq_opt_state},
 	{sh_dq_bs_opt_state, arg, sh_dq_opt_state},
@@ -193,6 +199,9 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_dq_exit_opt_state, dq, sh_dq_opt_state},
 	{sh_dq_exit_opt_state, sq, sh_sq_opt_state},
 	{sh_dq_exit_opt_state, backslash, sh_bs_opt_state},
+	{sh_dq_exit_opt_state, dqarg, sh_dq_arg_state},
+	{sh_dq_exit_opt_state, sqarg, sh_sq_arg_state},
+	{sh_dq_exit_opt_state, bsarg, sh_bs_arg_state},
 	{sh_dq_exit_opt_state, cmd, sh_opt_state},
 	{sh_dq_exit_opt_state, opt, sh_opt_state},
 	{sh_dq_exit_opt_state, arg, sh_opt_state},
@@ -261,6 +270,9 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_sq_exit_opt_state, dq, sh_dq_opt_state},
 	{sh_sq_exit_opt_state, sq, sh_sq_opt_state},
 	{sh_sq_exit_opt_state, backslash, sh_bs_opt_state},
+	{sh_sq_exit_opt_state, dqarg, sh_dq_arg_state},
+	{sh_sq_exit_opt_state, sqarg, sh_sq_arg_state},
+	{sh_sq_exit_opt_state, bsarg, sh_bs_arg_state},
 	{sh_sq_exit_opt_state, cmd, sh_opt_state},
 	{sh_sq_exit_opt_state, opt, sh_opt_state},
 	{sh_sq_exit_opt_state, arg, sh_opt_state},
@@ -295,6 +307,9 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_bs_opt_state, dq, sh_dq_opt_state},
 	{sh_bs_opt_state, sq, sh_sq_opt_state},
 	{sh_bs_opt_state, backslash, sh_bs_opt_state},
+	{sh_bs_opt_state, dqarg, sh_dq_arg_state},
+	{sh_bs_opt_state, sqarg, sh_sq_arg_state},
+	{sh_bs_opt_state, bsarg, sh_bs_arg_state},
 	{sh_bs_opt_state, cmd, sh_opt_state},
 	{sh_bs_opt_state, opt, sh_opt_state},
 	{sh_bs_opt_state, arg, sh_opt_state},
