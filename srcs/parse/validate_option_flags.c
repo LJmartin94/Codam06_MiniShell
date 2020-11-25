@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/25 17:19:17 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/25 18:38:29 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/25 19:06:36 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int			ft_approve_option(t_icomp **icur)
 	opt_link->right = NULL;
 	free_args((*icur)->arg);
 	(*icur)->arg = arg_link;
-	return (0);
+	return (1);
 }
 
 static int	single_char_flag(t_icomp **icur, int i, int j)
@@ -62,6 +62,14 @@ static int	single_char_flag(t_icomp **icur, int i, int j)
 	return (1);
 }
 
+/*
+** Below function will check the head of the argument linked list to
+** see if it contains any valid options for the command that has
+** already been specified in **icur. It will return -1 if the argument LL
+** does not start with valid options, 1 if it does, and 0 if the LL so far
+** could yet prove to be a valid option but is currently incomplete.
+*/
+
 int			validate_option_flags(t_icomp **icur)
 {
 	int		i;
@@ -69,15 +77,11 @@ int			validate_option_flags(t_icomp **icur)
 	int		ret;
 	t_arg	*link;
 
-	i = 0;
-	ret = 1;
+	i = ((*icur)->arg->value[0] == '-') ? 1 : 0;
+	ret = i;
 	link = (*icur)->arg;
 	if (link->value[0] == '\0')
 		return (0);
-	if ((*icur)->arg->value[0] == '-')
-		i++;
-	else
-		ret = 0;
 	while (ret)
 	{
 		if (link != (*icur)->arg)
@@ -102,10 +106,7 @@ int			validate_option_flags(t_icomp **icur)
 	ret--;
 	i = (link != (*icur)->arg || ft_strlen((link)->value) >= 2) ? 1 : 0;
 	if (ret == 0 && i)
-	{
-		ft_approve_option(icur);
-		ret++;
-	}
+		ret = ft_approve_option(icur);
 	else if (ret == 0 && link->pad[0] != '\0')
 		ret--;
 	return (ret);
