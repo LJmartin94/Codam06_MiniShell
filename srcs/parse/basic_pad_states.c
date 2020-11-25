@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 13:30:27 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/11/25 15:24:08 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/25 17:45:03 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_transition_code			sh_cmd_pad_state(t_token **this, t_icomp **icur)
 	return (id);
 }
 
-t_transition_code	demote_option_state(t_transition_code id)
+t_transition_code			demote_option_state(t_transition_code id)
 {
 	if (id == opt)
 		id = arg;
@@ -51,7 +51,6 @@ t_transition_code			sh_opt_pad_state(t_token **this, t_icomp **icur)
 	id = exit_state;
 	if ((*this) != NULL)
 		id = recognise_token_state(*this);
-	//TODO: Fix how padding should be handled (now that arg is no longer single string)
 	last = (*icur)->arg;
 	while (last->right != NULL)
 		last = last->right;
@@ -77,7 +76,6 @@ t_transition_code			sh_arg_pad_state(t_token **this, t_icomp **icur)
 	id = exit_state;
 	if ((*this) != NULL)
 		id = recognise_token_state(*this);
-	// TODO: Fix how padding should be handled (now that arg is no longer single string)
 	last = (*icur)->arg;
 	while (last->right != NULL)
 		last = last->right;

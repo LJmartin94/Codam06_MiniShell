@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/05 18:05:53 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/25 15:24:58 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/25 17:43:58 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ t_transition_code	sh_bs_opt_state(t_token **this, t_icomp **icur)
 {
 	t_transition_code	id;
 	t_arg				*last;
-	//int					valid;
 
 	if (recognise_token_state(*this) == backslash && *this)
 		sh_bs_arg_link_state(this, icur);
@@ -67,12 +66,9 @@ t_transition_code	sh_bs_opt_state(t_token **this, t_icomp **icur)
 		ft_add_token_to_comp((*this), &((last)->value));
 		*this = (*this)->next;
 	}
-	// valid = validate_option_flags(icur);
 	id = exit_state;
 	if ((*this) != NULL)
 		id = recognise_token_state(*this);
-	// if (valid == -1)
-	// 	id = demote_option_state(id);
 	return (id);
 }
 

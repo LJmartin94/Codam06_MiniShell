@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 18:10:03 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/25 15:27:19 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/25 17:47:59 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,13 @@ t_transition_code	sh_dq_exit_cmd_state(t_token **this, t_icomp **icur)
 t_transition_code	sh_dq_exit_opt_state(t_token **this, t_icomp **icur)
 {
 	t_transition_code	id;
-	//int 				valid;
 
 	(void)icur;
 	if (recognise_token_state(*this) == dq && *this)
 		*this = (*this)->next;
-	// valid = validate_option_flags(icur);
 	id = exit_state;
 	if ((*this) != NULL)
 		id = recognise_token_state(*this);
-	// if (valid == -1)
-	// 	id = demote_option_state(id);
 	return (id);
 }
 
