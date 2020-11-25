@@ -62,9 +62,11 @@ echo five      " "    " "        spaces
 
 pw\d;echo -n test
 
-echo -n; echo -n test WRONG
+echo -n; echo -n test
 
-echo -n WRONG
+echo -n
+
+echo -n test -n
 
 
 INVALID:
@@ -74,6 +76,8 @@ INVALID:
 \e\c\h\o \-\n\ \t\e\s\t
 
 "e""c"'h''o'' '-n test
+
+"e""c"'h''o' ' '-n test
 
 "e"'c'"h"'o' '-' "n" te's't
 
