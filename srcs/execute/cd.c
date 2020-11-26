@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 13:26:26 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/26 21:11:29 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/26 21:20:17 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,20 +87,12 @@ static int	go_home(t_vector *env)
 	return (dir);
 }
 
-int			ft_cd(t_vector *env, t_icomp *cmp)
+char		*get_arg_as_string(t_icomp *cmp)
 {
-	int		dir;
 	char	*arg_str;
 	char	*newval;
 	t_arg	*argument_link;
 
-	(void)env;
-	dir = 0;
-	if (ft_strncmp(cmp->opt, "", 1) != 0)
-	{
-		invalid_cmd(cmp);
-		return (1);
-	}
 	arg_str = ft_strdup("");
 	if (arg_str == NULL)
 		error_exit_errno();
@@ -113,6 +105,17 @@ int			ft_cd(t_vector *env, t_icomp *cmp)
 		argument_link = (ft_strlen(argument_link->pad) > 0) ? \
 		NULL : argument_link->right;
 	}
+	return (arg_str);
+}
+
+int			ft_cd(t_vector *env, t_icomp *cmp)
+{
+	int		dir;
+	char	*arg_str;
+
+	(void)env;
+	dir = 0;
+	arg_str = get_arg_as_string(cmp);
 	if (ft_strncmp(arg_str, "", 1) == 0)
 		dir = go_home(env);
 	else if (ft_strncmp(arg_str, "/", 1) == 0)
