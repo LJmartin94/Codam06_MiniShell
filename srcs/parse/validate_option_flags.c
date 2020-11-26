@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/25 17:19:17 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/25 19:06:36 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/26 16:56:18 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,25 @@ static int	single_char_flag(t_icomp **icur, int i, int j)
 	return (1);
 }
 
+static int	ft_check_flag_chars(int ret, int i, t_icomp **icur, t_arg *link)
+{
+	int		j;
+
+	while ((link)->value[i] != '\0' && ret)
+	{
+		ret = 0;
+		j = 0;
+		while (j < FLAG_TABLE_SIZE)
+		{
+			if (ret == 1 || single_char_flag(icur, i, j))
+				ret = 1;
+			j++;
+		}
+		i++;
+	}
+	return (ret);
+}
+
 /*
 ** Below function will check the head of the argument linked list to
 ** see if it contains any valid options for the command that has
@@ -73,7 +92,6 @@ static int	single_char_flag(t_icomp **icur, int i, int j)
 int			validate_option_flags(t_icomp **icur)
 {
 	int		i;
-	int		j;
 	int		ret;
 	t_arg	*link;
 
@@ -86,20 +104,9 @@ int			validate_option_flags(t_icomp **icur)
 	{
 		if (link != (*icur)->arg)
 			i = 0;
-		while ((link)->value[i] != '\0' && ret)
-		{
-			ret = 0;
-			j = 0;
-			while (j < FLAG_TABLE_SIZE)
-			{
-				if (ret == 1 || single_char_flag(icur, i, j))
-					ret = 1;
-				j++;
-			}
-			i++;
-		}
-		if (link->pad[0] == '\0' && link->right != NULL)
-			link = link->right;
+		ret = ft_check_flag_chars(ret, i, icur, link);
+		if ((link)->pad[0] == '\0' && (link)->right != NULL)
+			(link) = (link)->right;
 		else
 			break ;
 	}
