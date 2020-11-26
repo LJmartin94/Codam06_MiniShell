@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/17 14:15:10 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/17 15:05:59 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/26 12:16:46 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ static int	quotes(int *quote, int *d_quote, char c)//must change
 			(*quote)--;
 	}
 	if (*d_quote % 2 == 0 && *quote % 2 == 0)
+	{
 		return (0);
+	}
 	else
 	{
 		return (1);
@@ -58,7 +60,7 @@ static int	find_split(char const *s, char c, int end, int bool)
 		while (s[i] != '\0')
 		{
 			within = quotes(&quote, &d_quote, s[i]);
-			if (s[i] == c && within == 0)
+			if (s[i] == c && within == 0 && i - 1 >= 0 && s[i - 1] != '\\')
 				return (i);
 			i++;
 		}

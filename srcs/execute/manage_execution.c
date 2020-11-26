@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/17 16:51:42 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/26 12:57:23 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void			run_command(t_cmd f, t_vector *env, t_icomp *comp)//TODO: export ls="ls -
 
 	if (f != NULL)
 		f(env, comp, STDOUT_FILENO);
-	else
+	else if (comp->cmd[0] != '\0')
 	{
 		path = find_path(env, comp);
 		if (path == NULL)

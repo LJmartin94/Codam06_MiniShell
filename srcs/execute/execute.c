@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/17 16:49:53 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/26 12:54:30 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	execute(t_vector *env, t_icomp *comp)
 	t_icomp	*tmp;
 	int		stdin;
 
-	ft_dprintf(STDOUT_FILENO, "command: %s %s %s\n", comp->cmd, comp->opt, comp->arg);
 	vector_init(&g_pid_list);
 	tmp = comp;
 	stdin = -1;
