@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/25 17:19:17 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/26 16:56:18 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/26 18:18:50 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,11 +110,10 @@ int			validate_option_flags(t_icomp **icur)
 		else
 			break ;
 	}
+	if (ret == 1 && (link != (*icur)->arg || ft_strlen((link)->value) >= 2))
+		return (ft_approve_option(icur));
+	if (ret == 1 && link->pad[0] != '\0')
+		ret = 0;
 	ret--;
-	i = (link != (*icur)->arg || ft_strlen((link)->value) >= 2) ? 1 : 0;
-	if (ret == 0 && i)
-		ret = ft_approve_option(icur);
-	else if (ret == 0 && link->pad[0] != '\0')
-		ret--;
 	return (ret);
 }
