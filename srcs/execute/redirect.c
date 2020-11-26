@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:39:47 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/13 13:54:00 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/26 14:33:17 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 /*
 ** //TODO: change error handling
+** //Redirections seem to commonly exit with status 13??
 */
 
 static void	redirect_pipes(t_icomp *comp, int p_fd[2], int stdin)

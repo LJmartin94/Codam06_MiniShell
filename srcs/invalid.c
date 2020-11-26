@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 10:09:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/13 14:08:36 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/26 14:38:00 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 #include "execute.h"
 #include "libft.h"
 
+//TODO: if invalid_cmd, return value is 127
+// TODO: remove separate exit statements as invalid cmd exits now
 void	invalid_cmd(t_icomp *cmd)
 {
 	ft_dprintf(STDERR_FILENO, "Invalid command: '%s %s %s'\n",
 	cmd->cmd, cmd->opt, cmd->arg);
+	g_ret_val = 127;
+	exit(127);
 }
 
 /*

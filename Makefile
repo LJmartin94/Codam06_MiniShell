@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/14 11:19:17 by limartin      #+#    #+#                  #
-#    Updated: 2020/11/17 16:40:00 by jsaariko      ########   odam.nl          #
+#    Updated: 2020/11/26 13:05:20 by jsaariko      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ SRC = $(SRC_PATH)main.c \
 	$(SRC_PATH)$(EX_PATH)unset.c \
 	$(SRC_PATH)$(EX_PATH)pwd.c \
 	$(SRC_PATH)$(EX_PATH)cd.c \
-	$(SRC_PATH)$(UTILS)split.c \
+	$(SRC_PATH)$(UTILS)split_unless_escaped.c \
 
 #Source files bonus part
 SRC_B = # $(SRC_PATH) bonus_goes_here.c #TODO

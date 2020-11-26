@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/26 12:54:24 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/26 14:41:00 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		get_input(t_vector *env)
 	char	*buf;
 	int		ret;
 
-	e_write(STDOUT_FILENO, "\U0001F40C ", 6);
+	// e_write(STDOUT_FILENO, "\U0001F40C ", 6);
 	ret = get_next_line(STDIN_FILENO, &buf);
 	if (ret == 0)
 	{
@@ -87,3 +87,6 @@ ARG:	|%s|\nSEP:	|%s|\nRGT: [%p]\n\n", icur->id, icur->left, icur, \
 		icur = icur->right;
 	}
 }
+
+
+//TODO: Parser. If parsing fails, aka bad number/combination of quotes, unclosed pipe etc, bash should error with code 2 ....??

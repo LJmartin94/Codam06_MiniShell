@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 10:38:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/13 11:00:56 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/26 14:11:31 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "error.h"
 #include "libft.h"
 
+
+//TODO: exit status??
 int	ft_echo(t_vector *env, t_icomp *cmd, int fd)
 {
 	(void)env;
