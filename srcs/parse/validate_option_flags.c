@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/25 17:19:17 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/11 14:58:16 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/26 18:18:50 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,78 +17,103 @@
 
 int			ft_approve_option(t_icomp **icur)
 {
-	char *new_val;
+	char	*new_val;
+	t_arg	*opt_link;
+	t_arg	*arg_link;
 
-	new_val = ft_strjoin((*icur)->opt, (*icur)->arg);
-	if (new_val == NULL)
-		error_exit_errno();
-	free((*icur)->opt);
-	(*icur)->opt = new_val;
-	free((*icur)->arg);
-	(*icur)->arg = ft_strdup("");
-	if ((*icur)->arg == NULL)
-		error_exit_errno();
-	return (0);
+	opt_link = (*icur)->arg;
+	while (1)
+	{
+		new_val = e_strjoin((*icur)->opt, (opt_link)->value);
+		free((*icur)->opt);
+		(*icur)->opt = new_val;
+		if (opt_link->pad[0] == '\0' && opt_link->right != NULL)
+			opt_link = opt_link->right;
+		else
+			break ;
+	}
+	arg_link = opt_link->right;
+	if (arg_link == NULL)
+	{
+		arg_link = (t_arg *)e_malloc(sizeof(t_arg));
+		ft_argconst(arg_link);
+	}
+	opt_link->right = NULL;
+	free_args((*icur)->arg);
+	(*icur)->arg = arg_link;
+	return (1);
 }
 
 static int	single_char_flag(t_icomp **icur, int i, int j)
 {
 	size_t	cmd_len;
+	t_arg	*last;
 
+	last = (*icur)->arg;
+	while (last->right != NULL)
+		last = last->right;
 	cmd_len = ft_strlen((*icur)->cmd);
 	if (cmd_len != ft_strlen(g_flagvalid_table[j].cmd))
 		return (0);
 	if (ft_strncmp(g_flagvalid_table[j].cmd, (*icur)->cmd, cmd_len))
 		return (0);
-	if (g_flagvalid_table[j].flag[0] != (*icur)->arg[i])
+	if (g_flagvalid_table[j].flag[0] != (last)->value[i])
 		return (0);
 	return (1);
 }
 
-static int	multi_char_flag(t_icomp **icur, int j)
+static int	ft_check_flag_chars(int ret, int i, t_icomp **icur, t_arg *link)
 {
-	size_t	cmd_len;
-	size_t	opt_len;
+	int		j;
 
-	cmd_len = ft_strlen((*icur)->cmd);
-	opt_len = ft_strlen((*icur)->arg);
-	if (opt_len < 4)
-		return (0);
-	if (cmd_len != ft_strlen(g_flagvalid_table[j].cmd))
-		return (0);
-	if (ft_strncmp(g_flagvalid_table[j].cmd, (*icur)->cmd, cmd_len))
-		return (0);
-	if ((*icur)->arg[1] != '-')
-		return (0);
-	if (ft_strncmp(g_flagvalid_table[j].flag, (*icur)->arg + 2, opt_len))
-		return (0);
-	return (1);
-}
-
-int			validate_option_flags(t_icomp **icur)
-{
-	int i;
-	int j;
-	int ret;
-
-	if (ft_strlen((*icur)->arg) < 2)
-		return (0);
-	i = 1;
-	ret = 1;
-	while ((*icur)->arg[i] != '\0' && ret)
+	while ((link)->value[i] != '\0' && ret)
 	{
 		ret = 0;
 		j = 0;
 		while (j < FLAG_TABLE_SIZE)
 		{
-			if (ret == 1 || single_char_flag(icur, i, j) || \
-			multi_char_flag(icur, j))
+			if (ret == 1 || single_char_flag(icur, i, j))
 				ret = 1;
 			j++;
 		}
 		i++;
 	}
-	if (ret)
-		ft_approve_option(icur);
+	return (ret);
+}
+
+/*
+** Below function will check the head of the argument linked list to
+** see if it contains any valid options for the command that has
+** already been specified in **icur. It will return -1 if the argument LL
+** does not start with valid options, 1 if it does, and 0 if the LL so far
+** could yet prove to be a valid option but is currently incomplete.
+*/
+
+int			validate_option_flags(t_icomp **icur)
+{
+	int		i;
+	int		ret;
+	t_arg	*link;
+
+	i = ((*icur)->arg->value[0] == '-') ? 1 : 0;
+	ret = i;
+	link = (*icur)->arg;
+	if (link->value[0] == '\0')
+		return (0);
+	while (ret)
+	{
+		if (link != (*icur)->arg)
+			i = 0;
+		ret = ft_check_flag_chars(ret, i, icur, link);
+		if ((link)->pad[0] == '\0' && (link)->right != NULL)
+			(link) = (link)->right;
+		else
+			break ;
+	}
+	if (ret == 1 && (link != (*icur)->arg || ft_strlen((link)->value) >= 2))
+		return (ft_approve_option(icur));
+	if (ret == 1 && link->pad[0] != '\0')
+		ret = 0;
+	ret--;
 	return (ret);
 }

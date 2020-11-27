@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   redir_links.c                                      :+:    :+:            */
+/*   arg_links.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/11/08 19:42:11 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/12 15:48:32 by limartin      ########   odam.nl         */
+/*   Created: 2020/11/12 19:20:22 by limartin      #+#    #+#                 */
+/*   Updated: 2020/11/13 13:50:44 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
-#include "libft.h"
 #include "error.h"
 
-int		ft_redirconst(t_redir *tonull)
+int		ft_argconst(t_arg *tonull)
 {
-	tonull->type_in = ft_strdup("");
-	tonull->type_out = ft_strdup("");
-	tonull->file = ft_strdup("");
-	if (tonull->type_in == NULL || tonull->type_out == NULL \
-	|| tonull->file == NULL)
+	tonull->id = 0;
+	tonull->type = ft_strdup("");
+	tonull->value = ft_strdup("");
+	tonull->pad = ft_strdup("");
+	if (tonull->type == NULL || tonull->value == NULL \
+	|| tonull->pad == NULL)
 		error_exit_errno();
 	tonull->left = NULL;
 	tonull->right = NULL;
 	return (0);
 }
 
-void	ft_add_redir(t_redir **head, t_redir *this)
+void	ft_add_arg(t_arg **head, t_arg *this)
 {
-	t_redir *cur;
-	t_redir	*left;
+	t_arg	*cur;
+	t_arg	*left;
+	int		id;
 
 	if (*head == NULL)
 	{
@@ -39,8 +40,13 @@ void	ft_add_redir(t_redir **head, t_redir *this)
 	}
 	cur = *head;
 	left = cur;
+	id = 1;
 	while (cur->right != NULL)
+	{
 		cur = cur->right;
+		id++;
+	}
+	this->id = id;
 	cur->right = this;
 	this->left = left;
 }
@@ -53,22 +59,22 @@ void	ft_add_redir(t_redir **head, t_redir *this)
 ** will be malloc'd (unlike first comp block)
 */
 
-void	free_redirs(t_redir *head)
+void	free_args(t_arg *head)
 {
-	t_redir *tmp;
+	t_arg *tmp;
 
 	while (head)
 	{
 		tmp = head->right;
-		if (head->type_in != NULL)
-			free(head->type_in);
-		head->type_in = NULL;
-		if (head->type_out != NULL)
-			free(head->type_out);
-		head->type_out = NULL;
-		if (head->file != NULL)
-			free(head->file);
-		head->file = NULL;
+		if (head->type != NULL)
+			free(head->type);
+		head->type = NULL;
+		if (head->value != NULL)
+			free(head->value);
+		head->value = NULL;
+		if (head->pad != NULL)
+			free(head->pad);
+		head->pad = NULL;
 		if (head->left != NULL)
 			free(head);
 		head = NULL;

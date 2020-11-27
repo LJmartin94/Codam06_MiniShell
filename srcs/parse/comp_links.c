@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 18:03:33 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/08 19:36:38 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/13 11:01:03 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ int		ft_compconst(t_icomp *tonull)
 	tonull->sep = ft_strdup("");
 	tonull->cmd = ft_strdup("");
 	tonull->opt = ft_strdup("");
-	tonull->arg = ft_strdup("");
 	if (tonull->sep == NULL || tonull->cmd == NULL || \
-	tonull->opt == NULL || tonull->arg == NULL)
+	tonull->opt == NULL)
 		error_exit_errno();
+	tonull->arg = (t_arg *)e_malloc(sizeof(t_arg));
+	ft_argconst(tonull->arg);
 	tonull->id = 0;
 	tonull->rdhead = NULL;
 	tonull->right = NULL;
@@ -65,6 +66,10 @@ int		ft_add_token_to_comp(t_token *token, char **field)
 	*field = new_val;
 	return (0);
 }
+
+/*
+** TODO: This also still needs to free linked list of redirections and arguments
+*/
 
 void	free_components(t_icomp *head)
 {

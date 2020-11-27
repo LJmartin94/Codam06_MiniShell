@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 11:18:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/11 16:30:47 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/26 18:58:19 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,23 @@
 # include "libft.h"
 
 /*
-** //TODO: Debug-only includes! Remove when no longer used.
-*/
-
-# include <stdio.h>
-
-/*
 ** Structure for parsed commands
 */
 
+typedef struct			s_arg
+{
+	int					id;
+	char				*type;
+	char				*value;
+	char				*pad;
+	struct s_arg		*left;
+	struct s_arg		*right;
+}						t_arg;
+
 typedef struct			s_redir
 {
-	char				*type;
+	char				*type_in;
+	char				*type_out;
 	char				*file;
 	struct s_redir		*left;
 	struct s_redir		*right;
@@ -35,12 +40,12 @@ typedef struct			s_redir
 
 typedef struct			s_icomp
 {
+	int					id;
 	char				*sep;
 	char				*cmd;
 	char				*opt;
-	char				*arg;
-	int					id;
-	struct t_redir		*rdhead;
+	t_arg				*arg;
+	t_redir				*rdhead;
 	struct s_icomp		*left;
 	struct s_icomp		*right;
 }						t_icomp;
@@ -65,11 +70,6 @@ void					execute(t_vector *env, t_icomp *comp);
 
 void					free_components(t_icomp *head);
 void					free_redirs(t_redir *head);
-
-/*
-** //TODO: Debug-only prototypes! Remove when no longer used.
-*/
-
-void					print_components(t_icomp *icur);
+void					free_args(t_arg *head);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 13:26:26 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/11 16:25:09 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/26 21:20:17 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,10 @@
 ** so upon succesful directory change command)
 ** Check return values are correct for pwd and cd?
 ** Test with deleted directories, permission denied dirs.
+** Fix Memleaks
 */
 
-static int	validate_cmd_cd(t_icomp *cmp)
-{
-	if (ft_strncmp(cmp->opt, "", 1) != 0)
-		return (0);
-	return (1);
-}
-
-static int	go_relative(t_vector *env, t_icomp *cmp)
+static int	go_relative(t_vector *env, char *arg_str)
 {
 	int		dir;
 	char	*cwd;
@@ -43,7 +37,7 @@ static int	go_relative(t_vector *env, t_icomp *cmp)
 		error_exit_errno();
 	path = ft_strjoin(cwd, "/");
 	if (path != NULL)
-		path = ft_strjoin(path, cmp->arg);
+		path = ft_strjoin(path, arg_str);
 	if (path == NULL)
 		error_exit_errno();
 	dir = chdir(path);
@@ -56,13 +50,13 @@ static int	go_relative(t_vector *env, t_icomp *cmp)
 	return (dir);
 }
 
-static int	go_absolute(t_vector *env, t_icomp *cmp)
+static int	go_absolute(t_vector *env, char *arg_str)
 {
 	int		dir;
 	char	*path;
 
 	(void)env;
-	path = cmp->arg;
+	path = arg_str;
 	dir = chdir(path);
 	if (dir == -1)
 	{
@@ -93,22 +87,40 @@ static int	go_home(t_vector *env)
 	return (dir);
 }
 
+char		*get_arg_as_string(t_icomp *cmp)
+{
+	char	*arg_str;
+	char	*newval;
+	t_arg	*argument_link;
+
+	arg_str = ft_strdup("");
+	if (arg_str == NULL)
+		error_exit_errno();
+	argument_link = cmp->arg;
+	while (argument_link)
+	{
+		newval = e_strjoin(arg_str, argument_link->value);
+		free(arg_str);
+		arg_str = newval;
+		argument_link = (ft_strlen(argument_link->pad) > 0) ? \
+		NULL : argument_link->right;
+	}
+	return (arg_str);
+}
+
 int			ft_cd(t_vector *env, t_icomp *cmp)
 {
 	int		dir;
+	char	*arg_str;
 
 	(void)env;
 	dir = 0;
-	if (validate_cmd_cd(cmp) == 0)
-	{
-		invalid_cmd(cmp);
-		return (1);
-	}
-	if (ft_strncmp(cmp->arg, "", 1) == 0)
+	arg_str = get_arg_as_string(cmp);
+	if (ft_strncmp(arg_str, "", 1) == 0)
 		dir = go_home(env);
-	else if (ft_strncmp(cmp->arg, "/", 1) == 0)
-		dir = go_absolute(env, cmp);
+	else if (ft_strncmp(arg_str, "/", 1) == 0)
+		dir = go_absolute(env, arg_str);
 	else
-		dir = go_relative(env, cmp);
+		dir = go_relative(env, arg_str);
 	return (dir);
 }

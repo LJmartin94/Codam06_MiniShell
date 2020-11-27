@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:39:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/08 18:05:15 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/13 09:48:47 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,18 +77,18 @@ int			ft_export(t_vector *env, t_icomp *cmd)
 	int		pos;
 
 	pos = 0;
-	if ((ft_strncmp(cmd->arg, "", 1)) == 0)
+	if ((ft_strncmp(cmd->arg->value, "", 1)) == 0)
 	{
 		print_env(env);
 		return (0);
 	}
-	if (!ft_isalpha(cmd->arg[0]))
+	if (!ft_isalpha(cmd->arg->value[0]))
 	{
 		ft_dprintf(STDERR_FILENO, "export: '%s': not a valid identifier\n",
 			cmd->arg);
 		return (1);
 	}
-	item = get_env_item(cmd->arg);
+	item = get_env_item(cmd->arg->value);
 	pos = vector_search(env, compare_key, item->key);
 	edit_env(env, item, pos);
 	return (0);

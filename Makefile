@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/14 11:19:17 by limartin      #+#    #+#                  #
-#    Updated: 2020/11/08 16:44:07 by limartin      ########   odam.nl          #
+#    Updated: 2020/11/13 11:04:13 by lindsay       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,8 @@ LIBFT_PATH = ./libft
 CC = gcc
 
 #TODO remove sanitise flag when submitting
-CFLAGS = -Wall -Wextra -Werror
-# CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+# CFLAGS = -Wall -Wextra -Werror
 
 HEADER_FILES = $(INCL_PATH)
 
@@ -50,6 +50,8 @@ SRC = $(SRC_PATH)main.c \
 	$(SRC_PATH)$(PARSE_PATH)recognise_token_state.c \
 	$(SRC_PATH)$(PARSE_PATH)validate_option_flags.c \
 	$(SRC_PATH)$(PARSE_PATH)comp_links.c \
+	$(SRC_PATH)$(PARSE_PATH)arg_links.c \
+	$(SRC_PATH)$(PARSE_PATH)redir_links.c \
 	$(SRC_PATH)$(PARSE_PATH)free_and_exit.c \
 	$(SRC_PATH)$(EX_PATH)execute.c \
 	$(SRC_PATH)$(EX_PATH)echo.c \
