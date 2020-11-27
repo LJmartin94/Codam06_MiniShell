@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:38:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/26 12:53:47 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/27 16:55:01 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
+//TODO: Make sure how it works for multiple params
 char		**build_argv(t_icomp *comp)
 {
 	int		i;
@@ -24,7 +25,7 @@ char		**build_argv(t_icomp *comp)
 
 	i = 0;
 	j = 0;
-	try = ft_split(comp->arg, ' ');
+	try = ft_split(comp->arg->value, ' ');
 	while (try[i] != NULL)
 		i++;
 	argv = (char **)e_malloc(sizeof(char *) * (i + 2));
