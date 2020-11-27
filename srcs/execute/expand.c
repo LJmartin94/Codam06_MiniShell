@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/13 12:51:50 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/27 14:24:35 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/27 15:57:34 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,10 @@ static void		replace_arg(t_vector *env, char **str, size_t *i, int quote, int dq
 					replace->value);
 		free(*str);
 		(*str) = final;
-		// ft_dprintf(STDOUT_FILENO, "raplaced: [%s]\n\n", final);
-		*i = *i - (ft_strlen(replace->key) + 1) + ft_strlen(replace->value);
+		// ft_dprintf(STDOUT_FILENO, "\n[%s] + [%s]\n", replace->key, replace->value);
+		// ft_dprintf(STDOUT_FILENO, "i = %d - %d + %d\n\n", *i, ft_strlen(replace->key) + 1, ft_strlen(replace->value));
+		*i = *i + ft_strlen(replace->value) - 1;
+		// *i = *i - (ft_strlen(replace->key) + 1) + ft_strlen(replace->value);
 	}
 	else
 	{
@@ -131,6 +133,7 @@ void	expand_env(t_vector *env, char **str)
 	i = 0;
 	int quote = 0;
 	int dquote = 0;
+	int esc = 0;
 	while ((*str)[i] != '\0')
 	{
 		// ft_dprintf(STDOUT_FILENO, "cur char: [%c] i: %d\n", (*str)[i], i);
@@ -148,19 +151,19 @@ void	expand_env(t_vector *env, char **str)
 			else
 				(quote)--;
 		}
-		if ((*str)[i] == '$' && quote % 2 == 0) //TODO: make sure this doesnt crash
+		if ((*str)[i] == '$' && quote % 2 == 0 && esc % 2 == 0) //TODO: make sure this doesnt crash
 		{
-			if (i - 1 >= 0 && (*str)[i - 1] != '\\')
-			{
-				replace_arg(env, str, &i, quote, dquote);
-			}
-			else if (i - 1 < 0)
-				replace_arg(env, str, &i, quote, dquote);
-			else
-				i++;
+			replace_arg(env, str, &i, quote, dquote);
 		}
 		else
 			i++;
+		if (i - 1 > 0)
+		{
+			if ((*str)[i - 1] == '\\')// This only applies when \ are next to each other
+				esc++;
+			if ((*str)[i - 1] != '\\')// reset esc if cur char is not esc //TODO: Make sure this wont be negative
+				esc = 0;
+		}
 	}
 }
 
