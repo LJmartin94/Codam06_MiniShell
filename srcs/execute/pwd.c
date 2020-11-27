@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 11:32:10 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/12 14:00:29 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/27 16:44:10 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@
 /*
 ** TODO:
 ** Rework error reporting, probably shouldnt even exit the shell.
+** Test with deleted directories, permission denied dirs.
 */
 
 static int	validate_cmd_pwd(t_icomp *cmp)
 {
-	if (ft_strncmp(cmp->arg, "", 1) != 0 || ft_strncmp(cmp->opt, "", 1) != 0)
+	if (ft_strncmp(cmp->arg->value, "", 1) != 0 || \
+	ft_strncmp(cmp->opt, "", 1) != 0)
 		return (0);
 	return (1);
 }

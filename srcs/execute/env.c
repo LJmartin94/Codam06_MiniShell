@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 11:49:12 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/12 13:58:11 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/27 16:43:14 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ static void		write_key_val_pair(char *key, char *value, int fd)
 
 static int		validate_cmd_env(t_icomp *cmd)
 {
-	if (ft_strncmp(cmd->arg, "", 1) != 0 || ft_strncmp(cmd->opt, "", 1) != 0)
+	if (ft_strncmp(cmd->arg->value, "", 1) != 0 || \
+	ft_strncmp(cmd->opt, "", 1) != 0)
 		return (0);
 	return (1);
 }

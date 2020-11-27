@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/20 09:58:37 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/09 12:13:14 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/27 16:36:32 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,14 @@ void	e_close(int fd)
 		ft_dprintf(STDOUT_FILENO, "e_close: ");
 		error_exit_errno();
 	}
+}
+
+char	*e_strjoin(const char *s1, const char *s2)
+{
+	char	*new_val;
+
+	new_val = ft_strjoin(s1, s2);
+	if (new_val == NULL)
+		error_exit_errno();
+	return (new_val);
 }
