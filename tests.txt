@@ -69,3 +69,17 @@ ft_strncmp(item, data->key, ft_strlen(data->key) + 1)
 
 echo /$"123$USER"
 
+base64 < /dev/random | head -c 1000 | cat -e
+
+ exit 1 | exit 2 | exit 3 | exit 4 ; echo $?
+
+ echo hoi | notacommand | cat -e
+
+ export hoi=hallo wazap test1= 34rip _yo=12; export; echo; env;
+ exit 1 | exit 2 | notacommand | exit 4; echo $?
+ cat | notacommand | echo hoi
+ echo > file1 abel >> file2 is een > file3 gekke man >:O
+ cat < Makefile > file
+ chmod 000 minishell; ./minishell; echo $?
+ e'c'"h"o wadup 
+ cat | cat -e | cat | cat -e | cat | cat -e | cat | cat -e
