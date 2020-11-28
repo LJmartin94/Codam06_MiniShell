@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:38:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/27 16:55:01 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/28 16:06:58 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,39 @@ char		**build_argv(t_icomp *comp)
 {
 	int		i;
 	int		j;
-	char	**try;
 	char	**argv;
 
 	i = 0;
 	j = 0;
-	try = ft_split(comp->arg->value, ' ');
-	while (try[i] != NULL)
+	t_arg *arg = comp->arg;
+	while(arg)
+	{
 		i++;
+		arg = arg->right;
+	}
 	argv = (char **)e_malloc(sizeof(char *) * (i + 2));
 	argv[j] = comp->cmd;
 	j++;
 	i = 0;
-	while (try[i] != NULL)
+	arg = comp->arg;
+	while (arg)
 	{
-		argv[j] = try[i];
+		ft_dprintf(STDOUT_FILENO, "%p\n", arg);
+		if (arg->value[0] == '\0')
+			argv[j] = NULL; //TODO: I doubt this will lead to a memleak?
+		else
+			argv[j] = arg->value;
 		i++;
 		j++;
+		arg = arg->right;
 	}
 	argv[j] = NULL;
-	free(try);
-	try = NULL;
+	j = 0;
+	while (argv[j] != NULL)
+	{
+		ft_dprintf(STDOUT_FILENO, "[%s]\n", argv[j]);
+		j++;
+	}
 	return (argv);
 }
 

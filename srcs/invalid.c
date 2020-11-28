@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 10:09:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/26 14:38:00 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/28 16:29:10 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 void	invalid_cmd(t_icomp *cmd)
 {
 	ft_dprintf(STDERR_FILENO, "Invalid command: '%s %s %s'\n",
-	cmd->cmd, cmd->opt, cmd->arg);
+	cmd->cmd, cmd->opt, cmd->arg->value);
 	g_ret_val = 127;
 	exit(127);
 }

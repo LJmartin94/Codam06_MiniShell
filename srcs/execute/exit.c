@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 14:28:00 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/27 16:55:20 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/28 16:13:22 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,15 @@
 int	ft_exit(t_vector *env, t_icomp *cmd, int fd)
 {
 	size_t	i;
+	t_arg *arg = cmd->arg;
 
 	i = 0;
+	//if too many args, returns 1 and writes error msg too many args
+	if (arg->right != NULL)
+	{
+		cmd_error(cmd, "Too many arguments\n", fd);//send error to fd?
+		return (1); //Doesnt exit with this error
+	}
 	if (cmd->arg->value[i] == '\0')
 		exit(g_ret_val);
 	while (cmd->arg->value[i] != '\0')
