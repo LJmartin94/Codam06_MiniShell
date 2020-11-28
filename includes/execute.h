@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/17 11:52:59 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/28 17:10:24 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ t_env			*get_env_item(char *env_str);
 void			free_env_item(t_env *item);
 void			free_env(t_vector *env);
 void			free_envp(char **envp);
+int				validate_env_key(const char *arg);
 
 /*
 ** Execute

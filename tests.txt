@@ -83,3 +83,16 @@ base64 < /dev/random | head -c 1000 | cat -e
  chmod 000 minishell; ./minishell; echo $?
  e'c'"h"o wadup 
  cat | cat -e | cat | cat -e | cat | cat -e | cat | cat -e
+
+
+
+
+//TODO: Things that still fail in the parser:
+
+- Backslash before a char when between quotes?
+
+echo "\poep"
+echo "hallo\"\poep"
+echo $"\hallo"
+
+

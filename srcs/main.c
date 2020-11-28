@@ -6,13 +6,33 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/27 16:49:48 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/28 18:40:43 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "error.h"
 #include "execute.h"
+
+/*
+** //TODO: remove function print_components if no longer debugging
+*/
+
+void	print_components(t_icomp *icur)
+{
+	t_arg *arg = icur->arg;
+	while (icur)
+	{
+		printf("Block:	|%d|\nLFT: [%p]\nADR:	|%p|\nCMD:	|%s|\nOPT:	|%s|\n", icur->id, icur->left, icur, icur->cmd, icur->opt);
+		while (arg)
+		{
+			printf("\tARG:	|%s|\n", arg->value);
+			arg = arg->right;
+		}
+		printf("SEP:	|%s|\nRGT: [%p]\n\n", icur->sep, icur->right);
+		icur = icur->right;
+	}
+}
 
 void	run_shell(t_vector *env, char *buf)
 {
@@ -26,6 +46,7 @@ void	run_shell(t_vector *env, char *buf)
 	{
 		expand_env(env, &(split[i]));
 		parse_input(split[i], &comp_blocks);
+		print_components(&comp_blocks);
 		i++;
 		execute(env, &comp_blocks);
 		free_components(&comp_blocks);
@@ -38,7 +59,7 @@ int		get_input(t_vector *env)
 	char	*buf;
 	int		ret;
 
-	e_write(STDOUT_FILENO, "\U0001F40C ", 6);
+	// e_write(STDOUT_FILENO, "\U0001F40C ", 6);
 	ret = get_next_line(STDIN_FILENO, &buf);
 	if (ret == 0)
 	{
@@ -71,26 +92,6 @@ int		main(int ac, char **av, char **envp)
 	while (1)
 		get_input(env);
 	return (0);
-}
-
-/*
-** //TODO: remove function print_components if no longer debugging
-*/
-
-void	print_components(t_icomp *icur)
-{
-	t_arg *arg = icur->arg;
-	while (icur)
-	{
-		printf("Block:	|%d|\nLFT: [%p]\nADR:	|%p|\nCMD:	|%s|\nOPT:	|%s|\n", icur->id, icur->left, icur, icur->cmd, icur->opt);
-		while (arg)
-		{
-			printf("\tARG:	|%s|\n", arg->value);
-			arg = arg->right;
-		}
-		printf("SEP:	|%s|\nRGT: [%p]\n\n", icur->sep, icur->right);
-		icur = icur->right;
-	}
 }
 
 

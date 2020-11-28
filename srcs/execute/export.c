@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:39:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/28 16:25:27 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/28 18:54:14 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,17 @@ static void	edit_env(t_vector *env, t_env *item, int pos)
 ** // can export multiple variables at once
 ** // export "lol lol" <- returns 1, not a valid identifier
 ** // split by whitespaces. If there are whitespaces between quotes, s no good
+** // TODO: Make sure export "" returns invalid and export prints env
 */
 
+// static int validate_export(t_env *item)
+// {
+// 	if (validate_env_arg(item->key) == 1)//TODO: do this until =, no further
+// 		return (1);
+// 	return (0);
+// }
+
+//TODO: handle things like export lol="lol", will come in two params
 int			ft_export(t_vector *env, t_icomp *cmd, int fd)
 {
 	t_env	*item;
@@ -91,19 +100,20 @@ int			ft_export(t_vector *env, t_icomp *cmd, int fd)
 	arg = cmd->arg;
 	while(arg)
 	{
-		if ((ft_strncmp(arg->value, "", 1)) == 0)
-		{
+		ft_dprintf(STDERR_FILENO, "export: [%s]\n", arg->value);
+		if (ft_strncmp(arg->value, "", 1) == 0 && arg->right == NULL)
+		{//TODO: change: If no args, print env!
 			print_env(env, fd);
 			return (0);
 		}
-		if (!ft_isalpha(arg->value[0]))
-		{
+		item = get_env_item(arg->value);
+		if (validate_env_key(item->key) == 1)
+		{//TODO: export "" is invalid
 			ft_dprintf(STDERR_FILENO, "export: '%s': not a valid identifier\n",
-				arg);
+				arg->value);//TODO: change error handling
 			ret = 1;
 			break ;
 		}
-		item = get_env_item(arg->value);
 		pos = vector_search(env, compare_key, item->key);
 		edit_env(env, item, pos);
 		arg = arg->right;

@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:38:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/28 16:06:58 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/11/28 16:36:34 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char		**build_argv(t_icomp *comp)
 	arg = comp->arg;
 	while (arg)
 	{
-		ft_dprintf(STDOUT_FILENO, "%p\n", arg);
+		// ft_dprintf(STDOUT_FILENO, "%p\n", arg);
 		if (arg->value[0] == '\0')
 			argv[j] = NULL; //TODO: I doubt this will lead to a memleak?
 		else
@@ -50,7 +50,7 @@ char		**build_argv(t_icomp *comp)
 	j = 0;
 	while (argv[j] != NULL)
 	{
-		ft_dprintf(STDOUT_FILENO, "[%s]\n", argv[j]);
+		// ft_dprintf(STDOUT_FILENO, "[%s]\n", argv[j]);
 		j++;
 	}
 	return (argv);
