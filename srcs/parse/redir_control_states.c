@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/27 15:02:47 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/11/27 17:03:02 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/28 17:12:55 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,18 @@ t_transition_code	sh_rd_entry_state(t_token **this, t_icomp **icur)
 	if (id == redir_out && ft_strlen(last->type_out) != 0)
 		id = error;
 	return (id);
+}
+
+t_transition_code	sh_rd_exit_state(t_token **this, t_icomp **icur)
+{
+	//enter this state if encountered padding or separator.
+	// dont skip whatever token sent you, just redirect ot the correct state
+	t_transition_code	id;
+	
+	id = exit_state;
+	if ((*this) != NULL)
+		id = recognise_token_state(*this);
+	if (id != padding && id != separator && id != exit_state)
+		return (error);
+	if (id == padding && ft_strlen((*icur)->arg->value > 0))
 }

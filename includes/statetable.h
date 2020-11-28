@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 19:53:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/27 17:01:31 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/11/28 16:44:53 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -411,6 +411,20 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_rd_entry_state, redir_out, sh_rd_entry_state},
 	{sh_rd_entry_state, redir_in, sh_error_state},
 	{sh_rd_entry_state, exit_state, sh_exit_state},
+
+	{sh_rd_exit_state, padding, },
+	{sh_rd_exit_state, error, sh_error_state},
+	{sh_rd_exit_state, dq, },
+	{sh_rd_exit_state, sq, },
+	{sh_rd_exit_state, backslash, },
+	{sh_rd_exit_state, cmd, sh_cmd_pad_state},
+	{sh_rd_exit_state, opt, sh_opt_pad_state},
+	{sh_rd_exit_state, arg, sh_arg_pad_state},
+	{sh_rd_exit_state, separator, sh_separator_state},
+	{sh_rd_exit_state, dredir_out, },
+	{sh_rd_exit_state, redir_out, },
+	{sh_rd_exit_state, redir_in, },
+	{sh_rd_exit_state, exit_state, sh_exit_state},
 
 	{sh_error_state, padding, sh_error_state},
 	{sh_error_state, error, sh_error_state},
