@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:39:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/28 18:54:14 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/01 19:12:02 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,34 +42,37 @@ static int	print_env(t_vector *env, int fd)
 	return (0);
 }
 
-static void	edit_env(t_vector *env, t_env *item, int pos)
-{
-	t_env	*edit;
+// static void	edit_env(t_vector *env, t_env *item, int pos)
+// {
+// 	t_env	*edit;
 
-	if (pos != -1)
-	{
-		edit = vector_get(env, pos);
-		if (item->value != NULL)
-		{
-			free(edit->value);
-			edit->value = item->value;
-			free(item->key);
-			item->key = NULL;
-			free(item);
-			item = NULL;
-		}
-		else
-		{
-			free_env_item(item);
-			item = NULL;
-		}
-	}
-	else
-	{
-		if (vector_push(env, item) == 0)
-			error_exit_errno();
-	}
-}
+// 	if (pos != -1)
+// 	{
+// 		edit = vector_get(env, pos);
+// 		if (item->value != NULL)
+// 		{
+// 			free(edit->value);
+// 			edit->value = item->value;
+// 			free(item->key);
+// 			item->key = NULL;
+// 			free(item);
+// 			item = NULL;
+// 		}
+// 		else
+// 		{
+// 			free_env_item(item);
+// 			item = NULL;
+// 		}
+// 	}
+// 	else
+// 	{
+// 		if (vector_push(env, item) == 0)
+// 			error_exit_errno();
+// 	}
+// }
+
+
+
 
 /*
 ** // TODO: export returns an exit status of 0 unless an invalid
@@ -88,35 +91,72 @@ static void	edit_env(t_vector *env, t_env *item, int pos)
 // }
 
 //TODO: handle things like export lol="lol", will come in two params
-int			ft_export(t_vector *env, t_icomp *cmd, int fd)
-{
-	t_env	*item;
-	int		pos;
-	t_arg	*arg;
-	int		ret;
+// int			ft_export(t_vector *env, t_icomp *cmd, int fd)
+// {
+// 	t_env	*item;
+// 	int		pos;
+// 	t_arg	*arg;
+// 	int		ret;
 
-	pos = 0;
-	ret = 0;
-	arg = cmd->arg;
-	while(arg)
+// 	pos = 0;
+// 	ret = 0;
+// 	arg = cmd->arg;
+// 	while(arg)
+// 	{
+// 		ft_dprintf(STDERR_FILENO, "export: [%s]\n", arg->value);
+// 		if (ft_strncmp(arg->value, "", 1) == 0 && arg->right == NULL)
+// 		{//TODO: change: If no args, print env!
+// 			print_env(env, fd);
+// 			return (0);
+// 		}
+// 		//Check padding. If none between = and "", save "" as value
+// 		item = get_env_item(arg->value);
+// 		if (validate_env_key(item->key) == 1)
+// 		{//TODO: export "" is invalid
+// 			ft_dprintf(STDERR_FILENO, "export: '%s': not a valid identifier\n",
+// 				arg->value);//TODO: change error handling
+// 			ret = 1;
+// 			break ;
+// 		}
+// 		pos = vector_search(env, compare_key, item->key);
+// 		edit_env(env, item, pos);
+// 		arg = arg->right;
+// 	}
+// 	return (ret);
+// }
+
+int fuck(t_arg *arg)
+{
+	char *str;
+
+	if (arg->pad[0] == '\0' && arg->right != NULL)
 	{
-		ft_dprintf(STDERR_FILENO, "export: [%s]\n", arg->value);
-		if (ft_strncmp(arg->value, "", 1) == 0 && arg->right == NULL)
-		{//TODO: change: If no args, print env!
-			print_env(env, fd);
-			return (0);
-		}
-		item = get_env_item(arg->value);
-		if (validate_env_key(item->key) == 1)
-		{//TODO: export "" is invalid
-			ft_dprintf(STDERR_FILENO, "export: '%s': not a valid identifier\n",
-				arg->value);//TODO: change error handling
-			ret = 1;
-			break ;
-		}
-		pos = vector_search(env, compare_key, item->key);
-		edit_env(env, item, pos);
-		arg = arg->right;
+		str = ft_strjoin(arg->value, arg->right->value);
+		char *str2 = ft_strjoin(str, arg->right->pad);
+		ft_dprintf(STDOUT_FILENO, "result: [%s]\n", str2);
 	}
-	return (ret);
+	return (0);
+}
+
+int ft_export(t_vector *env, t_icomp *cmd, int fd)
+{
+	t_arg *arg;
+	arg = cmd->arg;
+	// (void)fd;
+	// (void)env;
+	//TODO: how do i make sure there are no params
+	if (arg->value[0] == '\0')
+	{
+		print_env(env, fd);
+	}
+	else
+	{
+		while(arg)
+		{
+			ft_dprintf(STDOUT_FILENO, "value: [%s] pad: [%s]\n", arg->value, arg->pad);
+			fuck(arg);
+			arg = arg->right;
+		}
+	}
+	return (0);
 }
