@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/28 11:19:34 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/28 17:26:45 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/02 17:37:16 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,10 @@ int  validate_env_key(const char *arg)
 
 	i = 0;
 	//can be alpha
-	if (!ft_isalpha(arg[i]))
+	if (ft_isalpha(arg[i]) || arg[i] == '_')
+		i++;
+	else
 		return (1);
-	i++;
 	while(arg[i] != '\0')
 	{
 		if (!ft_isalnum(arg[i]))
