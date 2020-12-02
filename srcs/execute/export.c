@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:39:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/01 19:12:02 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/02 17:06:03 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,34 +42,34 @@ static int	print_env(t_vector *env, int fd)
 	return (0);
 }
 
-// static void	edit_env(t_vector *env, t_env *item, int pos)
-// {
-// 	t_env	*edit;
+static void	edit_env(t_vector *env, t_env *item, int pos)
+{
+	t_env	*edit;
 
-// 	if (pos != -1)
-// 	{
-// 		edit = vector_get(env, pos);
-// 		if (item->value != NULL)
-// 		{
-// 			free(edit->value);
-// 			edit->value = item->value;
-// 			free(item->key);
-// 			item->key = NULL;
-// 			free(item);
-// 			item = NULL;
-// 		}
-// 		else
-// 		{
-// 			free_env_item(item);
-// 			item = NULL;
-// 		}
-// 	}
-// 	else
-// 	{
-// 		if (vector_push(env, item) == 0)
-// 			error_exit_errno();
-// 	}
-// }
+	if (pos != -1)
+	{
+		edit = vector_get(env, pos);
+		if (item->value != NULL)
+		{
+			free(edit->value);
+			edit->value = item->value;
+			free(item->key);
+			item->key = NULL;
+			free(item);
+			item = NULL;
+		}
+		else
+		{
+			free_env_item(item);
+			item = NULL;
+		}
+	}
+	else
+	{
+		if (vector_push(env, item) == 0)
+			error_exit_errno();
+	}
+}
 
 
 
@@ -83,14 +83,14 @@ static int	print_env(t_vector *env, int fd)
 ** // TODO: Make sure export "" returns invalid and export prints env
 */
 
-// static int validate_export(t_env *item)
-// {
-// 	if (validate_env_arg(item->key) == 1)//TODO: do this until =, no further
-// 		return (1);
-// 	return (0);
-// }
+static int validate_export(t_env *item)
+{
+	if (validate_env_key(item->key) == 1)//TODO: do this until =, no further
+		return (1);
+	return (0);
+}
 
-//TODO: handle things like export lol="lol", will come in two params
+// TODO: handle things like export lol="lol", will come in two params
 // int			ft_export(t_vector *env, t_icomp *cmd, int fd)
 // {
 // 	t_env	*item;
@@ -125,17 +125,28 @@ static int	print_env(t_vector *env, int fd)
 // 	return (ret);
 // }
 
-int fuck(t_arg *arg)
+
+
+char *fuck(t_arg **arg)
 {
 	char *str;
 
-	if (arg->pad[0] == '\0' && arg->right != NULL)
+	str = ft_strdup((*arg)->value);
+	while((*arg)->pad[0] == '\0' && (*arg)->right != NULL)
 	{
-		str = ft_strjoin(arg->value, arg->right->value);
-		char *str2 = ft_strjoin(str, arg->right->pad);
-		ft_dprintf(STDOUT_FILENO, "result: [%s]\n", str2);
+		// ft_dprintf(STDOUT_FILENO, "value1: [%s]\n", (*arg)->value);
+		// ft_dprintf(STDOUT_FILENO, "pad1: [%s]\n", (*arg)->pad);
+		// ft_dprintf(STDOUT_FILENO, "value2: [%s]\n", (*arg)->right->value);
+		// ft_dprintf(STDOUT_FILENO, "pad2: [%s]\n\n", (*arg)->right->pad);
+		str = ft_strjoin(str, (*arg)->right->value);
+		(*arg) = (*arg)->right;
 	}
-	return (0);
+	// char *str2 = ft_strjoin(str, (*arg)->right->pad);
+	// ft_dprintf(STDOUT_FILENO, "result: [%s]\n", str);
+	// if ((*arg)->pad[0] == '\0' && (*arg)->right != NULL)
+	// {
+	// }
+	return (str);
 }
 
 int ft_export(t_vector *env, t_icomp *cmd, int fd)
@@ -154,8 +165,18 @@ int ft_export(t_vector *env, t_icomp *cmd, int fd)
 		while(arg)
 		{
 			ft_dprintf(STDOUT_FILENO, "value: [%s] pad: [%s]\n", arg->value, arg->pad);
-			fuck(arg);
+			char *item = fuck(&arg);
+			t_env *env_item = get_env_item(item);
+
+			int pos = vector_search(env, compare_key, env_item->key);
+			if (validate_export(env_item) == 0)
+				edit_env(env, env_item, pos);
+			else
+				cmd_error(cmd, "Invalid argument", fd);
+			
+			// ft_dprintf(STDOUT_FILENO, "result: %d\n", validate_export(env_item));
 			arg = arg->right;
+
 		}
 	}
 	return (0);

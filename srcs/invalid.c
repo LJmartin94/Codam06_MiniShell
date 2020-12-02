@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 10:09:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/28 16:29:10 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/02 17:06:25 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	cmd_error(t_icomp *cmd, char *msg, int fd)
 {
 	e_write(fd, "shnell: ", 8);
 	e_write(fd, cmd->cmd, ft_strlen(cmd->cmd));
-	e_write(fd, ": ", 1);
+	e_write(fd, ": ", 2);
 	e_write(fd, msg, ft_strlen(msg));
 	e_write(fd, "\n", 1);
 }
