@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:39:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/02 17:16:16 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/03 13:43:26 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,34 @@ static void	edit_env(t_vector *env, t_env *item, int pos)
 	}
 }
 
+// static void	edit_env(t_vector *env, t_env *item, int pos)
+// {
+// 	t_env	*edit;
 
+// 	if (pos != -1)
+// 	{
+// 		edit = vector_get(env, pos);
+// 		if (item->value != NULL)
+// 		{
+// 			free(edit->value);
+// 			edit->value = item->value;
+// 			free(item->key);
+// 			item->key = NULL;
+// 			free(item);
+// 			item = NULL;
+// 		}
+// 		else
+// 		{
+// 			free_env_item(item);
+// 			item = NULL;
+// 		}
+// 	}
+// 	else
+// 	{
+// 		if (vector_push(env, item) == 0)
+// 			error_exit_errno();
+// 	}
+// }
 
 
 /*
@@ -120,12 +147,49 @@ int ft_export(t_vector *env, t_icomp *cmd, int fd)
 		{
 			char *item = join_args(&arg);
 			t_env *env_item = get_env_item(item);
+			ft_dprintf(STDOUT_FILENO, "[%s]\n", env_item->key, env_item->value);
 			free(item);
-			int pos = vector_search(env, compare_key, env_item->key);
-			if (validate_export(env_item) == 0)
-				edit_env(env, env_item, pos);
+			if (env_item->key[ft_strlen(env_item->key) - 1] == '+')
+			{
+				char *ptr = (char *)e_malloc(sizeof(char) * ft_strlen(env_item->key));
+				ft_strlcpy(ptr, env_item->key, ft_strlen(env_item->key));
+				free(env_item->key);
+				env_item->key = ptr;
+				int pos = vector_search(env, compare_key, env_item->key);
+				if (validate_export(env_item) == 0)
+				{
+					t_env *thingy = vector_get(env, pos);
+					ft_dprintf(STDOUT_FILENO, "%p\n", thingy);
+					if (thingy == NULL)
+					{
+						edit_env(env, env_item, pos);
+					}
+					else
+					{
+						char *another;
+						if (thingy->value != NULL)
+						{
+							another = ft_strsplice(thingy->value, ft_strlen(thingy->value), 0, env_item->value);
+							free(thingy->value);
+						}
+						else
+						{
+							another = ft_strdup(env_item->value);
+						}
+						thingy->value = another;
+					}
+				}
+				else
+					cmd_error(cmd, "Invalid argument", fd);
+			}
 			else
-				cmd_error(cmd, "Invalid argument", fd);
+			{
+				int pos = vector_search(env, compare_key, env_item->key);
+				if (validate_export(env_item) == 0)
+					edit_env(env, env_item, pos);
+				else
+					cmd_error(cmd, "Invalid argument", fd);
+			}
 			arg = arg->right;
 		}
 	}
