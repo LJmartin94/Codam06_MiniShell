@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/27 15:02:47 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/11/29 18:05:21 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/12/03 14:42:46 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ t_transition_code	sh_rd_entry_state(t_token **this, t_icomp **icur)
 	if (id == redir_in)
 		ft_add_token_to_comp((*this), &((last)->type_in));
 	*this = (*this)->next;
+	while (*this != NULL && recognise_token_state(*this) == padding)
+		*this = (*this)->next;
 	id = exit_state;
 	if ((*this) != NULL)
 		id = recognise_token_state(*this);
