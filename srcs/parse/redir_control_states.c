@@ -6,13 +6,12 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/27 15:02:47 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/12/03 18:44:57 by limartin      ########   odam.nl         */
+/*   Updated: 2020/12/03 22:30:39 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 #include "error.h"
-//#include "libft.h"
 
 t_transition_code	sh_rd_entry_state(t_token **this, t_icomp **icur)
 {
@@ -20,15 +19,16 @@ t_transition_code	sh_rd_entry_state(t_token **this, t_icomp **icur)
 	t_redir				*last;
 	t_redir				*new;
 
-	if (ft_strlen(((*icur)->rdhead)->file) > 0)
+	last = (*icur)->rdhead;
+	while (last->right != NULL)
+		last = last->right;
+	if (ft_strlen((last)->file) > 0)
 	{
 		new = (t_redir *)e_malloc(sizeof(t_redir));
 		ft_redirconst(new);
 		ft_add_redir(&(*icur)->rdhead, new);
-	}
-	last = (*icur)->rdhead;
-	while (last->right != NULL)
 		last = last->right;
+	}
 	id = recognise_token_state(*this);
 	if (id == redir_out || id == dredir_out)
 		ft_add_token_to_comp((*this), &((last)->type_out));

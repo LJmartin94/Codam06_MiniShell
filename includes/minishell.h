@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 11:18:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/26 18:58:19 by limartin      ########   odam.nl         */
+/*   Updated: 2020/12/03 20:19:49 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define MINISHELL_H
 
 # include "libft.h"
+
+/*
+** //TODO: Debug-only includes! Remove when no longer used.
+*/
+
+# include <stdio.h>
 
 /*
 ** Structure for parsed commands
@@ -71,5 +77,11 @@ void					execute(t_vector *env, t_icomp *comp);
 void					free_components(t_icomp *head);
 void					free_redirs(t_redir *head);
 void					free_args(t_arg *head);
+
+/*
+** //TODO: Debug-only prototypes! Remove when no longer used.
+*/
+
+void					print_components(t_icomp *icur);
 
 #endif
