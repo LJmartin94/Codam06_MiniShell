@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/13 12:51:50 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/27 16:03:33 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/03 15:42:56 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@ static void		replace_arg(t_vector *env, char **str, size_t *i, int quote, int dq
 	}
 	else if (((*str)[*i + 1] == '"' && dquote % 2 == 0) ||
 			((*str)[*i + 1] == '\'' && quote % 2 == 0) ||
-			(*str)[*i + 1] == '_' ||
-			(*str)[*i + 1] == '*' ||
+			(*str)[*i + 1] == '_' || (*str)[*i + 1] == '*' ||
 			ft_isalnum((*str)[*i + 1]))
 	{
 		replace = expand_find(env, (*str) + *i + 1);
@@ -78,14 +77,17 @@ static void		replace_arg(t_vector *env, char **str, size_t *i, int quote, int dq
 		(*i)++;
 }
 
-void	expand_env(t_vector *env, char **str)
+void			expand_env(t_vector *env, char **str)
 {
 	size_t	i;
+	int		quote;
+	int		dquote;
+	int		esc;
 
 	i = 0;
-	int quote = 0;
-	int dquote = 0;
-	int esc = 0;
+	quote = 0;
+	dquote = 0;
+	esc = 0;
 	while ((*str)[i] != '\0')
 	{
 		if ((*str)[i] == '"')
@@ -115,7 +117,3 @@ void	expand_env(t_vector *env, char **str)
 		}
 	}
 }
-
-// NOTES: Not handling $* or $# as they're not mandatory
-
-//what should i do with numbers.. And special chars like @ #...

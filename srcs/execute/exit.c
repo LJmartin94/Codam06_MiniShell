@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 14:28:00 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/28 16:13:22 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/03 14:05:51 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 
 //TODO: make sure to check how it interacts with multiple args
+//TODO: exit a seems to actually exit at codam with status 255??
 int	ft_exit(t_vector *env, t_icomp *cmd, int fd)
 {
 	size_t	i;

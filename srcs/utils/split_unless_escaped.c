@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   split.c                                            :+:    :+:            */
+/*   split_unless_escaped.c                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/17 14:15:10 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/26 12:16:46 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/03 14:55:30 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "execute.h"
 
-static int	quotes(int *quote, int *d_quote, char c)//must change
+/*
+** //TODO: change first garbage function???
+** //TODO: utils header file??
+*/
+
+static int	quotes(int *quote, int *d_quote, char c)
 {
-
 	if (c == '"')
 	{
 		if (*quote % 2 == 0)
@@ -22,7 +27,7 @@ static int	quotes(int *quote, int *d_quote, char c)//must change
 		else
 			(*d_quote)--;
 	}
-	else if (c == '\'')	
+	else if (c == '\'')
 	{
 		if (*d_quote % 2 == 0)
 			(*quote)++;
@@ -30,14 +35,9 @@ static int	quotes(int *quote, int *d_quote, char c)//must change
 			(*quote)--;
 	}
 	if (*d_quote % 2 == 0 && *quote % 2 == 0)
-	{
 		return (0);
-	}
 	else
-	{
 		return (1);
-	}
-	
 }
 
 static int	find_split(char const *s, char c, int end, int bool)
@@ -86,20 +86,6 @@ static int	str_amt(char const *s, char c)
 	return (amt);
 }
 
-static char	**free_matrix(char **arr)
-{
-	int i;
-
-	i = 0;
-	while (arr[i] != NULL)
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-	return (NULL);
-}
-
 static char	**allocate_arr(char const *s, char c, int amt, char **arr)
 {
 	int start;
@@ -115,7 +101,10 @@ static char	**allocate_arr(char const *s, char c, int amt, char **arr)
 		end = find_split(s, c, start, 1);
 		arr[i] = ft_substr(s, start, (end - start));
 		if (arr[i] == NULL)
-			return (free_matrix(arr));
+		{
+			free_matrix(arr);
+			return (NULL);
+		}
 		i++;
 	}
 	arr[i] = NULL;

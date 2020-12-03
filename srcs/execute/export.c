@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:39:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/03 13:46:59 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/03 15:29:57 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,6 @@ int ft_export(t_vector *env, t_icomp *cmd, int fd)
 		{
 			char *item = join_args(&arg);
 			t_env *env_item = get_env_item(item);
-			// ft_dprintf(STDOUT_FILENO, "[%s]\n", env_item->key, env_item->value);
 			free(item);
 			if (env_item->key[ft_strlen(env_item->key) - 1] == '+')
 			{

@@ -83,6 +83,7 @@ base64 < /dev/random | head -c 1000 | cat -e
  chmod 000 minishell; ./minishell; echo $?
  e'c'"h"o wadup 
  cat | cat -e | cat | cat -e | cat | cat -e | cat | cat -e
+//TODO: export ls="ls -la ; ls" <- will pring permission denied. Waiting for parsing
 
 
 
@@ -95,4 +96,14 @@ echo "\poep"
 echo "hallo\"\poep"
 echo $"\hallo"
 
+export AA"AA"AA=AA
+export AA"AA"AA="AA"
+export AA"AA"AA= "AA"
+export AA"AA"AA ="AA"
+export AA"AA"AA=" AA"
+export AA" AA"AA=" AA"
 
+unset AA" AA"AA
+unset AA "AA"AA
+unset AAAAAA
+unset AAAAA

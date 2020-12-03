@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/02 16:05:06 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/03 15:05:04 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,14 @@
 
 void	print_components(t_icomp *icur)
 {
-	t_arg *arg = icur->arg;
+	t_arg *arg;
+
+	arg = icur->arg;
 	while (icur)
 	{
-		printf("Block:	|%d|\nLFT: [%p]\nADR:	|%p|\nCMD:	|%s|\nOPT:	|%s|\n", icur->id, icur->left, icur, icur->cmd, icur->opt);
+		printf("Block:	|%d|\nLFT: [%p]\nADR:	|%p|\n\
+			CMD:	|%s|\nOPT:	|%s|\n",
+			icur->id, icur->left, icur, icur->cmd, icur->opt);
 		while (arg)
 		{
 			printf("\tARG:	|%s|\n", arg->value);
@@ -42,11 +46,11 @@ void	run_shell(t_vector *env, char *buf)
 
 	split = split_unless_quote(buf, ';');
 	i = 0;
-	while(split[i] != NULL)
+	while (split[i] != NULL)
 	{
 		expand_env(env, &(split[i]));
 		parse_input(split[i], &comp_blocks);
-		// print_components(&comp_blocks);
+		print_components(&comp_blocks);
 		i++;
 		execute(env, &comp_blocks);
 		free_components(&comp_blocks);
@@ -59,7 +63,7 @@ int		get_input(t_vector *env)
 	char	*buf;
 	int		ret;
 
-	// e_write(STDOUT_FILENO, "\U0001F40C ", 6);
+	e_write(STDOUT_FILENO, "\U0001F40C ", 6);
 	ret = get_next_line(STDIN_FILENO, &buf);
 	if (ret == 0)
 	{
@@ -93,6 +97,3 @@ int		main(int ac, char **av, char **envp)
 		get_input(env);
 	return (0);
 }
-
-
-//TODO: Parser. If parsing fails, aka bad number/combination of quotes, unclosed pipe etc, bash should error with code 2 ....??
