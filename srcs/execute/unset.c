@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:38:22 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/03 15:34:23 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/03 15:48:31 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int			compare_key(t_env *data, char *item)
 ** // can unset multiple variables at once
 */
 
-static void	unset_item(t_vector *env, t_icomp *cmd, int fd)
+static void	unset_item(t_vector *env, t_icomp *cmd)
 {
 	int		index;
 	t_env	*cur;
@@ -64,7 +64,7 @@ int			ft_unset(t_vector *env, t_icomp *cmd, int fd)
 			ret = 1;
 		}
 		else
-			unset_item(env, cmd, fd);
+			unset_item(env, cmd);
 		arg = arg->right;
 	}
 	return (ret);

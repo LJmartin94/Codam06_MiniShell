@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/13 12:51:50 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/03 15:42:56 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/03 15:50:15 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,36 @@ static void		replace_arg(t_vector *env, char **str, size_t *i, int quote, int dq
 			ft_isalnum((*str)[*i + 1]))
 	{
 		replace = expand_find(env, (*str) + *i + 1);
-		final = ft_strsplice((*str), *i,
-					ft_strlen(replace->key) + 1,
-					replace->value);
+		final = ft_strsplice((*str), *i, ft_strlen(replace->key) + 1, replace->value);
 		free(*str);
 		(*str) = final;
 		*i = *i + ft_strlen(replace->value) - 1;
 	}
 	else
 		(*i)++;
+}
+
+/*
+** //TODO: I think expansions work correctly but god it's so horrible,
+**		please test this properly
+*/
+
+static void		quotes(char c, int *quote, int *dquote)
+{
+	if (c == '"')
+	{
+		if ((*quote) % 2 == 0)
+			((*dquote))++;
+		else
+			((*dquote))--;
+	}
+	else if (c == '\'')
+	{
+		if ((*dquote) % 2 == 0)
+			(*quote)++;
+		else
+			(*quote)--;
+	}
 }
 
 void			expand_env(t_vector *env, char **str)
@@ -90,20 +111,7 @@ void			expand_env(t_vector *env, char **str)
 	esc = 0;
 	while ((*str)[i] != '\0')
 	{
-		if ((*str)[i] == '"')
-		{
-			if (quote % 2 == 0)
-				(dquote)++;
-			else
-				(dquote)--;
-		}
-		else if ((*str)[i] == '\'')	
-		{
-			if (dquote % 2 == 0)
-				(quote)++;
-			else
-				(quote)--;
-		}
+		quotes((*str)[i], &quote, &dquote);
 		if ((*str)[i] == '$' && quote % 2 == 0 && esc % 2 == 0)
 			replace_arg(env, str, &i, quote, dquote);
 		else
