@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/27 15:29:10 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/12/03 15:51:58 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,16 @@ t_transition_code		sh_sq_exit_arg_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_bs_cmd_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_bs_opt_state(t_token **this, t_icomp **icur);
 t_transition_code		sh_bs_arg_state(t_token **this, t_icomp **icur);
+
+t_transition_code		sh_rd_entry_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_rd_exit_state(t_token **this, t_icomp **icur);
+
+t_transition_code		sh_rd_basic_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_rd_bs_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_rd_dq_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_rd_exit_quote_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_rd_dq_bs_state(t_token **this, t_icomp **icur);
+t_transition_code		sh_rd_sq_state(t_token **this, t_icomp **icur);
 
 t_transition_code		recognise_token_state(t_token *this);
 

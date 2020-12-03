@@ -6,9 +6,11 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/29 18:07:18 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/12/03 14:17:14 by limartin      ########   odam.nl         */
+/*   Updated: 2020/12/03 15:48:37 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "parse.h"
 
 //basic
 

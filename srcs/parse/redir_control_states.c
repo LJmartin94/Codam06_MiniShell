@@ -6,11 +6,13 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/27 15:02:47 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/12/03 14:42:46 by limartin      ########   odam.nl         */
+/*   Updated: 2020/12/03 15:56:09 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
+#include "error.h"
+//#include "libft.h"
 
 t_transition_code	sh_rd_entry_state(t_token **this, t_icomp **icur)
 {

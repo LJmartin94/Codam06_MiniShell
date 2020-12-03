@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 19:53:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/12/03 15:42:00 by limartin      ########   odam.nl         */
+/*   Updated: 2020/12/03 15:52:54 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -458,7 +458,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_rd_sq_state, error, sh_error_state},
 	{sh_rd_sq_state, dq, sh_rd_sq_state},
 	{sh_rd_sq_state, sq, sh_rd_exit_quote_state},
-	{sh_rd_sq_state, backslash, sh_rd_sq_bs_state},
+	{sh_rd_sq_state, backslash, sh_rd_sq_state},
 	{sh_rd_sq_state, cmd, sh_rd_sq_state},
 	{sh_rd_sq_state, opt, sh_rd_sq_state},
 	{sh_rd_sq_state, arg, sh_rd_sq_state},
