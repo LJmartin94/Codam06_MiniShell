@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/20 12:26:08 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/12 15:25:47 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/27 15:41:00 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static t_recognition_obj const	g_tokenrecog_table[] =
 	{"env", cmd},
 	{"exit", cmd},
 	{"&&", separator},
-	{">>", redir_out},
+	{">>", dredir_out},
 	{">", redir_out},
 	{"<", redir_in},
 	{"|", separator},
