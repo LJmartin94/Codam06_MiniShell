@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/08 16:22:46 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/28 17:03:07 by limartin      ########   odam.nl         */
+/*   Updated: 2020/12/04 16:41:46 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 /*
 ** A backslash in quotes is only 'ignored' if the character following the
 ** backslash can meaningfully be escaped, otherwise the backslash is simply
-** printed as a character. 
+** printed as a character.
 ** This dq_bs_state doesn't implement this behaviour yet.
- */
+*/
 
 t_transition_code	sh_dq_bs_cmd_state(t_token **this, t_icomp **icur)
 {
