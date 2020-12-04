@@ -27,6 +27,4 @@ jobs:
           cd ~/.norminette/
           bundle 
       
-      - name: Run norme
-        run: sh ~/work/Codam06_MiniShell/Codam06_MiniShell/.github/workflows/check-norme.sh
  
