@@ -6,12 +6,21 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/27 15:02:47 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/12/04 16:55:11 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/12/04 17:22:52 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 #include "error.h"
+
+static t_redir		*new_last(t_redir *last)
+{
+	last->right = (t_redir *)e_malloc(sizeof(t_redir));
+	ft_redirconst(last->right);
+	(last->right)->left = last;
+	last = last->right;
+	return (last);
+}
 
 t_transition_code	sh_rd_entry_state(t_token **this, t_icomp **icur)
 {
@@ -22,12 +31,7 @@ t_transition_code	sh_rd_entry_state(t_token **this, t_icomp **icur)
 	while (last->right != NULL)
 		last = last->right;
 	if (ft_strlen((last)->file) > 0)
-	{
-		last->right = (t_redir *)e_malloc(sizeof(t_redir));
-		ft_redirconst(last->right);
-		(last->right)->left = last;
-		last = last->right;
-	}
+		last = new_last(last);
 	id = recognise_token_state(*this);
 	if (id == redir_out || id == dredir_out)
 		ft_add_token_to_comp((*this), &((last)->type_out));
