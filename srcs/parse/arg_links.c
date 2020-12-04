@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/12 19:20:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/13 13:50:44 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/12/04 18:16:11 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,7 @@ void	free_args(t_arg *head)
 		if (head->pad != NULL)
 			free(head->pad);
 		head->pad = NULL;
-		if (head->left != NULL)
-			free(head);
+		free(head);
 		head = NULL;
 		head = tmp;
 	}

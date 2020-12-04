@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 18:03:33 by limartin      #+#    #+#                 */
-/*   Updated: 2020/12/03 22:16:34 by limartin      ########   odam.nl         */
+/*   Updated: 2020/12/04 18:30:29 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,10 @@ void	free_components(t_icomp *head)
 			free(head->opt);
 		head->opt = NULL;
 		if (head->arg != NULL)
-			free(head->arg);
+			free_args(head->arg);
+		head->arg = NULL;
+		if (head->rdhead != NULL)
+			free_redirs(head->rdhead);
 		head->arg = NULL;
 		if (head->left != NULL)
 			free(head);

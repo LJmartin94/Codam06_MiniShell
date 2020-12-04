@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/08 19:42:11 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/12 15:48:32 by limartin      ########   odam.nl         */
+/*   Updated: 2020/12/04 18:15:34 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,7 @@ void	free_redirs(t_redir *head)
 		if (head->file != NULL)
 			free(head->file);
 		head->file = NULL;
-		if (head->left != NULL)
-			free(head);
+		free(head);
 		head = NULL;
 		head = tmp;
 	}
