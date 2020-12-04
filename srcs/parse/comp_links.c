@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 18:03:33 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/13 11:01:03 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/12/03 22:16:34 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int		ft_compconst(t_icomp *tonull)
 	tonull->arg = (t_arg *)e_malloc(sizeof(t_arg));
 	ft_argconst(tonull->arg);
 	tonull->id = 0;
-	tonull->rdhead = NULL;
+	tonull->rdhead = (t_redir *)e_malloc(sizeof(t_redir));
+	ft_redirconst(tonull->rdhead);
 	tonull->right = NULL;
 	tonull->left = NULL;
 	return (0);
