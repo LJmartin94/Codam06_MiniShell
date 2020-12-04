@@ -23,9 +23,9 @@ jobs:
 
       - name: Set up norminette
         run: |
-          git clone https://github.com/42Paris/norminette.git ~/norminette
-          cd ~/norminette
-          bundle
+          git clone https://github.com/codam-coding-college/norminette-client.git ~/.norminette/
+          cd ~/.norminette/
+          bundle 
       
       - name: Run norme
         run: sh ~/work/Codam06_MiniShell/Codam06_MiniShell/.github/workflows/check-norme.sh
