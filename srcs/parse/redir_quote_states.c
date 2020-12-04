@@ -1,59 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   redir_basic_states.c                               :+:    :+:            */
+/*   redir_quote_states.c                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/29 18:07:18 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/12/03 15:48:37 by limartin      ########   odam.nl         */
+/*   Updated: 2020/12/04 16:29:31 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
-
-//basic
-
-t_transition_code	sh_rd_basic_state(t_token **this, t_icomp **icur)
-{
-	t_transition_code	id;
-	t_redir				*last;
-
-	last = (*icur)->rdhead;
-	while (last->right != NULL)
-		last = last->right;
-	ft_add_token_to_comp((*this), &(last->file));
-	*this = (*this)->next;
-	id = exit_state;
-	if ((*this) != NULL)
-		id = recognise_token_state(*this);
-	return (id);
-}
-
-//bs basic
-
-t_transition_code	sh_rd_bs_state(t_token **this, t_icomp **icur)
-{
-	t_transition_code	id;
-	t_redir				*last;
-
-	last = (*icur)->rdhead;
-	while (last->right != NULL)
-		last = last->right;
-	if (recognise_token_state(*this) == backslash && *this)
-		*this = (*this)->next;
-	if ((*this) != NULL)
-	{
-		ft_add_token_to_comp((*this), &(last->file));
-		*this = (*this)->next;
-	}
-	id = exit_state;
-	if ((*this) != NULL)
-		id = recognise_token_state(*this);
-	return (id);
-}
-
-//dq basic (&exit?)
 
 t_transition_code	sh_rd_dq_state(t_token **this, t_icomp **icur)
 {
@@ -91,8 +48,6 @@ t_transition_code	sh_rd_exit_quote_state(t_token **this, t_icomp **icur)
 	return (id);
 }
 
-//dq bs basic
-
 t_transition_code	sh_rd_dq_bs_state(t_token **this, t_icomp **icur)
 {
 	t_transition_code	id;
@@ -113,8 +68,6 @@ t_transition_code	sh_rd_dq_bs_state(t_token **this, t_icomp **icur)
 		id = recognise_token_state(*this);
 	return (id);
 }
-
-//sq basic (&exit?)
 
 t_transition_code	sh_rd_sq_state(t_token **this, t_icomp **icur)
 {
