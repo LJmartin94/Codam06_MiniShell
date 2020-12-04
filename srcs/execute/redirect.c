@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:39:47 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/26 14:33:17 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/04 18:48:01 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ void		handle_redirections(t_icomp *comp, int p_fd[2], int stdin)
 	int fd;
 
 	redirect_pipes(comp, p_fd, stdin);
-	if (ft_strncmp(comp->sep, ">>", 3) == 0)
-		fd = open(comp->right->cmd, O_WRONLY | O_CREAT | O_APPEND, 0666);
-	else if (ft_strncmp(comp->sep, ">", 2) == 0)
-		fd = open(comp->right->cmd, O_WRONLY | O_CREAT | O_TRUNC, 0666);
-	else if (ft_strncmp(comp->sep, "<", 2) == 0)
+	if (ft_strncmp(comp->rdhead->type_out, ">>", 3) == 0)
+		fd = open(comp->rdhead->file, O_WRONLY | O_CREAT | O_APPEND, 0666);
+	else if (ft_strncmp(comp->rdhead->type_out, ">", 2) == 0)
+		fd = open(comp->rdhead->file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	else if (ft_strncmp(comp->rdhead->type_in, "<", 2) == 0)
 	{
 		fd = open(comp->right->cmd, O_RDONLY, 0666);
 		if (fd == -1)
