@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/23 16:56:40 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/05 09:59:29 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	run_shell(t_vector *env, char *buf)
 		expand_env(env, &(split[i]));
 		parse_input(split[i], &comp_blocks);
 		i++;
+		print_components(&comp_blocks);
 		execute(env, &comp_blocks);
 		free_components(&comp_blocks);
 	}
@@ -73,4 +74,48 @@ int		main(int ac, char **av, char **envp)
 	while (1)
 		get_input(env);
 	return (0);
+}
+
+/*
+** //TODO: remove function print_components if no longer debugging
+*/
+
+void	print_components(t_icomp *icur)
+{
+	t_arg *to_print;
+	t_redir *rd_to_print;
+
+	while (icur)
+	{
+		printf("Block:	|%d|\nLFT: [%p]\nADR:	|%p|\nCMD:	|%s|\nOPT:	|%s|\n\
+ARG:	|L/L|\nSEP:	|%s|\nRGT: [%p]\n", icur->id, icur->left, icur, \
+		icur->cmd, icur->opt, icur->sep, icur->right);
+		to_print = icur->arg;
+		while (to_print != NULL)
+		{
+			printf("	Arg-block:	|%d|\n	Arg-LFT:	[%p]\n\
+	Arg-ADR:	|%p|\n	Arg-STATE:	|%s|\n	Arg-VAL:	|%s|\n\
+	Arg-PAD:	|%s|\n	Arg-RGT:	[%p]\n", to_print->id, to_print->left, \
+	to_print, to_print->type, to_print->value, to_print->pad, to_print->right);
+			to_print = to_print->right;
+		}
+		printf("Arg-string: |");
+		to_print = icur->arg;
+		while (to_print != NULL)
+		{
+			printf("%s%s", to_print->value, to_print->pad);
+			to_print = to_print->right;
+		}
+		printf("|\n");
+		rd_to_print = icur->rdhead;
+		while (rd_to_print != NULL)
+		{
+			printf("		redir-LFT:	[%p]\n\
+		redir-ADR:	|%p|\n		redir-IN:	|%s|\n		redir-OUT:	|%s|\n		redir-FILE:	|%s|\n\
+		redir-RGT:	[%p]\n", rd_to_print->left, \
+			rd_to_print, rd_to_print->type_in, rd_to_print->type_out, rd_to_print->file, rd_to_print->right);
+			rd_to_print = rd_to_print->right;
+		}
+		icur = icur->right;
+	}
 }
