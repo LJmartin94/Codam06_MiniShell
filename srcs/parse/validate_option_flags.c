@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/25 17:19:17 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/26 18:18:50 by limartin      ########   odam.nl         */
+/*   Updated: 2020/12/06 18:10:20 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,15 +94,17 @@ int			validate_option_flags(t_icomp **icur)
 	int		i;
 	int		ret;
 	t_arg	*link;
+	t_arg	*start;
 
-	i = ((*icur)->arg->value[0] == '-') ? 1 : 0;
+	start = (*icur)->arg;
+	while (start->value[0] == '\0' && start->right != NULL)
+		start = start->right;
+	i = (start->value[0] == '-') ? 1 : 0;
+	link = start;
 	ret = i;
-	link = (*icur)->arg;
-	if (link->value[0] == '\0')
-		return (0);
 	while (ret)
 	{
-		if (link != (*icur)->arg)
+		if (link != start)
 			i = 0;
 		ret = ft_check_flag_chars(ret, i, icur, link);
 		if ((link)->pad[0] == '\0' && (link)->right != NULL)
@@ -110,7 +112,7 @@ int			validate_option_flags(t_icomp **icur)
 		else
 			break ;
 	}
-	if (ret == 1 && (link != (*icur)->arg || ft_strlen((link)->value) >= 2))
+	if (ret == 1 && (link != start || ft_strlen((link)->value) >= 2))
 		return (ft_approve_option(icur));
 	if (ret == 1 && link->pad[0] != '\0')
 		ret = 0;
