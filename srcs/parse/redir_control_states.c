@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/27 15:02:47 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/12/06 17:48:21 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/12/10 19:32:01 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ t_transition_code	sh_rd_entry_state(t_token **this, t_icomp **icur)
 		id = error;
 	return (id);
 }
+
+//not sure about the below returning Arg state when it does...
 
 t_transition_code	sh_rd_exit_state(t_token **this, t_icomp **icur)
 {
