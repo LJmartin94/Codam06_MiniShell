@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/13 12:51:50 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/07 15:55:13 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/07 18:23:49 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ static void		replace_arg(t_vector *env, char **str, size_t *i, int quote, int dq
 			ft_isalnum((*str)[*i + 1]))
 	{
 		replace = expand_find(env, (*str) + *i + 1);
+		if (replace->value == NULL)
+			replace->value = ft_strdup("");
 		final = ft_strsplice((*str), *i, ft_strlen(replace->key) + 1, replace->value);
 		free(*str);
 		(*str) = final;
