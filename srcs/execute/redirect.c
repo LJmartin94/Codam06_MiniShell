@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:39:47 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/07 12:43:00 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/07 13:09:08 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,15 @@ void		handle_redirections(t_icomp *comp, int p_fd[2], int stdin)
 	while(rd != NULL)
 	{	
 		ft_dprintf(STDOUT_FILENO, "[%s]\n", rd->file);
-		if (ft_strncmp(rd->type_out, ">>", 3) == 0)
-			fd = open(rd->file, O_WRONLY | O_CREAT | O_APPEND, 0666);
-		else if (ft_strncmp(rd->type_out, ">", 2) == 0)
-			fd = open(rd->file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+		if (ft_strncmp(rd->type_out, ">", 1) == 0)
+		{
+			if (ft_strncmp(rd->type_out, ">>", 3) == 0)
+				fd = open(rd->file, O_WRONLY | O_CREAT | O_APPEND, 0666);
+			else if (ft_strncmp(rd->type_out, ">", 2) == 0)
+				fd = open(rd->file, O_WRONLY | O_CREAT | O_TRUNC, 0666);	
+			dup2(fd, STDOUT_FILENO);
+			e_close(fd);
+		}
 		else if (ft_strncmp(rd->type_in, "<", 2) == 0)
 		{
 			fd = open(rd->file, O_RDONLY, 0666);
@@ -58,12 +63,7 @@ void		handle_redirections(t_icomp *comp, int p_fd[2], int stdin)
 			}
 			dup2(fd, STDIN_FILENO);
 			e_close(fd);
-			return ;
 		}
-		else
-			return ;
-		dup2(fd, STDOUT_FILENO);
-		e_close(fd);
 		rd = rd->right;
 	}
 }
@@ -77,9 +77,11 @@ int			redirect_builtin(t_icomp *comp)
 	int fd;
 	t_redir *rd = comp->rdhead;
 
-	fd = STDOUT_FILENO;
+	fd = -1;
 	while(rd)
 	{
+		if (fd != -1)
+			close (fd);
 		if (ft_strncmp(rd->type_out, ">>", 3) == 0)
 			fd = open(rd->file, O_WRONLY | O_CREAT | O_APPEND, 0666);
 		else if (ft_strncmp(rd->type_out, ">", 2) == 0)
@@ -95,5 +97,7 @@ int			redirect_builtin(t_icomp *comp)
 		}
 		rd = rd->right;
 	}
+	if (fd == -1)
+		fd = STDOUT_FILENO;
 	return (fd);
 }
