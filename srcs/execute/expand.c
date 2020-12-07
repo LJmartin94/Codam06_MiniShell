@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/13 12:51:50 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/07 18:23:49 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/07 18:36:02 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,8 @@ static t_env	*expand_find(t_vector *env, char *pos)
 	len = 0;
 	while (ft_isalnum(pos[len]) || pos[len] == '_')
 		len++;
-	if (len >= 0)
-	{
-		key = (char *)e_malloc(sizeof(char) * len + 1);
-		key = ft_memcpy(key, pos, sizeof(char) * len);
-	}
-	else
-		key = ft_strdup(pos);
+	key = (char *)e_malloc(sizeof(char) * len + 1);
+	key = ft_memcpy(key, pos, sizeof(char) * len);
 	index = vector_search(env, compare_key, key);
 	item = vector_get(env, index);
 	if (item == NULL)
@@ -56,6 +51,8 @@ static void		replace_arg(t_vector *env, char **str, size_t *i, int quote, int dq
 	if ((*str)[*i + 1] == '?')
 	{
 		final = ft_strsplice((*str), *i, 2, ft_itoa(g_ret_val));
+		if (!final)
+			error_exit_errno();
 		free(*str);
 		(*str) = final;
 		i += 2;
@@ -69,6 +66,8 @@ static void		replace_arg(t_vector *env, char **str, size_t *i, int quote, int dq
 		if (replace->value == NULL)
 			replace->value = ft_strdup("");
 		final = ft_strsplice((*str), *i, ft_strlen(replace->key) + 1, replace->value);
+		if (!final)
+			error_exit_errno();
 		free(*str);
 		(*str) = final;
 		*i = *i + ft_strlen(replace->value) - 1;
