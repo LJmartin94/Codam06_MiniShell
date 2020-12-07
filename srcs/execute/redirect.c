@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:39:47 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/07 13:26:14 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/07 15:27:30 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,37 @@ static void	redirect_pipes(t_icomp *comp, int p_fd[2], int stdin)
 	}
 }
 
+/*
+** //TODO: exit status for when file not found on < is 1 ???
+*/
+
+int			redirect_to(const char *rd, const char *file)
+{
+	int fd = -1;
+
+	if (ft_strncmp(rd, ">>", 3) == 0)
+		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0666);
+	else if (ft_strncmp(rd, ">", 2) == 0)
+		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	return (fd);
+}
+
+/*
+** //TODO: Solidify error checking
+*/
+
 void		handle_redirections(t_icomp *comp, int p_fd[2], int stdin)
 {
-	int fd;
-	t_redir *rd = comp->rdhead;
+	int		fd;
+	t_redir	*rd;
 
+	rd = comp->rdhead;
 	redirect_pipes(comp, p_fd, stdin);
-	while(rd != NULL)
+	while (rd != NULL)
 	{	
-		// ft_dprintf(STDOUT_FILENO, "[%s]\n", rd->file);
 		if (ft_strncmp(rd->type_out, ">", 1) == 0)
 		{
-			if (ft_strncmp(rd->type_out, ">>", 3) == 0)
-				fd = open(rd->file, O_WRONLY | O_CREAT | O_APPEND, 0666);
-			else if (ft_strncmp(rd->type_out, ">", 2) == 0)
-				fd = open(rd->file, O_WRONLY | O_CREAT | O_TRUNC, 0666);	
+			fd = redirect_to(rd->type_out, rd->file);
 			dup2(fd, STDOUT_FILENO);
 			e_close(fd);
 		}
@@ -57,10 +73,7 @@ void		handle_redirections(t_icomp *comp, int p_fd[2], int stdin)
 		{
 			fd = open(rd->file, O_RDONLY, 0666);
 			if (fd == -1)
-			{
-				ft_dprintf(STDERR_FILENO, "oops, no such file\n");
-				exit(1);//TODO: is this the correct exit status
-			}
+				error_exit_msg(1, "oops, no such file");
 			dup2(fd, STDIN_FILENO);
 			e_close(fd);
 		}
@@ -68,31 +81,26 @@ void		handle_redirections(t_icomp *comp, int p_fd[2], int stdin)
 	}
 }
 
-/*
-** //TODO: Solidify error checking
-*/
-
 int			redirect_builtin(t_icomp *comp)
 {
-	int fd;
-	t_redir *rd = comp->rdhead;
+	int		fd;
+	t_redir	*rd;
 
+	rd = comp->rdhead;
 	fd = -1;
-	while(rd)
+	while (rd)
 	{
 		if (fd != -1)
-			close (fd);
-		if (ft_strncmp(rd->type_out, ">>", 3) == 0)
-			fd = open(rd->file, O_WRONLY | O_CREAT | O_APPEND, 0666);
-		else if (ft_strncmp(rd->type_out, ">", 2) == 0)
-			fd = open(rd->file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+			e_close(fd);
+		if (ft_strncmp(rd->type_out, ">", 1) == 0)
+			fd = redirect_to(rd->type_out, rd->file);
 		else if (ft_strncmp(rd->type_in, "<", 2) == 0)
 		{
 			fd = open(rd->file, O_RDONLY, 0666);
 			if (fd == -1)
 				ft_dprintf(STDERR_FILENO, "oops, no such file");
 			else
-				close(fd);
+				e_close(fd);
 			fd = STDOUT_FILENO;
 		}
 		rd = rd->right;

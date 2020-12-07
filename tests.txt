@@ -114,3 +114,8 @@ export ; export a="\\" ; export b='\\' ; export c="\b" ; export
 
 
 < notworking.tx
+
+
+
+
+ls -la srcs .. (<-- prints results in wrong order?)

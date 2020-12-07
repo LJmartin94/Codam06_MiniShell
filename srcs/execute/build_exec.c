@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:38:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/28 16:36:34 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/07 14:39:40 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,43 +15,36 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-//TODO: Make sure how it works for multiple params
+/*
+** //TODO: Make sure how it works for multiple params
+** //TODO: line 45: I doubt this will lead to a memleak?
+*/
+
 char		**build_argv(t_icomp *comp)
 {
 	int		i;
-	int		j;
 	char	**argv;
+	t_arg	*arg;
 
 	i = 0;
-	j = 0;
-	t_arg *arg = comp->arg;
-	while(arg)
+	arg = comp->arg;
+	while (arg)
 	{
 		i++;
 		arg = arg->right;
 	}
 	argv = (char **)e_malloc(sizeof(char *) * (i + 2));
-	argv[j] = comp->cmd;
-	j++;
-	i = 0;
+	argv[0] = comp->cmd;
+	i = 1;
 	arg = comp->arg;
 	while (arg)
 	{
-		// ft_dprintf(STDOUT_FILENO, "%p\n", arg);
 		if (arg->value[0] == '\0')
-			argv[j] = NULL; //TODO: I doubt this will lead to a memleak?
+			argv[i] = NULL;
 		else
-			argv[j] = arg->value;
+			argv[i] = arg->value;
 		i++;
-		j++;
 		arg = arg->right;
-	}
-	argv[j] = NULL;
-	j = 0;
-	while (argv[j] != NULL)
-	{
-		// ft_dprintf(STDOUT_FILENO, "[%s]\n", argv[j]);
-		j++;
 	}
 	return (argv);
 }

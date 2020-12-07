@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/14 11:19:17 by limartin      #+#    #+#                  #
-#    Updated: 2020/12/04 18:04:06 by jsaariko      ########   odam.nl          #
+#    Updated: 2020/12/07 18:12:18 by jsaariko      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ HEADER_FILES = $(INCL_PATH)
 #Source files mandatory part
 SRC = $(SRC_PATH)main.c \
 	$(SRC_PATH)error.c \
+	$(SRC_PATH)error_exit.c \
 	$(SRC_PATH)invalid.c \
 	$(SRC_PATH)$(PARSE_PATH)parse_input.c \
 	$(SRC_PATH)$(PARSE_PATH)tokenizer.c \
@@ -71,6 +72,7 @@ SRC = $(SRC_PATH)main.c \
 	$(SRC_PATH)$(EX_PATH)env_utils.c \
 	$(SRC_PATH)$(EX_PATH)env_free.c \
 	$(SRC_PATH)$(EX_PATH)export.c \
+	$(SRC_PATH)$(EX_PATH)export_utils.c \
 	$(SRC_PATH)$(EX_PATH)unset.c \
 	$(SRC_PATH)$(EX_PATH)pwd.c \
 	$(SRC_PATH)$(EX_PATH)cd.c \
