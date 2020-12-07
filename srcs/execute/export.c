@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:39:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/03 15:29:57 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/07 13:19:59 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,10 @@ char *join_args(t_arg **arg)
 	}
 	return (str);
 }
+
+/*
+** //TODO [export 1test] should have exit status of 1
+*/
 
 int ft_export(t_vector *env, t_icomp *cmd, int fd)
 {

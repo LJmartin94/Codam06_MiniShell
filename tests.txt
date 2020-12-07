@@ -107,3 +107,10 @@ unset AA" AA"AA
 unset AA "AA"AA
 unset AAAAAA
 unset AAAAA
+
+
+
+export ; export a="\\" ; export b='\\' ; export c="\b" ; export
+
+
+< notworking.tx

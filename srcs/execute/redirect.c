@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:39:47 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/07 13:09:08 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/07 13:26:14 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		handle_redirections(t_icomp *comp, int p_fd[2], int stdin)
 	redirect_pipes(comp, p_fd, stdin);
 	while(rd != NULL)
 	{	
-		ft_dprintf(STDOUT_FILENO, "[%s]\n", rd->file);
+		// ft_dprintf(STDOUT_FILENO, "[%s]\n", rd->file);
 		if (ft_strncmp(rd->type_out, ">", 1) == 0)
 		{
 			if (ft_strncmp(rd->type_out, ">>", 3) == 0)
@@ -59,7 +59,7 @@ void		handle_redirections(t_icomp *comp, int p_fd[2], int stdin)
 			if (fd == -1)
 			{
 				ft_dprintf(STDERR_FILENO, "oops, no such file\n");
-				exit(0);
+				exit(1);//TODO: is this the correct exit status
 			}
 			dup2(fd, STDIN_FILENO);
 			e_close(fd);
