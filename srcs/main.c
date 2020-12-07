@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/04 18:03:24 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/07 12:40:55 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,20 @@
 void	print_components(t_icomp *icur)
 {
 	t_arg *arg;
+	t_redir *rd;
 
 	arg = icur->arg;
+	rd = icur->rdhead;
 	while (icur)
 	{
 		printf("Block:	|%d|\nLFT: [%p]\nADR:	|%p|\n\
 			CMD:	|%s|\nOPT:	|%s|\n",
 			icur->id, icur->left, icur, icur->cmd, icur->opt);
+		while (rd)
+		{
+			printf("\tRD:	|%s|\n", rd->file);
+			rd = rd->right;
+		}
 		while (arg)
 		{
 			printf("\tARG:	|%s|\n", arg->value);

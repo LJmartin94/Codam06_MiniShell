@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:39:47 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/04 18:51:52 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/07 12:43:00 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,28 +38,34 @@ static void	redirect_pipes(t_icomp *comp, int p_fd[2], int stdin)
 void		handle_redirections(t_icomp *comp, int p_fd[2], int stdin)
 {
 	int fd;
+	t_redir *rd = comp->rdhead;
 
 	redirect_pipes(comp, p_fd, stdin);
-	if (ft_strncmp(comp->rdhead->type_out, ">>", 3) == 0)
-		fd = open(comp->rdhead->file, O_WRONLY | O_CREAT | O_APPEND, 0666);
-	else if (ft_strncmp(comp->rdhead->type_out, ">", 2) == 0)
-		fd = open(comp->rdhead->file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
-	else if (ft_strncmp(comp->rdhead->type_in, "<", 2) == 0)
-	{
-		fd = open(comp->rdhead->file, O_RDONLY, 0666);
-		if (fd == -1)
+	while(rd != NULL)
+	{	
+		ft_dprintf(STDOUT_FILENO, "[%s]\n", rd->file);
+		if (ft_strncmp(rd->type_out, ">>", 3) == 0)
+			fd = open(rd->file, O_WRONLY | O_CREAT | O_APPEND, 0666);
+		else if (ft_strncmp(rd->type_out, ">", 2) == 0)
+			fd = open(rd->file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+		else if (ft_strncmp(rd->type_in, "<", 2) == 0)
 		{
-			ft_dprintf(STDERR_FILENO, "oops, no such file\n");
-			exit(0);
+			fd = open(rd->file, O_RDONLY, 0666);
+			if (fd == -1)
+			{
+				ft_dprintf(STDERR_FILENO, "oops, no such file\n");
+				exit(0);
+			}
+			dup2(fd, STDIN_FILENO);
+			e_close(fd);
+			return ;
 		}
-		dup2(fd, STDIN_FILENO);
+		else
+			return ;
+		dup2(fd, STDOUT_FILENO);
 		e_close(fd);
-		return ;
+		rd = rd->right;
 	}
-	else
-		return ;
-	dup2(fd, STDOUT_FILENO);
-	e_close(fd);
 }
 
 /*
@@ -69,20 +75,25 @@ void		handle_redirections(t_icomp *comp, int p_fd[2], int stdin)
 int			redirect_builtin(t_icomp *comp)
 {
 	int fd;
+	t_redir *rd = comp->rdhead;
 
 	fd = STDOUT_FILENO;
-	if (ft_strncmp(comp->rdhead->type_out, ">>", 3) == 0)
-		fd = open(comp->rdhead->file, O_WRONLY | O_CREAT | O_APPEND, 0666);
-	else if (ft_strncmp(comp->rdhead->type_out, ">", 2) == 0)
-		fd = open(comp->rdhead->file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
-	else if (ft_strncmp(comp->rdhead->type_in, "<", 2) == 0)
+	while(rd)
 	{
-		fd = open(comp->rdhead->file, O_RDONLY, 0666);
-		if (fd == -1)
-			ft_dprintf(STDERR_FILENO, "oops, no such file");
-		else
-			close(fd);
-		fd = STDOUT_FILENO;
+		if (ft_strncmp(rd->type_out, ">>", 3) == 0)
+			fd = open(rd->file, O_WRONLY | O_CREAT | O_APPEND, 0666);
+		else if (ft_strncmp(rd->type_out, ">", 2) == 0)
+			fd = open(rd->file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+		else if (ft_strncmp(rd->type_in, "<", 2) == 0)
+		{
+			fd = open(rd->file, O_RDONLY, 0666);
+			if (fd == -1)
+				ft_dprintf(STDERR_FILENO, "oops, no such file");
+			else
+				close(fd);
+			fd = STDOUT_FILENO;
+		}
+		rd = rd->right;
 	}
 	return (fd);
 }
