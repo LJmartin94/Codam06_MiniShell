@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:39:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/07 18:11:49 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/07 18:14:00 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ static void edit_value(t_env *old_item, t_env *new_item)
 
 	if (old_item->value != NULL)
 	{
-		new_value = ft_strsplice(old_item->value, ft_strlen(old_item->value), 0, new_item->value);
+		new_value = ft_strsplice(old_item->value,
+			ft_strlen(old_item->value),
+			0,
+			new_item->value);
 		if (new_value == NULL)
 			error_exit_errno();
 		free(old_item->value);
@@ -47,7 +50,8 @@ static int concat_env_item(t_vector *env, t_env *new_item)
 	new_item->key = new_key;
 	if (validate_env_key(new_item->key) == 0)
 	{
-		old_item = vector_get(env, vector_search(env, compare_key, new_item->key));
+		old_item = vector_get(env, vector_search(env, compare_key,
+			new_item->key));
 		if (old_item == NULL)
 			edit_env(env, new_item, -1);
 		else
