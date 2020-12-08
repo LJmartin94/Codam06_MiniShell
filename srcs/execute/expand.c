@@ -6,16 +6,12 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/13 12:51:50 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 10:04:56 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/08 14:34:44 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "error.h"
-
-/*
-** //TODO: Make work with multiple args
-*/
 
 static t_env	*expand_find(t_vector *env, char *pos)
 {
@@ -84,11 +80,6 @@ static void		replace_arg(t_vector *env, char **str, size_t *i, t_quotes q)
 	else
 		(*i)++;
 }
-
-/*
-** //TODO: I think expansions work correctly but god it's so horrible,
-**		please test this properly
-*/
 
 static void		quotes(char c, int *quote, int *dquote)
 {

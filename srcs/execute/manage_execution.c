@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/03 15:35:11 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/08 14:19:42 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void			run_command(t_cmd f, t_vector *env, t_icomp *comp)
 }
 
 /*
-** //TODO: Make sure this is killed even when doing ctrl-c
 ** //TODO: what to do if index not found?
 */
 
@@ -57,10 +56,6 @@ static void		finish_process(int index)
 	free(pid_item);
 	vector_delete(&g_pid_list, index);
 }
-
-/*
-** //TODO: sometimes infinite processes still close too early
-*/
 
 static void		parent_process(t_icomp *comp, int pid, int fd[2], int input)
 {
