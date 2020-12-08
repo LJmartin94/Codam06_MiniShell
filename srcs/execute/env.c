@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 11:49:12 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 14:41:52 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/08 14:45:13 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,6 @@ static void		write_key_val_pair(char *key, char *value, int fd)
 	e_write(fd, value, ft_strlen(value));
 	e_write(fd, "\n", 1);
 }
-
-/*
-** //TODO: how can env fail and what is the return value:
-** returns >0 if error occurs, 126 if env is not able to be used 127
-** if env was not found
-** illegal option returns 1
-** bad file returns 127
-** //TODO: What to do when arguments are provided for validate env?
-*/
 
 static int		validate_cmd_env(t_icomp *cmd)
 {
