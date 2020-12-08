@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:38:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/07 14:39:40 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/08 16:03:51 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <sys/stat.h>
 
 /*
-** //TODO: Make sure how it works for multiple params
 ** //TODO: line 45: I doubt this will lead to a memleak?
 */
 
@@ -74,6 +73,8 @@ char		*find_path(t_vector *env, t_icomp *comp)
 	if (stat(comp->cmd, &stat_struct) == 0)
 		return (ft_strdup(comp->cmd));
 	path = vector_get(env, vector_search(env, compare_key, "PATH"));
+	if (path == NULL)
+		return (NULL);
 	paths = ft_split(path->value, ':');
 	i = 0;
 	while (paths[i] != NULL)
@@ -82,12 +83,10 @@ char		*find_path(t_vector *env, t_icomp *comp)
 		if (final != NULL)
 		{
 			free_matrix(paths);
-			paths = NULL;
 			return (final);
 		}
 		i++;
 	}
 	free_matrix(paths);
-	paths = NULL;
 	return (NULL);
 }

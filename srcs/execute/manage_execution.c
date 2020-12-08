@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 14:57:30 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/08 16:04:39 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ void			run_command(t_cmd f, t_vector *env, t_icomp *comp)
 	{
 		path = find_path(env, comp);
 		if (path == NULL)
-		{
 			invalid_cmd(comp);
-			exit(0);
-		}
 		envp = env_to_envp(env);
 		free_env(env);
 		argv = build_argv(comp);

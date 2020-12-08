@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/20 09:58:37 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 12:08:51 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/08 15:39:42 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,6 @@ void	e_write(int fd, const char *buf, size_t size)
 	if (ret == -1)
 		exit(errno);
 }
-
-/*
-** //TODO: change printf to write
-*/
 
 void	e_close(int fd)
 {

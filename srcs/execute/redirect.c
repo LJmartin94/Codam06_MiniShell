@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:39:47 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 13:08:30 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/08 15:39:07 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 #include "error.h"
 #include <fcntl.h>
 #include <unistd.h>
-
-/*
-** //TODO: change error handling
-** //Redirections seem to commonly exit with status 13??
-** //echo DOET HET NIET > test1 | cat test1 
-*/
 
 static void	redirect_pipes(t_icomp *comp, int p_fd[2], int stdin)
 {
@@ -35,10 +29,6 @@ static void	redirect_pipes(t_icomp *comp, int p_fd[2], int stdin)
 		e_close(p_fd[1]);
 	}
 }
-
-/*
-** //TODO: exit status for when file not found on < is 1 ???
-*/
 
 int			redirect_to(const char *rd, const char *file)
 {
