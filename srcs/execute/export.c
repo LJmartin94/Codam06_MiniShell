@@ -6,20 +6,12 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:39:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 12:58:20 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/08 13:03:21 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_export.h"
 #include "error.h"
-
-/*
-** //TODO: When not supplying arguments to export, dont use the env command
-** export returns one if NAME is invalid
-** //TODO [export 1test] should have exit status of 1
-*/
-
-// export $HULLO=there; echo $HULLO
 
 static void	edit_value(t_env *old_item, t_env *new_item)
 {
