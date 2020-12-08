@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/13 12:51:50 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 09:42:14 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/08 09:54:53 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ static t_env	*expand_find(t_vector *env, char *pos)
 	return (item);
 }
 
-struct s_quotes
+typedef struct	s_quotes
 {
 	int quote;
 	int dquote;
-};
+}				t_quotes;
 
 static void		expand_env_variable(t_vector *env, char **str, size_t *i)
 {
@@ -57,7 +57,8 @@ static void		expand_env_variable(t_vector *env, char **str, size_t *i)
 	replace = expand_find(env, (*str) + *i + 1);
 	if (replace->value == NULL)
 		replace->value = ft_strdup("");
-	final = ft_strsplice((*str), *i, ft_strlen(replace->key) + 1, replace->value);
+	final = ft_strsplice((*str), *i,
+		ft_strlen(replace->key) + 1, replace->value);
 	if (!final)
 		error_exit_errno();
 	free(*str);
@@ -65,7 +66,7 @@ static void		expand_env_variable(t_vector *env, char **str, size_t *i)
 	*i = *i + ft_strlen(replace->value) - 1;
 }
 
-static void		replace_arg(t_vector *env, char **str, size_t *i, struct s_quotes q)
+static void		replace_arg(t_vector *env, char **str, size_t *i, t_quotes q)
 {
 	char	*final;
 
@@ -113,17 +114,11 @@ static void		quotes(char c, int *quote, int *dquote)
 	}
 }
 
-// I hope you read this <3.
-// I'm a very pwoud of my kwiffle. You've been working so haaard and improving a lot on so many things.
-// I'm sure you can figure this out toooo
-// I'd just make a stup struct to do it dirty, or you'd have to rewrite it altogether to do it nicely.
-
-
 void			expand_env(t_vector *env, char **str)
 {
-	size_t	i;
-	struct	s_quotes	q;
-	int		esc;
+	size_t		i;
+	t_quotes	q;
+	int			esc;
 
 	i = 0;
 	q.quote = 0;
