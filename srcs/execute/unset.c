@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:38:22 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 12:14:37 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/08 13:59:23 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ int			compare_key(t_env *data, char *item)
 	return (ret);
 }
 
-static void	unset_item(t_vector *env, t_icomp *cmd)
+static void	unset_item(t_vector *env, t_arg *arg)
 {
 	int		index;
 	t_env	*cur;
 
-	index = vector_search(env, compare_key, (void *)cmd->arg);
+	index = vector_search(env, compare_key, (void *)arg->value);
 	if (index != -1)
 	{
 		cur = vector_get(env, index);
@@ -49,7 +49,7 @@ int			ft_unset(t_vector *env, t_icomp *cmd, int fd)
 	ret = 0;
 	while (arg)
 	{
-		if (validate_env_key(arg->value) == 1)
+		if (validate_env_key(arg->value) == 1 && arg->value[0] != '\0')
 		{
 			error_str = ft_strjoin(arg->value, ": Not a valid identifier");
 			cmd_error(cmd, error_str, fd);
@@ -57,7 +57,9 @@ int			ft_unset(t_vector *env, t_icomp *cmd, int fd)
 			ret = 1;
 		}
 		else
-			unset_item(env, cmd);
+		{
+			unset_item(env, arg);
+		}
 		arg = arg->right;
 	}
 	return (ret);
