@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/07 14:05:18 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/08 10:25:16 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ void	run_shell(t_vector *env, char *buf)
 	{
 		expand_env(env, &(split[i]));
 		parse_input(split[i], &comp_blocks);
+		system("leaks minishell > leaks_before.txt");
 		i++;
 		execute(env, &comp_blocks);
+		system("leaks minishell > leaks_after.txt");
 		free_components(&comp_blocks);
 	}
 	free_matrix(split);

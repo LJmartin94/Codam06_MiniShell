@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:39:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 09:46:42 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/08 11:52:04 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	edit_value(t_env *old_item, t_env *new_item)
 	else
 		new_value = ft_strdup(new_item->value);
 	old_item->value = new_value;
+	free_env_item(new_item);
 }
 
 static int	concat_env_item(t_vector *env, t_env *new_item)
