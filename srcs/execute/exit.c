@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 14:28:00 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/07 14:45:14 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/08 12:04:38 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,6 @@ int	ft_exit(t_vector *env, t_icomp *cmd, int fd)
 
 	i = 0;
 	arg = cmd->arg;
-	if (arg->right != NULL)
-	{
-		cmd_error(cmd, "Too many arguments\n", fd);
-		return (1);
-	}
 	if (cmd->arg->value[i] == '\0')
 		exit(g_ret_val);
 	while (cmd->arg->value[i] != '\0')
@@ -42,6 +37,11 @@ int	ft_exit(t_vector *env, t_icomp *cmd, int fd)
 			exit(255);
 		}
 		i++;
+	}
+	if (arg->right != NULL)
+	{
+		cmd_error(cmd, "Too many arguments", fd);
+		return (1);
 	}
 	(void)env;
 	exit(ft_atoi(cmd->arg->value));
