@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/03 15:26:04 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/08 10:05:27 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,12 @@ void			cmd_error(t_icomp *cmd, char *msg, int fd);
 ** Execute utils, mainly for testing purposes
 ** //TODO: Remove unnecessary ones
 */
+
+typedef struct	s_quotes
+{
+	int quote;
+	int dquote;
+}				t_quotes;
 
 int				pid_print(int fd, t_process *pid);
 int				cmp_pid(int *pid1, int *pid2);

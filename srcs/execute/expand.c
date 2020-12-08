@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/13 12:51:50 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 09:54:53 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/08 10:04:56 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,6 @@ static t_env	*expand_find(t_vector *env, char *pos)
 		free(key);
 	return (item);
 }
-
-typedef struct	s_quotes
-{
-	int quote;
-	int dquote;
-}				t_quotes;
 
 static void		expand_env_variable(t_vector *env, char **str, size_t *i)
 {
