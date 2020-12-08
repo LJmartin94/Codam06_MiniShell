@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:39:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 12:31:40 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/08 12:58:20 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@
 ** //TODO [export 1test] should have exit status of 1
 */
 
-//echo $1test
-
-//export LS="ls -la"
-// cat $LS
+// export $HULLO=there; echo $HULLO
 
 static void	edit_value(t_env *old_item, t_env *new_item)
 {
@@ -69,7 +66,7 @@ static int	concat_env_item(t_vector *env, t_env *new_item)
 	return (1);
 }
 
-static void	manage_export(t_vector *env, t_icomp *cmd, t_arg **arg, int fd)
+static int	manage_export(t_vector *env, t_icomp *cmd, t_arg **arg, int fd)
 {
 	char	*joint_arg;
 	int		pos;
@@ -81,7 +78,10 @@ static void	manage_export(t_vector *env, t_icomp *cmd, t_arg **arg, int fd)
 	if (env_item->key[ft_strlen(env_item->key) - 1] == '+')
 	{
 		if (concat_env_item(env, env_item) == -1)
+		{
 			cmd_error(cmd, "Invalid argument", fd);
+			return (1);
+		}
 	}
 	else
 	{
@@ -89,14 +89,20 @@ static void	manage_export(t_vector *env, t_icomp *cmd, t_arg **arg, int fd)
 		if (validate_env_key(env_item->key) == 0)
 			edit_env(env, env_item, pos);
 		else
+		{
 			cmd_error(cmd, "Invalid argument", fd);
+			return (1);
+		}
 	}
+	return (0);
 }
 
 int			ft_export(t_vector *env, t_icomp *cmd, int fd)
 {
 	t_arg	*arg;
+	int		ret;
 
+	ret = 0;
 	arg = cmd->arg;
 	if (arg->value[0] == '\0')
 		env_no_params(env, fd);
@@ -104,9 +110,9 @@ int			ft_export(t_vector *env, t_icomp *cmd, int fd)
 	{
 		while (arg)
 		{
-			manage_export(env, cmd, &arg, fd);
+			ret = manage_export(env, cmd, &arg, fd);
 			arg = arg->right;
 		}
 	}
-	return (0);
+	return (ret);
 }
