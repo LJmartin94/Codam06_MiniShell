@@ -6,17 +6,13 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 12:00:32 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/08 12:15:51 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "error.h"
 #include "execute.h"
-
-/*
-** //TODO: remove function print_components if no longer debugging
-*/
 
 void	run_shell(t_vector *env, char *buf)
 {
@@ -42,7 +38,7 @@ int		get_input(t_vector *env)
 	char	*buf;
 	int		ret;
 
-	e_write(STDOUT_FILENO, "\U0001F40C ", 6);
+	// e_write(STDOUT_FILENO, "\U0001F40C ", 6);
 	ret = get_next_line(STDIN_FILENO, &buf);
 	if (ret == 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/20 09:58:37 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/07 14:15:10 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/08 12:08:51 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	e_close(int fd)
 		return ;
 	if (close(fd) == -1)
 	{
-		ft_dprintf(STDOUT_FILENO, "e_close: ");
+		e_write(STDOUT_FILENO, "e_close: ", 9);
 		error_exit_errno();
 	}
 }

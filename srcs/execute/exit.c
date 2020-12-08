@@ -6,18 +6,14 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 14:28:00 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 12:04:38 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/08 12:07:41 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 
 /*
-** //TODO: make sure to check how it interacts with multiple args
-** //TODO: exit a seems to actually exit at codam with status 255??
-** //if too many args, returns 1 and writes error msg too many args
-** //send error to fd or stderr?
-** //What error code when exiting due to too many args
+** //TODO: send error to fd or stderr?
 */
 
 int	ft_exit(t_vector *env, t_icomp *cmd, int fd)

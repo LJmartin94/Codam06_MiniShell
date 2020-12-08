@@ -6,16 +6,12 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 12:14:43 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/09 12:22:06 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/08 12:15:03 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "error.h"
-
-/*
-** //TODO: also make sure to kill any ongoing process in sig_handler
-*/
 
 void	handle_sigint(int signo)
 {
@@ -28,10 +24,6 @@ void	handle_sigint(int signo)
 		}
 	}
 }
-
-/*
-** //TODO: add number to quit?
-*/
 
 void	handle_sigquit(int signo)
 {

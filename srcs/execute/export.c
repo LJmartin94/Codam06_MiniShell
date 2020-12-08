@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:39:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 11:52:04 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/08 12:31:40 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@
 ** export returns one if NAME is invalid
 ** //TODO [export 1test] should have exit status of 1
 */
+
+//echo $1test
+
+//export LS="ls -la"
+// cat $LS
 
 static void	edit_value(t_env *old_item, t_env *new_item)
 {
@@ -64,13 +69,13 @@ static int	concat_env_item(t_vector *env, t_env *new_item)
 	return (1);
 }
 
-static void	manage_export(t_vector *env, t_icomp *cmd, t_arg *arg, int fd)
+static void	manage_export(t_vector *env, t_icomp *cmd, t_arg **arg, int fd)
 {
 	char	*joint_arg;
 	int		pos;
 	t_env	*env_item;
 
-	joint_arg = export_join_args(&arg);
+	joint_arg = export_join_args(arg);
 	env_item = get_env_item(joint_arg);
 	free(joint_arg);
 	if (env_item->key[ft_strlen(env_item->key) - 1] == '+')
@@ -99,7 +104,7 @@ int			ft_export(t_vector *env, t_icomp *cmd, int fd)
 	{
 		while (arg)
 		{
-			manage_export(env, cmd, arg, fd);
+			manage_export(env, cmd, &arg, fd);
 			arg = arg->right;
 		}
 	}
