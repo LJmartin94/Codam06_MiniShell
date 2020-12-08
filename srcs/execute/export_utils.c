@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/07 18:05:57 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/07 18:19:14 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/08 09:44:47 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	*export_join_args(t_arg **arg)
 	str = ft_strdup((*arg)->value);
 	if (!str)
 		error_exit_errno();
-	while((*arg)->pad[0] == '\0' && (*arg)->right != NULL)
+	while ((*arg)->pad[0] == '\0' && (*arg)->right != NULL)
 	{
 		str2 = e_strjoin(str, (*arg)->right->value);
 		free(str);

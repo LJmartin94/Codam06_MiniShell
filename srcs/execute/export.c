@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:39:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/07 18:14:00 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/08 09:46:42 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 ** //TODO [export 1test] should have exit status of 1
 */
 
-static void edit_value(t_env *old_item, t_env *new_item)
+static void	edit_value(t_env *old_item, t_env *new_item)
 {
 	char	*new_value;
 
@@ -38,12 +38,13 @@ static void edit_value(t_env *old_item, t_env *new_item)
 	old_item->value = new_value;
 }
 
-static int concat_env_item(t_vector *env, t_env *new_item)
+static int	concat_env_item(t_vector *env, t_env *new_item)
 {
 	t_env	*old_item;
 	char	*new_key;
 
-	new_key = ft_strsplice(new_item->key, ft_strlen(new_item->key) - 1, 1, "\0");
+	new_key = ft_strsplice(new_item->key,
+		ft_strlen(new_item->key) - 1, 1, "\0");
 	if (new_key == NULL)
 		error_exit_errno();
 	free(new_item->key);
@@ -62,13 +63,14 @@ static int concat_env_item(t_vector *env, t_env *new_item)
 	return (1);
 }
 
-static void manage_export(t_vector *env, t_icomp *cmd, t_arg *arg, int fd)
+static void	manage_export(t_vector *env, t_icomp *cmd, t_arg *arg, int fd)
 {
 	char	*joint_arg;
 	int		pos;
+	t_env	*env_item;
 
 	joint_arg = export_join_args(&arg);
-	t_env *env_item = get_env_item(joint_arg);
+	env_item = get_env_item(joint_arg);
 	free(joint_arg);
 	if (env_item->key[ft_strlen(env_item->key) - 1] == '+')
 	{

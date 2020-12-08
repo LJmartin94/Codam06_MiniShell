@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:39:47 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/07 15:27:30 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/08 09:47:55 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ static void	redirect_pipes(t_icomp *comp, int p_fd[2], int stdin)
 
 int			redirect_to(const char *rd, const char *file)
 {
-	int fd = -1;
+	int fd;
 
+	fd = -1;
 	if (ft_strncmp(rd, ">>", 3) == 0)
 		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0666);
 	else if (ft_strncmp(rd, ">", 2) == 0)
@@ -62,7 +63,7 @@ void		handle_redirections(t_icomp *comp, int p_fd[2], int stdin)
 	rd = comp->rdhead;
 	redirect_pipes(comp, p_fd, stdin);
 	while (rd != NULL)
-	{	
+	{
 		if (ft_strncmp(rd->type_out, ">", 1) == 0)
 		{
 			fd = redirect_to(rd->type_out, rd->file);
