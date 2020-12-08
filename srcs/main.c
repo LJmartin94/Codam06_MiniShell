@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/07 13:40:44 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/07 14:05:18 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,33 +17,6 @@
 /*
 ** //TODO: remove function print_components if no longer debugging
 */
-
-void	print_components(t_icomp *icur)
-{
-	t_arg *arg;
-	t_redir *rd;
-
-	arg = icur->arg;
-	rd = icur->rdhead;
-	while (icur)
-	{
-		printf("Block:	|%d|\nLFT: [%p]\nADR:	|%p|\n\
-			CMD:	|%s|\nOPT:	|%s|\n",
-			icur->id, icur->left, icur, icur->cmd, icur->opt);
-		while (rd)
-		{
-			printf("\tRD:	|%s|\n", rd->file);
-			rd = rd->right;
-		}
-		while (arg)
-		{
-			printf("\tARG:	|%s|\n", arg->value);
-			arg = arg->right;
-		}
-		printf("SEP:	|%s|\nRGT: [%p]\n\n", icur->sep, icur->right);
-		icur = icur->right;
-	}
-}
 
 void	run_shell(t_vector *env, char *buf)
 {
@@ -57,7 +30,6 @@ void	run_shell(t_vector *env, char *buf)
 	{
 		expand_env(env, &(split[i]));
 		parse_input(split[i], &comp_blocks);
-		// print_components(&comp_blocks);
 		i++;
 		execute(env, &comp_blocks);
 		free_components(&comp_blocks);

@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 11:49:12 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/28 16:09:16 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/07 14:42:35 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,13 @@ static void		write_key_val_pair(char *key, char *value, int fd)
 ** if env was not found
 ** illegal option returns 1
 ** bad file returns 127
+** //TODO: What to do when arguments are provided for validate env?
 */
 
 static int		validate_cmd_env(t_icomp *cmd)
 {
 	if (ft_strncmp(cmd->arg->value, "", 1) != 0 || \
-	ft_strncmp(cmd->opt, "", 1) != 0) //TODO: What to do when arguments are provided?
+	ft_strncmp(cmd->opt, "", 1) != 0)
 		return (0);
 	return (1);
 }

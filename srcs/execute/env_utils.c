@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/28 11:19:34 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/07 13:42:59 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/07 15:03:59 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,12 @@ char		**env_to_envp(t_vector *env)
 	return (envp);
 }
 
-int  validate_env_key(const char *arg)
+int			validate_env_key(const char *arg)
 {
 	size_t i;
 
 	i = 0;
-	while(arg[i] != '\0')
+	while (arg[i] != '\0')
 	{
 		if (!ft_isalnum(arg[i]) && arg[i] != '_')
 			return (1);
