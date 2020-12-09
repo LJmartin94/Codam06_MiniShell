@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 18:03:33 by limartin      #+#    #+#                 */
-/*   Updated: 2020/12/04 18:30:29 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/12/09 17:12:12 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,6 @@ int		ft_add_token_to_comp(t_token *token, char **field)
 	*field = new_val;
 	return (0);
 }
-
-/*
-** TODO: This also still needs to free linked list of redirections and arguments
-*/
 
 void	free_components(t_icomp *head)
 {

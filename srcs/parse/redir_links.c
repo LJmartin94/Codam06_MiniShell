@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/08 19:42:11 by limartin      #+#    #+#                 */
-/*   Updated: 2020/12/04 18:15:34 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/12/09 17:12:57 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,6 @@ void	ft_add_redir(t_redir **head, t_redir *this)
 	cur->right = this;
 	this->left = left;
 }
-
-/*
-** //TODO:
-** Below function is still a work in progress,
-** particularly "if (head->left != NULL)"
-** will probably work differently as even the first link
-** will be malloc'd (unlike first comp block)
-*/
 
 void	free_redirs(t_redir *head)
 {
