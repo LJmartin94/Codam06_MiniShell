@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 15:47:48 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/09 12:17:52 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "minishell.h"
 # include <unistd.h>
-# include <dirent.h>
 
 /*
 ** Store env
