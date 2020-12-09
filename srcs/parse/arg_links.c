@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/12 19:20:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/12/04 18:16:11 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/12/09 17:11:36 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,6 @@ void	ft_add_arg(t_arg **head, t_arg *this)
 	cur->right = this;
 	this->left = left;
 }
-
-/*
-** //TODO:
-** Below function is still a work in progress,
-** particularly "if (head->left != NULL)"
-** will probably work differently as even the first link
-** will be malloc'd (unlike first comp block)
-*/
 
 void	free_args(t_arg *head)
 {
