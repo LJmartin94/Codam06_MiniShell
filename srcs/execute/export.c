@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:39:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 13:03:21 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/09 12:37:01 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,7 @@ static int	manage_export(t_vector *env, t_icomp *cmd, t_arg **arg, int fd)
 		if (validate_env_key(env_item->key) == 0)
 			edit_env(env, env_item, pos);
 		else
-		{
-			cmd_error(cmd, "Invalid argument", fd);
 			return (1);
-		}
 	}
 	return (0);
 }
@@ -103,6 +100,8 @@ int			ft_export(t_vector *env, t_icomp *cmd, int fd)
 		while (arg)
 		{
 			ret = manage_export(env, cmd, &arg, fd);
+			if (ret == -1)
+				cmd_error(cmd, "Invalid argument", fd);
 			arg = arg->right;
 		}
 	}
