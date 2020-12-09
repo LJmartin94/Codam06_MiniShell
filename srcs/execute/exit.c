@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 14:28:00 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 12:07:41 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/09 14:11:39 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,17 @@ int	ft_exit(t_vector *env, t_icomp *cmd, int fd)
 	{
 		if (!ft_isdigit(cmd->arg->value[i]))
 		{
-			cmd_error(cmd, "numeric argument required", STDERR_FILENO);
+			cmd_error(cmd, "numeric argument required");
 			exit(255);
 		}
 		i++;
 	}
 	if (arg->right != NULL)
 	{
-		cmd_error(cmd, "Too many arguments", fd);
+		cmd_error(cmd, "Too many arguments");
 		return (1);
 	}
 	(void)env;
+	(void)fd;
 	exit(ft_atoi(cmd->arg->value));
 }

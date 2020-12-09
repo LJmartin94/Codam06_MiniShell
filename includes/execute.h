@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/09 12:17:52 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/09 14:06:35 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void			expand_env(t_vector *env, char **str);
 */
 
 void			invalid_cmd(t_icomp *cmd);
-void			cmd_error(t_icomp *cmd, char *msg, int fd);
+void			cmd_error(t_icomp *cmd, char *msg);
 
 /*
 ** Execute utils, mainly for testing purposes
