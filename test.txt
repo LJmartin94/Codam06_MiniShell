@@ -1,0 +1,3 @@
+TODO: check open fds: lsof -c minishell
+cat /dev/urandom | more | head -c 100
+yes | more | head -c 3

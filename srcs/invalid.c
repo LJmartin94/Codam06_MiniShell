@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 10:09:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/09 14:26:23 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/09 14:39:16 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 /*
 ** //TODO: if invalid_cmd, return value is 127
-** // TODO: remove separate exit statements as invalid cmd exits now
 */
 
 void	invalid_cmd(t_icomp *cmd)
