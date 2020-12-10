@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 10:09:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/06 11:59:30 by lindsay       ########   odam.nl         */
+/*   Updated: 2021/01/06 15:46:05 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,13 @@ int		no_syntax_errors(t_icomp *head)
 		current = current->right;
 	}
 	return (1);
+}
+
+void	syntax_error(int fd, t_token **this)
+{
+	e_write(fd, "Minishnail: ", 12);
+	e_write(fd, "syntax error near unexpected token `", 36);
+	if (*this != NULL)
+		e_write(fd, (*this)->token, ft_strlen((*this)->token));
+	e_write(fd, "'\n", 2);
 }
