@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/14 11:19:17 by limartin      #+#    #+#                  #
-#    Updated: 2020/12/08 11:32:17 by jsaariko      ########   odam.nl          #
+#    Updated: 2020/12/10 20:40:01 by limartin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,8 @@ LIBFT_PATH = ./libft
 CC = gcc
 
 #TODO remove sanitise flag when submitting
-# CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+# CFLAGS = -Wall -Wextra -Werror
 
 HEADER_FILES = $(INCL_PATH)
 
