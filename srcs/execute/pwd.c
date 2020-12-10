@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 11:32:10 by limartin      #+#    #+#                 */
-/*   Updated: 2020/12/17 15:15:22 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/05 10:29:41 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int			ft_pwd(t_vector *env, t_icomp *cmp, int fd)
 	if (buf == NULL)
 		error_exit_errno();
 	e_write(fd, buf, ft_strlen(buf));
+	free(buf);
 	e_write(fd, "\n", 1);
 	return (0);
 }
