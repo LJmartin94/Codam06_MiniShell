@@ -6,90 +6,104 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:39:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/13 09:48:47 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/12/09 12:37:01 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execute.h"
+#include "minishell_export.h"
 #include "error.h"
 
-/*
-** //TODO: When not supplying arguments to export, dont use the env command
-** export returns one if NAME is invalid
-*/
-
-static int	print_env(t_vector *env)
+static void	edit_value(t_env *old_item, t_env *new_item)
 {
-	size_t	i;
-	t_env	*cur;
+	char	*new_value;
 
-	i = 0;
-	cur = NULL;
-	while (i < env->amt)
+	if (old_item->value != NULL)
 	{
-		cur = (t_env *)vector_get(env, i);
-		e_write(STDOUT_FILENO, "declare -x ", 11);
-		e_write(STDOUT_FILENO, cur->key, ft_strlen(cur->key));
-		if (cur->value != NULL)
-		{
-			e_write(STDOUT_FILENO, "=\"", 2);
-			e_write(STDOUT_FILENO, cur->value, ft_strlen(cur->value));
-			e_write(STDOUT_FILENO, "\"", 1);
-		}
-		e_write(STDOUT_FILENO, "\n", 1);
-		i++;
+		new_value = ft_strsplice(old_item->value,
+			ft_strlen(old_item->value),
+			0,
+			new_item->value);
+		if (new_value == NULL)
+			error_exit_errno();
+		free(old_item->value);
 	}
-	return (0);
+	else
+		new_value = ft_strdup(new_item->value);
+	old_item->value = new_value;
+	free_env_item(new_item);
 }
 
-static void	edit_env(t_vector *env, t_env *item, int pos)
+static int	concat_env_item(t_vector *env, t_env *new_item)
 {
-	t_env	*edit;
+	t_env	*old_item;
+	char	*new_key;
 
-	if (pos != -1)
+	new_key = ft_strsplice(new_item->key,
+		ft_strlen(new_item->key) - 1, 1, "\0");
+	if (new_key == NULL)
+		error_exit_errno();
+	free(new_item->key);
+	new_item->key = new_key;
+	if (validate_env_key(new_item->key) == 0)
 	{
-		edit = vector_get(env, pos);
-		if (item->value != NULL)
-		{
-			free(edit->value);
-			edit->value = item->value;
-			free(item->key);
-			item->key = NULL;
-			free(item);
-			item = NULL;
-		}
+		old_item = vector_get(env, vector_search(env, compare_key,
+			new_item->key));
+		if (old_item == NULL)
+			edit_env(env, new_item, -1);
 		else
+			edit_value(old_item, new_item);
+	}
+	else
+		return (-1);
+	return (1);
+}
+
+static int	manage_export(t_vector *env, t_icomp *cmd, t_arg **arg, int fd)
+{
+	char	*joint_arg;
+	int		pos;
+	t_env	*env_item;
+
+	joint_arg = export_join_args(arg);
+	env_item = get_env_item(joint_arg);
+	free(joint_arg);
+	if (env_item->key[ft_strlen(env_item->key) - 1] == '+')
+	{
+		if (concat_env_item(env, env_item) == -1)
 		{
-			free_env_item(item);
-			item = NULL;
+			cmd_error(cmd, "Invalid argument", fd);
+			return (1);
 		}
 	}
 	else
 	{
-		if (vector_push(env, item) == 0)
-			error_exit_errno();
+		pos = vector_search(env, compare_key, env_item->key);
+		if (validate_env_key(env_item->key) == 0)
+			edit_env(env, env_item, pos);
+		else
+			return (1);
 	}
+	return (0);
 }
 
-int			ft_export(t_vector *env, t_icomp *cmd)
+int			ft_export(t_vector *env, t_icomp *cmd, int fd)
 {
-	t_env	*item;
-	int		pos;
+	t_arg	*arg;
+	int		ret;
 
-	pos = 0;
-	if ((ft_strncmp(cmd->arg->value, "", 1)) == 0)
+	ret = 0;
+	arg = cmd->arg;
+	if (arg->value[0] == '\0')
+		env_no_params(env, fd);
+	else
 	{
-		print_env(env);
-		return (0);
+		while (arg)
+		{
+			ret = manage_export(env, cmd, &arg, fd);
+			if (ret == -1)
+				cmd_error(cmd, "Invalid argument", fd);
+			arg = arg->right;
+		}
 	}
-	if (!ft_isalpha(cmd->arg->value[0]))
-	{
-		ft_dprintf(STDERR_FILENO, "export: '%s': not a valid identifier\n",
-			cmd->arg);
-		return (1);
-	}
-	item = get_env_item(cmd->arg->value);
-	pos = vector_search(env, compare_key, item->key);
-	edit_env(env, item, pos);
-	return (0);
+	return (ret);
 }

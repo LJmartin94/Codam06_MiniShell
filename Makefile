@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/14 11:19:17 by limartin      #+#    #+#                  #
-#    Updated: 2020/12/04 16:57:14 by lindsay       ########   odam.nl          #
+#    Updated: 2020/12/08 11:32:17 by jsaariko      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,19 +20,22 @@ EX_PATH = execute/
 
 INCL_PATH = ./includes/
 
+UTILS = utils/
+
 LIBFT_PATH = ./libft
 
 CC = gcc
 
 #TODO remove sanitise flag when submitting
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
-# CFLAGS = -Wall -Wextra -Werror
+# CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror
 
 HEADER_FILES = $(INCL_PATH)
 
 #Source files mandatory part
 SRC = $(SRC_PATH)main.c \
 	$(SRC_PATH)error.c \
+	$(SRC_PATH)error_exit.c \
 	$(SRC_PATH)invalid.c \
 	$(SRC_PATH)$(PARSE_PATH)parse_input.c \
 	$(SRC_PATH)$(PARSE_PATH)tokenizer.c \
@@ -56,15 +59,24 @@ SRC = $(SRC_PATH)main.c \
 	$(SRC_PATH)$(PARSE_PATH)arg_links.c \
 	$(SRC_PATH)$(PARSE_PATH)redir_links.c \
 	$(SRC_PATH)$(PARSE_PATH)free_and_exit.c \
+	$(SRC_PATH)$(EX_PATH)signals.c \
 	$(SRC_PATH)$(EX_PATH)execute.c \
+	$(SRC_PATH)$(EX_PATH)expand.c \
+	$(SRC_PATH)$(EX_PATH)manage_execution.c \
+	$(SRC_PATH)$(EX_PATH)build_exec.c \
+	$(SRC_PATH)$(EX_PATH)redirect.c \
+	$(SRC_PATH)$(EX_PATH)exec_utils.c \
 	$(SRC_PATH)$(EX_PATH)echo.c \
+	$(SRC_PATH)$(EX_PATH)exit.c \
 	$(SRC_PATH)$(EX_PATH)env.c \
 	$(SRC_PATH)$(EX_PATH)env_utils.c \
 	$(SRC_PATH)$(EX_PATH)env_free.c \
 	$(SRC_PATH)$(EX_PATH)export.c \
+	$(SRC_PATH)$(EX_PATH)export_utils.c \
 	$(SRC_PATH)$(EX_PATH)unset.c \
 	$(SRC_PATH)$(EX_PATH)pwd.c \
 	$(SRC_PATH)$(EX_PATH)cd.c \
+	$(SRC_PATH)$(UTILS)split_unless_escaped.c \
 
 #Source files bonus part
 SRC_B = # $(SRC_PATH) bonus_goes_here.c #TODO

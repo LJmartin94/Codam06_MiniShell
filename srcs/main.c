@@ -6,21 +6,39 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/04 17:33:50 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/12/08 14:05:11 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "error.h"
-#include <signal.h>
+#include "execute.h"
+
+void	run_shell(t_vector *env, char *buf)
+{
+	char	**split;
+	t_icomp	comp_blocks;
+	size_t	i;
+
+	split = split_unless_quote(buf, ';');
+	i = 0;
+	while (split[i] != NULL)
+	{
+		expand_env(env, &(split[i]));
+		parse_input(split[i], &comp_blocks);
+		i++;
+		execute(env, &comp_blocks);
+		free_components(&comp_blocks);
+	}
+	free_matrix(split);
+}
 
 int		get_input(t_vector *env)
 {
 	char	*buf;
 	int		ret;
-	t_icomp comp_blocks;
 
-	e_write(1, "\U0001F40C ", 6);
+	e_write(STDOUT_FILENO, "\U0001F40C ", 6);
 	ret = get_next_line(STDIN_FILENO, &buf);
 	if (ret == 0)
 	{
@@ -29,32 +47,24 @@ int		get_input(t_vector *env)
 	}
 	if (ret < 0)
 		error_exit_msg(C_GNL_FAIL, E_GNL_FAIL);
-	parse_input(buf, &comp_blocks);
+	run_shell(env, buf);
 	free(buf);
-	execute(env, &comp_blocks);
-	free_components(&comp_blocks);
 	return (ret);
 }
 
 /*
-** //TODO: also make sure to kill any ongoing process in sig_handler
+**  //TODO: move
 */
 
-void	sig_handler(int signo)
-{
-	if (signo == SIGINT)
-	{
-		e_write(1, "\n", 1);
-		e_write(1, "\U0001F40C ", 6);
-	}
-}
+int		g_ret_val;
 
 int		main(int ac, char **av, char **envp)
 {
-	t_vector *env;
+	t_vector	*env;
 
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, SIG_IGN);
+	g_ret_val = 0;
+	signal(SIGINT, handle_sigint);
+	signal(SIGQUIT, handle_sigquit);
 	env = envp_to_env(envp);
 	(void)ac;
 	(void)av;

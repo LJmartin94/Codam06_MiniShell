@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 13:26:26 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/26 21:20:17 by limartin      ########   odam.nl         */
+/*   Updated: 2020/11/27 16:40:16 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,12 @@ char		*get_arg_as_string(t_icomp *cmp)
 	return (arg_str);
 }
 
-int			ft_cd(t_vector *env, t_icomp *cmp)
+int			ft_cd(t_vector *env, t_icomp *cmp, int fd)
 {
 	int		dir;
 	char	*arg_str;
 
+	(void)fd;
 	(void)env;
 	dir = 0;
 	arg_str = get_arg_as_string(cmp);
