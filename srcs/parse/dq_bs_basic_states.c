@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/08 16:22:46 by limartin      #+#    #+#                 */
-/*   Updated: 2020/12/06 17:02:34 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/12/10 19:52:58 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "error.h"
 
 /*
+** TODO:
 ** A backslash in quotes is only 'ignored' if the character following the
 ** backslash can meaningfully be escaped, otherwise the backslash is simply
 ** printed as a character.
