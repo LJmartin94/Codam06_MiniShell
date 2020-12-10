@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 10:09:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/09 12:34:05 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/10 18:57:38 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	invalid_cmd(t_icomp *cmd)
 
 void	cmd_error(t_icomp *cmd, char *msg, int fd)
 {
-	e_write(fd, "shnell: ", 8);
+	e_write(fd, "Minishnail: ", 12);
 	e_write(fd, cmd->cmd, ft_strlen(cmd->cmd));
 	e_write(fd, ": ", 1);
 	e_write(fd, msg, ft_strlen(msg));
