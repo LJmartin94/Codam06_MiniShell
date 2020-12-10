@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 13:26:26 by limartin      #+#    #+#                 */
-/*   Updated: 2020/12/10 20:51:53 by limartin      ########   odam.nl         */
+/*   Updated: 2020/12/10 20:54:58 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,6 @@ int			ft_cd(t_vector *env, t_icomp *cmp, int fd)
 		dir = go_absolute(env, arg_str);
 	else
 		dir = go_relative(env, arg_str);
+	free(arg_str);
 	return (dir);
 }
