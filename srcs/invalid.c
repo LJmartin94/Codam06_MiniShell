@@ -6,13 +6,14 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 10:09:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/10 18:57:38 by limartin      ########   odam.nl         */
+/*   Updated: 2020/12/10 22:12:36 by limartin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "error.h"
 #include "execute.h"
 #include "libft.h"
+#include "parse.h"
 
 /*
 ** //TODO: if invalid_cmd, return value is 127
@@ -38,4 +39,13 @@ void	cmd_error(t_icomp *cmd, char *msg, int fd)
 	e_write(fd, ": ", 1);
 	e_write(fd, msg, ft_strlen(msg));
 	e_write(fd, "\n", 1);
+}
+
+void	syntax_error(int fd, t_token **this)
+{
+	e_write(fd, "Minishnail: ", 12);
+	e_write(fd, "syntax error near unexpected token `", 36);
+	if (*this != NULL)
+		e_write(fd, (*this)->token, ft_strlen((*this)->token));
+	e_write(fd, "'\n", 2);
 }
