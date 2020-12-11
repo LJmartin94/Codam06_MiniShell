@@ -6,12 +6,13 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 16:04:39 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/11 14:53:21 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "error.h"
+#include <sys/wait.h>
 
 void			run_command(t_cmd f, t_vector *env, t_icomp *comp)
 {
