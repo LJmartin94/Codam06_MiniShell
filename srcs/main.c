@@ -6,13 +6,14 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/10 19:35:55 by limartin      ########   odam.nl         */
+/*   Updated: 2020/12/11 14:45:04 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "error.h"
 #include "execute.h"
+#include <signal.h>
 
 void	run_shell(t_vector *env, char *buf)
 {

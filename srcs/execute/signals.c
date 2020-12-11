@@ -6,12 +6,13 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 12:14:43 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 12:15:03 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/11 14:47:11 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "error.h"
+#include <signal.h>
 
 void	handle_sigint(int signo)
 {
