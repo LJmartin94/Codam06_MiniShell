@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 13:26:26 by limartin      #+#    #+#                 */
-/*   Updated: 2020/12/10 20:54:58 by limartin      ########   odam.nl         */
+/*   Updated: 2020/12/11 15:52:15 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ static int	go_relative(t_vector *env, char *arg_str)
 		error_exit_errno();
 	path = ft_strjoin(cwd, "/");
 	free(cwd);
-	if (path != NULL)
-		path = ft_strjoin(path, arg_str);
+	cwd = path;
+	path = (path != NULL) ? ft_strjoin(cwd, arg_str) : NULL;
+	free(cwd);
 	if (path == NULL)
 		error_exit_errno();
 	dir = chdir(path);
