@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/05 10:32:03 by lindsay       ########   odam.nl         */
+/*   Updated: 2021/01/05 10:32:21 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	run_shell(t_vector *env, char *buf)
 		expand_env(env, &(split[i]));
 		parse_input(split[i], &comp_blocks);
 		i++;
-		print_components(&comp_blocks);
+		//print_components(&comp_blocks);
 		execute(env, &comp_blocks);
 		free_components(&comp_blocks);
 	}
