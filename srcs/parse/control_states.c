@@ -6,14 +6,11 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 18:10:03 by limartin      #+#    #+#                 */
-/*   Updated: 2020/12/13 14:03:23 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/12/13 14:33:19 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
-
-//TODO: remove
-#include "error.h"
 
 t_transition_code	sh_entry_state(t_token **this, t_icomp **icur)
 {
@@ -34,9 +31,6 @@ t_transition_code	sh_error_state(t_token **this, t_icomp **icur)
 
 	(void)icur;
 	syntax_error(STDERR_FILENO, this);
-	id = exit_state;
-	if ((*this) != NULL)
-		id = recognise_token_state(*this);
 	id = exit_state;
 	return (id);
 }
