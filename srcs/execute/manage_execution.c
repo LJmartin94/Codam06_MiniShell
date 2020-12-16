@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 16:04:39 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/16 17:58:55 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,19 @@ static void		finish_process(int index)
 	pid_item = vector_get(&g_pid_list, index);
 	if (pid_item == NULL)
 		return ;
-	e_close(pid_item->fd);
+	// e_close(pid_item->fd);
 	waitpid(pid_item->pid, &wstatus, 0);
 	g_ret_val = WEXITSTATUS(wstatus);
 	free(pid_item);
 	vector_delete(&g_pid_list, index);
+}
+
+static void		murder_fd(size_t index)
+{
+	t_process *pid_item = vector_get(&g_pid_list, index);
+	if (pid_item == NULL)
+		return ;
+	e_close(pid_item->fd);
 }
 
 static void		parent_process(t_icomp *comp, int pid, int fd[2], int input)
@@ -59,6 +67,7 @@ static void		parent_process(t_icomp *comp, int pid, int fd[2], int input)
 	t_process	*pid_malloc;
 	int			item_index;
 
+	ft_dprintf(STDOUT_FILENO, "pid of child: %d. cmd: %s\n", pid, comp->cmd);
 	e_close(fd[1]);
 	pid_malloc = (t_process *)e_malloc(sizeof(t_process));
 	pid_malloc->pid = pid;
@@ -66,8 +75,18 @@ static void		parent_process(t_icomp *comp, int pid, int fd[2], int input)
 	vector_push(&g_pid_list, pid_malloc);
 	if (input != -1 && ft_strncmp(comp->sep, "|", 2) != 0)
 	{
+		size_t i = 0;
+		while (i < g_pid_list.amt)
+		{
+			murder_fd(i);
+			i++;
+		}
 		while (g_pid_list.amt > 0)
+		{
+			ft_dprintf(STDOUT_FILENO, "amt: %d\n", g_pid_list.amt);
+			ft_dprintf(STDOUT_FILENO, "aaaaaaaa\n");
 			finish_process(0);
+		}
 	}
 	else if (input == -1 && ft_strncmp(comp->sep, "|", 2) != 0)
 	{
