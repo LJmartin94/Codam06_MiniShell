@@ -6,11 +6,12 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 18:10:03 by limartin      #+#    #+#                 */
-/*   Updated: 2020/12/13 14:33:19 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/12/16 21:48:31 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
+#include "error.h"
 
 t_transition_code	sh_entry_state(t_token **this, t_icomp **icur)
 {
@@ -28,8 +29,17 @@ t_transition_code	sh_entry_state(t_token **this, t_icomp **icur)
 t_transition_code	sh_error_state(t_token **this, t_icomp **icur)
 {
 	t_transition_code	id;
+	char				*error_type;
+	t_icomp				*head;
 
-	(void)icur;
+	head = *icur;
+	while (head->left != NULL)
+		head = head->left;
+	free(head->arg->type);
+	error_type = ft_strdup("E");
+	if (error_type == NULL)
+		error_exit_errno();
+	head->arg->type = error_type;
 	syntax_error(STDERR_FILENO, this);
 	id = exit_state;
 	return (id);
