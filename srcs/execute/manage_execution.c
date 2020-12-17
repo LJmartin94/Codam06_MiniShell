@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/17 15:50:13 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/17 15:51:14 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ int				exec_command(t_vector *env, t_icomp *comp, int input)
 
 	fd[0] = -1;
 	fd[1] = -1;
-
 	if (ft_strncmp(comp->sep, "|", 2) == 0)
 	{
 		if (pipe(fd) == -1)
