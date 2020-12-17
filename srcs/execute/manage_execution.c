@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/09 18:07:07 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/17 15:10:39 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ static void		parent_process(t_icomp *comp, int pid, int fd[2], int input)
 	t_process	*pid_malloc;
 	int			item_index;
 
-	ft_dprintf(STDOUT_FILENO, "pid: %d\n", pid);
 	e_close(fd[1]);
 	pid_malloc = (t_process *)e_malloc(sizeof(t_process));
 	pid_malloc->pid = pid;
@@ -113,9 +112,7 @@ int				exec_command(t_vector *env, t_icomp *comp, int input)
 	if (shnell_execute(f, env, comp, input) == 0)
 	{
 		pid = fork();
-		if (pid == -1)
-			error_exit_errno();
-		else if (pid == 0)
+		if (pid == 0)
 		{
 			handle_redirections(comp, fd, input);
 			run_command(f, env, comp);

@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 11:32:10 by limartin      #+#    #+#                 */
-/*   Updated: 2020/12/09 14:41:12 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/17 15:15:22 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,12 @@
 ** Test with deleted directories, permission denied dirs.
 */
 
-static int	validate_cmd_pwd(t_icomp *cmp)
-{
-	if (ft_strncmp(cmp->arg->value, "", 1) != 0 || \
-	ft_strncmp(cmp->opt, "", 1) != 0)
-		return (0);
-	return (1);
-}
-
 int			ft_pwd(t_vector *env, t_icomp *cmp, int fd)
 {
 	char *buf;
 
 	(void)env;
-	if (validate_cmd_pwd(cmp) == 0)
-	{
-		cmd_error(cmp, "Bad param");
-		return (1);
-	}
+	(void)cmp;
 	buf = NULL;
 	buf = getcwd(buf, 0);
 	if (buf == NULL)
