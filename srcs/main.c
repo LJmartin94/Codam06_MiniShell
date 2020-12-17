@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/05 10:33:17 by lindsay       ########   odam.nl         */
+/*   Updated: 2021/01/05 10:33:39 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	run_shell(t_vector *env, char *buf)
 		parse_input(split[i], &comp_blocks);
 		i++;
 		print_components(&comp_blocks);
-		if (comp_blocks.arg->type[0] != 'E')
+		if (no_syntax_errors(&comp_blocks))
 			execute(env, &comp_blocks);
 		free_components(&comp_blocks);
 	}
