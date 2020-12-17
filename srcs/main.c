@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/16 21:43:16 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/12/17 14:55:55 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	run_shell(t_vector *env, char *buf)
 	t_icomp	comp_blocks;
 	size_t	i;
 
-	split = split_unless_quote(buf, '\0');
+	split = split_unless_quote(buf, ';');
 	i = 0;
 	while (split[i] != NULL)
 	{

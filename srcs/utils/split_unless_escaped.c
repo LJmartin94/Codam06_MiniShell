@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/17 14:15:10 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/03 14:55:30 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/17 15:20:11 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static int	str_amt(char const *s, char c)
 	amt = 0;
 	while (s[i] != '\0')
 	{
-		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
+		if (s[i + 1] == c || s[i + 1] == '\0')
 		{
 			amt++;
 		}
@@ -99,7 +99,7 @@ static char	**allocate_arr(char const *s, char c, int amt, char **arr)
 	{
 		start = find_split(s, c, end, 0);
 		end = find_split(s, c, start, 1);
-		arr[i] = ft_substr(s, start, (end - start));
+		arr[i] = ft_substr(s, start, (end + 1 - start));
 		if (arr[i] == NULL)
 		{
 			free_matrix(arr);
