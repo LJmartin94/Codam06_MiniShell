@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:39:47 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/09 16:12:10 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/17 15:50:01 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "error.h"
 #include <fcntl.h>
 #include <unistd.h>
-
-//will shit remain open from other shit in the child
 
 static void	redirect_pipes(t_icomp *comp, int p_fd[2], int stdin)
 {

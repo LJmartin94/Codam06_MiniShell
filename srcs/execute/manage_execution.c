@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/17 15:10:39 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/17 15:50:13 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,6 @@ static int		shnell_execute(t_cmd f, t_vector *env, t_icomp *comp, int input)
 	}
 	return (0);
 }
-
-//TODO: fork error
 
 int				exec_command(t_vector *env, t_icomp *comp, int input)
 {
