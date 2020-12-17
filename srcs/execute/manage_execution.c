@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/17 17:15:54 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/17 20:50:29 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,37 +35,44 @@ void			run_command(t_cmd f, t_vector *env, t_icomp *comp)
 	exit(0);
 }
 
-static void		kill_processes(t_vector fd_list, t_vector pid_list)
+static void		kill_processes(t_vector *fd_list, t_vector *pid_list)
 {
-	while (fd_list.amt > 0)
+	int *fd_ptr;
+	int *pid_ptr;
+	int wstatus;
+
+	while (fd_list->amt > 0)
 	{
-		int *fd_ptr = vector_get(&fd_list, 0);
+		fd_ptr = vector_get(fd_list, 0);
 		e_close(*fd_ptr);
-		vector_delete(&fd_list, 0);
+		free(fd_ptr);
+		vector_delete(fd_list, 0);
 	}
-	while (pid_list.amt)
+	while (pid_list->amt > 0)
 	{
-		int wstatus;
-		int *pid_ptr = vector_get(&pid_list, 0);
+		pid_ptr = vector_get(pid_list, 0);
 		waitpid(*pid_ptr, &wstatus, 0);
 		g_ret_val = WEXITSTATUS(wstatus);
-		vector_delete(&pid_list, 0);
-		g_amt_processes = pid_list.amt;
+		free(pid_ptr);
+		vector_delete(pid_list, 0);
+		g_amt_processes = pid_list->amt;
 	}
 }
 
-static void		parent_process(t_icomp *comp, int pid, int fd[2])
+static void		parent_process(t_icomp *comp, int pid, int fd[2], t_vector *fd_list, t_vector *pid_list)
 {
-	t_vector	fd_list;
-	t_vector	pid_list;
+	int *fd_ptr;
+	int *pid_ptr;
 
-	vector_init(&fd_list);
-	vector_init(&pid_list);
 	if (fd[1] != -1)
 		e_close(fd[1]);
-	vector_push(&fd_list, &fd[0]);
-	vector_push(&pid_list, &pid);
-	g_amt_processes = pid_list.amt;
+	fd_ptr = (int *)e_malloc(sizeof(int));
+	pid_ptr = (int *)e_malloc(sizeof(int));
+	*fd_ptr = fd[0];
+	*pid_ptr = pid;
+	vector_push(fd_list, fd_ptr);
+	vector_push(pid_list, pid_ptr);
+	g_amt_processes = pid_list->amt;
 	if (comp->right == NULL)
 		kill_processes(fd_list, pid_list);
 }
@@ -83,7 +90,7 @@ static int		shnell_execute(t_cmd f, t_vector *env, t_icomp *comp, int input)
 	return (0);
 }
 
-int				exec_command(t_vector *env, t_icomp *comp, int input)
+int				exec_command(t_vector *env, t_icomp *comp, int input, t_vector *fd_list, t_vector *pid_list)
 {
 	t_cmd	f;
 	int		pid;
@@ -108,7 +115,7 @@ int				exec_command(t_vector *env, t_icomp *comp, int input)
 			run_command(f, env, comp);
 		}
 		else
-			parent_process(comp, pid, fd);
+			parent_process(comp, pid, fd, fd_list, pid_list);
 	}
 	return (fd[0]);
 }

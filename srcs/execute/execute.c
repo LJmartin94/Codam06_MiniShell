@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/17 16:52:22 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/17 17:33:14 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,17 @@ void	execute(t_vector *env, t_icomp *comp)
 	t_icomp	*tmp;
 	int		stdin;
 
+	t_vector	fd_list;
+	t_vector	pid_list;
+
+	vector_init(&fd_list);
+	vector_init(&pid_list);
+
 	tmp = comp;
 	stdin = -1;
 	while (tmp != NULL)
 	{
-		stdin = exec_command(env, tmp, stdin);
+		stdin = exec_command(env, tmp, stdin, &fd_list, &pid_list);
 		tmp = tmp->right;
 	}
 }

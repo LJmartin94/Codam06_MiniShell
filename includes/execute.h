@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/17 17:14:31 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/17 17:33:01 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int				validate_env_key(const char *arg);
 */
 
 t_cmd			get_command(t_icomp *comp);
-int				exec_command(t_vector *env, t_icomp *cmd, int stdin);
+int				exec_command(t_vector *env, t_icomp *cmd, int input, t_vector *ft_list, t_vector *pid_list);
 
 void			handle_redirections(t_icomp *comp, int p_fd[2], int stdin);
 int				redirect_builtin(t_icomp *comp);
