@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:39:47 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/17 13:10:07 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/17 16:33:19 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ static void	redirect_pipes(t_icomp *comp, int p_fd[2], int stdin)
 	if (stdin != -1)
 	{
 		dup2(stdin, STDIN_FILENO);
-		ft_dprintf(STDOUT_FILENO, "redirect: ");
+		// ft_dprintf(STDOUT_FILENO, "redirect: ");
 		e_close(stdin);
 	}
 	if (ft_strncmp(comp->sep, "|", 2) == 0)
 	{
 		dup2(p_fd[1], STDOUT_FILENO);
-		ft_dprintf(STDOUT_FILENO, "redirect: ");
+		// ft_dprintf(STDOUT_FILENO, "redirect: ");
 		e_close(p_fd[0]);
-		ft_dprintf(STDOUT_FILENO, "redirect: ");
+		// ft_dprintf(STDOUT_FILENO, "redirect: ");
 		e_close(p_fd[1]);
 	}
 }
@@ -62,7 +62,7 @@ void		handle_redirections(t_icomp *comp, int p_fd[2], int stdin)
 		{
 			fd = redirect_to(rd->type_out, rd->file);
 			dup2(fd, STDOUT_FILENO);
-			ft_dprintf(STDOUT_FILENO, "redirect: ");
+			// ft_dprintf(STDOUT_FILENO, "redirect: ");
 			e_close(fd);
 		}
 		else if (ft_strncmp(rd->type_in, "<", 2) == 0)
@@ -71,7 +71,7 @@ void		handle_redirections(t_icomp *comp, int p_fd[2], int stdin)
 			if (fd == -1)
 				error_exit_msg(1, "oops, no such file");
 			dup2(fd, STDIN_FILENO);
-			ft_dprintf(STDOUT_FILENO, "redirect: ");
+			// ft_dprintf(STDOUT_FILENO, "redirect: ");
 			e_close(fd);
 		}
 		rd = rd->right;
@@ -89,7 +89,7 @@ int			redirect_builtin(t_icomp *comp)
 	{
 		if (fd != -1)
 		{
-			ft_dprintf(STDOUT_FILENO, "redirect: ");
+			// ft_dprintf(STDOUT_FILENO, "redirect: ");
 			e_close(fd);
 		}
 		if (ft_strncmp(rd->type_out, ">", 1) == 0)
@@ -101,7 +101,7 @@ int			redirect_builtin(t_icomp *comp)
 				ft_dprintf(STDERR_FILENO, "oops, no such file");
 			else
 			{
-				ft_dprintf(STDOUT_FILENO, "redirect: ");
+				// ft_dprintf(STDOUT_FILENO, "redirect: ");
 				e_close(fd);
 			}
 			fd = STDOUT_FILENO;

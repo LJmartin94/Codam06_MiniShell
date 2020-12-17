@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/17 14:58:09 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/17 16:35:30 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,24 @@ void			run_command(t_cmd f, t_vector *env, t_icomp *comp)
 
 static void		kill_processes()
 {
-	ft_dprintf(STDOUT_FILENO, "killing all processes\n");
-	size_t i = 0;
-
+	size_t i;
+	
+	i = 0;
 	while (i < g_pid_list.amt)
 	{
 		t_process *process = vector_get(&g_pid_list, i);
-		ft_dprintf(STDOUT_FILENO, "amt: %d, index: %d, process fd: %d\n",g_pid_list.amt, i, process->fd);
 		e_close(process->fd);
 		i++;
 	}
-	// while (g_pid_list.amt != 0)
-	// {
-		
-	// }
+	while (g_pid_list.amt != 0)
+	{
+		int wstatus;
+		t_process *process = vector_get(&g_pid_list, 0);
+		waitpid(process->pid, &wstatus, 0);
+		g_ret_val = WEXITSTATUS(wstatus);
+		free(process);
+		vector_delete(&g_pid_list, 0);
+	}
 }
 
 static void		parent_process(t_icomp *comp, int pid, int fd[2])
@@ -62,10 +66,7 @@ static void		parent_process(t_icomp *comp, int pid, int fd[2])
 	t_process	*pid_malloc;
 
 	if (fd[1] != -1)
-	{
-		ft_dprintf(STDOUT_FILENO, "fd[]1: ");
 		e_close(fd[1]);
-	}
 	pid_malloc = (t_process *)e_malloc(sizeof(t_process));
 	pid_malloc->pid = pid;
 	pid_malloc->fd = fd[0];

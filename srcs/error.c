@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/20 09:58:37 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/17 12:59:25 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/17 16:32:50 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	e_write(int fd, const char *buf, size_t size)
 
 void	e_close(int fd)
 {
-	ft_dprintf(STDOUT_FILENO, "close fd: %d\n", fd);
+	// ft_dprintf(STDOUT_FILENO, "close fd: %d\n", fd);
 	if (fd == -1)
 		return ;
 	if (close(fd) == -1)
