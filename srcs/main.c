@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/05 10:42:08 by lindsay       ########   odam.nl         */
+/*   Updated: 2021/01/05 10:42:31 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,22 @@ void		run_shell(t_vector *env, char *buf)
 	char	**split;
 	t_icomp	comp_blocks;
 	size_t	i;
+	size_t	j;
 	int		no_error;
 
 	split = split_unless_quote(buf, ';');
-	i = 0;
+	j = 0;
 	no_error = 1;
-	while (split[i] != NULL)
+	while (j < 2)
 	{
-		no_error = no_error * \
-		parse_and_execute(env, &(split[i]), &comp_blocks, 0);
-		i++;
-	}
-	i = 0;
-	while (split[i] != NULL && no_error)
-	{
-		parse_and_execute(env, &(split[i]), &comp_blocks, 1);
-		i++;
+		i = 0;
+		while (split[i] != NULL && no_error)
+		{
+			no_error = no_error * \
+			parse_and_execute(env, &(split[i]), &comp_blocks, j);
+			i++;
+		}
+		j++;
 	}
 	free_matrix(split);
 }
