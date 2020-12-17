@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/17 16:35:30 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/17 17:15:54 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,45 +35,39 @@ void			run_command(t_cmd f, t_vector *env, t_icomp *comp)
 	exit(0);
 }
 
-/*
-** //TODO: what to do if index not found?
-*/
-
-static void		kill_processes()
+static void		kill_processes(t_vector fd_list, t_vector pid_list)
 {
-	size_t i;
-	
-	i = 0;
-	while (i < g_pid_list.amt)
+	while (fd_list.amt > 0)
 	{
-		t_process *process = vector_get(&g_pid_list, i);
-		e_close(process->fd);
-		i++;
+		int *fd_ptr = vector_get(&fd_list, 0);
+		e_close(*fd_ptr);
+		vector_delete(&fd_list, 0);
 	}
-	while (g_pid_list.amt != 0)
+	while (pid_list.amt)
 	{
 		int wstatus;
-		t_process *process = vector_get(&g_pid_list, 0);
-		waitpid(process->pid, &wstatus, 0);
+		int *pid_ptr = vector_get(&pid_list, 0);
+		waitpid(*pid_ptr, &wstatus, 0);
 		g_ret_val = WEXITSTATUS(wstatus);
-		free(process);
-		vector_delete(&g_pid_list, 0);
+		vector_delete(&pid_list, 0);
+		g_amt_processes = pid_list.amt;
 	}
 }
 
 static void		parent_process(t_icomp *comp, int pid, int fd[2])
 {
-	t_process	*pid_malloc;
+	t_vector	fd_list;
+	t_vector	pid_list;
 
+	vector_init(&fd_list);
+	vector_init(&pid_list);
 	if (fd[1] != -1)
 		e_close(fd[1]);
-	pid_malloc = (t_process *)e_malloc(sizeof(t_process));
-	pid_malloc->pid = pid;
-	pid_malloc->fd = fd[0];
-	vector_push(&g_pid_list, pid_malloc);
-	(void)comp;
+	vector_push(&fd_list, &fd[0]);
+	vector_push(&pid_list, &pid);
+	g_amt_processes = pid_list.amt;
 	if (comp->right == NULL)
-		kill_processes();
+		kill_processes(fd_list, pid_list);
 }
 
 static int		shnell_execute(t_cmd f, t_vector *env, t_icomp *comp, int input)

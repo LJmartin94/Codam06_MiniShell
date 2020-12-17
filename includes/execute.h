@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/09 12:17:52 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/17 17:14:31 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,16 @@ typedef struct	s_env
 }				t_env;
 
 /*
-** Store pid
-*/
-
-t_vector g_pid_list;
-
-typedef struct	s_process
-{
-	int	fd;
-	int pid;
-}				t_process;
-
-/*
 ** get global return value
 */
 
 extern int g_ret_val;
+
+/*
+** get global amount of processes
+*/
+
+extern int g_amt_processes;
 
 /*
 ** Builtin prototypes
@@ -103,7 +97,6 @@ typedef struct	s_quotes
 	int dquote;
 }				t_quotes;
 
-int				pid_print(int fd, t_process *pid);
 int				cmp_pid(int *pid1, int *pid2);
 void			free_matrix(char **matrix);
 

@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 14:05:11 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/17 17:16:20 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,14 @@ int		get_input(t_vector *env)
 */
 
 int		g_ret_val;
+int		g_amt_processes;
 
 int		main(int ac, char **av, char **envp)
 {
 	t_vector	*env;
 
 	g_ret_val = 0;
+	g_amt_processes = 0;
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, handle_sigquit);
 	env = envp_to_env(envp);

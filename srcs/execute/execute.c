@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/17 16:33:46 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/17 16:52:22 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	execute(t_vector *env, t_icomp *comp)
 	t_icomp	*tmp;
 	int		stdin;
 
-	vector_init(&g_pid_list);
 	tmp = comp;
 	stdin = -1;
 	while (tmp != NULL)
@@ -54,10 +53,4 @@ void	execute(t_vector *env, t_icomp *comp)
 		stdin = exec_command(env, tmp, stdin);
 		tmp = tmp->right;
 	}
-	// ft_dprintf(STDOUT_FILENO, "pidlist amt: %d\n", g_pid_list.amt);
-	if (g_pid_list.amt == 0)
-		free(g_pid_list.data);
-	else
-		ft_dprintf(STDOUT_FILENO, "something wrong with pid_list\n");
-	
 }
