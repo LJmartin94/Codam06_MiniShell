@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 11:22:52 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/17 13:06:18 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,10 @@ void	execute(t_vector *env, t_icomp *comp)
 		stdin = exec_command(env, tmp, stdin);
 		tmp = tmp->right;
 	}
+	ft_dprintf(STDOUT_FILENO, "pidlist amt: %d\n", g_pid_list.amt);
 	if (g_pid_list.amt == 0)
 		free(g_pid_list.data);
 	else
 		ft_dprintf(STDOUT_FILENO, "something wrong with pid_list\n");
+	
 }
