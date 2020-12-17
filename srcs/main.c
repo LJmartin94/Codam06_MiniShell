@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/05 10:33:39 by lindsay       ########   odam.nl         */
+/*   Updated: 2021/01/05 10:42:08 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,49 @@
 #include "execute.h"
 #include <signal.h>
 
-void	run_shell(t_vector *env, char *buf)
+static int	parse_and_execute(t_vector *env, char **str, t_icomp *comp, \
+int exec)
+{
+	int		no_error;
+
+	no_error = 1;
+	expand_env(env, str);
+	parse_input(*str, comp);
+	//print_components(comp);
+	if (exec)
+		execute(env, comp);
+	else
+		no_error = no_error * no_syntax_errors(comp);
+	free_components(comp);
+	return (no_error);
+}
+
+void		run_shell(t_vector *env, char *buf)
 {
 	char	**split;
 	t_icomp	comp_blocks;
 	size_t	i;
+	int		no_error;
 
 	split = split_unless_quote(buf, ';');
 	i = 0;
+	no_error = 1;
 	while (split[i] != NULL)
 	{
-		expand_env(env, &(split[i]));
-		parse_input(split[i], &comp_blocks);
+		no_error = no_error * \
+		parse_and_execute(env, &(split[i]), &comp_blocks, 0);
 		i++;
-		print_components(&comp_blocks);
-		if (no_syntax_errors(&comp_blocks))
-			execute(env, &comp_blocks);
-		free_components(&comp_blocks);
+	}
+	i = 0;
+	while (split[i] != NULL && no_error)
+	{
+		parse_and_execute(env, &(split[i]), &comp_blocks, 1);
+		i++;
 	}
 	free_matrix(split);
 }
 
-int		get_input(t_vector *env)
+int			get_input(t_vector *env)
 {
 	char	*buf;
 	int		ret;
@@ -62,7 +83,7 @@ int		get_input(t_vector *env)
 int		g_ret_val;
 int		g_amt_processes;
 
-int		main(int ac, char **av, char **envp)
+int			main(int ac, char **av, char **envp)
 {
 	t_vector	*env;
 
@@ -82,7 +103,7 @@ int		main(int ac, char **av, char **envp)
 ** //TODO: remove function print_components if no longer debugging
 */
 
-void	print_components(t_icomp *icur)
+void		print_components(t_icomp *icur)
 {
 	t_arg *to_print;
 	t_redir *rd_to_print;
