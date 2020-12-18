@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/18 16:07:16 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/18 16:12:45 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** TODO: Build command validators in functions
 */
 
-t_cmd	get_command(t_icomp *comp)
+t_cmd		get_command(t_icomp *comp)
 {
 	if (ft_strncmp(comp->cmd, "echo", 5) == 0)
 		return (ft_echo);
@@ -37,7 +37,7 @@ t_cmd	get_command(t_icomp *comp)
 	return (NULL);
 }
 
-static void		kill_processes(t_vector *fd_list, t_vector *pid_list)
+static void	kill_processes(t_vector *fd_list, t_vector *pid_list)
 {
 	int *fd_ptr;
 	int *pid_ptr;
@@ -61,7 +61,7 @@ static void		kill_processes(t_vector *fd_list, t_vector *pid_list)
 	}
 }
 
-void	execute(t_vector *env, t_icomp *comp)
+void		execute(t_vector *env, t_icomp *comp)
 {
 	t_icomp		*tmp;
 	t_vector	fd_list;
