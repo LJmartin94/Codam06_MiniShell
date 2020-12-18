@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/17 17:33:01 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/18 12:26:31 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,17 @@ typedef struct	s_env
 }				t_env;
 
 /*
+** Store pid
+*/
+
+// t_vector g_pid_list;
+int g_amt_processes;
+
+/*
 ** get global return value
 */
 
 extern int g_ret_val;
-
-/*
-** get global amount of processes
-*/
-
-extern int g_amt_processes;
 
 /*
 ** Builtin prototypes
@@ -68,7 +69,7 @@ int				validate_env_key(const char *arg);
 */
 
 t_cmd			get_command(t_icomp *comp);
-int				exec_command(t_vector *env, t_icomp *cmd, int input, t_vector *ft_list, t_vector *pid_list);
+int				exec_command(t_vector *env, t_icomp *cmd, int stdin, t_vector *fd_list, t_vector *pid_list);
 
 void			handle_redirections(t_icomp *comp, int p_fd[2], int stdin);
 int				redirect_builtin(t_icomp *comp);
@@ -97,6 +98,7 @@ typedef struct	s_quotes
 	int dquote;
 }				t_quotes;
 
+// int				pid_print(int fd, t_process *pid);
 int				cmp_pid(int *pid1, int *pid2);
 void			free_matrix(char **matrix);
 
