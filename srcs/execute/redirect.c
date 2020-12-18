@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:39:47 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/18 15:58:24 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/18 16:06:35 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 static void	redirect_pipes(t_icomp *comp, int p_fd[2], t_vector *fd_list)
 {
 	int *input;
-	
+
 	input = vector_get(fd_list, fd_list->amt - 1);
 	if (!(fd_list->amt == 0 || *input == -1))
 	{
@@ -33,7 +33,7 @@ static void	redirect_pipes(t_icomp *comp, int p_fd[2], t_vector *fd_list)
 	}
 }
 
-static int		redirect_to(const char *rd, const char *file)
+static int	redirect_to(const char *rd, const char *file)
 {
 	int fd;
 
