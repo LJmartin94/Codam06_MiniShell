@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:39:47 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/18 13:57:53 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/18 15:58:24 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,28 @@ static void	redirect_pipes(t_icomp *comp, int p_fd[2], t_vector *fd_list)
 	}
 }
 
-int			redirect_to(const char *rd, const char *file)
+static int		redirect_to(const char *rd, const char *file)
 {
 	int fd;
 
 	fd = -1;
 	if (ft_strncmp(rd, ">>", 3) == 0)
+	{
 		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0666);
+		if (fd == -1)
+			error_exit_errno();
+	}
 	else if (ft_strncmp(rd, ">", 2) == 0)
+	{
 		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+		if (fd == -1)
+			error_exit_errno();
+	}
 	return (fd);
 }
 
-/*
-** //TODO: Solidify error checking
-*/
-
-void		handle_redirections(t_icomp *comp, int p_fd[2], t_vector *fd_list)
+void		handle_redirections(t_icomp *comp, int p_fd[2],
+				t_vector *fd_list)
 {
 	int		fd;
 	t_redir	*rd;
@@ -85,15 +90,13 @@ int			redirect_builtin(t_icomp *comp)
 	fd = -1;
 	while (rd)
 	{
-		if (fd != -1)
-			e_close(fd);
 		if (ft_strncmp(rd->type_out, ">", 1) == 0)
 			fd = redirect_to(rd->type_out, rd->file);
 		else if (ft_strncmp(rd->type_in, "<", 2) == 0)
 		{
 			fd = open(rd->file, O_RDONLY, 0666);
 			if (fd == -1)
-				ft_dprintf(STDERR_FILENO, "oops, no such file");
+				e_write(STDERR_FILENO, "Oops, no such file or directory", 32);
 			else
 				e_close(fd);
 			fd = STDOUT_FILENO;

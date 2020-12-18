@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/18 14:26:56 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/18 15:46:23 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,6 @@ t_cmd	get_command(t_icomp *comp)
 	return (NULL);
 }
 
-/*
-** //TODO: confirm that pid is handled correctly and kill pid_list
-*/
-
 static void		kill_processes(t_vector *fd_list, t_vector *pid_list)
 {
 	while (fd_list->amt > 0)
@@ -64,14 +60,12 @@ static void		kill_processes(t_vector *fd_list, t_vector *pid_list)
 
 void	execute(t_vector *env, t_icomp *comp)
 {
-	t_icomp	*tmp;
-
+	t_icomp		*tmp;
 	t_vector	fd_list;
 	t_vector	pid_list;
 
 	vector_init(&fd_list);
 	vector_init(&pid_list);
-
 	tmp = comp;
 	while (tmp != NULL)
 	{

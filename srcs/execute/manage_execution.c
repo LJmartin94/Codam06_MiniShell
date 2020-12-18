@@ -6,14 +6,14 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/18 15:34:20 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/18 15:47:27 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "error.h"
 
-void			run_command(t_cmd f, t_vector *env, t_icomp *comp)
+static void	run_command(t_cmd f, t_vector *env, t_icomp *comp)
 {
 	char *path;
 	char **envp;
@@ -35,7 +35,8 @@ void			run_command(t_cmd f, t_vector *env, t_icomp *comp)
 	exit(0);
 }
 
-static void		parent_process(int pid, int fd[2], t_vector *fd_list, t_vector *pid_list)
+static void	parent_process(int pid, int fd[2],
+				t_vector *fd_list, t_vector *pid_list)
 {
 	int *fd_ptr;
 	int *pid_ptr;
@@ -51,7 +52,7 @@ static void		parent_process(int pid, int fd[2], t_vector *fd_list, t_vector *pid
 	g_amt_processes = pid_list->amt;
 }
 
-static int	exec_part_two(t_icomp *comp, t_vector *env, t_cmd *f, int fd[2])
+static int	main_process(t_icomp *comp, t_vector *env, t_cmd *f, int fd[2])
 {
 	t_cmd	f_tmp;
 
@@ -62,19 +63,21 @@ static int	exec_part_two(t_icomp *comp, t_vector *env, t_cmd *f, int fd[2])
 	}
 	f_tmp = get_command(comp);
 	if (f_tmp != NULL && ft_strncmp(comp->sep, "|", 2) != 0 &&
-		(comp->left == NULL || (comp->left && ft_strncmp(comp->left->sep, "|", 2) != 0)))
+		(comp->left == NULL ||
+		(comp->left && ft_strncmp(comp->left->sep, "|", 2) != 0)))
 	{
-		g_ret_val = funk(env, comp, redirect_builtin(comp));
+		g_ret_val = f_tmp(env, comp, redirect_builtin(comp));
 		return (1);
 	}
 	else
 	{
 		*f = f_tmp;
 		return (0);
-	}	
+	}
 }
 
-int				exec_command(t_vector *env, t_icomp *comp, t_vector *fd_list, t_vector *pid_list)
+void		exec_command(t_vector *env, t_icomp *comp,
+				t_vector *fd_list, t_vector *pid_list)
 {
 	t_cmd	f;
 	int		pid;
@@ -82,7 +85,7 @@ int				exec_command(t_vector *env, t_icomp *comp, t_vector *fd_list, t_vector *p
 
 	fd[0] = -1;
 	fd[1] = -1;
-	if (exec_part_two(comp, env, &f, fd) == 0)
+	if (main_process(comp, env, &f, fd) == 0)
 	{
 		pid = fork();
 		if (pid == -1)
@@ -95,5 +98,4 @@ int				exec_command(t_vector *env, t_icomp *comp, t_vector *fd_list, t_vector *p
 		else
 			parent_process(pid, fd, fd_list, pid_list);
 	}
-	return (fd[0]);
 }
