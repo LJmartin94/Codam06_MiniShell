@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/17 17:33:14 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/18 14:26:56 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,30 @@ t_cmd	get_command(t_icomp *comp)
 ** //TODO: confirm that pid is handled correctly and kill pid_list
 */
 
+static void		kill_processes(t_vector *fd_list, t_vector *pid_list)
+{
+	while (fd_list->amt > 0)
+	{
+		int *fd_ptr = vector_get(fd_list, 0);
+		free(fd_ptr);
+		e_close(*fd_ptr);
+		vector_delete(fd_list, 0);
+	}
+	while (pid_list->amt > 0)
+	{
+		int wstatus;
+		int *pid_ptr = vector_get(pid_list, 0);
+		waitpid(*pid_ptr, &wstatus, 0);
+		g_ret_val = WEXITSTATUS(wstatus);
+		free(pid_ptr);
+		vector_delete(pid_list, 0);
+		g_amt_processes = pid_list->amt;
+	}
+}
+
 void	execute(t_vector *env, t_icomp *comp)
 {
 	t_icomp	*tmp;
-	int		stdin;
 
 	t_vector	fd_list;
 	t_vector	pid_list;
@@ -53,10 +73,10 @@ void	execute(t_vector *env, t_icomp *comp)
 	vector_init(&pid_list);
 
 	tmp = comp;
-	stdin = -1;
 	while (tmp != NULL)
 	{
-		stdin = exec_command(env, tmp, stdin, &fd_list, &pid_list);
+		exec_command(env, tmp, &fd_list, &pid_list);
 		tmp = tmp->right;
 	}
+	kill_processes(&fd_list, &pid_list);
 }

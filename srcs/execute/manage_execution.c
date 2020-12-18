@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/18 12:35:45 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/18 15:34:20 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,28 +35,7 @@ void			run_command(t_cmd f, t_vector *env, t_icomp *comp)
 	exit(0);
 }
 
-static void		kill_processes(t_vector *fd_list, t_vector *pid_list)
-{
-	while (fd_list->amt > 0)
-	{
-		int *fd_ptr = vector_get(fd_list, 0);
-		free(fd_ptr);
-		e_close(*fd_ptr);
-		vector_delete(fd_list, 0);
-	}
-	while (pid_list->amt > 0)
-	{
-		int wstatus;
-		int *pid_ptr = vector_get(pid_list, 0);
-		waitpid(*pid_ptr, &wstatus, 0);
-		g_ret_val = WEXITSTATUS(wstatus);
-		free(pid_ptr);
-		vector_delete(pid_list, 0);
-		g_amt_processes = pid_list->amt;
-	}
-}
-
-static void		parent_process(t_icomp *comp, int pid, int fd[2], t_vector *fd_list, t_vector *pid_list)
+static void		parent_process(int pid, int fd[2], t_vector *fd_list, t_vector *pid_list)
 {
 	int *fd_ptr;
 	int *pid_ptr;
@@ -70,24 +49,32 @@ static void		parent_process(t_icomp *comp, int pid, int fd[2], t_vector *fd_list
 	vector_push(fd_list, fd_ptr);
 	vector_push(pid_list, pid_ptr);
 	g_amt_processes = pid_list->amt;
-	if (comp->right == NULL)
-		kill_processes(fd_list, pid_list);
 }
 
-static int		shnell_execute(t_cmd f, t_vector *env, t_icomp *comp, int input)
+static int	exec_part_two(t_icomp *comp, t_vector *env, t_cmd *f, int fd[2])
 {
-	int fd;
+	t_cmd	f_tmp;
 
-	if (f != NULL && ft_strncmp(comp->sep, "|", 2) != 0 && input == -1)
+	if (ft_strncmp(comp->sep, "|", 2) == 0)
 	{
-		fd = redirect_builtin(comp);
-		g_ret_val = f(env, comp, fd);
+		if (pipe(fd) == -1)
+			error_exit_errno();
+	}
+	f_tmp = get_command(comp);
+	if (f_tmp != NULL && ft_strncmp(comp->sep, "|", 2) != 0 &&
+		(comp->left == NULL || (comp->left && ft_strncmp(comp->left->sep, "|", 2) != 0)))
+	{
+		g_ret_val = funk(env, comp, redirect_builtin(comp));
 		return (1);
 	}
-	return (0);
+	else
+	{
+		*f = f_tmp;
+		return (0);
+	}	
 }
 
-int				exec_command(t_vector *env, t_icomp *comp, int input, t_vector *fd_list, t_vector *pid_list)
+int				exec_command(t_vector *env, t_icomp *comp, t_vector *fd_list, t_vector *pid_list)
 {
 	t_cmd	f;
 	int		pid;
@@ -95,24 +82,18 @@ int				exec_command(t_vector *env, t_icomp *comp, int input, t_vector *fd_list, 
 
 	fd[0] = -1;
 	fd[1] = -1;
-	if (ft_strncmp(comp->sep, "|", 2) == 0)
-	{
-		if (pipe(fd) == -1)
-			error_exit_errno();
-	}
-	f = get_command(comp);
-	if (shnell_execute(f, env, comp, input) == 0)
+	if (exec_part_two(comp, env, &f, fd) == 0)
 	{
 		pid = fork();
 		if (pid == -1)
 			error_exit_errno();
 		else if (pid == 0)
 		{
-			handle_redirections(comp, fd, input);
+			handle_redirections(comp, fd, fd_list);
 			run_command(f, env, comp);
 		}
 		else
-			parent_process(comp, pid, fd, fd_list, pid_list);
+			parent_process(pid, fd, fd_list, pid_list);
 	}
 	return (fd[0]);
 }

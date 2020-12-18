@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:39:47 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/18 12:18:30 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/18 13:57:53 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,15 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-static void	redirect_pipes(t_icomp *comp, int p_fd[2], int stdin)
+static void	redirect_pipes(t_icomp *comp, int p_fd[2], t_vector *fd_list)
 {
-	if (stdin != -1)
+	int *input;
+	
+	input = vector_get(fd_list, fd_list->amt - 1);
+	if (!(fd_list->amt == 0 || *input == -1))
 	{
-		dup2(stdin, STDIN_FILENO);
-		e_close(stdin);
+		dup2(*input, STDIN_FILENO);
+		e_close(*input);
 	}
 	if (ft_strncmp(comp->sep, "|", 2) == 0)
 	{
@@ -46,13 +49,13 @@ int			redirect_to(const char *rd, const char *file)
 ** //TODO: Solidify error checking
 */
 
-void		handle_redirections(t_icomp *comp, int p_fd[2], int stdin)
+void		handle_redirections(t_icomp *comp, int p_fd[2], t_vector *fd_list)
 {
 	int		fd;
 	t_redir	*rd;
 
 	rd = comp->rdhead;
-	redirect_pipes(comp, p_fd, stdin);
+	redirect_pipes(comp, p_fd, fd_list);
 	while (rd != NULL)
 	{
 		if (ft_strncmp(rd->type_out, ">", 1) == 0)
