@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:39:47 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 15:39:07 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/18 16:06:35 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,15 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-static void	redirect_pipes(t_icomp *comp, int p_fd[2], int stdin)
+static void	redirect_pipes(t_icomp *comp, int p_fd[2], t_vector *fd_list)
 {
-	if (stdin != -1)
+	int *input;
+
+	input = vector_get(fd_list, fd_list->amt - 1);
+	if (!(fd_list->amt == 0 || *input == -1))
 	{
-		dup2(stdin, STDIN_FILENO);
-		e_close(stdin);
+		dup2(*input, STDIN_FILENO);
+		e_close(*input);
 	}
 	if (ft_strncmp(comp->sep, "|", 2) == 0)
 	{
@@ -30,29 +33,34 @@ static void	redirect_pipes(t_icomp *comp, int p_fd[2], int stdin)
 	}
 }
 
-int			redirect_to(const char *rd, const char *file)
+static int	redirect_to(const char *rd, const char *file)
 {
 	int fd;
 
 	fd = -1;
 	if (ft_strncmp(rd, ">>", 3) == 0)
+	{
 		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0666);
+		if (fd == -1)
+			error_exit_errno();
+	}
 	else if (ft_strncmp(rd, ">", 2) == 0)
+	{
 		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+		if (fd == -1)
+			error_exit_errno();
+	}
 	return (fd);
 }
 
-/*
-** //TODO: Solidify error checking
-*/
-
-void		handle_redirections(t_icomp *comp, int p_fd[2], int stdin)
+void		handle_redirections(t_icomp *comp, int p_fd[2],
+				t_vector *fd_list)
 {
 	int		fd;
 	t_redir	*rd;
 
 	rd = comp->rdhead;
-	redirect_pipes(comp, p_fd, stdin);
+	redirect_pipes(comp, p_fd, fd_list);
 	while (rd != NULL)
 	{
 		if (ft_strncmp(rd->type_out, ">", 1) == 0)
@@ -82,15 +90,13 @@ int			redirect_builtin(t_icomp *comp)
 	fd = -1;
 	while (rd)
 	{
-		if (fd != -1)
-			e_close(fd);
 		if (ft_strncmp(rd->type_out, ">", 1) == 0)
 			fd = redirect_to(rd->type_out, rd->file);
 		else if (ft_strncmp(rd->type_in, "<", 2) == 0)
 		{
 			fd = open(rd->file, O_RDONLY, 0666);
 			if (fd == -1)
-				ft_dprintf(STDERR_FILENO, "oops, no such file");
+				e_write(STDERR_FILENO, "Oops, no such file or directory", 32);
 			else
 				e_close(fd);
 			fd = STDOUT_FILENO;

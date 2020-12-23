@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:41:34 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/11/09 11:44:30 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/18 16:07:56 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@
 /*
 ** //TODO: remove unused print functions
 */
-
-int		pid_print(int fd, t_process *prc)
-{
-	return (ft_dprintf(fd, "pid: %d, fd: %d\n", prc->pid, prc->fd));
-}
 
 int		cmp_pid(int *pid1, int *pid2)
 {

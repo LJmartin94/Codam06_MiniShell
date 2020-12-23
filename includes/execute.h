@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/09 12:17:52 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/18 16:10:34 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,13 @@ typedef struct	s_env
 }				t_env;
 
 /*
-** Store pid
+** Amount of current running processes
 */
 
-t_vector g_pid_list;
-
-typedef struct	s_process
-{
-	int	fd;
-	int pid;
-}				t_process;
+extern int g_amt_processes;
 
 /*
-** get global return value
+** Global return value
 */
 
 extern int g_ret_val;
@@ -74,9 +68,11 @@ int				validate_env_key(const char *arg);
 */
 
 t_cmd			get_command(t_icomp *comp);
-int				exec_command(t_vector *env, t_icomp *cmd, int stdin);
+void			exec_command(t_vector *env, t_icomp *cmd,
+					t_vector *fd_list, t_vector *pid_list);
 
-void			handle_redirections(t_icomp *comp, int p_fd[2], int stdin);
+void			handle_redirections(t_icomp *comp, int p_fd[2],
+					t_vector *fd_list);
 int				redirect_builtin(t_icomp *comp);
 
 char			*find_path(t_vector *env, t_icomp *comp);
@@ -103,7 +99,6 @@ typedef struct	s_quotes
 	int dquote;
 }				t_quotes;
 
-int				pid_print(int fd, t_process *pid);
 int				cmp_pid(int *pid1, int *pid2);
 void			free_matrix(char **matrix);
 
