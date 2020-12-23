@@ -86,7 +86,7 @@ void			expand_env(t_vector *env, char **str);
 */
 
 void			invalid_cmd(t_icomp *cmd);
-void			cmd_error(t_icomp *cmd, char *msg, int fd);
+void			cmd_error(t_icomp *cmd, char *msg);
 
 /*
 ** Execute utils, mainly for testing purposes

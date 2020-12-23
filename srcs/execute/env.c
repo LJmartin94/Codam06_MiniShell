@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 11:49:12 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 14:45:13 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/09 14:07:01 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int				ft_env(t_vector *env, t_icomp *cmd, int fd)
 	cur = NULL;
 	if (validate_cmd_env(cmd) == 0)
 	{
-		cmd_error(cmd, "Bad params", fd);
+		cmd_error(cmd, "Bad params");
 		return (127);
 	}
 	while (i < env->amt)

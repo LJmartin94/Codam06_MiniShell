@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:38:22 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 13:59:23 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/09 14:12:44 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,14 @@ int			ft_unset(t_vector *env, t_icomp *cmd, int fd)
 		if (validate_env_key(arg->value) == 1 && arg->value[0] != '\0')
 		{
 			error_str = ft_strjoin(arg->value, ": Not a valid identifier");
-			cmd_error(cmd, error_str, fd);
+			cmd_error(cmd, error_str);
 			free(error_str);
 			ret = 1;
 		}
 		else
-		{
 			unset_item(env, arg);
-		}
 		arg = arg->right;
 	}
+	(void)fd;
 	return (ret);
 }

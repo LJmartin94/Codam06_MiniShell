@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:39:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/09 12:37:01 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/09 14:12:25 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	concat_env_item(t_vector *env, t_env *new_item)
 	return (1);
 }
 
-static int	manage_export(t_vector *env, t_icomp *cmd, t_arg **arg, int fd)
+static int	manage_export(t_vector *env, t_icomp *cmd, t_arg **arg)
 {
 	char	*joint_arg;
 	int		pos;
@@ -71,7 +71,7 @@ static int	manage_export(t_vector *env, t_icomp *cmd, t_arg **arg, int fd)
 	{
 		if (concat_env_item(env, env_item) == -1)
 		{
-			cmd_error(cmd, "Invalid argument", fd);
+			cmd_error(cmd, "Invalid argument");
 			return (1);
 		}
 	}
@@ -99,9 +99,9 @@ int			ft_export(t_vector *env, t_icomp *cmd, int fd)
 	{
 		while (arg)
 		{
-			ret = manage_export(env, cmd, &arg, fd);
+			ret = manage_export(env, cmd, &arg);
 			if (ret == -1)
-				cmd_error(cmd, "Invalid argument", fd);
+				cmd_error(cmd, "Invalid argument");
 			arg = arg->right;
 		}
 	}
