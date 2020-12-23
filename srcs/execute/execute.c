@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/17 15:40:31 by jsaariko      ########   odam.nl         */
+/*   Updated: 2020/12/18 16:12:45 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** TODO: Build command validators in functions
 */
 
-t_cmd	get_command(t_icomp *comp)
+t_cmd		get_command(t_icomp *comp)
 {
 	if (ft_strncmp(comp->cmd, "echo", 5) == 0)
 		return (ft_echo);
@@ -37,25 +37,43 @@ t_cmd	get_command(t_icomp *comp)
 	return (NULL);
 }
 
-/*
-** //TODO: confirm that pid is handled correctly and kill pid_list
-*/
-
-void	execute(t_vector *env, t_icomp *comp)
+static void	kill_processes(t_vector *fd_list, t_vector *pid_list)
 {
-	t_icomp	*tmp;
-	int		stdin;
+	int *fd_ptr;
+	int *pid_ptr;
+	int wstatus;
 
-	vector_init(&g_pid_list);
+	while (fd_list->amt > 0)
+	{
+		fd_ptr = vector_get(fd_list, 0);
+		free(fd_ptr);
+		e_close(*fd_ptr);
+		vector_delete(fd_list, 0);
+	}
+	while (pid_list->amt > 0)
+	{
+		pid_ptr = vector_get(pid_list, 0);
+		waitpid(*pid_ptr, &wstatus, 0);
+		g_ret_val = WEXITSTATUS(wstatus);
+		free(pid_ptr);
+		vector_delete(pid_list, 0);
+		g_amt_processes = pid_list->amt;
+	}
+}
+
+void		execute(t_vector *env, t_icomp *comp)
+{
+	t_icomp		*tmp;
+	t_vector	fd_list;
+	t_vector	pid_list;
+
+	vector_init(&fd_list);
+	vector_init(&pid_list);
 	tmp = comp;
-	stdin = -1;
 	while (tmp != NULL)
 	{
-		stdin = exec_command(env, tmp, stdin);
+		exec_command(env, tmp, &fd_list, &pid_list);
 		tmp = tmp->right;
 	}
-	if (g_pid_list.amt == 0)
-		free(g_pid_list.data);
-	else
-		ft_dprintf(STDOUT_FILENO, "something wrong with pid_list\n");
+	kill_processes(&fd_list, &pid_list);
 }
