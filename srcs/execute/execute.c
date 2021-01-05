@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/18 16:12:45 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/05 12:18:56 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,12 @@ static void	kill_processes(t_vector *fd_list, t_vector *pid_list)
 	int *pid_ptr;
 	int wstatus;
 
+
 	while (fd_list->amt > 0)
 	{
 		fd_ptr = vector_get(fd_list, 0);
-		free(fd_ptr);
 		e_close(*fd_ptr);
+		free(fd_ptr);
 		vector_delete(fd_list, 0);
 	}
 	while (pid_list->amt > 0)
