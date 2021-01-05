@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/05 10:39:26 by lindsay       ########   odam.nl         */
+/*   Updated: 2021/01/05 11:01:21 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "minishell.h"
 # include <unistd.h>
+# include <sys/wait.h>
 
 /*
 ** Store env
@@ -87,6 +88,7 @@ void			expand_env(t_vector *env, char **str);
 
 void			invalid_cmd(t_icomp *cmd);
 void			cmd_error(t_icomp *cmd, char *msg);
+int				no_syntax_errors(t_icomp *head);
 
 /*
 ** Execute utils, mainly for testing purposes
