@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 11:32:10 by limartin      #+#    #+#                 */
-/*   Updated: 2021/01/08 17:53:25 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/08 19:34:23 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ int			ft_pwd(t_vector *env, t_icomp *cmp, int fd)
 	buf = getcwd(buf, 0);
 	if (buf == NULL)
 	{
-		ft_dprintf(STDOUT_FILENO, "lol\n");
-		t_env *item = vector_get(env, vector_search(env, ft_strncmp, "PWD"));
-		write(fd, item->value, ft_strlen(item->value));
+		ft_dprintf(STDOUT_FILENO, "lol\n");//
+		e_write(fd, g_pwd, ft_strlen(g_pwd));
+		e_write(fd, "\n", 1);
 		return (0);
 	}
 	e_write(fd, buf, ft_strlen(buf));

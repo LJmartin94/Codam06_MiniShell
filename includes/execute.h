@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/06 15:58:35 by lindsay       ########   odam.nl         */
+/*   Updated: 2021/01/08 19:07:49 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ extern int g_amt_processes;
 */
 
 extern int g_ret_val;
+
+/*
+** Global current directory
+*/
+
+extern char		*g_pwd;
 
 /*
 ** Builtin prototypes

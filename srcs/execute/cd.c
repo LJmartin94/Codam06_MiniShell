@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 13:26:26 by limartin      #+#    #+#                 */
-/*   Updated: 2021/01/08 18:20:19 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/08 20:33:21 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,27 @@
 //TODO: g_pwd should not be related to env
 //TODO: if getcwd doesn't work, I should use g_pwd instead to find my path and add shit onto it
 
+int			escape_being_lost(char *path)
+{
+	char **split;
+	int i;
+	int len;
+
+	i = 0;
+	split = ft_split(path, '/');
+	while (split[i] != NULL)
+	{
+		if (split[i + 1] == NULL && ft_strncmp(split[i], "..", 3) == 0 )
+		{
+			len = ft_strlen(split[i - 1]) + 4;
+			path[ft_strlen(path) - len] = '\0';
+			return (chdir(path));//TODO: bug prone?
+		}
+		i++;
+	}
+	return(-1);
+}
+
 static int	go_relative(t_vector *env, char *arg_str)
 {
 	int		dir;
@@ -39,27 +60,22 @@ static int	go_relative(t_vector *env, char *arg_str)
 	(void)env;
 	cwd = NULL;
 	cwd = getcwd(cwd, 0);
-	ft_dprintf(STDOUT_FILENO, "cwd here: %s\n", cwd);
 	if (cwd == NULL)
 	{
 		e_write(STDERR_FILENO, "No such file or directory\n", 27);//TODO: change
-		// cmd_error()
-		// ft_dprintf(STDERR_FILENO, "bad path\n");
-		// return (0);//TODO: real bash returns 0...?
+		cwd = g_pwd;
 	}
-		// error_exit_errno();//nup
 	path = ft_strjoin(cwd, "/");
-	printf("path: %s\n", path);
 	free(cwd);
 	cwd = path;
 	path = (path != NULL) ? ft_strjoin(cwd, arg_str) : NULL;
 	free(cwd);
 	if (path == NULL)
-	{
-		ft_dprintf(STDOUT_FILENO, "fails at path == NULL as well\n");
-		// error_exit_errno();
-	}
+		ft_dprintf(STDOUT_FILENO, "Path is NULL (this shouldn't happen)\n");
 	dir = chdir(path);
+	if (dir == -1)
+		dir = escape_being_lost(path);
+	g_pwd = path;
 	if (dir == -1)
 	{
 		e_write(STDERR_FILENO, "Could not access ", 17);
@@ -67,7 +83,6 @@ static int	go_relative(t_vector *env, char *arg_str)
 		e_write(STDERR_FILENO, "\n", 1);
 		dir = 1;
 	}
-	free(path);
 	return (dir);
 }
 
@@ -79,6 +94,8 @@ static int	go_absolute(t_vector *env, char *arg_str)
 	(void)env;
 	path = arg_str;
 	dir = chdir(path);
+	free(g_pwd);
+	g_pwd = path;
 	if (dir == -1)
 	{
 		e_write(STDERR_FILENO, "Could not access ", 17);
@@ -104,6 +121,8 @@ static int	go_home(t_vector *env)
 	if (home != NULL)
 		path = home->value;
 	dir = chdir(path);
+	free(g_pwd);
+	g_pwd = path;
 	if (dir == -1)
 	{
 		e_write(STDERR_FILENO, "HOME not properly set, staying put\n", 35);//TODO: run through error cmd
@@ -148,6 +167,5 @@ int			ft_cd(t_vector *env, t_icomp *cmp, int fd)
 		dir = go_absolute(env, arg_str);
 	else
 		dir = go_relative(env, arg_str);
-	free(arg_str);
 	return (dir);
 }
