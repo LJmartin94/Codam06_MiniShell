@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/08 16:27:24 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/08 16:31:32 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,4 @@ void		exec_command(t_vector *env, t_icomp *comp,
 		else
 			parent_process(pid, fd, fd_list, pid_list);
 	}
-	// system("leaks minishell");
 }
