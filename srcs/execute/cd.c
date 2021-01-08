@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 13:26:26 by limartin      #+#    #+#                 */
-/*   Updated: 2021/01/08 20:33:21 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/08 20:44:25 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,18 @@ int			escape_being_lost(char *path)
 	return(-1);
 }
 
+void update_pwd(t_vector *env)
+{
+	t_env *env_path;
+	char *cwd;
+	
+	cwd = NULL;
+	env_path = vector_get(env, vector_search(env, compare_key, (void *)"PWD"));
+	free(env_path->value);
+	cwd = getcwd(cwd, 0);
+	env_path->value = cwd;
+}
+
 static int	go_relative(t_vector *env, char *arg_str)
 {
 	int		dir;
@@ -81,8 +93,10 @@ static int	go_relative(t_vector *env, char *arg_str)
 		e_write(STDERR_FILENO, "Could not access ", 17);
 		e_write(STDERR_FILENO, path, ft_strlen(path));
 		e_write(STDERR_FILENO, "\n", 1);
-		dir = 1;
+		return (1);
 	}
+	// printf("path %s, g_pwd: %s\n", path, g_pwd);
+	update_pwd(env);
 	return (dir);
 }
 
@@ -103,6 +117,7 @@ static int	go_absolute(t_vector *env, char *arg_str)
 		e_write(STDERR_FILENO, "\n", 1);
 		return (1);
 	}
+	update_pwd(env);
 	return (dir);
 }
 
@@ -128,6 +143,7 @@ static int	go_home(t_vector *env)
 		e_write(STDERR_FILENO, "HOME not properly set, staying put\n", 35);//TODO: run through error cmd
 		return (1);
 	}
+	update_pwd(env);
 	return (dir);
 }
 
