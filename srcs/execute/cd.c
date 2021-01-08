@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 13:26:26 by limartin      #+#    #+#                 */
-/*   Updated: 2021/01/06 16:16:39 by lindsay       ########   odam.nl         */
+/*   Updated: 2021/01/08 18:20:19 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@
 ** Fix Memleaks
 */
 
+
+//TODO: set global pwd on function entrance
+//TODO: always reset g_pwd on cd
+//TODO: g_pwd should not be related to env
+//TODO: if getcwd doesn't work, I should use g_pwd instead to find my path and add shit onto it
+
 static int	go_relative(t_vector *env, char *arg_str)
 {
 	int		dir;
@@ -33,21 +39,33 @@ static int	go_relative(t_vector *env, char *arg_str)
 	(void)env;
 	cwd = NULL;
 	cwd = getcwd(cwd, 0);
+	ft_dprintf(STDOUT_FILENO, "cwd here: %s\n", cwd);
 	if (cwd == NULL)
-		error_exit_errno();
+	{
+		e_write(STDERR_FILENO, "No such file or directory\n", 27);//TODO: change
+		// cmd_error()
+		// ft_dprintf(STDERR_FILENO, "bad path\n");
+		// return (0);//TODO: real bash returns 0...?
+	}
+		// error_exit_errno();//nup
 	path = ft_strjoin(cwd, "/");
+	printf("path: %s\n", path);
 	free(cwd);
 	cwd = path;
 	path = (path != NULL) ? ft_strjoin(cwd, arg_str) : NULL;
 	free(cwd);
 	if (path == NULL)
-		error_exit_errno();
+	{
+		ft_dprintf(STDOUT_FILENO, "fails at path == NULL as well\n");
+		// error_exit_errno();
+	}
 	dir = chdir(path);
 	if (dir == -1)
 	{
 		e_write(STDERR_FILENO, "Could not access ", 17);
 		e_write(STDERR_FILENO, path, ft_strlen(path));
 		e_write(STDERR_FILENO, "\n", 1);
+		dir = 1;
 	}
 	free(path);
 	return (dir);
@@ -66,6 +84,7 @@ static int	go_absolute(t_vector *env, char *arg_str)
 		e_write(STDERR_FILENO, "Could not access ", 17);
 		e_write(STDERR_FILENO, path, ft_strlen(path));
 		e_write(STDERR_FILENO, "\n", 1);
+		return (1);
 	}
 	return (dir);
 }
@@ -86,7 +105,10 @@ static int	go_home(t_vector *env)
 		path = home->value;
 	dir = chdir(path);
 	if (dir == -1)
-		e_write(STDERR_FILENO, "HOME not properly set, staying put\n", 35);
+	{
+		e_write(STDERR_FILENO, "HOME not properly set, staying put\n", 35);//TODO: run through error cmd
+		return (1);
+	}
 	return (dir);
 }
 

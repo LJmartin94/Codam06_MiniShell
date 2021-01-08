@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 11:32:10 by limartin      #+#    #+#                 */
-/*   Updated: 2021/01/06 16:16:58 by lindsay       ########   odam.nl         */
+/*   Updated: 2021/01/08 17:53:25 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,19 @@
 ** Test with deleted directories, permission denied dirs.
 */
 
+int search_cmp(char *s1, char *s2)
+{
+	int len = 0;
+	if (ft_strlen(s2) > ft_strlen(s1))
+		len = ft_strlen(s2) + 1;
+	else
+		len = ft_strlen(s1) + 1;
+	if (ft_strncmp(s1, s2, len) == 0)
+		return (0);
+	else
+		return (1);
+}
+
 int			ft_pwd(t_vector *env, t_icomp *cmp, int fd)
 {
 	char *buf;
@@ -29,7 +42,12 @@ int			ft_pwd(t_vector *env, t_icomp *cmp, int fd)
 	buf = NULL;
 	buf = getcwd(buf, 0);
 	if (buf == NULL)
-		error_exit_errno();
+	{
+		ft_dprintf(STDOUT_FILENO, "lol\n");
+		t_env *item = vector_get(env, vector_search(env, ft_strncmp, "PWD"));
+		write(fd, item->value, ft_strlen(item->value));
+		return (0);
+	}
 	e_write(fd, buf, ft_strlen(buf));
 	free(buf);
 	e_write(fd, "\n", 1);
