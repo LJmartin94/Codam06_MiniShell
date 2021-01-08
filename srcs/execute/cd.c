@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 13:26:26 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/27 16:40:16 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/06 16:16:39 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ static int	go_relative(t_vector *env, char *arg_str)
 	if (cwd == NULL)
 		error_exit_errno();
 	path = ft_strjoin(cwd, "/");
-	if (path != NULL)
-		path = ft_strjoin(path, arg_str);
+	free(cwd);
+	cwd = path;
+	path = (path != NULL) ? ft_strjoin(cwd, arg_str) : NULL;
+	free(cwd);
 	if (path == NULL)
 		error_exit_errno();
 	dir = chdir(path);
@@ -47,6 +49,7 @@ static int	go_relative(t_vector *env, char *arg_str)
 		e_write(STDERR_FILENO, path, ft_strlen(path));
 		e_write(STDERR_FILENO, "\n", 1);
 	}
+	free(path);
 	return (dir);
 }
 
@@ -123,5 +126,6 @@ int			ft_cd(t_vector *env, t_icomp *cmp, int fd)
 		dir = go_absolute(env, arg_str);
 	else
 		dir = go_relative(env, arg_str);
+	free(arg_str);
 	return (dir);
 }

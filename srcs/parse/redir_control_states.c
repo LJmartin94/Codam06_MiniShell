@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/27 15:02:47 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/12/04 17:22:52 by lindsay       ########   odam.nl         */
+/*   Updated: 2021/01/06 16:19:30 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ t_transition_code	sh_rd_exit_state(t_token **this, t_icomp **icur)
 		id = recognise_token_state(*this);
 	if (id != padding && id != separator && id != exit_state)
 		return (error);
-	if (id == padding && ft_strlen((*icur)->arg->value) > 0)
+	if (id == padding && \
+	(ft_strlen((*icur)->arg->value) > 0 || ft_strlen((*icur)->arg->type) > 0))
 		return (arg);
 	if (id == padding && ft_strlen((*icur)->opt) > 0)
 		return (opt);

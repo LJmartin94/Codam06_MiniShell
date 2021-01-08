@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/19 18:03:33 by limartin      #+#    #+#                 */
-/*   Updated: 2020/12/03 22:16:34 by limartin      ########   odam.nl         */
+/*   Updated: 2021/01/06 16:19:00 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,6 @@ int		ft_add_token_to_comp(t_token *token, char **field)
 	return (0);
 }
 
-/*
-** TODO: This also still needs to free linked list of redirections and arguments
-*/
-
 void	free_components(t_icomp *head)
 {
 	t_icomp *tmp;
@@ -89,7 +85,10 @@ void	free_components(t_icomp *head)
 			free(head->opt);
 		head->opt = NULL;
 		if (head->arg != NULL)
-			free(head->arg);
+			free_args(head->arg);
+		head->arg = NULL;
+		if (head->rdhead != NULL)
+			free_redirs(head->rdhead);
 		head->arg = NULL;
 		if (head->left != NULL)
 			free(head);

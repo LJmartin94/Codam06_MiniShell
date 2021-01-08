@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 18:10:03 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/18 15:12:39 by lindsay       ########   odam.nl         */
+/*   Updated: 2020/12/06 17:02:16 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ static void			sh_dq_arg_open_state(t_token **this, t_icomp **icur)
 {
 	t_arg	*new;
 
-	if (ft_strlen(((*icur)->arg)->value) > 0)
+	if (ft_strlen(((*icur)->arg)->value) > 0 || \
+	ft_strlen(((*icur)->arg)->type) > 0)
 	{
 		new = (t_arg *)e_malloc(sizeof(t_arg));
 		ft_argconst(new);

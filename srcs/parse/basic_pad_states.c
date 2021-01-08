@@ -6,7 +6,7 @@
 /*   By: lindsay <lindsay@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 13:30:27 by lindsay       #+#    #+#                 */
-/*   Updated: 2020/11/25 17:45:03 by lindsay       ########   odam.nl         */
+/*   Updated: 2021/01/06 16:18:23 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ t_transition_code			sh_opt_pad_state(t_token **this, t_icomp **icur)
 	while (last->right != NULL)
 		last = last->right;
 	if ((id != padding && id != error && id != separator && id != exit_state) \
-	&& ft_strlen(((*icur)->arg)->value) > 0)
+	&& (ft_strlen((last)->value) > 0 || ft_strlen((last)->type) > 0) \
+	&& ft_strlen((last)->pad) == 0)
 		ft_add_token_to_comp(pad, &((last)->pad));
 	valid = validate_option_flags(icur);
 	if (valid == -1)
@@ -79,7 +80,8 @@ t_transition_code			sh_arg_pad_state(t_token **this, t_icomp **icur)
 	last = (*icur)->arg;
 	while (last->right != NULL)
 		last = last->right;
-	if (id != padding && id != error && id != separator && id != exit_state)
+	if (id != padding && id != error && id != separator && id != exit_state \
+	&& ft_strlen((last)->pad) == 0)
 		ft_add_token_to_comp(pad, &(last->pad));
 	return (id);
 }

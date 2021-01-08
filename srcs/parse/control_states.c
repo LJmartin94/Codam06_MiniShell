@@ -6,11 +6,12 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 18:10:03 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/25 17:45:33 by lindsay       ########   odam.nl         */
+/*   Updated: 2021/01/06 16:19:11 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
+#include "error.h"
 
 t_transition_code	sh_entry_state(t_token **this, t_icomp **icur)
 {
@@ -28,14 +29,19 @@ t_transition_code	sh_entry_state(t_token **this, t_icomp **icur)
 t_transition_code	sh_error_state(t_token **this, t_icomp **icur)
 {
 	t_transition_code	id;
+	char				*error_type;
+	t_icomp				*head;
 
-	(void)icur;
-	*this = (*this)->next;
+	head = *icur;
+	while (head->left != NULL)
+		head = head->left;
+	free(head->arg->type);
+	error_type = ft_strdup("E");
+	if (error_type == NULL)
+		error_exit_errno();
+	head->arg->type = error_type;
+	syntax_error(STDERR_FILENO, this);
 	id = exit_state;
-	while (recognise_token_state(*this) == padding && *this)
-		*this = (*this)->next;
-	if ((*this) != NULL)
-		id = recognise_token_state(*this);
 	return (id);
 }
 
@@ -44,7 +50,7 @@ t_transition_code	sh_exit_state(t_token **this, t_icomp **icur)
 	t_transition_code	id;
 
 	validate_option_flags(icur);
-	while (recognise_token_state(*this) == padding && *this)
+	while (*this)
 		*this = (*this)->next;
 	id = exit_state;
 	return (id);

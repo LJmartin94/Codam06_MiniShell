@@ -6,34 +6,57 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/23 16:56:40 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/08 13:42:26 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "error.h"
 #include "execute.h"
+#include <signal.h>
 
-void	run_shell(t_vector *env, char *buf)
+static int	parse_and_execute(t_vector *env, char **str, t_icomp *comp, \
+int exec)
+{
+	int		no_error;
+
+	no_error = 1;
+	expand_env(env, str);
+	parse_input(*str, comp);
+	if (exec)
+		execute(env, comp);
+	else
+		no_error = no_error * no_syntax_errors(comp);
+	free_components(comp);
+	return (no_error);
+}
+
+void		run_shell(t_vector *env, char *buf)
 {
 	char	**split;
 	t_icomp	comp_blocks;
 	size_t	i;
+	size_t	j;
+	int		no_error;
 
 	split = split_unless_quote(buf, ';');
-	i = 0;
-	while (split[i] != NULL)
+	j = 0;
+	no_error = 1;
+	while (j < 2)
 	{
-		expand_env(env, &(split[i]));
-		parse_input(split[i], &comp_blocks);
-		i++;
-		execute(env, &comp_blocks);
-		free_components(&comp_blocks);
+		i = 0;
+		while (split[i] != NULL && no_error)
+		{
+			no_error = no_error * \
+			parse_and_execute(env, &(split[i]), &comp_blocks, j);
+			i++;
+		}
+		j++;
 	}
 	free_matrix(split);
 }
 
-int		get_input(t_vector *env)
+int			get_input(t_vector *env)
 {
 	char	*buf;
 	int		ret;
@@ -59,7 +82,7 @@ int		get_input(t_vector *env)
 int		g_ret_val;
 int		g_amt_processes;
 
-int		main(int ac, char **av, char **envp)
+int			main(int ac, char **av, char **envp)
 {
 	t_vector	*env;
 

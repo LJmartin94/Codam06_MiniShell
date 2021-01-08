@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/12 19:20:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/13 13:50:44 by lindsay       ########   odam.nl         */
+/*   Updated: 2021/01/06 16:18:13 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,6 @@ void	ft_add_arg(t_arg **head, t_arg *this)
 	this->left = left;
 }
 
-/*
-** //TODO:
-** Below function is still a work in progress,
-** particularly "if (head->left != NULL)"
-** will probably work differently as even the first link
-** will be malloc'd (unlike first comp block)
-*/
-
 void	free_args(t_arg *head)
 {
 	t_arg *tmp;
@@ -75,8 +67,7 @@ void	free_args(t_arg *head)
 		if (head->pad != NULL)
 			free(head->pad);
 		head->pad = NULL;
-		if (head->left != NULL)
-			free(head);
+		free(head);
 		head = NULL;
 		head = tmp;
 	}

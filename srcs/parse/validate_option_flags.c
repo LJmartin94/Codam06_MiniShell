@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/25 17:19:17 by limartin      #+#    #+#                 */
-/*   Updated: 2020/11/26 18:18:50 by limartin      ########   odam.nl         */
+/*   Updated: 2021/01/06 16:19:50 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "flag_validation_table.h"
 #include "error.h"
 
-int			ft_approve_option(t_icomp **icur)
+int				ft_approve_option(t_icomp **icur)
 {
 	char	*new_val;
 	t_arg	*opt_link;
@@ -44,7 +44,7 @@ int			ft_approve_option(t_icomp **icur)
 	return (1);
 }
 
-static int	single_char_flag(t_icomp **icur, int i, int j)
+static int		single_char_flag(t_icomp **icur, int i, int j)
 {
 	size_t	cmd_len;
 	t_arg	*last;
@@ -62,7 +62,7 @@ static int	single_char_flag(t_icomp **icur, int i, int j)
 	return (1);
 }
 
-static int	ft_check_flag_chars(int ret, int i, t_icomp **icur, t_arg *link)
+static int		ft_check_flag_chars(int ret, int i, t_icomp **icur, t_arg *link)
 {
 	int		j;
 
@@ -81,6 +81,16 @@ static int	ft_check_flag_chars(int ret, int i, t_icomp **icur, t_arg *link)
 	return (ret);
 }
 
+static t_arg	*get_start_of_opt(t_icomp **icur)
+{
+	t_arg	*start;
+
+	start = (*icur)->arg;
+	while (start->value[0] == '\0' && start->right != NULL)
+		start = start->right;
+	return (start);
+}
+
 /*
 ** Below function will check the head of the argument linked list to
 ** see if it contains any valid options for the command that has
@@ -89,20 +99,20 @@ static int	ft_check_flag_chars(int ret, int i, t_icomp **icur, t_arg *link)
 ** could yet prove to be a valid option but is currently incomplete.
 */
 
-int			validate_option_flags(t_icomp **icur)
+int				validate_option_flags(t_icomp **icur)
 {
 	int		i;
 	int		ret;
 	t_arg	*link;
+	t_arg	*start;
 
-	i = ((*icur)->arg->value[0] == '-') ? 1 : 0;
+	start = get_start_of_opt(icur);
+	i = (start->value[0] == '-') ? 1 : 0;
+	link = start;
 	ret = i;
-	link = (*icur)->arg;
-	if (link->value[0] == '\0')
-		return (0);
 	while (ret)
 	{
-		if (link != (*icur)->arg)
+		if (link != start)
 			i = 0;
 		ret = ft_check_flag_chars(ret, i, icur, link);
 		if ((link)->pad[0] == '\0' && (link)->right != NULL)
@@ -110,7 +120,7 @@ int			validate_option_flags(t_icomp **icur)
 		else
 			break ;
 	}
-	if (ret == 1 && (link != (*icur)->arg || ft_strlen((link)->value) >= 2))
+	if (ret == 1 && (link != start || ft_strlen((link)->value) >= 2))
 		return (ft_approve_option(icur));
 	if (ret == 1 && link->pad[0] != '\0')
 		ret = 0;
