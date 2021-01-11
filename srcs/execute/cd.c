@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 13:26:26 by limartin      #+#    #+#                 */
-/*   Updated: 2021/01/08 20:44:25 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/11 15:24:26 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,22 @@
 //TODO: g_pwd should not be related to env
 //TODO: if getcwd doesn't work, I should use g_pwd instead to find my path and add shit onto it
 
-int			escape_being_lost(char *path)
+
+void update_pwd(t_vector *env)
+{
+	t_env *env_path;
+	char *cwd;
+
+	cwd = NULL;
+	env_path = vector_get(env, vector_search(env, compare_key, (void *)"PWD"));
+	free(env_path->value);
+	cwd = getcwd(cwd, 0);
+	env_path->value = ft_strdup(cwd);//this needs to change
+	free(g_pwd);
+	g_pwd = ft_strdup(cwd);//have to strdup this
+}
+
+int			escape_being_lost(t_vector *env, char *path)
 {
 	char **split;
 	int i;
@@ -40,27 +55,36 @@ int			escape_being_lost(char *path)
 	split = ft_split(path, '/');
 	while (split[i] != NULL)
 	{
+		// if (split[i + 1] == NULL)
 		if (split[i + 1] == NULL && ft_strncmp(split[i], "..", 3) == 0 )
 		{
 			len = ft_strlen(split[i - 1]) + 4;
 			path[ft_strlen(path) - len] = '\0';
-			return (chdir(path));//TODO: bug prone?
+			int dir = chdir(path);
+			if (dir == -1)
+			{
+				// printf("g_pwd: %s, path: %s\n", g_pwd, path);
+				break ;
+			}
+			else
+			{
+				update_pwd(env);
+				// free(path);
+				// free_matrix(split);
+				return(0);				
+			}
 		}
 		i++;
 	}
-	return(-1);
-}
-
-void update_pwd(t_vector *env)
-{
-	t_env *env_path;
-	char *cwd;
-	
-	cwd = NULL;
-	env_path = vector_get(env, vector_search(env, compare_key, (void *)"PWD"));
-	free(env_path->value);
-	cwd = getcwd(cwd, 0);
-	env_path->value = cwd;
+	e_write(STDERR_FILENO, "Could not access ", 17);
+	e_write(STDERR_FILENO, path, ft_strlen(path));
+	e_write(STDERR_FILENO, "\n", 1);
+	g_pwd = ft_strdup(path);
+	t_env *item = vector_get(env, vector_search(env, compare_key, (void *)"PWD"));
+	item->value = ft_strdup(path);
+	//env = path;
+	// free(path);
+	return(1);
 }
 
 static int	go_relative(t_vector *env, char *arg_str)
@@ -86,17 +110,17 @@ static int	go_relative(t_vector *env, char *arg_str)
 		ft_dprintf(STDOUT_FILENO, "Path is NULL (this shouldn't happen)\n");
 	dir = chdir(path);
 	if (dir == -1)
-		dir = escape_being_lost(path);
-	g_pwd = path;
-	if (dir == -1)
-	{
-		e_write(STDERR_FILENO, "Could not access ", 17);
-		e_write(STDERR_FILENO, path, ft_strlen(path));
-		e_write(STDERR_FILENO, "\n", 1);
-		return (1);
-	}
-	// printf("path %s, g_pwd: %s\n", path, g_pwd);
-	update_pwd(env);
+		return(escape_being_lost(env, path));
+	// g_pwd = path;
+	// if (dir == -1)
+	// {
+		// e_write(STDERR_FILENO, "Could not access ", 17);
+		// e_write(STDERR_FILENO, path, ft_strlen(path));
+		// e_write(STDERR_FILENO, "\n", 1);
+		// return (1);
+	// }
+	// update_pwd(env);
+	free(path);
 	return (dir);
 }
 
@@ -109,7 +133,7 @@ static int	go_absolute(t_vector *env, char *arg_str)
 	path = arg_str;
 	dir = chdir(path);
 	free(g_pwd);
-	g_pwd = path;
+	// g_pwd = path;
 	if (dir == -1)
 	{
 		e_write(STDERR_FILENO, "Could not access ", 17);
@@ -137,7 +161,7 @@ static int	go_home(t_vector *env)
 		path = home->value;
 	dir = chdir(path);
 	free(g_pwd);
-	g_pwd = path;
+	// g_pwd = path;
 	if (dir == -1)
 	{
 		e_write(STDERR_FILENO, "HOME not properly set, staying put\n", 35);//TODO: run through error cmd
@@ -183,5 +207,6 @@ int			ft_cd(t_vector *env, t_icomp *cmp, int fd)
 		dir = go_absolute(env, arg_str);
 	else
 		dir = go_relative(env, arg_str);
+	free(arg_str);
 	return (dir);
 }
