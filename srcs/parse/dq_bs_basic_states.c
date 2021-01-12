@@ -6,27 +6,12 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/08 16:22:46 by limartin      #+#    #+#                 */
-/*   Updated: 2021/01/14 15:41:59 by lindsay       ########   odam.nl         */
+/*   Updated: 2021/01/14 15:42:58 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 #include "error.h"
-
-static int			handle_backslash(t_token **this, char **field)
-{
-	char c;
-
-	if (*this && recognise_token_state(*this) == backslash && (*this)->next)
-	{
-		c = (*this)->next->token[0];
-		if (c == '"' || c == '$' || c == '`' || c == '\\')
-			return (1);
-		else
-			ft_add_token_to_comp((*this), field);
-	}
-	return (0);
-}
 
 static int			handle_backslash(t_token **this, char **field)
 {
