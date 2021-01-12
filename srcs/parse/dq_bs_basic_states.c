@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/08 16:22:46 by limartin      #+#    #+#                 */
-/*   Updated: 2021/01/06 16:19:21 by lindsay       ########   odam.nl         */
+/*   Updated: 2021/01/12 17:02:33 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,26 @@
 ** This dq_bs_state doesn't implement this behaviour yet.
 */
 
+static int			handle_backslash(t_token **this, char **field)
+{
+	char c;
+
+	if (*this && recognise_token_state(*this) == backslash && (*this)->next)
+	{
+		c = (*this)->next->token[0];
+		if (c == '"' || c == '$' || c == '`' || c == '\\')
+			return (1);
+		else
+			ft_add_token_to_comp((*this), field);
+	}
+	return (0);
+}
+
 t_transition_code	sh_dq_bs_cmd_state(t_token **this, t_icomp **icur)
 {
 	t_transition_code	id;
 
+	handle_backslash(this, &((*icur)->cmd));
 	if (recognise_token_state(*this) == backslash && *this)
 		*this = (*this)->next;
 	if ((*this) != NULL)
@@ -56,6 +72,7 @@ static void			sh_dq_bs_arg_link_state(t_token **this, t_icomp **icur)
 	new->type = ft_strdup("\"\\");
 	if (new->type == NULL)
 		error_exit_errno();
+	handle_backslash(this, &((new)->value));
 	*this = (*this)->next;
 }
 

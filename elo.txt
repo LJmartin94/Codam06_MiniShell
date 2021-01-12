@@ -156,3 +156,19 @@ echo this isnt multiline and shouldnt segfault: '\'
 echo this is multiline but shouldnt segfault: "'
 
 echo this is multiline but shouldnt segfault: '\
+
+echo "\$ no backslash"
+
+echo "$ no backslash (duh)"
+
+echo "\" no backslash"
+
+echo "\` no backslash"
+
+echo "\' one backslash"
+
+echo "\\ one backslash"
+
+echo "\ one backslash"
+
+echo "\n one backslash"
