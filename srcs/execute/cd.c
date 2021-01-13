@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 13:26:26 by limartin      #+#    #+#                 */
-/*   Updated: 2021/01/13 12:32:53 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/13 13:26:11 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ void update_pwd(t_vector *env)
 	free(env_path->value);
 	cwd = getcwd(cwd, 0);
 	env_path->value = ft_strdup(cwd);//this needs to change
-	// free(g_pwd);
+	free(g_pwd);
 	g_pwd = ft_strdup(cwd);//have to strdup this
+	free(cwd);
 }
 
 int			escape_being_lost(t_vector *env, char *path)
@@ -61,7 +62,8 @@ int			escape_being_lost(t_vector *env, char *path)
 			
 			len = ft_strlen(split[i - 1]) + 4;
 			ft_dprintf(STDOUT_FILENO, "path before: %s\n", path);
-			path[ft_strlen(path) - len] = '\0';
+			ft_bzero(path + ft_strlen(path) - len, len);
+			// path[ft_strlen(path) - len] = '\0';
 			ft_dprintf(STDOUT_FILENO, "path after: %s\n", path);
 			int dir = chdir(path);
 			if (dir == -1)
@@ -69,19 +71,24 @@ int			escape_being_lost(t_vector *env, char *path)
 			else
 			{
 				update_pwd(env);
+				free_matrix(split);
+				free(path);
 				return(0);				
 			}
 		}
 		i++;
 	}
+	free_matrix(split);
 	e_write(STDERR_FILENO, "Could not access ", 17);
 	e_write(STDERR_FILENO, path, ft_strlen(path));
 	e_write(STDERR_FILENO, "\n", 1);
+	free(g_pwd);
 	g_pwd = ft_strdup(path);
-	t_env *item = vector_get(env, vector_search(env, compare_key, (void *)"PWD"));
-	item->value = ft_strdup(path);
-	//env = path;
-	// free(path);
+	// t_env *item = vector_get(env, vector_search(env, compare_key, (void *)"PWD"));
+	// item->value = ft_strdup(path);
+
+	// env = path;
+	free(path);
 	return(1);
 }
 
@@ -91,13 +98,13 @@ static int	go_relative(t_vector *env, char *arg_str)
 	char	*cwd;
 	char	*path;
 
-	(void)env;
+	// (void)env;
 	cwd = NULL;
 	cwd = getcwd(cwd, 0);
 	if (cwd == NULL)
 	{
 		e_write(STDERR_FILENO, "No such file or directory\n", 27);//TODO: change
-		cwd = g_pwd;
+		cwd = ft_strdup(g_pwd);
 	}
 	path = ft_strjoin(cwd, "/");
 	free(cwd);
@@ -119,7 +126,7 @@ static int	go_relative(t_vector *env, char *arg_str)
 		// return (1);
 	// }
 	update_pwd(env);
-	// free(path);
+	free(path);
 	return (dir);
 }
 
@@ -160,7 +167,7 @@ static int	go_home(t_vector *env)
 		path = home->value;
 	dir = chdir(path);
 	free(g_pwd);
-	// g_pwd = path;
+	g_pwd = path;//TODO
 	if (dir == -1)
 	{
 		e_write(STDERR_FILENO, "HOME not properly set, staying put\n", 35);//TODO: run through error cmd
