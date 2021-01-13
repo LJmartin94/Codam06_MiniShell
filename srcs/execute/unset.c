@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:38:22 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/09 14:12:44 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/13 19:26:40 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,7 @@
 
 /*
 ** //TODO: make sure this doesn't segfault
-** //TODO: Move to other file
 */
-
-int			compare_key(t_env *data, char *item)
-{
-	int ret;
-
-	ret = ft_strncmp(item, data->key, ft_strlen(data->key) + 1);
-	return (ret);
-}
 
 static void	unset_item(t_vector *env, t_arg *arg)
 {

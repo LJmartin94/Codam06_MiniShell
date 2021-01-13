@@ -6,20 +6,19 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:41:34 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/18 16:07:56 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/13 19:26:35 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "execute.h"
 
-/*
-** //TODO: remove unused print functions
-*/
-
-int		cmp_pid(int *pid1, int *pid2)
+int			compare_key(t_env *data, char *item)
 {
-	return (*pid1 - *pid2);
+	int ret;
+
+	ret = ft_strncmp(item, data->key, ft_strlen(data->key) + 1);
+	return (ret);
 }
 
 void	free_matrix(char **matrix)

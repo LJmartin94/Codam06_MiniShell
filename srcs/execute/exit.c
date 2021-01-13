@@ -6,15 +6,11 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 14:28:00 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/09 14:11:39 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/13 19:24:50 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
-
-/*
-** //TODO: send error to fd or stderr?
-*/
 
 int	ft_exit(t_vector *env, t_icomp *cmd, int fd)
 {
