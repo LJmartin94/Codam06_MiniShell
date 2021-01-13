@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 13:26:26 by limartin      #+#    #+#                 */
-/*   Updated: 2021/01/11 15:24:26 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/13 12:32:53 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 //TODO: always reset g_pwd on cd
 //TODO: g_pwd should not be related to env
 //TODO: if getcwd doesn't work, I should use g_pwd instead to find my path and add shit onto it
+//TODO: set oldpwd
 
 
 void update_pwd(t_vector *env)
@@ -41,7 +42,7 @@ void update_pwd(t_vector *env)
 	free(env_path->value);
 	cwd = getcwd(cwd, 0);
 	env_path->value = ft_strdup(cwd);//this needs to change
-	free(g_pwd);
+	// free(g_pwd);
 	g_pwd = ft_strdup(cwd);//have to strdup this
 }
 
@@ -50,27 +51,24 @@ int			escape_being_lost(t_vector *env, char *path)
 	char **split;
 	int i;
 	int len;
-
+	ft_dprintf(STDOUT_FILENO, "escaping after being lost\n");
 	i = 0;
 	split = ft_split(path, '/');
 	while (split[i] != NULL)
 	{
-		// if (split[i + 1] == NULL)
 		if (split[i + 1] == NULL && ft_strncmp(split[i], "..", 3) == 0 )
 		{
+			
 			len = ft_strlen(split[i - 1]) + 4;
+			ft_dprintf(STDOUT_FILENO, "path before: %s\n", path);
 			path[ft_strlen(path) - len] = '\0';
+			ft_dprintf(STDOUT_FILENO, "path after: %s\n", path);
 			int dir = chdir(path);
 			if (dir == -1)
-			{
-				// printf("g_pwd: %s, path: %s\n", g_pwd, path);
 				break ;
-			}
 			else
 			{
 				update_pwd(env);
-				// free(path);
-				// free_matrix(split);
 				return(0);				
 			}
 		}
@@ -106,6 +104,7 @@ static int	go_relative(t_vector *env, char *arg_str)
 	cwd = path;
 	path = (path != NULL) ? ft_strjoin(cwd, arg_str) : NULL;
 	free(cwd);
+	ft_dprintf(STDOUT_FILENO, "path %s\n", path);
 	if (path == NULL)
 		ft_dprintf(STDOUT_FILENO, "Path is NULL (this shouldn't happen)\n");
 	dir = chdir(path);
@@ -119,8 +118,8 @@ static int	go_relative(t_vector *env, char *arg_str)
 		// e_write(STDERR_FILENO, "\n", 1);
 		// return (1);
 	// }
-	// update_pwd(env);
-	free(path);
+	update_pwd(env);
+	// free(path);
 	return (dir);
 }
 
