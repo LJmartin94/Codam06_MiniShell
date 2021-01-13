@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/13 13:50:48 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/13 16:14:42 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/13 16:26:19 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 void	update_pwd(t_vector *env)
 {
-	t_env *env_path;
-	char *cwd;
+	t_env	*env_path;
+	char	*cwd;
 
 	cwd = NULL;
 	env_path = vector_get(env, vector_search(env, compare_key, (void *)"PWD"));
@@ -47,19 +47,19 @@ int		find_valid_dir(char **split, char *path, int i)
 	if (dir == -1)
 		return (-1);
 	else
-		return(0);
+		return (0);
 }
 
 int		escape_being_lost(t_vector *env, char *path)
 {
-	char **split;
-	int i;
+	char	**split;
+	int		i;
 
 	i = 0;
 	split = ft_split(path, '/');
 	while (split[i] != NULL)
 	{
-		if (split[i + 1] == NULL && ft_strncmp(split[i], "..", 3) == 0 )
+		if (split[i + 1] == NULL && ft_strncmp(split[i], "..", 3) == 0)
 		{
 			if (find_valid_dir(split, path, i) == -1)
 				break ;
@@ -68,7 +68,7 @@ int		escape_being_lost(t_vector *env, char *path)
 				update_pwd(env);
 				free_matrix(split);
 				free(path);
-				return(0);
+				return (0);
 			}
 		}
 		i++;
@@ -76,5 +76,5 @@ int		escape_being_lost(t_vector *env, char *path)
 	cd_error(path);
 	free(g_pwd);
 	g_pwd = path;
-	return(1);
+	return (1);
 }

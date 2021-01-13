@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 13:26:26 by limartin      #+#    #+#                 */
-/*   Updated: 2021/01/13 16:19:34 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/13 16:26:38 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	go_relative(t_vector *env, char *arg_str)
 		error_exit_errno();
 	dir = chdir(path);
 	if (dir == -1)
-		return(escape_being_lost(env, path));
+		return (escape_being_lost(env, path));
 	update_pwd(env);
 	free(path);
 	return (dir);

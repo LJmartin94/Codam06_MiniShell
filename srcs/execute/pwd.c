@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 11:32:10 by limartin      #+#    #+#                 */
-/*   Updated: 2021/01/13 16:19:54 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/13 16:27:22 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@
 ** Test with deleted directories, permission denied dirs.
 */
 
-int search_cmp(char *s1, char *s2)
+int	search_cmp(char *s1, char *s2)
 {
-	int len = 0;
+	int len;
+
+	len = 0;
 	if (ft_strlen(s2) > ft_strlen(s1))
 		len = ft_strlen(s2) + 1;
 	else
@@ -33,7 +35,7 @@ int search_cmp(char *s1, char *s2)
 		return (1);
 }
 
-int			ft_pwd(t_vector *env, t_icomp *cmp, int fd)
+int	ft_pwd(t_vector *env, t_icomp *cmp, int fd)
 {
 	char *buf;
 
