@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 11:49:12 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/13 18:53:39 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/13 18:59:29 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int		validate_cmd_env(t_icomp *cmd)
 	return (1);
 }
 
-static void	edit_env_pwd(t_vector *env)
+static void		edit_env_pwd(t_vector *env)
 {
 	t_env		*env_item;
 	char		*pwd;
