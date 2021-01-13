@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:38:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 16:03:51 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/13 19:30:05 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 #include "error.h"
 #include <sys/types.h>
 #include <sys/stat.h>
-
-/*
-** //TODO: line 45: I doubt this will lead to a memleak?
-*/
 
 char		**build_argv(t_icomp *comp)
 {

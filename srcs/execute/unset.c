@@ -6,15 +6,11 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:38:22 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/13 19:26:40 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/13 19:29:46 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
-
-/*
-** //TODO: make sure this doesn't segfault
-*/
 
 static void	unset_item(t_vector *env, t_arg *arg)
 {

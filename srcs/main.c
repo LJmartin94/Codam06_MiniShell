@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/13 18:05:14 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/13 19:30:54 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 #include "error.h"
 #include "execute.h"
 #include <signal.h>
+
+int		g_ret_val;
+int		g_amt_processes;
+char	*g_pwd;
 
 static int	parse_and_execute(t_vector *env, char **str, t_icomp *comp, \
 int exec)
@@ -74,14 +78,6 @@ int			get_input(t_vector *env)
 	free(buf);
 	return (ret);
 }
-
-/*
-**  //TODO: move
-*/
-
-int		g_ret_val;
-int		g_amt_processes;
-char	*g_pwd;
 
 int			main(int ac, char **av, char **envp)
 {
