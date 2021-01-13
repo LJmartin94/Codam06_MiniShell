@@ -6,7 +6,7 @@
 #    By: limartin <limartin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/10/14 11:19:17 by limartin      #+#    #+#                  #
-#    Updated: 2021/01/08 16:22:04 by jsaariko      ########   odam.nl          #
+#    Updated: 2021/01/13 13:51:14 by jsaariko      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,6 +76,7 @@ SRC = $(SRC_PATH)main.c \
 	$(SRC_PATH)$(EX_PATH)unset.c \
 	$(SRC_PATH)$(EX_PATH)pwd.c \
 	$(SRC_PATH)$(EX_PATH)cd.c \
+	$(SRC_PATH)$(EX_PATH)cd_internal.c \
 	$(SRC_PATH)$(UTILS)split_unless_escaped.c \
 
 #Source files bonus part
