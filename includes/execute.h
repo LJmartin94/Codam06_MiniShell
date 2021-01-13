@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/13 18:18:11 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/13 19:34:41 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ t_env			*get_env_item(char *env_str);
 void			free_env_item(t_env *item);
 void			free_env(t_vector *env);
 void			free_envp(char **envp);
-int				compare_key(t_env *data, char *item);
 int				validate_env_key(const char *arg);
 
 /*
@@ -90,7 +89,7 @@ void			expand_env_arg(t_vector *env, t_icomp *comp);
 void			expand_env(t_vector *env, char **str);
 
 /*
-** //TODO: Error handling (change this)?
+** Error handling functions
 */
 
 void			invalid_cmd(t_icomp *cmd);
@@ -98,8 +97,7 @@ void			cmd_error(t_icomp *cmd, char *msg);
 int				no_syntax_errors(t_icomp *head);
 
 /*
-** Execute utils, mainly for testing purposes
-** //TODO: Remove unnecessary ones
+** Utils
 */
 
 typedef struct	s_quotes
@@ -108,7 +106,7 @@ typedef struct	s_quotes
 	int dquote;
 }				t_quotes;
 
-int				cmp_pid(int *pid1, int *pid2);
 void			free_matrix(char **matrix);
+int				compare_key(t_env *data, char *item);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 11:18:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/08 13:43:22 by lindsay       ########   odam.nl         */
+/*   Updated: 2021/01/13 19:35:13 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,5 @@ void					handle_sigquit(int signo);
 void					free_components(t_icomp *head);
 void					free_redirs(t_redir *head);
 void					free_args(t_arg *head);
-
-/*
-** //TODO: Debug-only prototypes! Remove when no longer used.
-*/
-
-/*
-** void					print_components(t_icomp *icur);
-*/
 
 #endif
