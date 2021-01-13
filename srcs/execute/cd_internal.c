@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/13 13:50:48 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/13 18:43:17 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/13 19:16:00 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,22 @@
 
 void	update_pwd(t_vector *env)
 {
-	t_env	*env_item;
+	t_env	*tmp;
 	char	*cwd;
 
 	cwd = NULL;
 	cwd = getcwd(cwd, 0);
-	env_item = vector_get(env, vector_search(env, compare_key, (void *)"PWD"));
-	if (env_item != NULL)
+	tmp = vector_get(env, vector_search(env, compare_key, (void *)"PWD"));
+	if (tmp != NULL)
 	{
-		free(env_item->value);
-		env_item->value = ft_strdup(cwd);
+		free(tmp->value);
+		tmp->value = ft_strdup(cwd);
 	}
-	env_item = vector_get(env, vector_search(env, compare_key, (void *)"OLDPWD"));
-	if (env_item != NULL)
+	tmp = vector_get(env, vector_search(env, compare_key, (void *)"OLDPWD"));
+	if (tmp != NULL)
 	{
-		free(env_item->value);
-		env_item->value = ft_strdup(g_pwd);
+		free(tmp->value);
+		tmp->value = ft_strdup(g_pwd);
 	}
 	free(g_pwd);
 	g_pwd = cwd;
