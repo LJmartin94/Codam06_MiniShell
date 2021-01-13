@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 11:49:12 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/13 18:59:29 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/13 19:06:02 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,45 +31,45 @@ static int		validate_cmd_env(t_icomp *cmd)
 
 static void		edit_env_pwd(t_vector *env)
 {
-	t_env		*env_item;
+	t_env		*tmp;
 	char		*pwd;
 
-	env_item = vector_get(env, vector_search(env, compare_key, (void *)"PWD"));
-	if (env_item == NULL)
+	tmp = vector_get(env, vector_search(env, compare_key, (void *)"PWD"));
+	if (tmp == NULL)
 	{
 		pwd = ft_strjoin("PWD=", g_pwd);
-		env_item = get_env_item(pwd);
+		tmp = get_env_item(pwd);
 		free(pwd);
-		vector_push(env, env_item);
+		vector_push(env, tmp);
 	}
-	env_item = vector_get(env, vector_search(env, compare_key, (void *)"OLDPWD"));
-	if (env_item == NULL)
+	tmp = vector_get(env, vector_search(env, compare_key, (void *)"OLDPWD"));
+	if (tmp == NULL)
 	{
-		env_item = get_env_item("OLDPWD=");
-		vector_push(env, env_item);
+		tmp = get_env_item("OLDPWD=");
+		vector_push(env, tmp);
 	}
-	free(env_item->value);
-	env_item->value = ft_strdup("");
+	free(tmp->value);
+	tmp->value = ft_strdup("");
 }
 
 t_vector		*init_env(char **envp)
 {
 	t_vector	*env;
-	t_env		*env_item;
+	t_env		*tmp;
 	int			levels;
 
 	env = envp_to_env(envp);
 	edit_pwd(env);
-	env_item = vector_get(env, vector_search(env, compare_key, (void *)"SHLVL"));
-	if (env_item == NULL)
+	tmp = vector_get(env, vector_search(env, compare_key, (void *)"SHLVL"));
+	if (tmp == NULL)
 	{
-		env_item = get_env_item("SHLVL=0");
-		vector_push(env, env_item);
+		tmp = get_env_item("SHLVL=0");
+		vector_push(env, tmp);
 	}
-	levels = ft_atoi(env_item->value) + 1;
-	free(env_item->value);
-	env_item->value = ft_itoa(levels);
-	if (env_item->value == NULL)
+	levels = ft_atoi(tmp->value) + 1;
+	free(tmp->value);
+	tmp->value = ft_itoa(levels);
+	if (tmp->value == NULL)
 		error_exit_errno();
 	return (env);
 }
