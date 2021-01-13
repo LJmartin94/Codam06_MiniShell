@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/13 11:57:20 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/13 18:05:14 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int			main(int ac, char **av, char **envp)
 	g_amt_processes = 0;
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, handle_sigquit);
-	env = envp_to_env(envp);
+	env = init_env(envp);
 	(void)ac;
 	(void)av;
 	while (1)
