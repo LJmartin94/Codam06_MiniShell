@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 13:26:26 by limartin      #+#    #+#                 */
-/*   Updated: 2021/01/13 13:53:44 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/13 16:19:34 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@
 ** Fix Memleaks
 */
 
-//TODO: set oldpwd
+/*
+** //TODO: set oldpwd
+*/
 
 static int	go_relative(t_vector *env, char *arg_str)
 {
@@ -35,10 +37,7 @@ static int	go_relative(t_vector *env, char *arg_str)
 	cwd = NULL;
 	cwd = getcwd(cwd, 0);
 	if (cwd == NULL)
-	{
-		e_write(STDERR_FILENO, "No such file or directory\n", 27);//TODO: change
 		cwd = ft_strdup(g_pwd);
-	}
 	path = ft_strjoin(cwd, "/");
 	free(cwd);
 	cwd = path;
@@ -88,7 +87,7 @@ static int	go_home(t_vector *env)
 	dir = chdir(path);
 	if (dir == -1)
 	{
-		e_write(STDERR_FILENO, "HOME not properly set, staying put\n", 35);//TODO: run through error cmd
+		e_write(STDERR_FILENO, "HOME not properly set, staying put\n", 35);
 		return (1);
 	}
 	update_pwd(env);
@@ -132,5 +131,7 @@ int			ft_cd(t_vector *env, t_icomp *cmp, int fd)
 	else
 		dir = go_relative(env, arg_str);
 	free(arg_str);
+	if (dir == -1)
+		return (1);
 	return (dir);
 }
