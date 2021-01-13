@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/09 14:28:00 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/09 14:11:39 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/13 12:37:10 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ int	ft_exit(t_vector *env, t_icomp *cmd, int fd)
 
 	i = 0;
 	arg = cmd->arg;
-	if (cmd->arg->value[i] == '\0')
+	if (cmd->arg->value[0] == '\0' && cmd->arg->type[0] == '\0')
 		exit(g_ret_val);
-	while (cmd->arg->value[i] != '\0')
+	while (cmd->arg->value[i] != '\0' || \
+	(cmd->arg->value[0] == '\0' && cmd->arg->type[0] != '\0'))
 	{
 		if (!ft_isdigit(cmd->arg->value[i]))
 		{
