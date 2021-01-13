@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 11:49:12 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/13 19:06:02 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/13 19:28:12 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_vector		*init_env(char **envp)
 	int			levels;
 
 	env = envp_to_env(envp);
-	edit_pwd(env);
+	edit_env_pwd(env);
 	tmp = vector_get(env, vector_search(env, compare_key, (void *)"SHLVL"));
 	if (tmp == NULL)
 	{
