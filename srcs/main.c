@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/13 18:05:14 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/14 16:28:43 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int exec)
 	return (no_error);
 }
 
-void		run_shell(t_vector *env, char *buf)
+int		run_shell(t_vector *env, char *buf) //used to be a void function
 {
 	char	**split;
 	t_icomp	comp_blocks;
@@ -54,6 +54,7 @@ void		run_shell(t_vector *env, char *buf)
 		j++;
 	}
 	free_matrix(split);
+	return (no_error); //used to be a void function
 }
 
 int			get_input(t_vector *env)
@@ -70,7 +71,7 @@ int			get_input(t_vector *env)
 	}
 	if (ret < 0)
 		error_exit_msg(C_GNL_FAIL, E_GNL_FAIL);
-	run_shell(env, buf);
+	run_shell(env, buf); //ret = run_shell(env, buf);
 	free(buf);
 	return (ret);
 }
@@ -98,6 +99,6 @@ int			main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 	while (1)
-		get_input(env);
+		get_input(env); //g_ret_val = get_input(env);
 	return (0);
 }
