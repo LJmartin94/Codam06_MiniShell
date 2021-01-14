@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 14:04:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/06 15:59:07 by lindsay       ########   odam.nl         */
+/*   Updated: 2021/01/14 16:11:45 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,11 +157,5 @@ typedef struct			s_transition_obj
 */
 
 void					xt_quit_in_parse(int ret);
-
-/*
-** //TODO: Debug-only prototypes! Remove when no longer used.
-*/
-
-void					print_tokens(t_token *tokens);
 
 #endif
