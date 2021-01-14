@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/08 16:28:13 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/13 11:57:20 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,15 @@ int			get_input(t_vector *env)
 
 int		g_ret_val;
 int		g_amt_processes;
+char	*g_pwd;
 
 int			main(int ac, char **av, char **envp)
 {
 	t_vector	*env;
 
+	g_pwd = getcwd(g_pwd, 0);
+	if (g_pwd == NULL)
+		error_exit_msg(1, "Invalid location in file structure\n");
 	g_ret_val = 0;
 	g_amt_processes = 0;
 	signal(SIGINT, handle_sigint);

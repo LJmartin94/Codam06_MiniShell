@@ -6,13 +6,13 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 13:26:26 by limartin      #+#    #+#                 */
-/*   Updated: 2021/01/06 16:16:39 by lindsay       ########   odam.nl         */
+/*   Updated: 2021/01/13 16:26:38 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "error.h"
-#include "libft.h"
+#include "cd.h"
 
 /*
 ** TODO
@@ -24,17 +24,20 @@
 ** Fix Memleaks
 */
 
+/*
+** //TODO: set oldpwd
+*/
+
 static int	go_relative(t_vector *env, char *arg_str)
 {
 	int		dir;
 	char	*cwd;
 	char	*path;
 
-	(void)env;
 	cwd = NULL;
 	cwd = getcwd(cwd, 0);
 	if (cwd == NULL)
-		error_exit_errno();
+		cwd = ft_strdup(g_pwd);
 	path = ft_strjoin(cwd, "/");
 	free(cwd);
 	cwd = path;
@@ -44,11 +47,8 @@ static int	go_relative(t_vector *env, char *arg_str)
 		error_exit_errno();
 	dir = chdir(path);
 	if (dir == -1)
-	{
-		e_write(STDERR_FILENO, "Could not access ", 17);
-		e_write(STDERR_FILENO, path, ft_strlen(path));
-		e_write(STDERR_FILENO, "\n", 1);
-	}
+		return (escape_being_lost(env, path));
+	update_pwd(env);
 	free(path);
 	return (dir);
 }
@@ -63,10 +63,10 @@ static int	go_absolute(t_vector *env, char *arg_str)
 	dir = chdir(path);
 	if (dir == -1)
 	{
-		e_write(STDERR_FILENO, "Could not access ", 17);
-		e_write(STDERR_FILENO, path, ft_strlen(path));
-		e_write(STDERR_FILENO, "\n", 1);
+		cd_error(path);
+		return (1);
 	}
+	update_pwd(env);
 	return (dir);
 }
 
@@ -86,7 +86,11 @@ static int	go_home(t_vector *env)
 		path = home->value;
 	dir = chdir(path);
 	if (dir == -1)
+	{
 		e_write(STDERR_FILENO, "HOME not properly set, staying put\n", 35);
+		return (1);
+	}
+	update_pwd(env);
 	return (dir);
 }
 
@@ -127,5 +131,7 @@ int			ft_cd(t_vector *env, t_icomp *cmp, int fd)
 	else
 		dir = go_relative(env, arg_str);
 	free(arg_str);
+	if (dir == -1)
+		return (1);
 	return (dir);
 }
