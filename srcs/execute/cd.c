@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 13:26:26 by limartin      #+#    #+#                 */
-/*   Updated: 2021/01/13 16:26:38 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/13 19:19:01 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,6 @@
 ** Check return values are correct for pwd and cd?
 ** Test with deleted directories, permission denied dirs.
 ** Fix Memleaks
-*/
-
-/*
-** //TODO: set oldpwd
 */
 
 static int	go_relative(t_vector *env, char *arg_str)

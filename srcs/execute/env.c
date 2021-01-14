@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 11:49:12 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/09 14:07:01 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/13 19:28:12 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,51 @@ static int		validate_cmd_env(t_icomp *cmd)
 	ft_strncmp(cmd->opt, "", 1) != 0)
 		return (0);
 	return (1);
+}
+
+static void		edit_env_pwd(t_vector *env)
+{
+	t_env		*tmp;
+	char		*pwd;
+
+	tmp = vector_get(env, vector_search(env, compare_key, (void *)"PWD"));
+	if (tmp == NULL)
+	{
+		pwd = ft_strjoin("PWD=", g_pwd);
+		tmp = get_env_item(pwd);
+		free(pwd);
+		vector_push(env, tmp);
+	}
+	tmp = vector_get(env, vector_search(env, compare_key, (void *)"OLDPWD"));
+	if (tmp == NULL)
+	{
+		tmp = get_env_item("OLDPWD=");
+		vector_push(env, tmp);
+	}
+	free(tmp->value);
+	tmp->value = ft_strdup("");
+}
+
+t_vector		*init_env(char **envp)
+{
+	t_vector	*env;
+	t_env		*tmp;
+	int			levels;
+
+	env = envp_to_env(envp);
+	edit_env_pwd(env);
+	tmp = vector_get(env, vector_search(env, compare_key, (void *)"SHLVL"));
+	if (tmp == NULL)
+	{
+		tmp = get_env_item("SHLVL=0");
+		vector_push(env, tmp);
+	}
+	levels = ft_atoi(tmp->value) + 1;
+	free(tmp->value);
+	tmp->value = ft_itoa(levels);
+	if (tmp->value == NULL)
+		error_exit_errno();
+	return (env);
 }
 
 int				ft_env(t_vector *env, t_icomp *cmd, int fd)

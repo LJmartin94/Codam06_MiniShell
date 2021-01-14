@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/13 13:50:48 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/13 16:26:19 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/13 19:16:00 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,25 @@
 
 void	update_pwd(t_vector *env)
 {
-	t_env	*env_path;
+	t_env	*tmp;
 	char	*cwd;
 
 	cwd = NULL;
-	env_path = vector_get(env, vector_search(env, compare_key, (void *)"PWD"));
-	free(env_path->value);
 	cwd = getcwd(cwd, 0);
-	env_path->value = ft_strdup(cwd);
+	tmp = vector_get(env, vector_search(env, compare_key, (void *)"PWD"));
+	if (tmp != NULL)
+	{
+		free(tmp->value);
+		tmp->value = ft_strdup(cwd);
+	}
+	tmp = vector_get(env, vector_search(env, compare_key, (void *)"OLDPWD"));
+	if (tmp != NULL)
+	{
+		free(tmp->value);
+		tmp->value = ft_strdup(g_pwd);
+	}
 	free(g_pwd);
-	g_pwd = ft_strdup(cwd);
-	free(cwd);
+	g_pwd = cwd;
 }
 
 void	cd_error(char *path)
