@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/20 09:58:37 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/20 15:35:21 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/20 15:41:33 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*e_strjoin(const char *s1, const char *s2)
 	return (new_val);
 }
 
-char *e_strdup(char *str)
+char	*e_strdup(char *str)
 {
 	char *new;
 
