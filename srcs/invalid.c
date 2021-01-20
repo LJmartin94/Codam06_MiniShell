@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 10:09:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/20 12:23:22 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/20 12:30:57 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,8 @@ int		no_syntax_errors(t_icomp *head)
 	current = head;
 	while (current != NULL)
 	{
-		printf("arg_type: [%c]\n", current->arg->type[0]);
 		if (current->arg->type[0] == 'E')
-		{
-			printf("error?\n");
 			return (0);
-		}
 		current = current->right;
 	}
 	return (1);

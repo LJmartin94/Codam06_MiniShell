@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/20 11:55:56 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/20 12:34:58 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@ static int	parse_and_execute(t_vector *env, char **str, t_icomp *comp)
 	parse_input(*str, comp);
 	// printf("str in exec: [%s]\n", *str);
 	no_error = no_syntax_errors(comp);
-	printf("error after expansion: %d\n", no_error);
-	execute(env, comp);
+	if (no_error)
+	{	
+		execute(env, comp);
+	}
 	free_components(comp);
-	return (no_error);
+	return (1);
 }
 
 void		run_shell(t_vector *env, char *buf)
@@ -44,14 +46,14 @@ void		run_shell(t_vector *env, char *buf)
 	no_error = 1;
 	parse_input(buf, &error);
 	no_error = no_syntax_errors(&error);
-	printf("error before expansion: %d\n", no_error);
+	// printf("error before expansion: %d\n", no_error);
 
 	// while (j < 2)
 	// {
 		// i = 0;
 		while (split[i] != NULL && no_error)
 		{
-			printf("split[i]: [%s]\n", split[i]);
+			// printf("split[i]: [%s]\n", split[i]);
 			no_error = no_error * \
 			parse_and_execute(env, &(split[i]), &comp_blocks);
 			i++;
