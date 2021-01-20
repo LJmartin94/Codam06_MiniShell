@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/13 13:50:48 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/13 19:16:00 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/20 15:01:30 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int		escape_being_lost(t_vector *env, char *path)
 		}
 		i++;
 	}
+	free_matrix(split);
 	cd_error(path);
 	free(g_pwd);
 	g_pwd = path;
