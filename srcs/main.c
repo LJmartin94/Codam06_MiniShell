@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/20 14:26:59 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/20 15:15:57 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 #include "error.h"
 #include "execute.h"
 #include <signal.h>
-
-//TODO: leak in cd :
-//mkdir deleteme; cd deleteme; mkdir more; pwd; cd more; pwd; rm -rf ../../deleteme; pwd; cd ..; pwd; cd ..; pwd
 
 static void	parse_and_execute(t_vector *env, char **str, t_icomp *comp)
 {
@@ -35,10 +32,11 @@ void		run_shell(t_vector *env, char *buf)
 {
 	char	**split;
 	t_icomp	comp_blocks;
-	size_t	i = 0;
+	size_t	i;
 	int		no_error;
 	t_icomp error;
 
+	i = 0;
 	split = split_unless_quote(buf, ';');
 	no_error = 1;
 	parse_input(buf, &error);

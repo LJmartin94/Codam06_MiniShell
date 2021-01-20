@@ -6,14 +6,14 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/13 12:51:50 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/20 14:26:05 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/20 15:15:20 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "error.h"
 
-static char	*expand_find(t_vector *env, char *pos, int *len)
+static char		*expand_find(t_vector *env, char *pos, int *len)
 {
 	char	*key;
 	char	*value;
