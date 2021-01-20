@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/20 12:34:58 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/20 14:07:40 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,17 @@
 #include "execute.h"
 #include <signal.h>
 
-static int	parse_and_execute(t_vector *env, char **str, t_icomp *comp)
+static void	parse_and_execute(t_vector *env, char **str, t_icomp *comp)
 {
 	int		no_error;
 
 	no_error = 1;
 	expand_env(env, str);
 	parse_input(*str, comp);
-	// printf("str in exec: [%s]\n", *str);
 	no_error = no_syntax_errors(comp);
 	if (no_error)
-	{	
 		execute(env, comp);
-	}
 	free_components(comp);
-	return (1);
 }
 
 void		run_shell(t_vector *env, char *buf)
@@ -37,29 +33,18 @@ void		run_shell(t_vector *env, char *buf)
 	char	**split;
 	t_icomp	comp_blocks;
 	size_t	i = 0;
-	// size_t	j;
 	int		no_error;
 	t_icomp error;
 
 	split = split_unless_quote(buf, ';');
-	// j = 0;
 	no_error = 1;
 	parse_input(buf, &error);
 	no_error = no_syntax_errors(&error);
-	// printf("error before expansion: %d\n", no_error);
-
-	// while (j < 2)
-	// {
-		// i = 0;
-		while (split[i] != NULL && no_error)
-		{
-			// printf("split[i]: [%s]\n", split[i]);
-			no_error = no_error * \
-			parse_and_execute(env, &(split[i]), &comp_blocks);
-			i++;
-		}
-		// j++;
-	// }
+	while (split[i] != NULL && no_error)
+	{
+		parse_and_execute(env, &(split[i]), &comp_blocks);
+		i++;
+	}
 	free_matrix(split);
 }
 
