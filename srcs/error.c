@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/20 09:58:37 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/18 16:08:30 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/20 15:35:21 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,14 @@ char	*e_strjoin(const char *s1, const char *s2)
 	if (new_val == NULL)
 		error_exit_errno();
 	return (new_val);
+}
+
+char *e_strdup(char *str)
+{
+	char *new;
+
+	new = ft_strdup(str);
+	if (new == NULL)
+		error_exit_errno();
+	return (new);
 }

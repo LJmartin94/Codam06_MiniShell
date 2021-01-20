@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/13 13:50:48 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/20 15:01:30 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/20 15:34:56 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void	update_pwd(t_vector *env)
 	if (tmp != NULL)
 	{
 		free(tmp->value);
-		tmp->value = ft_strdup(cwd);
+		tmp->value = e_strdup(cwd);
 	}
 	tmp = vector_get(env, vector_search(env, compare_key, (void *)"OLDPWD"));
 	if (tmp != NULL)
 	{
 		free(tmp->value);
-		tmp->value = ft_strdup(g_pwd);
+		tmp->value = e_strdup(g_pwd);
 	}
 	free(g_pwd);
 	g_pwd = cwd;
@@ -75,7 +75,6 @@ int		escape_being_lost(t_vector *env, char *path)
 			{
 				update_pwd(env);
 				free_matrix(split);
-				free(path);
 				return (0);
 			}
 		}
@@ -84,6 +83,6 @@ int		escape_being_lost(t_vector *env, char *path)
 	free_matrix(split);
 	cd_error(path);
 	free(g_pwd);
-	g_pwd = path;
+	g_pwd = e_strdup(path);
 	return (1);
 }
