@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/13 12:51:50 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/20 14:06:58 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/20 14:26:05 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,14 @@ static void		expand_env_variable(t_vector *env, char **str, size_t *i)
 static void		replace_arg(t_vector *env, char **str, size_t *i, t_quotes q)
 {
 	char	*final;
+	char	*ret;
 
 	final = NULL;
 	if ((*str)[*i + 1] == '?')
 	{
-		final = ft_strsplice((*str), *i, 2, ft_itoa(g_ret_val));
+		ret = ft_itoa(g_ret_val);
+		final = ft_strsplice((*str), *i, 2, ret);
+		free(ret);
 		if (!final)
 			error_exit_errno();
 		free(*str);
