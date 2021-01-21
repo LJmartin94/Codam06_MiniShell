@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 13:26:26 by limartin      #+#    #+#                 */
-/*   Updated: 2021/01/13 19:19:01 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/20 15:34:41 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	go_relative(t_vector *env, char *arg_str)
 	cwd = NULL;
 	cwd = getcwd(cwd, 0);
 	if (cwd == NULL)
-		cwd = ft_strdup(g_pwd);
+		cwd = e_strdup(g_pwd);
 	path = ft_strjoin(cwd, "/");
 	free(cwd);
 	cwd = path;
@@ -43,7 +43,11 @@ static int	go_relative(t_vector *env, char *arg_str)
 		error_exit_errno();
 	dir = chdir(path);
 	if (dir == -1)
-		return (escape_being_lost(env, path));
+	{
+		dir = escape_being_lost(env, path);
+		free(path);
+		return (dir);
+	}
 	update_pwd(env);
 	free(path);
 	return (dir);
@@ -96,7 +100,7 @@ char		*get_arg_as_string(t_icomp *cmp)
 	char	*newval;
 	t_arg	*argument_link;
 
-	arg_str = ft_strdup("");
+	arg_str = e_strdup("");
 	if (arg_str == NULL)
 		error_exit_errno();
 	argument_link = cmp->arg;

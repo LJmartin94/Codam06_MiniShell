@@ -6,64 +6,67 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/13 12:51:50 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 14:34:44 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/20 17:12:00 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "error.h"
 
-static t_env	*expand_find(t_vector *env, char *pos)
+static char		*expand_find(t_vector *env, char *pos, int *len)
 {
-	int		len;
 	char	*key;
+	char	*value;
+	int		key_len;
 	int		index;
 	t_env	*item;
 
-	len = 0;
-	while (ft_isalnum(pos[len]) || pos[len] == '_')
-		len++;
-	key = (char *)e_malloc(sizeof(char) * len + 1);
-	key = ft_memcpy(key, pos, sizeof(char) * len);
+	key_len = 0;
+	while (ft_isalnum(pos[key_len]) || pos[key_len] == '_')
+		key_len++;
+	key = (char *)e_malloc(sizeof(char) * key_len + 1);
+	key = ft_memcpy(key, pos, sizeof(char) * key_len);
+	*len = key_len;
 	index = vector_search(env, compare_key, key);
+	free(key);
 	item = vector_get(env, index);
 	if (item == NULL)
-	{
-		item = (t_env *)e_malloc(sizeof(t_env));
-		item->key = key;
-		item->value = ft_strdup("");
-	}
+		value = ft_strdup("");
 	else
-		free(key);
-	return (item);
+		value = ft_strdup(item->value);
+	return (value);
 }
 
 static void		expand_env_variable(t_vector *env, char **str, size_t *i)
 {
-	t_env	*replace;
+	char	*replace;
 	char	*final;
+	int		len;
 
 	final = NULL;
-	replace = expand_find(env, (*str) + *i + 1);
-	if (replace->value == NULL)
-		replace->value = ft_strdup("");
-	final = ft_strsplice((*str), *i,
-		ft_strlen(replace->key) + 1, replace->value);
+	replace = expand_find(env, (*str) + *i + 1, &len);
+	if (replace == NULL)
+		error_exit_errno();
+	final = ft_strsplice((*str), *i, len + 1, replace);
 	if (!final)
 		error_exit_errno();
 	free(*str);
 	(*str) = final;
-	*i = *i + ft_strlen(replace->value) - 1;
+	*i = *i + ft_strlen(replace) - 1;
+	free(replace);
 }
 
 static void		replace_arg(t_vector *env, char **str, size_t *i, t_quotes q)
 {
 	char	*final;
+	char	*ret;
 
 	final = NULL;
 	if ((*str)[*i + 1] == '?')
 	{
-		final = ft_strsplice((*str), *i, 2, ft_itoa(g_ret_val));
+		ret = ft_itoa(g_ret_val);
+		final = ft_strsplice((*str), *i, 2, ret);
+		free(ret);
 		if (!final)
 			error_exit_errno();
 		free(*str);
