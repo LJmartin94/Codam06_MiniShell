@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 11:18:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/14 16:12:16 by lindsay       ########   odam.nl         */
+/*   Updated: 2021/01/28 18:43:02 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 # define MINISHELL_H
 
 # include "libft.h"
+
+/*
+** Global return values
+*/
+
+int		g_ret_val;
+int		g_amt_processes;
+char	*g_pwd;
 
 /*
 ** Structure for parsed commands
