@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 19:53:22 by limartin      #+#    #+#                 */
-/*   Updated: 2021/01/29 11:42:18 by lindsay       ########   odam.nl         */
+/*   Updated: 2021/01/29 12:45:35 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_dq_cmd_state, dredir_out, sh_dq_cmd_state},
 	{sh_dq_cmd_state, redir_out, sh_dq_cmd_state},
 	{sh_dq_cmd_state, redir_in, sh_dq_cmd_state},
-	{sh_dq_cmd_state, exit_state, sh_exit_state},
+	{sh_dq_cmd_state, exit_state, sh_error_state},
 
 	{sh_dq_opt_state, padding, sh_dq_opt_state},
 	{sh_dq_opt_state, error, sh_error_state},
@@ -159,7 +159,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_dq_opt_state, dredir_out, sh_dq_opt_state},
 	{sh_dq_opt_state, redir_out, sh_dq_opt_state},
 	{sh_dq_opt_state, redir_in, sh_dq_opt_state},
-	{sh_dq_opt_state, exit_state, sh_exit_state},
+	{sh_dq_opt_state, exit_state, sh_error_state},
 
 	{sh_dq_arg_state, padding, sh_dq_arg_state},
 	{sh_dq_arg_state, error, sh_error_state},
@@ -173,7 +173,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_dq_arg_state, dredir_out, sh_dq_arg_state},
 	{sh_dq_arg_state, redir_out, sh_dq_arg_state},
 	{sh_dq_arg_state, redir_in, sh_dq_arg_state},
-	{sh_dq_arg_state, exit_state, sh_exit_state},
+	{sh_dq_arg_state, exit_state, sh_error_state},
 
 	{sh_dq_bs_cmd_state, padding, sh_dq_cmd_state},
 	{sh_dq_bs_cmd_state, error, sh_error_state},
@@ -187,7 +187,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_dq_bs_cmd_state, dredir_out, sh_dq_cmd_state},
 	{sh_dq_bs_cmd_state, redir_out, sh_dq_cmd_state},
 	{sh_dq_bs_cmd_state, redir_in, sh_dq_cmd_state},
-	{sh_dq_bs_cmd_state, exit_state, sh_exit_state},
+	{sh_dq_bs_cmd_state, exit_state, sh_error_state},
 
 	{sh_dq_bs_opt_state, padding, sh_dq_opt_state},
 	{sh_dq_bs_opt_state, error, sh_error_state},
@@ -204,7 +204,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_dq_bs_opt_state, dredir_out, sh_dq_opt_state},
 	{sh_dq_bs_opt_state, redir_out, sh_dq_opt_state},
 	{sh_dq_bs_opt_state, redir_in, sh_dq_opt_state},
-	{sh_dq_bs_opt_state, exit_state, sh_exit_state},
+	{sh_dq_bs_opt_state, exit_state, sh_error_state},
 
 	{sh_dq_bs_arg_state, padding, sh_dq_arg_state},
 	{sh_dq_bs_arg_state, error, sh_error_state},
@@ -218,7 +218,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_dq_bs_arg_state, dredir_out, sh_dq_arg_state},
 	{sh_dq_bs_arg_state, redir_out, sh_dq_arg_state},
 	{sh_dq_bs_arg_state, redir_in, sh_dq_arg_state},
-	{sh_dq_bs_arg_state, exit_state, sh_exit_state},
+	{sh_dq_bs_arg_state, exit_state, sh_error_state},
 
 	{sh_dq_exit_cmd_state, padding, sh_cmd_pad_state},
 	{sh_dq_exit_cmd_state, error, sh_error_state},
@@ -277,7 +277,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_sq_cmd_state, dredir_out, sh_sq_cmd_state},
 	{sh_sq_cmd_state, redir_out, sh_sq_cmd_state},
 	{sh_sq_cmd_state, redir_in, sh_sq_cmd_state},
-	{sh_sq_cmd_state, exit_state, sh_exit_state},
+	{sh_sq_cmd_state, exit_state, sh_error_state},
 
 	{sh_sq_opt_state, padding, sh_sq_opt_state},
 	{sh_sq_opt_state, error, sh_error_state},
@@ -291,7 +291,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_sq_opt_state, dredir_out, sh_sq_opt_state},
 	{sh_sq_opt_state, redir_out, sh_sq_opt_state},
 	{sh_sq_opt_state, redir_in, sh_sq_opt_state},
-	{sh_sq_opt_state, exit_state, sh_exit_state},
+	{sh_sq_opt_state, exit_state, sh_error_state},
 
 	{sh_sq_arg_state, padding, sh_sq_arg_state},
 	{sh_sq_arg_state, error, sh_error_state},
@@ -305,7 +305,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_sq_arg_state, dredir_out, sh_sq_arg_state},
 	{sh_sq_arg_state, redir_out, sh_sq_arg_state},
 	{sh_sq_arg_state, redir_in, sh_sq_arg_state},
-	{sh_sq_arg_state, exit_state, sh_exit_state},
+	{sh_sq_arg_state, exit_state, sh_error_state},
 
 	{sh_sq_exit_cmd_state, padding, sh_cmd_pad_state},
 	{sh_sq_exit_cmd_state, error, sh_error_state},
@@ -493,7 +493,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_rd_dq_bs_state, dredir_out, sh_rd_dq_state},
 	{sh_rd_dq_bs_state, redir_out, sh_rd_dq_state},
 	{sh_rd_dq_bs_state, redir_in, sh_rd_dq_state},
-	{sh_rd_dq_bs_state, exit_state, sh_exit_state},
+	{sh_rd_dq_bs_state, exit_state, sh_error_state},
 
 	{sh_rd_exit_state, padding, sh_entry_state},
 	{sh_rd_exit_state, error, sh_error_state},

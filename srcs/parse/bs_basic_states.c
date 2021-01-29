@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/05 18:05:53 by limartin      #+#    #+#                 */
-/*   Updated: 2020/12/06 17:01:55 by lindsay       ########   odam.nl         */
+/*   Updated: 2021/01/29 13:22:02 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ t_transition_code	sh_bs_cmd_state(t_token **this, t_icomp **icur)
 
 	if (recognise_token_state(*this) == backslash && *this)
 		*this = (*this)->next;
+	id = exit_state;
+	if ((*this) != NULL)
+		id = recognise_token_state(*this);
+	if (id == exit_state)
+		return (error);
 	if ((*this) != NULL)
 	{
 		ft_add_token_to_comp((*this), &((*icur)->cmd));
@@ -59,6 +64,11 @@ t_transition_code	sh_bs_opt_state(t_token **this, t_icomp **icur)
 
 	if (recognise_token_state(*this) == backslash && *this)
 		sh_bs_arg_link_state(this, icur);
+	id = exit_state;
+	if ((*this) != NULL)
+		id = recognise_token_state(*this);
+	if (id == exit_state)
+		return (error);
 	last = (*icur)->arg;
 	while (last->right != NULL)
 		last = last->right;
@@ -80,6 +90,11 @@ t_transition_code	sh_bs_arg_state(t_token **this, t_icomp **icur)
 
 	if (recognise_token_state(*this) == backslash && *this)
 		sh_bs_arg_link_state(this, icur);
+	id = exit_state;
+	if ((*this) != NULL)
+		id = recognise_token_state(*this);
+	if (id == exit_state)
+		return (error);
 	last = (*icur)->arg;
 	while (last->right != NULL)
 		last = last->right;
