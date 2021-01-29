@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:38:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/29 11:23:30 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/29 11:26:50 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,23 +63,13 @@ static char	*check_path(char *path, char *cmd)
 	return (NULL);
 }
 
-char		*find_path(t_vector *env, t_icomp *comp)
+char		*get_from_path(t_vector *env, t_icomp *comp)
 {
 	t_env		*path;
 	char		**paths;
-	struct stat	stat_struct;
 	size_t		i;
 	char		*final;
-
-	if (ft_strncmp(comp->cmd, "./", 2) == 0)
-		return(ft_strdup(comp->cmd));
-	if (ft_strncmp(comp->cmd, "/", 1) == 0)
-	{
-		if (stat(comp->cmd, &stat_struct) == 0)
-			return (ft_strdup(comp->cmd));
-		else
-			return (NULL);
-	}
+	
 	path = vector_get(env, vector_search(env, compare_key, "PATH"));
 	if (path == NULL)
 		return (NULL);
@@ -97,4 +87,20 @@ char		*find_path(t_vector *env, t_icomp *comp)
 	}
 	free_matrix(paths);
 	return (NULL);
+}
+
+char		*find_path(t_vector *env, t_icomp *comp)
+{
+	struct stat	stat_struct;
+
+	if (ft_strncmp(comp->cmd, "./", 2) == 0)
+		return(ft_strdup(comp->cmd));
+	if (ft_strncmp(comp->cmd, "/", 1) == 0)
+	{
+		if (stat(comp->cmd, &stat_struct) == 0)
+			return (ft_strdup(comp->cmd));
+		else
+			return (NULL);
+	}
+	return (get_from_path(env, comp));
 }
