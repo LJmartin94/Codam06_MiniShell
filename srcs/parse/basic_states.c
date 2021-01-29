@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 18:10:03 by limartin      #+#    #+#                 */
-/*   Updated: 2021/01/06 16:18:48 by lindsay       ########   odam.nl         */
+/*   Updated: 2021/01/29 14:43:15 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,19 @@ t_transition_code	sh_separator_state(t_token **this, t_icomp **icur)
 {
 	t_transition_code	id;
 	t_icomp				*new_block;
+	int					pipe;
 
 	validate_option_flags(icur);
 	ft_add_token_to_comp((*this), &((*icur)->sep));
+	pipe = ((*this)->token[0] == '|') ? 1 : 0;
 	*this = (*this)->next;
 	while (recognise_token_state(*this) == padding && *this)
 		*this = (*this)->next;
 	id = exit_state;
 	if ((*this) != NULL)
 		id = recognise_token_state(*this);
+	if (id == exit_state && pipe)
+		return (error);
 	if (id != exit_state)
 	{
 		new_block = (t_icomp *)e_malloc(sizeof(t_icomp));
