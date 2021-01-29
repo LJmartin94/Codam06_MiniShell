@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/30 16:06:45 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/29 11:23:11 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/29 14:44:20 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static void	run_command(t_cmd f, t_vector *env, t_icomp *comp)
 		if (execve(path, argv, envp) == -1)
 			error_exit_errno();
 	}
+	else
+		invalid_cmd(comp);
 	exit(0);
 }
 
