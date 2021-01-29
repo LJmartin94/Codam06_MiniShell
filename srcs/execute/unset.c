@@ -6,16 +6,11 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:38:22 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/09 14:12:44 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/29 15:45:29 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
-
-/*
-** //TODO: make sure this doesn't segfault
-** //TODO: Move to other file
-*/
 
 int			compare_key(t_env *data, char *item)
 {

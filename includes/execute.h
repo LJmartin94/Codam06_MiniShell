@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/29 15:34:45 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/29 15:48:37 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,17 +89,12 @@ char			**build_argv(t_icomp *comp);
 void			expand_env_arg(t_vector *env, t_icomp *comp);
 void			expand_env(t_vector *env, char **str);
 
-/*
-** //TODO: Error handling (change this)?
-*/
-
 void			invalid_cmd(t_icomp *cmd);
 void			cmd_error(t_icomp *cmd, char *msg);
 int				no_syntax_errors(t_icomp *head);
 
 /*
-** Execute utils, mainly for testing purposes
-** //TODO: Remove unnecessary ones
+** Execute utils
 */
 
 typedef struct	s_quotes

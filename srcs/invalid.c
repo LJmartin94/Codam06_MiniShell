@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 10:09:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/29 11:00:15 by lindsay       ########   odam.nl         */
+/*   Updated: 2021/01/29 15:47:50 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 #include "execute.h"
 #include "libft.h"
 #include "parse.h"
-
-/*
-** //TODO: if invalid_cmd, return value is 127
-*/
 
 void	invalid_cmd(t_icomp *cmd)
 {
@@ -27,10 +23,6 @@ void	invalid_cmd(t_icomp *cmd)
 	g_ret_val = 127;
 	exit(127);
 }
-
-/*
-**  //TODO: maybe print cmd->arg as well
-*/
 
 void	cmd_error(t_icomp *cmd, char *msg)
 {

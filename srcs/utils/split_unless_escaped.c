@@ -6,17 +6,12 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/17 14:15:10 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/17 15:20:11 by lindsay       ########   odam.nl         */
+/*   Updated: 2021/01/29 15:48:00 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "execute.h"
-
-/*
-** //TODO: change first garbage function???
-** //TODO: utils header file??
-*/
 
 static int	quotes(int *quote, int *d_quote, char c)
 {
