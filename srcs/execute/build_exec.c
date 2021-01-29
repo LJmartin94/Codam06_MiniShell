@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:38:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 16:03:51 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/29 12:44:28 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 #include "error.h"
 #include <sys/types.h>
 #include <sys/stat.h>
-
-/*
-** //TODO: line 45: I doubt this will lead to a memleak?
-*/
 
 char		**build_argv(t_icomp *comp)
 {
@@ -48,10 +44,11 @@ char		**build_argv(t_icomp *comp)
 	return (argv);
 }
 
-static char	*check_path(char *path, char *cmd, struct stat stat_struct)
+static char	*check_path(char *path, char *cmd)
 {
-	char *tmp;
-	char *final;
+	char		*tmp;
+	char		*final;
+	struct stat	stat_struct;
 
 	tmp = ft_strjoin(path, "/");
 	final = ft_strjoin(tmp, cmd);
@@ -62,16 +59,13 @@ static char	*check_path(char *path, char *cmd, struct stat stat_struct)
 	return (NULL);
 }
 
-char		*find_path(t_vector *env, t_icomp *comp)
+char		*get_from_path(t_vector *env, t_icomp *comp)
 {
 	t_env		*path;
 	char		**paths;
 	size_t		i;
-	struct stat	stat_struct;
 	char		*final;
 
-	if (stat(comp->cmd, &stat_struct) == 0)
-		return (ft_strdup(comp->cmd));
 	path = vector_get(env, vector_search(env, compare_key, "PATH"));
 	if (path == NULL)
 		return (NULL);
@@ -79,7 +73,7 @@ char		*find_path(t_vector *env, t_icomp *comp)
 	i = 0;
 	while (paths[i] != NULL)
 	{
-		final = check_path(paths[i], comp->cmd, stat_struct);
+		final = check_path(paths[i], comp->cmd);
 		if (final != NULL)
 		{
 			free_matrix(paths);
@@ -89,4 +83,20 @@ char		*find_path(t_vector *env, t_icomp *comp)
 	}
 	free_matrix(paths);
 	return (NULL);
+}
+
+char		*find_path(t_vector *env, t_icomp *comp)
+{
+	struct stat	stat_struct;
+
+	if (ft_strncmp(comp->cmd, "./", 2) == 0)
+		return (ft_strdup(comp->cmd));
+	if (ft_strncmp(comp->cmd, "/", 1) == 0)
+	{
+		if (stat(comp->cmd, &stat_struct) == 0)
+			return (ft_strdup(comp->cmd));
+		else
+			return (NULL);
+	}
+	return (get_from_path(env, comp));
 }

@@ -6,17 +6,13 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 16:32:46 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/08 16:29:00 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/29 12:36:21 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "libft.h"
 #include "error.h"
-
-/*
-** TODO: Build command validators in functions
-*/
 
 t_cmd		get_command(t_icomp *comp)
 {
