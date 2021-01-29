@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:38:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 16:03:51 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/29 10:17:55 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,11 @@ char		**build_argv(t_icomp *comp)
 	return (argv);
 }
 
-static char	*check_path(char *path, char *cmd, struct stat stat_struct)
+static char	*check_path(char *path, char *cmd)
 {
 	char *tmp;
 	char *final;
+	struct stat	stat_struct;
 
 	tmp = ft_strjoin(path, "/");
 	final = ft_strjoin(tmp, cmd);
@@ -67,11 +68,12 @@ char		*find_path(t_vector *env, t_icomp *comp)
 	t_env		*path;
 	char		**paths;
 	size_t		i;
-	struct stat	stat_struct;
 	char		*final;
 
-	if (stat(comp->cmd, &stat_struct) == 0)
-		return (ft_strdup(comp->cmd));
+	if (ft_strncmp(comp->cmd, "./", 2) == 0)
+		return(ft_strdup(comp->cmd));
+	if (ft_strncmp(comp->cmd, "/", 1) == 0)
+		return(ft_strdup(comp->cmd));
 	path = vector_get(env, vector_search(env, compare_key, "PATH"));
 	if (path == NULL)
 		return (NULL);
@@ -79,7 +81,7 @@ char		*find_path(t_vector *env, t_icomp *comp)
 	i = 0;
 	while (paths[i] != NULL)
 	{
-		final = check_path(paths[i], comp->cmd, stat_struct);
+		final = check_path(paths[i], comp->cmd);
 		if (final != NULL)
 		{
 			free_matrix(paths);
