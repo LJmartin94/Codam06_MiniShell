@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/13 18:18:11 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/29 15:34:45 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ typedef struct	s_quotes
 	int dquote;
 }				t_quotes;
 
-int				cmp_pid(int *pid1, int *pid2);
 void			free_matrix(char **matrix);
 
 #endif

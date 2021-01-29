@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/07 18:05:57 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/08 14:28:29 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/29 15:37:34 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,6 @@ void	edit_env(t_vector *env, t_env *item, int pos)
 			error_exit_errno();
 	}
 }
-
-/*
-** // TODO: Make sure export "" returns invalid and export prints env
-*/
 
 char	*export_join_args(t_arg **arg)
 {
