@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:38:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/29 10:17:55 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/29 11:23:30 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,19 @@ char		*find_path(t_vector *env, t_icomp *comp)
 {
 	t_env		*path;
 	char		**paths;
+	struct stat	stat_struct;
 	size_t		i;
 	char		*final;
 
 	if (ft_strncmp(comp->cmd, "./", 2) == 0)
 		return(ft_strdup(comp->cmd));
 	if (ft_strncmp(comp->cmd, "/", 1) == 0)
-		return(ft_strdup(comp->cmd));
+	{
+		if (stat(comp->cmd, &stat_struct) == 0)
+			return (ft_strdup(comp->cmd));
+		else
+			return (NULL);
+	}
 	path = vector_get(env, vector_search(env, compare_key, "PATH"));
 	if (path == NULL)
 		return (NULL);
