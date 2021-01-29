@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 09:39:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/09 14:12:25 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/29 15:42:59 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,12 @@ int			ft_export(t_vector *env, t_icomp *cmd, int fd)
 
 	ret = 0;
 	arg = cmd->arg;
-	if (arg->value[0] == '\0')
+	if (arg->value[0] == '\0' && arg->type[0] != '\0')
+	{
+		cmd_error(cmd, "Invalid argument");
+		return (1);
+	}
+	else if (arg->value[0] == '\0' && arg->type[0] == '\0')
 		env_no_params(env, fd);
 	else
 	{

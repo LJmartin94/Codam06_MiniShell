@@ -6,17 +6,13 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 10:38:54 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/07 14:16:06 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/29 15:34:21 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "error.h"
 #include "libft.h"
-
-/*
-** //TODO: exit status??
-*/
 
 int	ft_echo(t_vector *env, t_icomp *cmd, int fd)
 {
