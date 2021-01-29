@@ -6,7 +6,7 @@
 /*   By: limartin <limartin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/15 19:53:22 by limartin      #+#    #+#                 */
-/*   Updated: 2020/12/10 22:02:12 by limartin      ########   odam.nl         */
+/*   Updated: 2021/01/29 11:42:18 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -409,7 +409,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_rd_entry_state, dredir_out, sh_error_state},
 	{sh_rd_entry_state, redir_out, sh_rd_entry_state},
 	{sh_rd_entry_state, redir_in, sh_error_state},
-	{sh_rd_entry_state, exit_state, sh_exit_state},
+	{sh_rd_entry_state, exit_state, sh_error_state},
 
 	{sh_rd_basic_state, padding, sh_rd_exit_state},
 	{sh_rd_basic_state, error, sh_error_state},
@@ -451,7 +451,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_rd_dq_state, dredir_out, sh_rd_dq_state},
 	{sh_rd_dq_state, redir_out, sh_rd_dq_state},
 	{sh_rd_dq_state, redir_in, sh_rd_dq_state},
-	{sh_rd_dq_state, exit_state, sh_exit_state},
+	{sh_rd_dq_state, exit_state, sh_error_state},
 
 	{sh_rd_sq_state, padding, sh_rd_sq_state},
 	{sh_rd_sq_state, error, sh_error_state},
@@ -465,7 +465,7 @@ static t_transition_obj const g_shellstate_table[] =
 	{sh_rd_sq_state, dredir_out, sh_rd_sq_state},
 	{sh_rd_sq_state, redir_out, sh_rd_sq_state},
 	{sh_rd_sq_state, redir_in, sh_rd_sq_state},
-	{sh_rd_sq_state, exit_state, sh_exit_state},
+	{sh_rd_sq_state, exit_state, sh_error_state},
 
 	{sh_rd_exit_quote_state, padding, sh_rd_exit_state},
 	{sh_rd_exit_quote_state, error, sh_error_state},
