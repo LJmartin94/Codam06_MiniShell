@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 10:09:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/28 18:58:12 by lindsay       ########   odam.nl         */
+/*   Updated: 2021/01/29 11:00:15 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	syntax_error(int fd, t_token **this)
 	e_write(fd, "syntax error near unexpected token `", 36);
 	if (*this != NULL)
 		e_write(fd, (*this)->token, ft_strlen((*this)->token));
+	if (*this == NULL)
+		e_write(fd, "newline", 7);
 	e_write(fd, "'\n", 2);
 }
 
