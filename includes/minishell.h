@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 11:18:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/08 13:43:22 by lindsay       ########   odam.nl         */
+/*   Updated: 2021/01/28 18:43:02 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@
 # include "libft.h"
 
 /*
-** //TODO: Debug-only includes! Remove when no longer used.
+** Global return values
 */
 
-# include <stdio.h>
+int		g_ret_val;
+int		g_amt_processes;
+char	*g_pwd;
 
 /*
 ** Structure for parsed commands
@@ -90,13 +92,5 @@ void					handle_sigquit(int signo);
 void					free_components(t_icomp *head);
 void					free_redirs(t_redir *head);
 void					free_args(t_arg *head);
-
-/*
-** //TODO: Debug-only prototypes! Remove when no longer used.
-*/
-
-/*
-** void					print_components(t_icomp *icur);
-*/
 
 #endif

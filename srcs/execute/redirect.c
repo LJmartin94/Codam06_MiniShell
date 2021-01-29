@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:39:47 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/12/18 16:06:35 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/14 16:07:52 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void		handle_redirections(t_icomp *comp, int p_fd[2],
 		{
 			fd = open(rd->file, O_RDONLY, 0666);
 			if (fd == -1)
-				error_exit_msg(1, "oops, no such file");
+				error_exit_msg(1, "Oops, no such file");
 			dup2(fd, STDIN_FILENO);
 			e_close(fd);
 		}

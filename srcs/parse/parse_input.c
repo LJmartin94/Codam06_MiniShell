@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 12:04:04 by jsaariko      #+#    #+#                 */
-/*   Updated: 2020/10/29 14:08:04 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/14 16:13:13 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,4 @@ void	parse_input(const char *input, t_icomp *comp_blocks)
 	ft_compconst(comp_blocks);
 	manage_fsm(tokens, comp_blocks);
 	free_tokens(tokens);
-}
-
-/*
-** //TODO: Remove print_tokens function when no longer debugging.
-*/
-
-void	print_tokens(t_token *tokens)
-{
-	while (tokens)
-	{
-		e_write(1, "|", 1);
-		e_write(1, tokens->token, ft_strlen(tokens->token));
-		e_write(1, "| ", 2);
-		tokens = tokens->next;
-	}
-	e_write(1, "\n", 1);
 }

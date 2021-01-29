@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/20 17:12:20 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/28 19:17:39 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	parse_and_execute(t_vector *env, char **str, t_icomp *comp)
 	free_components(comp);
 }
 
-void		run_shell(t_vector *env, char *buf)
+int			run_shell(t_vector *env, char *buf)
 {
 	char	**split;
 	t_icomp	comp_blocks;
@@ -48,6 +48,7 @@ void		run_shell(t_vector *env, char *buf)
 		i++;
 	}
 	free_matrix(split);
+	return (no_error);
 }
 
 int			get_input(t_vector *env)
@@ -68,14 +69,6 @@ int			get_input(t_vector *env)
 	free(buf);
 	return (ret);
 }
-
-/*
-**  //TODO: move
-*/
-
-int		g_ret_val;
-int		g_amt_processes;
-char	*g_pwd;
 
 int			main(int ac, char **av, char **envp)
 {

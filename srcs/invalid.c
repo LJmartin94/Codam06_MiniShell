@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/27 10:09:20 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/20 12:30:57 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/01/28 18:58:12 by lindsay       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	cmd_error(t_icomp *cmd, char *msg)
 
 void	syntax_error(int fd, t_token **this)
 {
+	g_ret_val = 2;
 	e_write(fd, "Minishnail: ", 12);
 	e_write(fd, "syntax error near unexpected token `", 36);
 	if (*this != NULL)
