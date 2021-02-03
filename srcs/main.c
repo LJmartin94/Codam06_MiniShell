@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/02/03 17:05:56 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/02/03 17:18:46 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ int			create_cmd_line(void)
 
 int			get_input(t_vector *env)
 {
-	int ret;
+	int		ret;
+	char	*line;
 
 	ret = create_cmd_line();
 	if (ret == 0)
@@ -92,8 +93,11 @@ int			get_input(t_vector *env)
 	if (ret < 0)
 		error_exit_msg(C_GNL_FAIL, E_GNL_FAIL);
 	if (g_cmd_line == NULL)
-		g_cmd_line = ft_strdup("");
-	run_shell(env, g_cmd_line);
+		line = ft_strdup("");
+	else
+		line = ft_strdup(g_cmd_line);
+	run_shell(env, line);
+	free(line);
 	free(g_cmd_line);
 	g_cmd_line = NULL;
 	return (ret);
