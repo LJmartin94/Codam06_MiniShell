@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/02/03 16:57:00 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/02/03 17:05:56 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int			run_shell(t_vector *env, char *buf)
 
 char		*g_cmd_line;
 
-int			create_cmd_line()
+int			create_cmd_line(void)
 {
 	char	*buf;
 	int		ret;

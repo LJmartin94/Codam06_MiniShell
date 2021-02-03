@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/06 10:38:24 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/02/03 16:57:17 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/02/03 17:05:39 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char		*find_path(t_vector *env, t_icomp *comp)
 	struct stat	stat_struct;
 
 	if (ft_strchr(comp->cmd, '/') == NULL)
-		return(get_from_path(env, comp));
+		return (get_from_path(env, comp));
 	if (stat(comp->cmd, &stat_struct) == 0)
 		return (ft_strdup(comp->cmd));
 	return (NULL);
