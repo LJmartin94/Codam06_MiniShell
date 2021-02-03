@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/29 15:26:06 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/02/03 16:57:00 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,51 @@ int			run_shell(t_vector *env, char *buf)
 	return (no_error);
 }
 
-int			get_input(t_vector *env)
+char		*g_cmd_line;
+
+int			create_cmd_line()
 {
 	char	*buf;
 	int		ret;
+	char	*other;
 
-	e_write(STDOUT_FILENO, "\U0001F40C ", 6);
+	other = NULL;
+	if (g_cmd_line == NULL)
+		e_write(STDOUT_FILENO, "\U0001F40C ", 6);
 	ret = get_next_line(STDIN_FILENO, &buf);
+	if (g_cmd_line == NULL && ft_strcmp(buf, "\0", 1) == 0)
+		other = NULL;
+	else if (g_cmd_line == NULL)
+		other = ft_strdup(buf);
+	else
+		other = ft_strjoin(g_cmd_line, buf);
+	free(buf);
+	free(g_cmd_line);
+	g_cmd_line = other;
+	return (ret);
+}
+
+int			get_input(t_vector *env)
+{
+	int ret;
+
+	ret = create_cmd_line();
 	if (ret == 0)
 	{
-		e_write(STDOUT_FILENO, "\n", 1);
-		exit(0);
+		if (g_cmd_line == NULL)
+		{
+			e_write(STDOUT_FILENO, "\n", 1);
+			exit(g_ret_val);
+		}
+		return (ret);
 	}
 	if (ret < 0)
 		error_exit_msg(C_GNL_FAIL, E_GNL_FAIL);
-	run_shell(env, buf);
-	free(buf);
+	if (g_cmd_line == NULL)
+		g_cmd_line = ft_strdup("");
+	run_shell(env, g_cmd_line);
+	free(g_cmd_line);
+	g_cmd_line = NULL;
 	return (ret);
 }
 
@@ -74,6 +103,7 @@ int			main(int ac, char **av, char **envp)
 {
 	t_vector	*env;
 
+	g_cmd_line = NULL;
 	g_pwd = getcwd(g_pwd, 0);
 	if (g_pwd == NULL)
 		error_exit_msg(1, "Invalid location in file structure\n");
