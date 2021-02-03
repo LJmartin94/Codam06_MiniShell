@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/14 11:59:41 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/02/03 17:18:46 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/02/03 17:37:59 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int			create_cmd_line(void)
 	if (g_cmd_line == NULL)
 		e_write(STDOUT_FILENO, "\U0001F40C ", 6);
 	ret = get_next_line(STDIN_FILENO, &buf);
-	if (g_cmd_line == NULL && ft_strcmp(buf, "\0", 1) == 0)
+	if (g_cmd_line == NULL && ft_strncmp(buf, "\0", 1) == 0)
 		other = NULL;
 	else if (g_cmd_line == NULL)
 		other = ft_strdup(buf);
