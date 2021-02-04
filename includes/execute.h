@@ -6,7 +6,7 @@
 /*   By: jsaariko <jsaariko@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/22 13:40:30 by jsaariko      #+#    #+#                 */
-/*   Updated: 2021/01/29 15:48:37 by jsaariko      ########   odam.nl         */
+/*   Updated: 2021/02/03 16:56:42 by jsaariko      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ typedef struct	s_env
 */
 
 extern int g_amt_processes;
+
+/*
+** current saved command line
+*/
+
+extern char *g_cmd_line;
 
 /*
 ** Global return value
